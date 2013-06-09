@@ -1,0 +1,100 @@
+<chapter id="chapter-threads">
+  <title>Threads</title>
+  <para> 
+    &GStreamer; is inherently multi-threaded, and is fully thread-safe.
+    Most threading internals are hidden from the application, which should
+    make application development easier. However, in some cases, applications
+    may want to have influence on some parts of those. &GStreamer; allows
+    applications to force the use of multiple threads over some parts of
+    a pipeline.
+  </para>
+
+  <sect1 id="section-threads-uses">
+    <title>When would you want to force a thread?</title>
+    <para>
+      There are several reasons to force the use of threads. However,
+      for performance reasons, you never want to use one thread for every
+      element out there, since that will create some overhead.
+      Let's now list some situations where threads can be particularly
+      useful:
+    </para>
+    <itemizedlist>
+      <listitem>
+        <para>
+          Data buffering, for example when dealing with network streams or
+          when recording data from a live stream such as a video or audio
+          card. Short hickups elsewhere in the pipeline will not cause data
+          loss.
+        </para>
+	<figure float="1" id="section-thread-buffering-img">
+	  <title>Data buffering, from a networked source</title>
+	  <mediaobject>
+            <imageobject>
+              <imagedata scale="75" fileref="images/thread-buffering.&image;" format="&IMAGE;"/>
+            </imageobject>
+	  </mediaobject>
+	</figure>
+
+      </listitem>
+      <listitem>
+        <para>
+          Synchronizing output devices, e.g. when playing a stream containing
+          both video and audio data. By using threads for both outputs, they
+          will run independently and their synchronization will be better.
+        </para>
+	<figure float="1" id="section-thread-synchronizing-img">
+	  <title>Synchronizing audio and video sinks</title>
+	  <mediaobject>
+            <imageobject>
+              <imagedata scale="75" fileref="images/thread-synchronizing.&image;" format="&IMAGE;"/>
+            </imageobject>
+	  </mediaobject>
+	</figure>
+      </listitem>
+    </itemizedlist>
+
+
+    <para>
+      Above, we've mentioned the <quote>queue</quote> element several times
+      now. A queue is the thread boundary element through which you can
+      force the use of threads. It does so by using a classic
+      provider/receiver model as learned in threading classes at
+      universities all around the world. By doing this, it acts both as a
+      means to make data throughput between threads threadsafe, and it can
+      also act as a buffer. Queues have several <classname>GObject</classname>
+      properties to be configured for specific uses. For example, you can set
+      lower and upper thresholds for the element. If there's less data than
+      the lower threshold (default: disabled), it will block output. If
+      there's more data than the upper threshold, it will block input or
+      (if configured to do so) drop data.
+    </para>
+    <para>
+      To use a queue (and therefore force the use of two distinct threads
+      in the pipeline), one can simply create a <quote>queue</quote> element
+      and put this in as part of the pipeline. &GStreamer; will take care of
+      all threading details internally.
+    </para>
+  </sect1>
+
+  <sect1 id="section-threads-scheduling">
+    <title>Scheduling in &GStreamer;</title>
+
+    <para>
+      Scheduling of pipelines in &GStreamer; is done by using a thread for
+      each <quote>group</quote>, where a group is a set of elements separated
+      by <quote>queue</quote> elements. Within such a group, scheduling is
+      either push-based or pull-based, depending on which mode is supported
+      by the particular element. If elements support random access to data,
+      such as file sources, then elements downstream in the pipeline become
+      the entry point of this group (i.e. the element controlling the
+      scheduling of other elements). The entry point pulls data from upstream
+      and pushes data downstream, thereby calling data handling functions on
+      either type of element.
+    </para>
+    <para>
+      In practice, most elements in &GStreamer;, such as decoders, encoders,
+      etc. only support push-based scheduling, which means that in practice,
+      &GStreamer; uses a push-based scheduling model.
+    </para>
+  </sect1>
+</chapter>

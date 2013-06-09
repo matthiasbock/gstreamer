@@ -1,0 +1,176 @@
+<chapter id="chapter-interfaces">
+  <title>Interfaces</title>
+
+  <para>
+    In <xref linkend="section-elements-properties"/>, you have learned how
+    to use <classname>GObject</classname> properties as a simple way to do
+    interaction between applications and elements. This method suffices for
+    the simple'n'straight settings, but fails for anything more complicated
+    than a getter and setter. For the more complicated use cases, &GStreamer;
+    uses interfaces based on the GObject <ulink type="http"
+      url="http://library.gnome.org/devel/gobject/stable/gtype-non-instantiable-classed.html"><classname>GTypeInterface</classname></ulink>
+    type.
+  </para>
+
+  <para>
+    Most of the interfaces handled here will not contain any example code.
+    See the API references for details. Here, we will just describe the
+    scope and purpose of each interface.
+  </para>
+
+  <sect1 id="section-interfaces-uri">
+    <title>The URI interface</title>
+
+    <para>
+      In all examples so far, we have only supported local files through the
+      <quote>filesrc</quote> element. &GStreamer;, obviously, supports many
+      more location sources. However, we don't want applications to need to
+      know any particular element implementation details, such as element
+      names for particular network source types and so on. Therefore, there
+      is a URI interface, which can be used to get the source element that
+      supports a particular URI type. There is no strict rule for URI naming,
+      but in general we follow naming conventions that others use, too. For
+      example, assuming you have the correct plugins installed, &GStreamer;
+      supports <quote>file:///&lt;path&gt;/&lt;file&gt;</quote>,
+      <quote>http://&lt;host&gt;/&lt;path&gt;/&lt;file&gt;</quote>,
+      <quote>mms://&lt;host&gt;/&lt;path&gt;/&lt;file&gt;</quote>, and so on.
+    </para>
+    <para>
+      In order to get the source or sink element supporting a particular URI,
+      use <function>gst_element_make_from_uri ()</function>, with the URI
+      type being either <classname>GST_URI_SRC</classname> for a source
+      element, or <classname>GST_URI_SINK</classname> for a sink element.
+    </para>
+    <para>
+      You can convert filenames to and from URIs using GLib's
+      <function>g_filename_to_uri ()</function> and
+      <function>g_uri_to_filename ()</function>.
+    </para>
+  </sect1>
+
+  <sect1 id="section-interfaces-mixer">
+    <title>The Mixer interface</title>
+
+    <para>
+      The mixer interface provides a uniform way to control the volume on a
+      hardware (or software) mixer. The interface is primarily intended to
+      be implemented by elements for audio inputs and outputs that talk
+      directly to the hardware (e.g. OSS or ALSA plugins).
+    </para>
+    <para>
+      Using this interface, it is possible to control a list of tracks
+      (such as Line-in, Microphone, etc.) from a mixer element. They can
+      be muted, their volume can be changed and, for input tracks, their
+      record flag can be set as well.
+    </para>
+    <para>
+      Example plugins implementing this interface include the OSS elements
+      (osssrc, osssink, ossmixer) and the ALSA plugins (alsasrc, alsasink
+      and alsamixer).
+    </para>
+    <para>
+      You should not use this interface for volume control in a playback
+      application. Either use a <classname>volume</classname> element or use
+      <classname>playbin</classname>'s <quote>volume</quote> property, or use
+      the <classname>audiosink</classname>'s <quote>volume</quote> property (if it has one).
+    </para>
+    <note>
+      <para>
+	In order for the <ulink type="http"
+	  url="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gst-plugins-base-libs/html/gst-plugins-base-libs-gstmixer.html"><classname>GstMixer</classname></ulink>
+	interface to be
+        usable, the element implementing it needs to be in the right state,
+        so that the underlying mixer device is open. This usually means the
+        element needs to be at least in <classname>GST_STATE_READY</classname>
+        before you can use this interface. You will get confusing warnings
+        if the element is not in the right state when the interface is used.
+      </para>
+    </note>
+  </sect1>
+
+  <sect1 id="section-interfaces-tuner">
+    <title>The Tuner interface</title>
+
+    <para>
+      The tuner interface is a uniform way to control inputs and outputs
+      on a multi-input selection device. This is primarily used for input
+      selection on elements for TV- and capture-cards.
+    </para>
+    <para>
+      Using this interface, it is possible to select one track from a list
+      of tracks supported by that tuner-element. The tuner will then select
+      that track for media-processing internally. This can, for example, be
+      used to switch inputs on a TV-card (e.g. from Composite to S-video).
+    </para>
+    <para>
+      This interface is currently only implemented by the Video4linux and
+      Video4linux2 elements.
+    </para>
+    <note>
+      <para>
+	In order for the <ulink type="http"
+	  url="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gst-plugins-base-libs/html/gst-plugins-base-libs-gsttuner.html"><classname>GstTuner</classname></ulink>
+	interface to be
+        usable, the element implementing it needs to be in the right state,
+        so that the underlying device is open. This usually means the
+        element needs to be at least in <classname>GST_STATE_READY</classname>
+        before you can use this interface. You will get confusing warnings
+        if the element is not in the right state when the interface is used.
+      </para>
+    </note>
+  </sect1>
+
+  <sect1 id="section-interfaces-colorbalance">
+    <title>The Color Balance interface</title>
+
+    <para>
+      The colorbalance interface is a way to control video-related properties
+      on an element, such as brightness, contrast and so on. It's sole
+      reason for existence is that, as far as its authors know, there's no
+      way to dynamically register properties using
+      <classname>GObject</classname>.
+    </para>
+    <para>
+      The colorbalance interface is implemented by several plugins, including
+      xvimagesink and the Video4linux and Video4linux2 elements.
+    </para>
+  </sect1>
+
+  <sect1 id="section-interfaces-proprobe">
+    <title>The Property Probe interface</title>
+
+    <para>
+      The property probe is a way to autodetect allowed values for a
+      <classname>GObject</classname> property. It's primary use is to autodetect
+      devices in several elements. For example, the OSS elements use this
+      interface to detect all OSS devices on a system. Applications can then
+      <quote>probe</quote> this property and get a list of detected devices.
+    </para>
+    <note>
+      <para>
+        Given the overlap between HAL and the practical implementations of this
+        interface, this might in time be deprecated in favour of HAL.
+      </para>
+    </note>
+    <para>
+      This interface is currently implemented by many elements, including
+      the ALSA, OSS, XVideo, Video4linux and Video4linux2 elements.
+    </para>
+  </sect1>
+
+  <sect1 id="section-interfaces-xoverlay">
+    <title>The X Overlay interface</title>
+
+    <para>
+      The X Overlay interface was created to solve the problem of embedding
+      video streams in an application window. The application provides an
+      X-window to the element implementing this interface to draw on, and
+      the element will then use this X-window to draw on rather than creating
+      a new toplevel window. This is useful to embed video in video players.
+    </para>
+    <para>
+      This interface is implemented by, amongst others, the Video4linux and
+      Video4linux2 elements and by ximagesink, xvimagesink and sdlvideosink.
+    </para>
+  </sect1>
+</chapter>

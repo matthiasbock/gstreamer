@@ -1,0 +1,437 @@
+<chapter id="chapter-scheduling" xreflabel="Different scheduling modes">
+  <title>Different scheduling modes</title>
+  <para>
+    Scheduling is, in short, a method for making sure that every element gets
+    called once in a while to process data and prepare data for the next
+    element. Likewise, a kernel has a scheduler for processes, and your
+    brain is a very complex scheduler too in a way.
+    Randomly calling elements' chain functions won't bring us far, however, so
+    you'll understand that the schedulers in &GStreamer; are a bit more complex
+    than this. However, as a start, it's a nice picture.
+  </para>
+  <para>
+    So far, we have only discussed <function>_chain ()</function>-operating
+    elements, i.e. elements that have a chain-function set on their sink pad
+    and push buffers on their source pad(s). Pads (or elements) can also operate
+    in two other scheduling modes, however. In this chapter, we will discuss
+    what those scheduling modes are, how they can be enabled and in what
+    cases they are useful. The other two scheduling modes are random access
+    (<function>_getrange ()</function>-based) or task-runner (which means
+    that this element is the driving force in the pipeline) mode.
+  </para>
+
+  <sect1 id="section-scheduling-activation"
+      xreflabel="The pad actication stage">
+    <title>The pad activation stage</title>
+    <para>
+      The stage in which &GStreamer; decides in what scheduling mode the
+      various elements will operate, is called the pad-activation stage. In
+      this stage, &GStreamer; will query the scheduling capabilities (i.e.
+      it will see in what modes each particular element/pad can operate) and
+      decide on the optimal scheduling composition for the pipeline. Next,
+      each pad will be notified of the scheduling mode that was assigned to
+      it, and after that the pipeline will start running.
+    </para>
+    <para>
+      Pads can be assigned one of three modes, each mode putting several
+      prerequisites on the pads. Pads should implement a notification
+      function (<function>gst_pad_set_activatepull_function ()</function> and
+      <function>gst_pad_set_activatepush_function ()</function>) to be
+      notified of the scheduling mode assignment. Also, sinkpads assigned
+      to do pull-based scheduling mode should start and stop their task
+      in this function.
+    </para>
+    <itemizedlist>
+      <listitem>
+        <para>
+          If all pads of an element are assigned to do
+          <quote>push</quote>-based scheduling, then this means that data
+          will be pushed by upstream elements to this element using the
+          sinkpads <function>_chain ()</function>-function. Prerequisites
+          for this scheduling mode are that a chain-function was set for
+          each sinkpad using<function>gst_pad_set_chain_function ()</function>
+          and that all downstream elements operate in the same mode. Pads are
+          assigned to do push-based scheduling in sink-to-source element
+          order, and within an element first sourcepads and then sinkpads.
+          Sink elements can operate in this mode if their sinkpad is activated
+          for push-based scheduling. Source elements cannot be chain-based.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Alternatively, sinkpads can be the driving force behind a pipeline
+          by operating in <quote>pull</quote>-based mode, while the sourcepads
+          of the element still operate in push-based mode. In order to be the
+          driving force, those pads start a <classname>GstTask</classname>
+          when they are activated. This task is a thread, which
+          will call a function specified by the element. When called, this
+          function will have random data access (through
+          <function>gst_pad_get_range ()</function>) over all sinkpads, and
+          can push data over the sourcepads, which effectively means that
+          this element controls data flow in the pipeline. Prerequisites for
+          this mode are that all downstream elements can act in chain-based
+          mode, and that all upstream elements allow random access (see below).
+          Source elements can be told to act in this mode if their sourcepads
+          are activated in push-based fashion. Sink elements can be told to
+          act in this mode when their sinkpads are activated in pull-mode.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          lastly, all pads in an element can be assigned to act in pull-mode.
+          too. However, contrary to the above, this does not mean that they
+          start a task on their own. Rather, it means that they are pull
+          slave for the downstream element, and have to provide random data
+          access to it from their <function>_get_range ()</function>-function.
+          Requirements are that the a <function>_get_range
+          ()</function>-function was set on this pad using the function
+          <function>gst_pad_set_getrange_function ()</function>. Also, if
+          the element has any sinkpads, all those pads (and thereby their
+          peers) need to operate in random access mode, too. Note that the
+          element is supposed to activate those elements itself! &GStreamer;
+          will not do that for you.
+        </para>
+      </listitem>
+    </itemizedlist>
+    <para>
+      In the next two sections, we will go closer into pull-based scheduling
+      (elements/pads driving the pipeline, and elements/pads providing random
+      access), and some specific use cases will be given.
+    </para>
+  </sect1>
+
+  <sect1 id="section-scheduling-loop" xreflabel="Pads driving the pipeline">
+    <title>Pads driving the pipeline</title>
+    <para>
+      Sinkpads assigned to operate in pull-based mode, while none of its
+      sourcepads operate in pull-based mode (or it has no sourcepads), can
+      start a task that will drive the pipeline data flow. Within this
+      function, those elements have random access over all of their sinkpads,
+      and push data over their sourcepads. This can come in useful for
+      several different kinds of elements:
+    </para>
+    <itemizedlist>
+      <listitem>
+        <para>
+          Demuxers, parsers and certain kinds of decoders where data comes
+          in unparsed (such as MPEG-audio or video streams), since those will
+          prefer byte-exact (random) access from their input. If possible,
+          however, such elements should be prepared to operate in chain-based
+          mode, too.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Certain kind of audio outputs, which require control over their
+          input data flow, such as the Jack sound server.
+        </para>
+      </listitem>
+    </itemizedlist>
+    <para>
+      In order to start this task, you will need to create it in the
+      activation function.
+    </para>
+    <programlisting><!-- example-begin task.c a -->
+#include "filter.h"
+#include &lt;string.h&gt;
+
+static gboolean	gst_my_filter_activate	(GstPad      * pad);
+static gboolean	gst_my_filter_activate_pull (GstPad  * pad,
+					 gboolean      active);
+static void	gst_my_filter_loop	(GstMyFilter * filter);
+
+GST_BOILERPLATE (GstMyFilter, gst_my_filter, GstElement, GST_TYPE_ELEMENT);
+<!-- example-end task.c a -->
+<!-- example-begin task.c b --><!--
+static gboolean	gst_my_filter_setcaps	(GstPad  *pad,
+					 GstCaps *caps);
+static GstCaps *gst_my_filter_getcaps	(GstPad  *pad);
+
+static void
+gst_my_filter_base_init (gpointer klass)
+{
+  GstElementClass *element_class = GST_ELEMENT_CLASS (klass);
+  static GstElementDetails my_filter_details = {
+    "An example plugin",
+    "Example/FirstExample",
+    "Shows the basic structure of a plugin",
+    "your name <your.name@your.isp>"
+  };
+  static GstStaticPadTemplate sink_factory =
+  GST_STATIC_PAD_TEMPLATE (
+    "sink",
+    GST_PAD_SINK,
+    GST_PAD_ALWAYS,
+    GST_STATIC_CAPS ("ANY")
+  );
+  static GstStaticPadTemplate src_factory =
+  GST_STATIC_PAD_TEMPLATE (
+    "src",
+    GST_PAD_SRC,
+    GST_PAD_ALWAYS,
+    GST_STATIC_CAPS ("ANY")
+  );
+
+  gst_element_class_set_details (element_class, &my_filter_details);
+  gst_element_class_add_pad_template (element_class,
+        gst_static_pad_template_get (&src_factory));
+  gst_element_class_add_pad_template (element_class,
+        gst_static_pad_template_get (&sink_factory));
+}
+
+static void
+gst_my_filter_class_init (GstMyFilterClass * klass)
+{
+}
+--><!-- example-begin task.c b -->
+<!-- example-begin task.c c -->
+static void
+gst_my_filter_init (GstMyFilter * filter)
+{
+<!-- example-end task.c c -->
+[..]<!-- example-begin task.c d --><!--
+  GstElementClass *klass = GST_ELEMENT_GET_CLASS (filter);
+
+  filter-&gt;sinkpad = gst_pad_new_from_template (
+        gst_element_class_get_pad_template (klass, "sink"), "sink");
+  gst_pad_set_setcaps_function (filter-&gt;sinkpad, gst_my_filter_setcaps);
+  gst_pad_set_getcaps_function (filter-&gt;sinkpad, gst_my_filter_getcaps);
+--><!-- example-end task.c d -->
+<!-- example-begin task.c e -->
+  gst_pad_set_activate_function (filter-&gt;sinkpad, gst_my_filter_activate);
+  gst_pad_set_activatepull_function (filter-&gt;sinkpad,
+      gst_my_filter_activate_pull);
+<!-- example-end task.c e -->
+<!-- example-begin task.c f --><!--
+  gst_element_add_pad (GST_ELEMENT (filter), filter-&gt;sinkpad);
+
+  filter-&gt;srcpad = gst_pad_new_from_template (
+        gst_element_class_get_pad_template (klass, "src"), "src");
+  gst_element_add_pad (GST_ELEMENT (filter), filter-&gt;srcpad);
+--><!-- example-end task.c f -->
+[..]<!-- example-begin task.c g -->
+}
+<!-- example-end task.c g -->
+[..]<!-- example-begin task.c h --><!--
+#include "caps.func"
+--><!-- example-end task.c h -->
+<!-- example-begin task.c i -->
+static gboolean
+gst_my_filter_activate (GstPad * pad)
+{
+  if (gst_pad_check_pull_range (pad)) {
+    return gst_pad_activate_pull (pad, TRUE);
+  } else {
+    return FALSE;
+  }
+}
+
+static gboolean
+gst_my_filter_activate_pull (GstPad  *pad,
+			     gboolean active)
+{
+  GstMyFilter *filter = GST_MY_FILTER (GST_OBJECT_PARENT (pad));
+
+  if (active) {
+    filter->offset = 0;
+    return gst_pad_start_task (pad,
+        (GstTaskFunction) gst_my_filter_loop, filter);
+  } else {
+    return gst_pad_stop_task (pad);
+  }
+}
+    <!-- example-end task.c i --></programlisting>
+    <para>
+      Once started, your task has full control over input and output. The
+      most simple case of a task function is one that reads input and pushes
+      that over its source pad. It's not all that useful, but provides some
+      more flexibility than the old chain-based case that we've been looking
+      at so far.
+    </para>
+    <programlisting><!-- example-begin task.c j -->
+#define BLOCKSIZE 2048
+
+static void
+gst_my_filter_loop (GstMyFilter * filter)
+{
+  GstFlowReturn ret;
+  guint64 len;
+  GstFormat fmt = GST_FORMAT_BYTES;
+  GstBuffer *buf = NULL;
+
+  if (!gst_pad_query_duration (filter-&gt;sinkpad, &amp;fmt, &amp;len)) {
+    GST_DEBUG_OBJECT (filter, "failed to query duration, pausing");
+    goto stop;
+  }
+
+   if (filter-&gt;offset >= len) {
+    GST_DEBUG_OBJECT (filter, "at end of input, sending EOS, pausing");
+    gst_pad_push_event (filter-&gt;srcpad, gst_event_new_eos ());
+    goto stop;
+  }
+
+  /* now, read BLOCKSIZE bytes from byte offset filter-&gt;offset */
+  ret = gst_pad_pull_range (filter-&gt;sinkpad, filter-&gt;offset,
+      BLOCKSIZE, &amp;buf);
+
+  if (ret != GST_FLOW_OK) {
+    GST_DEBUG_OBJECT (filter, "pull_range failed: %s", gst_flow_get_name (ret));
+    goto stop;
+  }
+
+  /* now push buffer downstream */
+  ret = gst_pad_push (filter-&gt;srcpad, buf);
+
+  buf = NULL; /* gst_pad_push() took ownership of buffer */
+
+  if (ret != GST_FLOW_OK) {
+    GST_DEBUG_OBJECT (filter, "pad_push failed: %s", gst_flow_get_name (ret));
+    goto stop;
+  }
+
+  /* everything is fine, increase offset and wait for us to be called again */
+  filter-&gt;offset += BLOCKSIZE;
+  return;
+
+stop:
+  GST_DEBUG_OBJECT (filter, "pausing task");
+  gst_pad_pause_task (filter-&gt;sinkpad);
+}
+<!-- example-end task.c j -->
+<!-- example-begin task.c k --><!--
+#include "register.func"
+    --><!-- example-end task.c k --></programlisting>
+  </sect1>
+
+  <sect1 id="section-scheduling-randomxs" xreflabel="Providing random access">
+    <title>Providing random access</title>
+    <para>
+      In the previous section, we have talked about how elements (or pads)
+      that are assigned to drive the pipeline using their own task, have
+      random access over their sinkpads. This means that all elements linked
+      to those pads (recursively) need to provide random access functions.
+      Requesting random access is done using the function
+      <function>gst_pad_pull_range ()</function>, which requests a buffer of
+      a specified size and offset. Source pads implementing and assigned to
+      do random access will have a <function>_get_range ()</function>-function
+      set using <function>gst_pad_set_getrange_function ()</function>, and
+      that function will be called when the peer pad requests some data. The
+      element is then responsible for seeking to the right offset and
+      providing the requested data. Several elements can implement random
+      access:
+    </para>
+    <itemizedlist>
+      <listitem>
+        <para>
+          Data sources, such as a file source, that can provide data from any
+          offset with reasonable low latency.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Filters that would like to provide a pull-based-like scheduling
+          mode over the whole pipeline. Note that elements assigned to do
+          random access-based scheduling are themselves responsible for
+          assigning this scheduling mode to their upstream peers! &GStreamer;
+          will not do that for you.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Parsers who can easily provide this by skipping a small part of
+          their input and are thus essentially "forwarding" random access
+          requests literally without any own processing involved. Examples
+          include tag readers (e.g. ID3) or single output parsers, such as
+          a WAVE parser.
+        </para>
+      </listitem>
+    </itemizedlist>
+    <para>
+      The following example will show how a <function>_get_range
+      ()</function>-function can be implemented in a source element:
+    </para>
+    <programlisting><!-- example-begin range.c a -->
+#include "filter.h"
+static GstFlowReturn
+		gst_my_filter_get_range	(GstPad     * pad,
+					 guint64      offset,
+					 guint        length,
+					 GstBuffer ** buf);
+
+GST_BOILERPLATE (GstMyFilter, gst_my_filter, GstElement, GST_TYPE_ELEMENT);
+<!-- example-end range.c a -->
+<!-- example-begin range.c b --><!--
+static void
+gst_my_filter_base_init (gpointer klass)
+{
+  GstElementClass *element_class = GST_ELEMENT_CLASS (klass);
+  static GstElementDetails my_filter_details = {
+    "An example plugin",
+    "Example/FirstExample",
+    "Shows the basic structure of a plugin",
+    "your name <your.name@your.isp>"
+  };
+  static GstStaticPadTemplate src_factory =
+  GST_STATIC_PAD_TEMPLATE (
+    "src",
+    GST_PAD_SRC,
+    GST_PAD_ALWAYS,
+    GST_STATIC_CAPS ("ANY")
+  );
+
+  gst_element_class_set_details (element_class, &my_filter_details);
+  gst_element_class_add_pad_template (element_class,
+        gst_static_pad_template_get (&src_factory));
+}
+
+static void
+gst_my_filter_class_init (GstMyFilterClass * klass)
+{
+}
+--><!-- example-begin range.c b -->
+<!-- example-begin range.c c -->
+static void
+gst_my_filter_init (GstMyFilter * filter)
+{
+  GstElementClass *klass = GST_ELEMENT_GET_CLASS (filter);
+
+  filter-&gt;srcpad = gst_pad_new_from_template (
+        gst_element_class_get_pad_template (klass, "src"), "src");
+  gst_pad_set_getrange_function (filter-&gt;srcpad,
+      gst_my_filter_get_range);
+  gst_element_add_pad (GST_ELEMENT (filter), filter-&gt;srcpad);
+<!-- example-end range.c c -->
+[..]<!-- example-begin range.c d -->
+}
+
+static gboolean
+gst_my_filter_get_range (GstPad     * pad,
+			 guint64      offset,
+			 guint        length,
+			 GstBuffer ** buf)
+{
+<!-- example-end range.c d -->
+  GstMyFilter *filter = GST_MY_FILTER (GST_OBJECT_PARENT (pad));
+
+  [.. here, you would fill *buf ..]
+<!-- example-begin range.c e -->
+  return GST_FLOW_OK;
+}
+<!-- example-end range.c e -->
+<!-- example-begin range.c f --><!--
+#include "register.func"
+    --><!-- example-end range.c f --></programlisting>
+    <para>
+      In practice, many elements that could theoretically do random access,
+      may in practice often be assigned to do push-based scheduling anyway,
+      since there is no downstream element able to start its own task.
+      Therefore, in practice, those elements should implement both a
+      <function>_get_range ()</function>-function and a <function>_chain
+      ()</function>-function (for filters and parsers) or a <function>_get_range
+      ()</function>-function and be prepared to start their own task by
+      providing <function>_activate_* ()</function>-functions (for
+      source elements), so that &GStreamer; can decide for the optimal
+      scheduling mode and have it just work fine in practice.
+    </para>
+  </sect1>
+</chapter>

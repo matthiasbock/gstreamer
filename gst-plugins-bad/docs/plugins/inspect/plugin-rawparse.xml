@@ -1,0 +1,55 @@
+<plugin>
+  <name>rawparse</name>
+  <description>Parses byte streams into raw frames</description>
+  <filename>../../gst/rawparse/.libs/libgstrawparse.so</filename>
+  <basename>libgstrawparse.so</basename>
+  <version>0.10.23.1</version>
+  <license>LGPL</license>
+  <source>gst-plugins-bad</source>
+  <package>GStreamer Bad Plug-ins git</package>
+  <origin>Unknown package origin</origin>
+  <elements>
+    <element>
+      <name>audioparse</name>
+      <longname>Audio Parse</longname>
+      <class>Filter/Audio</class>
+      <description>Converts stream into audio frames</description>
+      <author>Sebastian Dröge &lt;sebastian.droege@collabora.co.uk&gt;</author>
+      <pads>
+        <caps>
+          <name>sink</name>
+          <direction>sink</direction>
+          <presence>always</presence>
+          <details>ANY</details>
+        </caps>
+        <caps>
+          <name>src</name>
+          <direction>source</direction>
+          <presence>always</presence>
+          <details>audio/x-raw-int, depth=(int)[ 1, 32 ], width=(int){ 8, 16, 24, 32 }, endianness=(int){ 1234, 4321 }, signed=(boolean){ true, false }, rate=(int)[ 1, 2147483647 ], channels=(int)[ 1, 2147483647 ]; audio/x-raw-float, width=(int){ 32, 64 }, endianness=(int){ 1234, 4321 }, rate=(int)[ 1, 2147483647 ], channels=(int)[ 1, 2147483647 ]; audio/x-alaw, rate=(int)[ 1, 2147483647 ], channels=(int)[ 1, 2147483647 ]; audio/x-mulaw, rate=(int)[ 1, 2147483647 ], channels=(int)[ 1, 2147483647 ]</details>
+        </caps>
+      </pads>
+    </element>
+    <element>
+      <name>videoparse</name>
+      <longname>Video Parse</longname>
+      <class>Filter/Video</class>
+      <description>Converts stream into video frames</description>
+      <author>David Schleef &lt;ds@schleef.org&gt;, Sebastian Dröge &lt;sebastian.droege@collabora.co.uk&gt;</author>
+      <pads>
+        <caps>
+          <name>sink</name>
+          <direction>sink</direction>
+          <presence>always</presence>
+          <details>ANY</details>
+        </caps>
+        <caps>
+          <name>src</name>
+          <direction>source</direction>
+          <presence>always</presence>
+          <details>video/x-raw-rgb; video/x-raw-yuv; video/x-raw-gray; video/x-raw-bayer</details>
+        </caps>
+      </pads>
+    </element>
+  </elements>
+</plugin>

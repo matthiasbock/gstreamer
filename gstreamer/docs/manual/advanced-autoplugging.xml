@@ -1,0 +1,622 @@
+<chapter id="chapter-autoplugging">
+  <title>Autoplugging</title>
+  <para>
+    In <xref linkend="chapter-helloworld"/>, you've learned to build a
+    simple media player for Ogg/Vorbis files. By using alternative elements,
+    you are able to build media players for other media types, such as
+    Ogg/Speex, MP3 or even video formats. However, you would rather want
+    to build an application that can automatically detect the media type
+    of a stream and automatically generate the best possible pipeline
+    by looking at all available elements in a system. This process is called
+    autoplugging, and &GStreamer; contains high-quality autopluggers. If
+    you're looking for an autoplugger, don't read any further and go to
+    <xref linkend="chapter-components"/>. This chapter will explain the
+    <emphasis>concept</emphasis> of autoplugging and typefinding. It will
+    explain what systems &GStreamer; includes to dynamically detect the
+    type of a media stream, and how to generate a pipeline of decoder
+    elements to playback this media. The same principles can also be used
+    for transcoding. Because of the full dynamicity of this concept,
+    &GStreamer; can be automatically extended to support new media types
+    without needing any adaptations to its autopluggers.
+  </para>
+  <para>
+    We will first introduce the concept of MIME types as a dynamic and
+    extendible way of identifying media streams. After that, we will introduce
+    the concept of typefinding to find the type of a media stream. Lastly,
+    we will explain how autoplugging and the &GStreamer; registry can be
+    used to setup a pipeline that will convert media from one mimetype to
+    another, for example for media decoding.
+  </para>
+
+  <sect1 id="section-mime">
+    <title>MIME-types as a way to identify streams</title>
+    <para>
+      We have previously introduced the concept of capabilities as a way
+      for elements (or, rather, pads) to agree on a media type when
+      streaming data from one element to the next (see <xref
+      linkend="section-caps"/>). We have explained that a capability is
+      a combination of a mimetype and a set of properties. For most
+      container formats (those are the files that you will find on your
+      hard disk; Ogg, for example, is a container format), no properties
+      are needed to describe the stream. Only a MIME-type is needed. A
+      full list of MIME-types and accompanying properties can be found
+      in <ulink type="http"
+      url="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/pwg/html/section-types-definitions.html">the
+      Plugin Writer's Guide</ulink>.
+    </para> 
+    <para>
+      An element must associate a MIME-type to its source and sink pads
+      when it is loaded into the system. &GStreamer; knows about the
+      different elements and what type of data they expect and emit through
+      the &GStreamer; registry. This allows for very dynamic and extensible
+      element creation as we will see.
+    </para> 
+
+    <para>
+      In <xref linkend="chapter-helloworld"/>, we've learned to build a
+      music player for Ogg/Vorbis files. Let's look at the MIME-types
+      associated with each pad in this pipeline. <xref
+      linkend="section-mime-img"/> shows what MIME-type belongs to each
+      pad in this pipeline.
+    </para>
+
+    <figure float="1" id="section-mime-img">
+      <title>The Hello world pipeline with MIME types</title>
+      <mediaobject>
+        <imageobject>
+          <imagedata scale="75" fileref="images/mime-world.&image;" format="&IMAGE;"/>
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <para>
+      Now that we have an idea how &GStreamer; identifies known media
+      streams, we can look at methods &GStreamer; uses to setup pipelines
+      for media handling and for media type detection.
+    </para>
+  </sect1>
+
+  <sect1 id="section-typefinding">
+    <title>Media stream type detection</title>
+    <para>
+      Usually, when loading a media stream, the type of the stream is not
+      known. This means that before we can choose a pipeline to decode the
+      stream, we first need to detect the stream type. &GStreamer; uses the
+      concept of typefinding for this. Typefinding is a normal part of a
+      pipeline, it will read data for as long as the type of a stream is
+      unknown. During this period, it will provide data to all plugins
+      that implement a typefinder. When one of the typefinders recognizes
+      the stream, the typefind element will emit a signal and act as a
+      passthrough module from that point on. If no type was found, it will
+      emit an error and further media processing will stop.
+    </para>
+    <para>
+      Once the typefind element has found a type, the application can
+      use this to plug together a pipeline to decode the media stream.
+      This will be discussed in the next section.
+    </para>
+    <para>
+      Plugins in &GStreamer; can, as mentioned before, implement typefinder
+      functionality. A plugin implementing this functionality will submit
+      a mimetype, optionally a set of file extensions commonly used for this
+      media type, and a typefind function. Once this typefind function inside
+      the plugin is called, the plugin will see if the data in this media
+      stream matches a specific pattern that marks the media type identified
+      by that mimetype. If it does, it will notify the typefind element of
+      this fact, telling which mediatype was recognized and how certain we
+      are that this stream is indeed that mediatype. Once this run has been
+      completed for all plugins implementing a typefind functionality, the
+      typefind element will tell the application what kind of media stream
+      it thinks to have recognized.
+    </para>
+    <para>
+      The following code should explain how to use the typefind element.
+      It will print the detected media type, or tell that the media type
+      was not found. The next section will introduce more useful behaviours,
+      such as plugging together a decoding pipeline.
+    </para>
+    <programlisting><!-- example-begin typefind.c a -->
+#include &lt;gst/gst.h&gt;
+<!-- example-end typefind.c a -->
+[.. my_bus_callback goes here ..]<!-- example-begin typefind.c b --><!--
+static gboolean
+my_bus_callback (GstBus     *bus,
+                 GstMessage *message,
+                 gpointer    data)
+{
+  GMainLoop *loop = data;
+
+  switch (GST_MESSAGE_TYPE (message)) {
+    case GST_MESSAGE_ERROR: {
+      GError *err;
+      gchar *debug;
+
+      gst_message_parse_error (message, &amp;err, &amp;debug);
+      g_print ("Error: %s\n", err-&gt;message);
+      g_error_free (err);
+      g_free (debug);
+
+      g_main_loop_quit (loop);
+      break;
+    }
+    case GST_MESSAGE_EOS:
+      /* end-of-stream */
+      g_main_loop_quit (loop);
+      break;
+    default:
+      break;
+  }
+
+  /* remove from queue */
+  return TRUE;
+}
+--><!-- example-end typefind.c b -->
+<!-- example-begin typefind.c c -->
+static gboolean
+idle_exit_loop (gpointer data)
+{
+  g_main_loop_quit ((GMainLoop *) data);
+
+  /* once */
+  return FALSE;
+}
+
+static void
+cb_typefound (GstElement *typefind,
+	      guint       probability,
+	      GstCaps    *caps,
+	      gpointer    data)
+{
+  GMainLoop *loop = data;
+  gchar *type;
+
+  type = gst_caps_to_string (caps);
+  g_print ("Media type %s found, probability %d%%\n", type, probability);
+  g_free (type);
+
+  /* since we connect to a signal in the pipeline thread context, we need
+   * to set an idle handler to exit the main loop in the mainloop context.
+   * Normally, your app should not need to worry about such things. */
+  g_idle_add (idle_exit_loop, loop);
+}
+
+gint 
+main (gint   argc,
+      gchar *argv[])
+{
+  GMainLoop *loop;
+  GstElement *pipeline, *filesrc, *typefind, *fakesink;
+  GstBus *bus;
+
+  /* init GStreamer */
+  gst_init (&amp;argc, &amp;argv);
+  loop = g_main_loop_new (NULL, FALSE);
+
+  /* check args */
+  if (argc != 2) {
+    g_print ("Usage: %s &lt;filename&gt;\n", argv[0]);
+    return -1;
+  }
+
+  /* create a new pipeline to hold the elements */
+  pipeline = gst_pipeline_new ("pipe");
+
+  bus = gst_pipeline_get_bus (GST_PIPELINE (pipeline));
+  gst_bus_add_watch (bus, my_bus_callback, NULL);
+  gst_object_unref (bus);
+
+  /* create file source and typefind element */
+  filesrc = gst_element_factory_make ("filesrc", "source");
+  g_object_set (G_OBJECT (filesrc), "location", argv[1], NULL);
+  typefind = gst_element_factory_make ("typefind", "typefinder");
+  g_signal_connect (typefind, "have-type", G_CALLBACK (cb_typefound), loop);
+  fakesink = gst_element_factory_make ("fakesink", "sink");
+
+  /* setup */
+  gst_bin_add_many (GST_BIN (pipeline), filesrc, typefind, fakesink, NULL);
+  gst_element_link_many (filesrc, typefind, fakesink, NULL);
+  gst_element_set_state (GST_ELEMENT (pipeline), GST_STATE_PLAYING);
+  g_main_loop_run (loop);
+
+  /* unset */
+  gst_element_set_state (GST_ELEMENT (pipeline), GST_STATE_NULL);
+  gst_object_unref (GST_OBJECT (pipeline));
+
+  return 0;
+}
+    <!-- example-end typefind.c c --></programlisting>
+    <para>
+      Once a media type has been detected, you can plug an element (e.g. a
+      demuxer or decoder) to the source pad of the typefind element, and
+      decoding of the media stream will start right after.
+    </para>
+  </sect1>
+
+  <sect1 id="section-dynamic">
+    <title>Plugging together dynamic pipelines</title>
+    <warning><para>
+      The code in this section is broken, outdated and overly complicated.
+      Also, you should use decodebin, playbin or uridecodebin to get
+      decoders plugged automatically.
+    </para></warning>
+    <para> 
+      In this chapter we will see how you can create a dynamic pipeline. A
+      dynamic pipeline is a pipeline that is updated or created while data
+     is flowing through it. We will create a partial pipeline first and add
+      more elements while the pipeline is playing. The basis of this player
+      will be the application that we wrote in the previous section (<xref
+      linkend="section-typefinding"/>) to identify unknown media streams.
+    </para>
+    <!-- example-begin dynamic.c a --><!--
+#include &lt;gst/gst.h&gt;
+
+GstElement *pipeline;
+    --><!-- example-end dynamic.c a -->
+    <para>
+      Once the type of the media has been found, we will find elements in
+      the registry that can decode this streamtype. For this, we will get
+      all element factories (which we've seen before in <xref
+      linkend="section-elements-create"/>) and find the ones with the
+      given MIME-type and capabilities on their sinkpad. Note that we will
+      only use parsers, demuxers and decoders. We will not use factories for
+      any other element types, or we might get into a loop of encoders and
+      decoders. For this, we will want to build a list of <quote>allowed</quote>
+      factories right after initializing &GStreamer;.
+    </para>
+    <programlisting><!-- example-begin dynamic.c b -->
+static GList *factories;
+
+/*
+ * This function is called by the registry loader. Its return value
+ * (TRUE or FALSE) decides whether the given feature will be included
+ * in the list that we're generating further down.
+ */
+
+static gboolean
+cb_feature_filter (GstPluginFeature *feature,
+		   gpointer          data)
+{
+  const gchar *klass;
+  guint rank;
+
+  /* we only care about element factories */
+  if (!GST_IS_ELEMENT_FACTORY (feature))
+    return FALSE;
+
+  /* only parsers, demuxers and decoders */
+  klass = gst_element_factory_get_klass (GST_ELEMENT_FACTORY (feature));
+  if (g_strrstr (klass, "Demux") == NULL &amp;&amp;
+      g_strrstr (klass, "Decoder") == NULL &amp;&amp;
+      g_strrstr (klass, "Parse") == NULL)
+    return FALSE;
+
+  /* only select elements with autoplugging rank */
+  rank = gst_plugin_feature_get_rank (feature);
+  if (rank &lt; GST_RANK_MARGINAL)
+    return FALSE;
+
+  return TRUE;
+}
+
+/*
+ * This function is called to sort features by rank.
+ */
+
+static gint
+cb_compare_ranks (GstPluginFeature *f1,
+		  GstPluginFeature *f2)
+{
+  return gst_plugin_feature_get_rank (f2) - gst_plugin_feature_get_rank (f1);
+}
+
+static void
+init_factories (void)
+{
+  /* first filter out the interesting element factories */
+  factories = gst_registry_feature_filter (
+      gst_registry_get_default (),
+      (GstPluginFeatureFilter) cb_feature_filter, FALSE, NULL);
+
+  /* sort them according to their ranks */
+  factories = g_list_sort (factories, (GCompareFunc) cb_compare_ranks);
+}
+    <!-- example-end dynamic.c b --></programlisting>
+    <para>
+      From this list of element factories, we will select the one that most
+      likely will help us decoding a media stream to a given output type.
+      For each newly created element, we will again try to autoplug new
+      elements to its source pad(s). Also, if the element has dynamic pads
+      (which we've seen before in <xref linkend="section-pads-dynamic"/>),
+      we will listen for newly created source pads and handle those, too.
+      The following code replaces the <function>cb_type_found</function>
+      from the previous section with a function to initiate autoplugging,
+      which will continue with the above approach.
+    </para>
+    <programlisting><!-- example-begin dynamic.c c -->
+static void try_to_plug (GstPad *pad, const GstCaps *caps);
+
+static GstElement *audiosink;
+
+static void
+cb_newpad (GstElement *element,
+	   GstPad     *pad,
+	   gpointer    data)
+{
+  GstCaps *caps;
+
+  caps = gst_pad_get_caps (pad);
+  try_to_plug (pad, caps);
+  gst_caps_unref (caps);
+}
+
+static void
+close_link (GstPad      *srcpad,
+	    GstElement  *sinkelement,
+	    const gchar *padname,
+	    const GList *templlist)
+{
+  GstPad *pad;
+  gboolean has_dynamic_pads = FALSE;
+
+  g_print ("Plugging pad %s:%s to newly created %s:%s\n",
+	   gst_object_get_name (GST_OBJECT (gst_pad_get_parent (srcpad))),
+	   gst_pad_get_name (srcpad),
+	   gst_object_get_name (GST_OBJECT (sinkelement)), padname);
+
+  /* add the element to the pipeline and set correct state */
+  if (sinkelement != audiosink) {
+    gst_bin_add (GST_BIN (pipeline), sinkelement);
+    gst_element_set_state (sinkelement, GST_STATE_READY);
+  }
+  pad = gst_element_get_static_pad (sinkelement, padname);
+  gst_pad_link (srcpad, pad);
+  if (sinkelement != audiosink) {
+    gst_element_set_state (sinkelement, GST_STATE_PAUSED);
+  }
+  gst_object_unref (GST_OBJECT (pad));
+
+  /* if we have static source pads, link those. If we have dynamic
+   * source pads, listen for pad-added signals on the element */
+  for ( ; templlist != NULL; templlist = templlist->next) {
+    GstStaticPadTemplate *templ = templlist->data;
+
+    /* only sourcepads, no request pads */
+    if (templ->direction != GST_PAD_SRC ||
+        templ->presence == GST_PAD_REQUEST) {
+      continue;
+    }
+
+    switch (templ->presence) {
+      case GST_PAD_ALWAYS: {
+        GstPad *pad = gst_element_get_static_pad (sinkelement, templ->name_template);
+        GstCaps *caps = gst_pad_get_caps (pad);
+
+        /* link */
+        try_to_plug (pad, caps);
+        gst_object_unref (GST_OBJECT (pad));
+        gst_caps_unref (caps);
+        break;
+      }
+      case GST_PAD_SOMETIMES:
+        has_dynamic_pads = TRUE;
+        break;
+      default:
+        break;
+    }
+  }
+
+  /* listen for newly created pads if this element supports that */
+  if (has_dynamic_pads) {
+    g_signal_connect (sinkelement, "pad-added", G_CALLBACK (cb_newpad), NULL);
+  }
+}
+
+static void
+try_to_plug (GstPad        *pad,
+	     const GstCaps *caps)
+{
+  GstObject *parent = GST_OBJECT (GST_OBJECT_PARENT (pad));
+  const gchar *mime;
+  const GList *item;
+  GstCaps *res, *audiocaps;
+
+  /* don't plug if we're already plugged - FIXME: memleak for pad */
+  if (GST_PAD_IS_LINKED (gst_element_get_static_pad (audiosink, "sink"))) {
+    g_print ("Omitting link for pad %s:%s because we're already linked\n",
+	     GST_OBJECT_NAME (parent), GST_OBJECT_NAME (pad));
+    return;
+  }
+
+  /* as said above, we only try to plug audio... Omit video */
+  mime = gst_structure_get_name (gst_caps_get_structure (caps, 0));
+  if (g_strrstr (mime, "video")) {
+    g_print ("Omitting link for pad %s:%s because mimetype %s is non-audio\n",
+	     GST_OBJECT_NAME (parent), GST_OBJECT_NAME (pad), mime);
+    return;
+  }
+
+  /* can it link to the audiopad? */
+  audiocaps = gst_pad_get_caps (gst_element_get_static_pad (audiosink, "sink"));
+  res = gst_caps_intersect (caps, audiocaps);
+  if (res &amp;&amp; !gst_caps_is_empty (res)) {
+    g_print ("Found pad to link to audiosink - plugging is now done\n");
+    close_link (pad, audiosink, "sink", NULL);
+    gst_caps_unref (audiocaps);
+    gst_caps_unref (res);
+    return;
+  }
+  gst_caps_unref (audiocaps);
+  gst_caps_unref (res);
+
+  /* try to plug from our list */
+  for (item = factories; item != NULL; item = item->next) {
+    GstElementFactory *factory = GST_ELEMENT_FACTORY (item->data);
+    const GList *pads;
+
+    for (pads = gst_element_factory_get_static_pad_templates (factory);
+         pads != NULL; pads = pads->next) {
+      GstStaticPadTemplate *templ = pads->data;
+
+      /* find the sink template - need an always pad*/
+      if (templ->direction != GST_PAD_SINK ||
+          templ->presence != GST_PAD_ALWAYS) {
+        continue;
+      }
+
+      /* can it link? */
+      res = gst_caps_intersect (caps,
+          gst_static_caps_get (&amp;templ->static_caps));
+      if (res &amp;&amp; !gst_caps_is_empty (res)) {
+        GstElement *element;
+        gchar *name_template = g_strdup (templ->name_template);
+
+        /* close link and return */
+        gst_caps_unref (res);
+        element = gst_element_factory_create (factory, NULL);
+        close_link (pad, element, name_template,
+		    gst_element_factory_get_static_pad_templates (factory));
+        g_free (name_template);
+        return;
+      }
+      gst_caps_unref (res);
+
+      /* we only check one sink template per factory, so move on to the
+       * next factory now */
+      break;
+    }
+  }
+
+  /* if we get here, no item was found */
+  g_print ("No compatible pad found to decode %s on %s:%s\n",
+	   mime, GST_OBJECT_NAME (parent), GST_OBJECT_NAME (pad));
+}
+
+static void
+cb_typefound (GstElement *typefind,
+	      guint       probability,
+	      GstCaps    *caps,
+	      gpointer    data)
+{
+  gchar *s;
+  GstPad *pad;
+
+  s = gst_caps_to_string (caps);
+  g_print ("Detected media type %s\n", s);
+  g_free (s);
+
+  /* actually plug now */
+  pad = gst_element_get_static_pad (typefind, "src");
+  try_to_plug (pad, caps);
+  gst_object_unref (GST_OBJECT (pad));
+}
+    <!-- example-end dynamic.c c --></programlisting>
+    <para>
+      By doing all this, we will be able to make a simple autoplugger that
+      can automatically setup a pipeline for any media type. In the example
+      above, we did this for audio only. However, we can also do this
+      for video to create a player that plays both audio and video.
+    </para>
+    <!-- example-begin dynamic.c d --><!--
+static gboolean
+my_bus_callback (GstBus     *bus,
+                 GstMessage *message,
+                 gpointer    data)
+{
+  GMainLoop *loop = data;
+
+  switch (GST_MESSAGE_TYPE (message)) {
+    case GST_MESSAGE_ERROR: {
+      GError *err;
+      gchar *debug;
+
+      gst_message_parse_error (message, &amp;err, &amp;debug);
+      g_print ("Error: %s\n", err-&gt;message);
+      g_error_free (err);
+      g_free (debug);
+
+      g_main_loop_quit (loop);
+      break;
+    }
+    case GST_MESSAGE_EOS:
+      /* end-of-stream */
+      g_main_loop_quit (loop);
+      break;
+    default:
+      break;
+  }
+
+  /* remove from queue */
+  return TRUE;
+}
+
+gint
+main (gint   argc,
+      gchar *argv[])
+{
+  GMainLoop *loop;
+  GstElement *typefind, *realsink;
+  GstBus *bus;
+  GError *err = NULL;
+  gchar *p;
+
+  /* init GStreamer and ourselves */
+  gst_init (&amp;argc, &amp;argv);
+  loop = g_main_loop_new (NULL, FALSE);
+  init_factories ();
+
+  /* args */
+  if (argc != 2) {
+    g_print ("Usage: %s &lt;filename&gt;\n", argv[0]);
+    return -1;
+  }
+
+  /* pipeline */
+  p = g_strdup_printf ("filesrc location=\"%s\" ! typefind name=tf", argv[1]);
+  pipeline = gst_parse_launch (p, &amp;err);
+  g_free (p);
+
+  if (err) {
+    g_error ("Could not construct pipeline: %s", err-&gt;message);
+    g_error_free (err);
+    return -1;
+  }
+
+  bus = gst_pipeline_get_bus (GST_PIPELINE (pipeline));
+  gst_bus_add_watch (bus, my_bus_callback, NULL);
+  gst_object_unref (bus);
+
+  typefind = gst_bin_get_by_name (GST_BIN (pipeline), "tf");
+  g_signal_connect (typefind, "have-type", G_CALLBACK (cb_typefound), NULL);
+  gst_object_unref (GST_OBJECT (typefind));
+  audiosink = gst_element_factory_make ("audioconvert", "aconv");
+  realsink = gst_element_factory_make ("alsasink", "audiosink");
+  gst_bin_add_many (GST_BIN (pipeline), audiosink, realsink, NULL);
+  gst_element_link (audiosink, realsink);
+  gst_element_set_state (pipeline, GST_STATE_PLAYING);
+
+  /* run */
+  g_main_loop_run (loop);
+
+  /* exit */
+  gst_element_set_state (pipeline, GST_STATE_NULL);
+  gst_object_unref (GST_OBJECT (pipeline));
+
+  return 0;
+}
+    --><!-- example-end dynamic.c d -->
+    <para>
+      The example above is a good first try for an autoplugger. Next steps
+      would be to listen for <quote>pad-removed</quote> signals, so we
+      can dynamically change the plugged pipeline if the stream changes
+      (this happens for DVB or Ogg radio). Also, you might want special-case
+      code for input with known content (such as a DVD or an audio-CD),
+      and much, much more. Moreover, you'll want many checks to prevent
+      infinite loops during autoplugging, maybe you'll want to implement
+      shortest-path-finding to make sure the most optimal pipeline is chosen,
+      and so on. Basically, the features that you implement in an autoplugger
+      depend on what you want to use it for. For full-blown implementations,
+      see the <quote>playbin</quote> and <quote>decodebin</quote> elements in
+      <xref linkend="chapter-components"/>.
+    </para>
+  </sect1>
+</chapter>
