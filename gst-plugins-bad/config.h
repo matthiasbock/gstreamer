@@ -66,7 +66,7 @@
 #define GST_PACKAGE_ORIGIN "Unknown package origin"
 
 /* GStreamer package release date/time for plugins as YYYY-MM-DD */
-#define GST_PACKAGE_RELEASE_DATETIME "2013-06-09T12:11Z"
+#define GST_PACKAGE_RELEASE_DATETIME "2013-06-09T20:48Z"
 
 /* Define to enable Windows ACM library (used by acm). */
 /* #undef HAVE_ACM */

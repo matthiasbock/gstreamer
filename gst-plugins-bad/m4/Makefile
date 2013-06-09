@@ -108,7 +108,7 @@ am__can_run_installinfo = \
     *) (install-info --version) >/dev/null 2>&1;; \
   esac
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
-ACLOCAL = ${SHELL} /usr/src/gstreamer/gst-plugins-bad/missing --run aclocal-1.11
+ACLOCAL = ${SHELL} /usr/src/gstreamer-uvch264/gst-plugins-bad/missing --run aclocal-1.11
 ACLOCAL_AMFLAGS = -I m4 -I common/m4
 ACMENC_CFLAGS = 
 ACMMP3DEC_CFLAGS = 
@@ -120,9 +120,9 @@ AR = ar
 AS = as
 ASSRENDER_CFLAGS = 
 ASSRENDER_LIBS = 
-AUTOCONF = ${SHELL} /usr/src/gstreamer/gst-plugins-bad/missing --run autoconf
-AUTOHEADER = ${SHELL} /usr/src/gstreamer/gst-plugins-bad/missing --run autoheader
-AUTOMAKE = ${SHELL} /usr/src/gstreamer/gst-plugins-bad/missing --run automake-1.11
+AUTOCONF = ${SHELL} /usr/src/gstreamer-uvch264/gst-plugins-bad/missing --run autoconf
+AUTOHEADER = ${SHELL} /usr/src/gstreamer-uvch264/gst-plugins-bad/missing --run autoheader
+AUTOMAKE = ${SHELL} /usr/src/gstreamer-uvch264/gst-plugins-bad/missing --run automake-1.11
 AWK = mawk
 BZ2_LIBS = 
 CC = gcc -std=gnu99
@@ -338,8 +338,8 @@ LRDF_LIBS =
 LTLIBICONV = -liconv
 LTLIBINTL = 
 LTLIBOBJS = 
-MAINT = 
-MAKEINFO = ${SHELL} /usr/src/gstreamer/gst-plugins-bad/missing --run makeinfo
+MAINT = #
+MAKEINFO = ${SHELL} /usr/src/gstreamer-uvch264/gst-plugins-bad/missing --run makeinfo
 MANIFEST_TOOL = :
 MIMIC_CFLAGS = 
 MIMIC_LIBS = 
@@ -396,7 +396,7 @@ PACKAGE_VERSION_MAJOR = 0
 PACKAGE_VERSION_MICRO = 23
 PACKAGE_VERSION_MINOR = 10
 PACKAGE_VERSION_NANO = 1
-PACKAGE_VERSION_RELEASE = 0.20130609.121109
+PACKAGE_VERSION_RELEASE = 0.20130609.204722
 PATH_SEPARATOR = :
 PKG_CONFIG = /usr/bin/pkg-config
 PLUGINDIR = /usr/local/lib/gstreamer-0.10
@@ -477,10 +477,10 @@ X_LIBS =
 X_PRE_LIBS = 
 ZBAR_CFLAGS = 
 ZBAR_LIBS = 
-abs_builddir = /usr/src/gstreamer/gst-plugins-bad/m4
-abs_srcdir = /usr/src/gstreamer/gst-plugins-bad/m4
-abs_top_builddir = /usr/src/gstreamer/gst-plugins-bad
-abs_top_srcdir = /usr/src/gstreamer/gst-plugins-bad
+abs_builddir = /usr/src/gstreamer-uvch264/gst-plugins-bad/m4
+abs_srcdir = /usr/src/gstreamer-uvch264/gst-plugins-bad/m4
+abs_top_builddir = /usr/src/gstreamer-uvch264/gst-plugins-bad
+abs_top_srcdir = /usr/src/gstreamer-uvch264/gst-plugins-bad
 ac_ct_AR = ar
 ac_ct_CC = gcc
 ac_ct_CXX = g++
@@ -512,8 +512,8 @@ host_vendor = unknown
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = ${SHELL} /usr/src/gstreamer/gst-plugins-bad/install-sh
-libdir = /usr/local/lib
+install_sh = ${SHELL} /usr/src/gstreamer-uvch264/gst-plugins-bad/install-sh
+libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
 localstatedir = ${prefix}/var
@@ -577,7 +577,7 @@ EXTRA_DIST = \
 all: all-am
 
 .SUFFIXES:
-$(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
+$(srcdir)/Makefile.in: # $(srcdir)/Makefile.am  $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
 	    *$$dep*) \
@@ -602,9 +602,9 @@ Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 $(top_builddir)/config.status: $(top_srcdir)/configure $(CONFIG_STATUS_DEPENDENCIES)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 
-$(top_srcdir)/configure:  $(am__configure_deps)
+$(top_srcdir)/configure: # $(am__configure_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
-$(ACLOCAL_M4):  $(am__aclocal_m4_deps)
+$(ACLOCAL_M4): # $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(am__aclocal_m4_deps):
 
