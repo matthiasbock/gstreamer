@@ -72,24 +72,6 @@ do
   echo updating common from $ref_from to $ref_to
   if [ "$ref_from" != "$ref_to" ] ; then
     cd $dir/$module
-    # update autogen.sh for selected modules
-    case $module in
-      gstreamer|gst-plugins-base|gst-plugins-good|gst-plugins-ugly|gst-plugins-bad )
-        ./common/update-autogen
-        git add autogen.sh
-        ;;
-      *)
-        ;;
-    esac
-    # update README and MAINTAINERS for selected modules
-    case $module in
-      gstreamer|gst-plugins-base|gst-plugins-good|gst-plugins-ugly|gst-plugins-bad )
-        ./common/update-readmes --run-git-add
-        ;;
-      *)
-        ;;
-    esac
-    # and finally update the common submodule
     git add common
     git commit -m "Automatic update of common submodule
 

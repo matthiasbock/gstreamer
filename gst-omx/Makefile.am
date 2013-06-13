@@ -1,10 +1,6 @@
 SUBDIRS = common omx tools config
 
-# if BUILD_EXAMPLES
-# SUBDIRS += examples
-# endif
-
-ACLOCAL_AMFLAGS = -I m4 -I common/m4
+ACLOCAL_AMFLAGS = -I m4
 
 DISTCLEANFILES = _stdint.h
 

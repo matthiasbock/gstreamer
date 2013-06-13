@@ -5,7 +5,7 @@ dnl please read gstreamer/docs/random/autotools before changing this file
 dnl initialize autoconf
 dnl releases only do -Wall, git and prerelease does -Werror too
 dnl use a three digit version number for releases, and four for git/prerelease
-AC_INIT(GStreamer OpenMAX Plug-ins, 1.0.0.1,
+AC_INIT(GStreamer OpenMAX Plug-ins, 1.0.0,
     http://bugzilla.gnome.org/enter_bug.cgi?product=GStreamer,
     gst-omx)
 
@@ -147,11 +147,6 @@ AG_GST_CHECK_GST_CONTROLLER($GST_API_VERSION, [$GST_REQ], yes)
 AG_GST_CHECK_GST_CHECK($GST_API_VERSION, [$GST_REQ], no)
 AG_GST_CHECK_GST_PLUGINS_BASE($GST_API_VERSION, [$GST_REQ], yes)
 AM_CONDITIONAL(HAVE_GST_CHECK, test "x$HAVE_GST_CHECK" = "xyes")
-PKG_CHECK_MODULES([GST_EGL], [gstreamer-egl-1.0], [
-  AC_DEFINE(HAVE_GST_EGL, 1, [Have gstreamer-egl])
-  GST_EGL=yes
-], [GST_EGL=no])
-AM_CONDITIONAL(HAVE_GST_EGL, test "x$GST_EGL" = "xyes")
 
 dnl Check for documentation xrefs
 GLIB_PREFIX="`$PKG_CONFIG --variable=prefix glib-2.0`"
@@ -198,7 +193,7 @@ AC_ARG_ENABLE(Bsymbolic,
 
 AC_ARG_WITH([omx-target],
         AS_HELP_STRING([--with-omx-target],[Use this OpenMAX IL target (generic, bellagio, rpi)]),
-        [ac_cv_omx_target="$withval"], [ac_cv_omx_target="none"])
+        [ac_cv_omx_target="$withval"], [ac_cv_omx_target="generic"])
 
 ac_cv_omx_target_struct_packing="none"
 AC_MSG_NOTICE([Using $ac_cv_omx_target as OpenMAX IL target])
@@ -213,8 +208,8 @@ case "${ac_cv_omx_target}" in
   bellagio)
     AC_DEFINE(USE_OMX_TARGET_BELLAGIO, 1, [Use Bellagio OpenMAX IL target])
     ;;
-  none|*)
-    AC_ERROR([invalid OpenMAX IL target, you must specify one of --with-omx-target={generic,rpi,bellagio}])
+  *)
+    AC_ERROR([invalid OpenMAX IL target])
     ;;
 esac
 AM_CONDITIONAL(USE_OMX_TARGET_GENERIC, test "x$ac_cv_omx_target" = "xgeneric")
@@ -363,8 +358,6 @@ tools/Makefile
 config/Makefile
 config/bellagio/Makefile
 config/rpi/Makefile
-examples/Makefile
-examples/egl/Makefile
 )
 
 AC_OUTPUT

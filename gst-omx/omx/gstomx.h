@@ -48,10 +48,6 @@
 #include <OMX_Core.h>
 #include <OMX_Component.h>
 
-#ifdef USE_OMX_TARGET_RPI
-#include <OMX_Broadcom.h>
-#endif
-
 #ifdef GST_OMX_STRUCT_PACKING
 #pragma pack()
 #endif
@@ -155,12 +151,6 @@ typedef enum {
   GST_OMX_MESSAGE_BUFFER_FLAG,
   GST_OMX_MESSAGE_BUFFER_DONE,
 } GstOMXMessageType;
-
-typedef enum {
-  GST_OMX_COMPONENT_TYPE_SINK,
-  GST_OMX_COMPONENT_TYPE_SOURCE,
-  GST_OMX_COMPONENT_TYPE_FILTER
-} GstOmxComponentType;
 
 struct _GstOMXMessage {
   GstOMXMessageType type;
@@ -278,8 +268,6 @@ struct _GstOMXClassData {
   guint32 in_port_index, out_port_index;
 
   guint64 hacks;
-
-  GstOmxComponentType type;
 };
 
 GKeyFile *        gst_omx_get_configuration (void);

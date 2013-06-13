@@ -192,7 +192,6 @@ gst_omx_video_enc_class_init (GstOMXVideoEncClass * klass)
       GST_DEBUG_FUNCPTR (gst_omx_video_enc_propose_allocation);
   video_encoder_class->getcaps = GST_DEBUG_FUNCPTR (gst_omx_video_enc_getcaps);
 
-  klass->cdata.type = GST_OMX_COMPONENT_TYPE_FILTER;
   klass->cdata.default_sink_template_caps = "video/x-raw, "
       "width = " GST_VIDEO_SIZE_RANGE ", "
       "height = " GST_VIDEO_SIZE_RANGE ", " "framerate = " GST_VIDEO_FPS_RANGE;
@@ -253,8 +252,8 @@ gst_omx_video_enc_open (GstVideoEncoder * encoder)
       in_port_index = 0;
       out_port_index = 1;
     } else {
-      GST_DEBUG_OBJECT (self, "Detected %u ports, starting at %u",
-          (guint) param.nPorts, (guint) param.nStartPortNumber);
+      GST_DEBUG_OBJECT (self, "Detected %lu ports, starting at %lu",
+          param.nPorts, param.nStartPortNumber);
       in_port_index = param.nStartPortNumber + 0;
       out_port_index = param.nStartPortNumber + 1;
     }
@@ -847,8 +846,8 @@ gst_omx_video_enc_loop (GstOMXVideoEnc * self)
     goto flushing;
   }
 
-  GST_DEBUG_OBJECT (self, "Handling buffer: 0x%08x %" G_GUINT64_FORMAT,
-      (guint) buf->omx_buf->nFlags, (guint64) buf->omx_buf->nTimeStamp);
+  GST_DEBUG_OBJECT (self, "Handling buffer: 0x%08lx %" G_GUINT64_FORMAT,
+      buf->omx_buf->nFlags, (guint64) buf->omx_buf->nTimeStamp);
 
   GST_VIDEO_ENCODER_STREAM_LOCK (self);
   frame = _find_nearest_frame (self, buf);
@@ -1075,21 +1074,21 @@ gst_omx_video_enc_get_supported_colorformats (GstOMXVideoEnc * self)
           m->format = GST_VIDEO_FORMAT_I420;
           m->type = param.eColorFormat;
           negotiation_map = g_list_append (negotiation_map, m);
-          GST_DEBUG_OBJECT (self, "Component supports I420 (%d) at index %u",
-              param.eColorFormat, (guint) param.nIndex);
+          GST_DEBUG_OBJECT (self, "Component supports I420 (%d) at index %ld",
+              param.eColorFormat, param.nIndex);
           break;
         case OMX_COLOR_FormatYUV420SemiPlanar:
           m = g_slice_new (VideoNegotiationMap);
           m->format = GST_VIDEO_FORMAT_NV12;
           m->type = param.eColorFormat;
           negotiation_map = g_list_append (negotiation_map, m);
-          GST_DEBUG_OBJECT (self, "Component supports NV12 (%d) at index %u",
-              param.eColorFormat, (guint) param.nIndex);
+          GST_DEBUG_OBJECT (self, "Component supports NV12 (%d) at index %ld",
+              param.eColorFormat, param.nIndex);
           break;
         default:
           GST_DEBUG_OBJECT (self,
-              "Component supports unsupported color format %d at index %u",
-              param.eColorFormat, (guint) param.nIndex);
+              "Component supports unsupported color format %d at index %ld",
+              param.eColorFormat, param.nIndex);
           break;
       }
     }
@@ -1683,8 +1682,8 @@ gst_omx_video_enc_handle_frame (GstVideoEncoder * encoder,
 full_buffer:
   {
     GST_ELEMENT_ERROR (self, LIBRARY, FAILED, (NULL),
-        ("Got OpenMAX buffer with no free space (%p, %u/%u)", buf,
-            (guint) buf->omx_buf->nOffset, (guint) buf->omx_buf->nAllocLen));
+        ("Got OpenMAX buffer with no free space (%p, %lu/%lu)", buf,
+            buf->omx_buf->nOffset, buf->omx_buf->nAllocLen));
     gst_video_codec_frame_unref (frame);
     return GST_FLOW_ERROR;
   }

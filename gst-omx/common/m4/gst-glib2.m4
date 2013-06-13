@@ -28,7 +28,7 @@ AC_DEFUN([AG_GST_GLIB_CHECK],
   GLIB_EXTRA_CFLAGS="$GLIB_EXTRA_CFLAGS -DG_THREADS_MANDATORY"
 
   dnl Define G_DISABLE_DEPRECATED for GIT versions
-  if test "x$PACKAGE_VERSION_NANO" = "x1" -o "x`expr $PACKAGE_VERSION_MINOR % 2`" = "x1"; then
+  if test "x$PACKAGE_VERSION_NANO" = "x1"; then
     GLIB_EXTRA_CFLAGS="$GLIB_EXTRA_CFLAGS -DG_DISABLE_DEPRECATED"
   fi
 
@@ -39,7 +39,7 @@ AC_DEFUN([AG_GST_GLIB_CHECK],
 
   if test "x$enable_gobject_cast_checks" = "xauto"; then
     dnl For releases, turn off the cast checks
-    if test "x$PACKAGE_VERSION_NANO" = "x1" -o "x`expr $PACKAGE_VERSION_MINOR % 2`" = "x1"; then
+    if test "x$PACKAGE_VERSION_NANO" = "x1"; then
       enable_gobject_cast_checks=yes
     else
       enable_gobject_cast_checks=no
@@ -57,7 +57,7 @@ AC_DEFUN([AG_GST_GLIB_CHECK],
 
   if test "x$enable_glib_assertions" = "xauto"; then
     dnl For releases, turn off the assertions
-    if test "x$PACKAGE_VERSION_NANO" = "x1" -o "x`expr $PACKAGE_VERSION_MINOR % 2`" = "x1"; then
+    if test "x$PACKAGE_VERSION_NANO" = "x1"; then
       enable_glib_assertions=yes
     else
       enable_glib_assertions=no

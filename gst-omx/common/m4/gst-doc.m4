@@ -20,9 +20,33 @@ AC_DEFUN([AG_GST_DOCBOOK_CHECK],
 
     dnl check for docbook tools
     AC_CHECK_PROG(HAVE_DOCBOOK2PS, docbook2ps, yes, no)
-    AC_CHECK_PROG(HAVE_XSLTPROC, xsltproc, yes, no)
+    AC_CHECK_PROG(HAVE_DOCBOOK2HTML, docbook2html, yes, no)
     AC_CHECK_PROG(HAVE_JADETEX, jadetex, yes, no)
     AC_CHECK_PROG(HAVE_PS2PDF, ps2pdf, yes, no)
+
+    # -V option appeared in 0.6.10
+    docbook2html_min_version=0.6.10
+    if test "x$HAVE_DOCBOOK2HTML" != "xno"; then
+      docbook2html_version=`docbook2html --version`
+      AC_MSG_CHECKING([docbook2html version ($docbook2html_version) >= $docbook2html_min_version])
+      if perl -w <<EOF
+        (\$min_version_major, \$min_version_minor, \$min_version_micro ) = "$docbook2html_min_version" =~ /(\d+)\.(\d+)\.(\d+)/;
+        (\$docbook2html_version_major, \$docbook2html_version_minor, \$docbook2html_version_micro ) = "$docbook2html_version" =~ /(\d+)\.(\d+)\.(\d+)/;
+        exit (((\$docbook2html_version_major > \$min_version_major) ||
+  	     ((\$docbook2html_version_major == \$min_version_major) &&
+  	      (\$docbook2html_version_minor >= \$min_version_minor)) ||
+  	     ((\$docbook2html_version_major == \$min_version_major) &&
+  	      (\$docbook2html_version_minor >= \$min_version_minor) &&
+  	      (\$docbook2html_version_micro >= \$min_version_micro)))
+  	     ? 0 : 1);
+EOF
+      then
+        AC_MSG_RESULT(yes)
+      else
+        AC_MSG_RESULT(no)
+        HAVE_DOCBOOK2HTML=no
+      fi
+    fi
 
     dnl check if we can process docbook stuff
     AS_DOCBOOK(have_docbook=yes, have_docbook=no)
@@ -36,7 +60,7 @@ AC_DEFUN([AG_GST_DOCBOOK_CHECK],
     AC_CHECK_PROG(HAVE_EPSTOPDF, epstopdf, yes, no)
 
     dnl check if we can generate HTML
-    if test "x$HAVE_XSLTPROC" = "xyes" && \
+    if test "x$HAVE_DOCBOOK2HTML" = "xyes" && \
        test "x$enable_docbook" = "xyes" && \
        test "x$HAVE_XMLLINT" = "xyes"; then
       DOC_HTML=yes

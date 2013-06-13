@@ -120,8 +120,7 @@ am__installdirs = "$(DESTDIR)$(plugindir)"
 LTLIBRARIES = $(plugin_LTLIBRARIES)
 am__DEPENDENCIES_1 =
 libgstomx_la_DEPENDENCIES = $(am__DEPENDENCIES_1) \
-	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
-	$(am__DEPENDENCIES_1)
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 am__libgstomx_la_SOURCES_DIST = gstomx.c gstomxvideodec.c \
 	gstomxvideoenc.c gstomxaudioenc.c gstomxmjpegdec.c \
 	gstomxmpeg4videodec.c gstomxmpeg2videodec.c gstomxh264dec.c \
@@ -215,7 +214,7 @@ DEFAULT_VIDEOSRC = v4l2src
 DEFAULT_VISUALIZER = goom
 DEFS = -DHAVE_CONFIG_H
 DEPDIR = .deps
-DEPRECATED_CFLAGS = -DGST_DISABLE_DEPRECATED
+DEPRECATED_CFLAGS = 
 DLLTOOL = false
 DSYMUTIL = 
 DUMPBIN = 
@@ -223,7 +222,7 @@ ECHO_C =
 ECHO_N = -n
 ECHO_T = 
 EGREP = /bin/grep -E
-ERROR_CFLAGS =  -Werror
+ERROR_CFLAGS = 
 EXEEXT = 
 FFLAGS = 
 FGREP = /bin/grep -F
@@ -234,7 +233,7 @@ GIO_CFLAGS = -pthread -I/usr/include/glib-2.0 -I/usr/lib/arm-linux-gnueabihf/gli
 GIO_LDFLAGS = 
 GIO_LIBS = -lgio-2.0 -lgobject-2.0 -lglib-2.0  
 GLIB_CFLAGS = -pthread -I/usr/include/glib-2.0 -I/usr/lib/arm-linux-gnueabihf/glib-2.0/include
-GLIB_EXTRA_CFLAGS =  -DG_THREADS_MANDATORY -DG_DISABLE_DEPRECATED
+GLIB_EXTRA_CFLAGS =  -DG_THREADS_MANDATORY -DG_DISABLE_CAST_CHECKS -DG_DISABLE_ASSERT
 GLIB_GENMARSHAL = glib-genmarshal
 GLIB_LIBS = -pthread -lgobject-2.0 -lgmodule-2.0 -lrt -lglib-2.0  
 GLIB_MKENUMS = glib-mkenums
@@ -247,7 +246,7 @@ GST_ALL_LDFLAGS = -no-undefined -Wl,-Bsymbolic-functions
 GST_API_VERSION = 1.0
 GST_BASE_CFLAGS = -pthread -I/usr/local/include/gstreamer-1.0 -I/usr/include/glib-2.0 -I/usr/lib/arm-linux-gnueabihf/glib-2.0/include  
 GST_BASE_LIBS = -L/usr/local/lib -lgstbase-1.0 -lgstreamer-1.0 -lgobject-2.0 -lglib-2.0  
-GST_CFLAGS = -pthread -I/usr/include/glib-2.0 -I/usr/lib/arm-linux-gnueabihf/glib-2.0/include -pthread -I/usr/local/include/gstreamer-1.0 -I/usr/include/glib-2.0 -I/usr/lib/arm-linux-gnueabihf/glib-2.0/include    -DG_THREADS_MANDATORY -DG_DISABLE_DEPRECATED $(GST_OPTION_CFLAGS)
+GST_CFLAGS = -pthread -I/usr/include/glib-2.0 -I/usr/lib/arm-linux-gnueabihf/glib-2.0/include -pthread -I/usr/local/include/gstreamer-1.0 -I/usr/include/glib-2.0 -I/usr/lib/arm-linux-gnueabihf/glib-2.0/include    -DG_THREADS_MANDATORY -DG_DISABLE_CAST_CHECKS -DG_DISABLE_ASSERT $(GST_OPTION_CFLAGS)
 GST_CHECK_CFLAGS = -pthread -I/usr/local/include/gstreamer-1.0 -I/usr/include/glib-2.0 -I/usr/lib/arm-linux-gnueabihf/glib-2.0/include  
 GST_CHECK_LIBS = -L/usr/local/lib -lgstcheck-1.0 -lm -lgstreamer-1.0 -lgobject-2.0 -lglib-2.0  
 GST_CONTROLLER_CFLAGS = -pthread -I/usr/local/include/gstreamer-1.0 -I/usr/include/glib-2.0 -I/usr/lib/arm-linux-gnueabihf/glib-2.0/include  
@@ -261,16 +260,14 @@ GST_DISABLE_PLUGIN = 0
 GST_DISABLE_REGISTRY = 0
 GST_DISABLE_TRACE = 0
 GST_DISABLE_XML = 1
-GST_EGL_CFLAGS = 
-GST_EGL_LIBS = 
-GST_LEVEL_DEFAULT = GST_LEVEL_ERROR
+GST_LEVEL_DEFAULT = GST_LEVEL_NONE
 GST_LIBS = -L/usr/local/lib -lgstreamer-1.0 -lgobject-2.0 -lglib-2.0   $(GCOV_LIBS)
 GST_LIBVERSION = 0:0:0
 GST_LICENSE = LGPL
 GST_LT_LDFLAGS =  -version-info 0:0:0
 GST_OMX_CFLAGS = 
 GST_OPTION_CFLAGS = $(WARNING_CFLAGS) $(ERROR_CFLAGS) $(DEBUG_CFLAGS) $(PROFILE_CFLAGS) $(GCOV_CFLAGS) $(OPT_CFLAGS) $(DEPRECATED_CFLAGS)
-GST_PACKAGE_NAME = GStreamer OpenMAX Plug-ins git
+GST_PACKAGE_NAME = GStreamer OpenMAX Plug-ins source release
 GST_PACKAGE_ORIGIN = Unknown package origin
 GST_PKG_CONFIG_PATH = $(top_builddir)/pkgconfig
 GST_PLUGINS_ALL =  omx
@@ -318,15 +315,15 @@ OTOOL64 =
 PACKAGE = gst-omx
 PACKAGE_BUGREPORT = http://bugzilla.gnome.org/enter_bug.cgi?product=GStreamer
 PACKAGE_NAME = GStreamer OpenMAX Plug-ins
-PACKAGE_STRING = GStreamer OpenMAX Plug-ins 1.0.0.1
+PACKAGE_STRING = GStreamer OpenMAX Plug-ins 1.0.0
 PACKAGE_TARNAME = gst-omx
 PACKAGE_URL = 
-PACKAGE_VERSION = 1.0.0.1
+PACKAGE_VERSION = 1.0.0
 PACKAGE_VERSION_MAJOR = 1
 PACKAGE_VERSION_MICRO = 0
 PACKAGE_VERSION_MINOR = 0
-PACKAGE_VERSION_NANO = 1
-PACKAGE_VERSION_RELEASE = 0.20130613.143029
+PACKAGE_VERSION_NANO = 0
+PACKAGE_VERSION_RELEASE = 1
 PATH_SEPARATOR = :
 PKG_CONFIG = /usr/bin/pkg-config
 PLUGINDIR = /usr/local/lib/gstreamer-1.0
@@ -344,7 +341,7 @@ STRIP = strip
 VALGRIND_CFLAGS = 
 VALGRIND_LIBS = 
 VALGRIND_PATH = no
-VERSION = 1.0.0.1
+VERSION = 1.0.0
 WARNING_CFLAGS =  -Wall -Wdeclaration-after-statement -Wvla -Wpointer-arith -Wmissing-declarations -Wmissing-prototypes -Wredundant-decls -Wundef -Wwrite-strings -Wformat-nonliteral -Wformat-security -Wformat-nonliteral -Winit-self -Wmissing-include-dirs -Waddress -Waggregate-return -Wno-multichar -Wnested-externs
 abs_builddir = /usr/src/gstreamer/gst-omx/omx
 abs_srcdir = /usr/src/gstreamer/gst-omx/omx
@@ -452,13 +449,11 @@ OMX_INCLUDEPATH = -I$(abs_srcdir)/openmax
 libgstomx_la_CFLAGS = \
 	-DGST_USE_UNSTABLE_API=1 \
 	$(OMX_INCLUDEPATH) \
-	$(GST_EGL_CFLAGS) \
 	$(GST_PLUGINS_BASE_CFLAGS) \
 	$(GST_BASE_CFLAGS) \
 	$(GST_CFLAGS)
 
 libgstomx_la_LIBADD = \
-	$(GST_EGL_LIBS) \
 	$(GST_PLUGINS_BASE_LIBS) \
 	-lgstaudio-1.0 \
 	-lgstpbutils-1.0 \

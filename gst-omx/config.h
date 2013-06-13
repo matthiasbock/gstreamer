@@ -35,7 +35,7 @@
 /* #undef GST_GCOV_ENABLED */
 
 /* Default errorlevel to use */
-#define GST_LEVEL_DEFAULT GST_LEVEL_ERROR
+#define GST_LEVEL_DEFAULT GST_LEVEL_NONE
 
 /* GStreamer license */
 #define GST_LICENSE "LGPL"
@@ -44,13 +44,13 @@
 #define GST_OMX_STRUCT_PACKING 4
 
 /* package name in plugins */
-#define GST_PACKAGE_NAME "GStreamer OpenMAX Plug-ins git"
+#define GST_PACKAGE_NAME "GStreamer OpenMAX Plug-ins source release"
 
 /* package origin */
 #define GST_PACKAGE_ORIGIN "Unknown package origin"
 
 /* GStreamer package release date/time for plugins as YYYY-MM-DD */
-#define GST_PACKAGE_RELEASE_DATETIME "2013-06-13T14:31Z"
+#define GST_PACKAGE_RELEASE_DATETIME "2013-03-22"
 
 /* Define if static plugins should be built */
 /* #undef GST_PLUGIN_BUILD_STATIC */
@@ -117,9 +117,6 @@
 /* defined if the compiler implements __FUNCTION__ */
 #define HAVE_FUNCTION 1
 
-/* Have gstreamer-egl */
-/* #undef HAVE_GST_EGL */
-
 /* Define to 1 if you have the <inttypes.h> header file. */
 #define HAVE_INTTYPES_H 1
 
@@ -182,7 +179,7 @@
 #define PACKAGE_NAME "GStreamer OpenMAX Plug-ins"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "GStreamer OpenMAX Plug-ins 1.0.0.1"
+#define PACKAGE_STRING "GStreamer OpenMAX Plug-ins 1.0.0"
 
 /* Define to the one symbol short name of this package. */
 #define PACKAGE_TARNAME "gst-omx"
@@ -191,7 +188,7 @@
 #define PACKAGE_URL ""
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "1.0.0.1"
+#define PACKAGE_VERSION "1.0.0"
 
 /* directory where plugins are located */
 #define PLUGINDIR "/usr/local/lib/gstreamer-1.0"
@@ -227,7 +224,7 @@
 #define USE_OMX_TARGET_RPI 1
 
 /* Version number of package */
-#define VERSION "1.0.0.1"
+#define VERSION "1.0.0"
 
 /* Define WORDS_BIGENDIAN to 1 if your processor stores words with the most
    significant byte first (like Motorola and SPARC, unlike Intel). */

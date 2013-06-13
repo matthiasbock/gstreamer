@@ -289,8 +289,8 @@ gst_omx_component_handle_messages (GstOMXComponent * comp)
         OMX_U32 index = msg->content.port_settings_changed.port;
         GList *outports = NULL, *l, *k;
 
-        GST_DEBUG_OBJECT (comp->parent, "%s settings changed (port %u)",
-            comp->name, (guint) index);
+        GST_DEBUG_OBJECT (comp->parent, "%s settings changed (port %lu)",
+            comp->name, index);
 
         /* FIXME: This probably can be done better */
 
@@ -335,8 +335,8 @@ gst_omx_component_handle_messages (GstOMXComponent * comp)
         if (!port)
           break;
 
-        GST_DEBUG_OBJECT (comp->parent, "%s port %u got buffer flags 0x%08x",
-            comp->name, port->index, (guint) flags);
+        GST_DEBUG_OBJECT (comp->parent, "%s port %u got buffer flags 0x%08lx",
+            comp->name, port->index, flags);
         if ((flags & OMX_BUFFERFLAG_EOS)
             && port->port_def.eDir == OMX_DirOutput)
           port->eos = TRUE;
@@ -346,14 +346,15 @@ gst_omx_component_handle_messages (GstOMXComponent * comp)
       case GST_OMX_MESSAGE_BUFFER_DONE:{
         GstOMXBuffer *buf = msg->content.buffer_done.buffer->pAppPrivate;
         GstOMXPort *port;
+        GstOMXComponent *comp;
 
         port = buf->port;
+        comp = port->comp;
 
         if (msg->content.buffer_done.empty) {
           /* Input buffer is empty again and can be used to contain new input */
-          GST_LOG_OBJECT (port->comp->parent,
-              "%s port %u emptied buffer %p (%p)", port->comp->name,
-              port->index, buf, buf->omx_buf->pBuffer);
+          GST_LOG_OBJECT (comp->parent, "%s port %u emptied buffer %p (%p)",
+              comp->name, port->index, buf, buf->omx_buf->pBuffer);
 
           /* Reset offset and filled length */
           buf->omx_buf->nOffset = 0;
@@ -367,9 +368,8 @@ gst_omx_component_handle_messages (GstOMXComponent * comp)
         } else {
           /* Output buffer contains output now or
            * the port was flushed */
-          GST_LOG_OBJECT (port->comp->parent,
-              "%s port %u filled buffer %p (%p)", port->comp->name, port->index,
-              buf, buf->omx_buf->pBuffer);
+          GST_LOG_OBJECT (comp->parent, "%s port %u filled buffer %p (%p)",
+              comp->name, port->index, buf, buf->omx_buf->pBuffer);
 
           if ((buf->omx_buf->nFlags & OMX_BUFFERFLAG_EOS)
               && port->port_def.eDir == OMX_DirOutput)
@@ -440,8 +440,8 @@ EventHandler (OMX_HANDLETYPE hComponent, OMX_PTR pAppData, OMX_EVENTTYPE eEvent,
 
           msg->type = GST_OMX_MESSAGE_FLUSH;
           msg->content.flush.port = nData2;
-          GST_DEBUG_OBJECT (comp->parent, "%s port %u flushed", comp->name,
-              (guint) msg->content.flush.port);
+          GST_DEBUG_OBJECT (comp->parent, "%s port %lu flushed", comp->name,
+              msg->content.flush.port);
 
           gst_omx_component_send_message (comp, msg);
           break;
@@ -453,8 +453,8 @@ EventHandler (OMX_HANDLETYPE hComponent, OMX_PTR pAppData, OMX_EVENTTYPE eEvent,
           msg->type = GST_OMX_MESSAGE_PORT_ENABLE;
           msg->content.port_enable.port = nData2;
           msg->content.port_enable.enable = (cmd == OMX_CommandPortEnable);
-          GST_DEBUG_OBJECT (comp->parent, "%s port %u %s", comp->name,
-              (guint) msg->content.port_enable.port,
+          GST_DEBUG_OBJECT (comp->parent, "%s port %lu %s", comp->name,
+              msg->content.port_enable.port,
               (msg->content.port_enable.enable ? "enabled" : "disabled"));
 
           gst_omx_component_send_message (comp, msg);
@@ -505,8 +505,8 @@ EventHandler (OMX_HANDLETYPE hComponent, OMX_PTR pAppData, OMX_EVENTTYPE eEvent,
 
       msg->type = GST_OMX_MESSAGE_PORT_SETTINGS_CHANGED;
       msg->content.port_settings_changed.port = index;
-      GST_DEBUG_OBJECT (comp->parent, "%s settings changed (port index: %u)",
-          comp->name, (guint) msg->content.port_settings_changed.port);
+      GST_DEBUG_OBJECT (comp->parent, "%s settings changed (port index: %lu)",
+          comp->name, msg->content.port_settings_changed.port);
 
       gst_omx_component_send_message (comp, msg);
       break;
@@ -519,9 +519,9 @@ EventHandler (OMX_HANDLETYPE hComponent, OMX_PTR pAppData, OMX_EVENTTYPE eEvent,
       msg->type = GST_OMX_MESSAGE_BUFFER_FLAG;
       msg->content.buffer_flag.port = nData1;
       msg->content.buffer_flag.flags = nData2;
-      GST_DEBUG_OBJECT (comp->parent, "%s port %u got buffer flags 0x%08x",
-          comp->name, (guint) msg->content.buffer_flag.port,
-          (guint) msg->content.buffer_flag.flags);
+      GST_DEBUG_OBJECT (comp->parent, "%s port %lu got buffer flags 0x%08lx",
+          comp->name, msg->content.buffer_flag.port,
+          msg->content.buffer_flag.flags);
 
       gst_omx_component_send_message (comp, msg);
       break;
@@ -1066,10 +1066,14 @@ gst_omx_component_setup_tunnel (GstOMXComponent * comp1, GstOMXPort * port1,
   OMX_ERRORTYPE err;
 
   g_return_val_if_fail (comp1 != NULL, OMX_ErrorUndefined);
+  g_return_val_if_fail (comp1->state == OMX_StateLoaded
+      || !port1->port_def.bEnabled, OMX_ErrorUndefined);
   g_return_val_if_fail (port1 != NULL, OMX_ErrorUndefined);
   g_return_val_if_fail (port1->port_def.eDir == OMX_DirOutput,
       OMX_ErrorUndefined);
   g_return_val_if_fail (comp2 != NULL, OMX_ErrorUndefined);
+  g_return_val_if_fail (comp2->state == OMX_StateLoaded
+      || !port2->port_def.bEnabled, OMX_ErrorUndefined);
   g_return_val_if_fail (port2 != NULL, OMX_ErrorUndefined);
   g_return_val_if_fail (port2->port_def.eDir == OMX_DirInput,
       OMX_ErrorUndefined);
@@ -1107,10 +1111,14 @@ gst_omx_component_close_tunnel (GstOMXComponent * comp1, GstOMXPort * port1,
   OMX_ERRORTYPE err;
 
   g_return_val_if_fail (comp1 != NULL, OMX_ErrorUndefined);
+  g_return_val_if_fail (comp1->state == OMX_StateLoaded
+      || !port1->port_def.bEnabled, OMX_ErrorUndefined);
   g_return_val_if_fail (port1 != NULL, OMX_ErrorUndefined);
   g_return_val_if_fail (port1->port_def.eDir == OMX_DirOutput,
       OMX_ErrorUndefined);
   g_return_val_if_fail (comp2 != NULL, OMX_ErrorUndefined);
+  g_return_val_if_fail (comp2->state == OMX_StateLoaded
+      || !port2->port_def.bEnabled, OMX_ErrorUndefined);
   g_return_val_if_fail (port2 != NULL, OMX_ErrorUndefined);
   g_return_val_if_fail (port2->port_def.eDir == OMX_DirInput,
       OMX_ErrorUndefined);
@@ -1629,8 +1637,8 @@ gst_omx_port_allocate_buffers_unlocked (GstOMXPort * port,
       OMX_ErrorBadParameter);
 
   GST_INFO_OBJECT (comp->parent,
-      "Allocating %d buffers of size %zu for %s port %u", n,
-      (size_t) port->port_def.nBufferSize, comp->name, (guint) port->index);
+      "Allocating %d buffers of size %lu for %s port %u", n,
+      port->port_def.nBufferSize, comp->name, port->index);
 
   if (!port->buffers)
     port->buffers = g_ptr_array_sized_new (n);
@@ -2250,15 +2258,18 @@ gst_omx_port_wait_enabled (GstOMXPort * port, GstClockTime timeout)
 gboolean
 gst_omx_port_is_enabled (GstOMXPort * port)
 {
+  GstOMXComponent *comp;
   gboolean enabled;
 
   g_return_val_if_fail (port != NULL, FALSE);
 
+  comp = port->comp;
+
   gst_omx_port_update_port_definition (port, NULL);
   enabled = ! !port->port_def.bEnabled;
 
-  GST_DEBUG_OBJECT (port->comp->parent, "%s port %u is enabled: %d",
-      port->comp->name, port->index, enabled);
+  GST_DEBUG_OBJECT (comp->parent, "%s port %u is enabled: %d", comp->name,
+      port->index, enabled);
 
   return enabled;
 }
@@ -2616,57 +2627,52 @@ _class_init (gpointer g_class, gpointer data)
 
   /* Add pad templates */
   err = NULL;
-  if (class_data->type != GST_OMX_COMPONENT_TYPE_SOURCE) {
-    if (!(template_caps =
-            g_key_file_get_string (config, element_name, "sink-template-caps",
-                &err))) {
+  if (!(template_caps =
+          g_key_file_get_string (config, element_name, "sink-template-caps",
+              &err))) {
+    GST_DEBUG
+        ("No sink template caps specified for element '%s', using default '%s'",
+        element_name, class_data->default_sink_template_caps);
+    caps = gst_caps_from_string (class_data->default_sink_template_caps);
+    g_assert (caps != NULL);
+    g_error_free (err);
+  } else {
+    caps = gst_caps_from_string (template_caps);
+    if (!caps) {
       GST_DEBUG
-          ("No sink template caps specified for element '%s', using default '%s'",
-          element_name, class_data->default_sink_template_caps);
+          ("Could not parse sink template caps '%s' for element '%s', using default '%s'",
+          template_caps, element_name, class_data->default_sink_template_caps);
       caps = gst_caps_from_string (class_data->default_sink_template_caps);
       g_assert (caps != NULL);
-      g_error_free (err);
-    } else {
-      caps = gst_caps_from_string (template_caps);
-      if (!caps) {
-        GST_DEBUG
-            ("Could not parse sink template caps '%s' for element '%s', using default '%s'",
-            template_caps, element_name,
-            class_data->default_sink_template_caps);
-        caps = gst_caps_from_string (class_data->default_sink_template_caps);
-        g_assert (caps != NULL);
-      }
     }
-    templ = gst_pad_template_new ("sink", GST_PAD_SINK, GST_PAD_ALWAYS, caps);
-    g_free (template_caps);
-    gst_element_class_add_pad_template (element_class, templ);
   }
+  templ = gst_pad_template_new ("sink", GST_PAD_SINK, GST_PAD_ALWAYS, caps);
+  g_free (template_caps);
+  gst_element_class_add_pad_template (element_class, templ);
 
   err = NULL;
-  if (class_data->type != GST_OMX_COMPONENT_TYPE_SINK) {
-    if (!(template_caps =
-            g_key_file_get_string (config, element_name, "src-template-caps",
-                &err))) {
+  if (!(template_caps =
+          g_key_file_get_string (config, element_name, "src-template-caps",
+              &err))) {
+    GST_DEBUG
+        ("No src template caps specified for element '%s', using default '%s'",
+        element_name, class_data->default_src_template_caps);
+    caps = gst_caps_from_string (class_data->default_src_template_caps);
+    g_assert (caps != NULL);
+    g_error_free (err);
+  } else {
+    caps = gst_caps_from_string (template_caps);
+    if (!caps) {
       GST_DEBUG
-          ("No src template caps specified for element '%s', using default '%s'",
-          element_name, class_data->default_src_template_caps);
+          ("Could not parse src template caps '%s' for element '%s', using default '%s'",
+          template_caps, element_name, class_data->default_src_template_caps);
       caps = gst_caps_from_string (class_data->default_src_template_caps);
       g_assert (caps != NULL);
-      g_error_free (err);
-    } else {
-      caps = gst_caps_from_string (template_caps);
-      if (!caps) {
-        GST_DEBUG
-            ("Could not parse src template caps '%s' for element '%s', using default '%s'",
-            template_caps, element_name, class_data->default_src_template_caps);
-        caps = gst_caps_from_string (class_data->default_src_template_caps);
-        g_assert (caps != NULL);
-      }
     }
-    templ = gst_pad_template_new ("src", GST_PAD_SRC, GST_PAD_ALWAYS, caps);
-    g_free (template_caps);
-    gst_element_class_add_pad_template (element_class, templ);
   }
+  templ = gst_pad_template_new ("src", GST_PAD_SRC, GST_PAD_ALWAYS, caps);
+  g_free (template_caps);
+  gst_element_class_add_pad_template (element_class, templ);
 
   if ((hacks =
           g_key_file_get_string_list (config, element_name, "hacks", NULL,
