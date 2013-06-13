@@ -45,7 +45,7 @@
 #define GST_PACKAGE_ORIGIN "Unknown package origin"
 
 /* GStreamer package release date/time for plugins as YYYY-MM-DD */
-#define GST_PACKAGE_RELEASE_DATETIME "2013-06-09T11:04Z"
+#define GST_PACKAGE_RELEASE_DATETIME "2013-06-13T11:52Z"
 
 /* struct v4l2_buffer missing */
 /* #undef GST_V4L2_MISSING_BUFDECL */
@@ -57,7 +57,7 @@
 /* #undef HAVE_AALIB */
 
 /* Define to enable XML library (used by annodex). */
-#define HAVE_ANNODEX /**/
+/* #undef HAVE_ANNODEX */
 
 /* Define to 1 if you have the `asinh' function. */
 #define HAVE_ASINH 1
@@ -151,7 +151,7 @@
 #define HAVE_EXTERNAL /**/
 
 /* Define to 1 if you have the <fcntl.h> header file. */
-#define HAVE_FCNTL_H 1
+/* #undef HAVE_FCNTL_H */
 
 /* FIONREAD ioctl found in sys/filio.h */
 /* #undef HAVE_FIONREAD_IN_SYS_FILIO */
@@ -217,7 +217,7 @@
 /* #undef HAVE_JACK_1_9_7 */
 
 /* Define to enable jpeg library (used by jpeg). */
-#define HAVE_JPEG /**/
+/* #undef HAVE_JPEG */
 
 /* Define to enable libcaca coloured ASCII art (used by cacasink). */
 /* #undef HAVE_LIBCACA */
@@ -226,7 +226,7 @@
 /* #undef HAVE_LIBDV */
 
 /* Define to enable Portable Network Graphics library (used by png). */
-#define HAVE_LIBPNG /**/
+/* #undef HAVE_LIBPNG */
 
 /* Define to 1 if you have the `socket' library (-lsocket). */
 /* #undef HAVE_LIBSOCKET */
@@ -250,10 +250,10 @@
 /* #undef HAVE_ORC */
 
 /* Define to enable OSS audio (used by ossaudio). */
-#define HAVE_OSS /**/
+/* #undef HAVE_OSS */
 
 /* Define to enable Open Sound System 4 (used by oss4). */
-#define HAVE_OSS4 /**/
+/* #undef HAVE_OSS4 */
 
 /* Define if OSS includes are in /machine/ */
 /* #undef HAVE_OSS_INCLUDE_IN_MACHINE */
@@ -262,7 +262,7 @@
 /* #undef HAVE_OSS_INCLUDE_IN_ROOT */
 
 /* Define if OSS includes are in /sys/ */
-#define HAVE_OSS_INCLUDE_IN_SYS /**/
+/* #undef HAVE_OSS_INCLUDE_IN_SYS */
 
 /* Define to enable OSX audio (used by osxaudio). */
 /* #undef HAVE_OSX_AUDIO */
@@ -316,7 +316,7 @@
 /* #undef HAVE_SUNAUDIO */
 
 /* Define to 1 if you have the <sys/ioctl.h> header file. */
-#define HAVE_SYS_IOCTL_H 1
+/* #undef HAVE_SYS_IOCTL_H */
 
 /* Define to 1 if you have the <sys/param.h> header file. */
 #define HAVE_SYS_PARAM_H 1
@@ -352,13 +352,13 @@
 /* #undef HAVE_WINSOCK2_H */
 
 /* Define to enable X libraries and plugins (used by ximagesrc). */
-#define HAVE_X /**/
+/* #undef HAVE_X */
 
 /* Define to enable X Shared Memory extension. */
-#define HAVE_XSHM /**/
+/* #undef HAVE_XSHM */
 
 /* Define to enable X11 XVideo extensions. */
-#define HAVE_XVIDEO /**/
+/* #undef HAVE_XVIDEO */
 
 /* Define to enable zlib support for qtdemux/matroska. */
 #define HAVE_ZLIB /**/

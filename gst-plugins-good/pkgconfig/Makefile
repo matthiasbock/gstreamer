@@ -111,14 +111,14 @@ am__can_run_installinfo = \
   esac
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 AALIB_CFLAGS = 
-AALIB_CONFIG = no
+AALIB_CONFIG = 
 AALIB_LIBS = 
 ACLOCAL = ${SHELL} /usr/src/gstreamer/gst-plugins-good/missing --run aclocal-1.11
 ACLOCAL_AMFLAGS = -I m4 -I common/m4
 AMTAR = $${TAR-tar}
 AM_DEFAULT_VERBOSITY = 0
-ANNODEX_CFLAGS = -I/usr/include/libxml2  
-ANNODEX_LIBS = -lxml2  
+ANNODEX_CFLAGS = 
+ANNODEX_LIBS = 
 AR = ar
 AS = as
 AUTOCONF = ${SHELL} /usr/src/gstreamer/gst-plugins-good/missing --run autoconf
@@ -167,7 +167,7 @@ ERROR_CFLAGS =
 ERROR_CXXFLAGS = 
 ERROR_OBJCFLAGS = 
 ESD_CFLAGS = 
-ESD_CONFIG = no
+ESD_CONFIG = 
 ESD_LIBS = 
 EXEEXT = 
 FFLAGS = 
@@ -225,7 +225,7 @@ GST_PLUGINS_BASE_CFLAGS = -pthread -I/usr/local/include/gstreamer-0.10 -I/usr/in
 GST_PLUGINS_BASE_DIR = /usr/local/lib/gstreamer-0.10/gst:/usr/local/lib/gstreamer-0.10/sys:/usr/local/lib/gstreamer-0.10/ext
 GST_PLUGINS_BASE_LIBS = -pthread -L/usr/local/lib -lgstreamer-0.10 -lgobject-2.0 -lgmodule-2.0 -lgthread-2.0 -lrt -lglib-2.0  
 GST_PLUGINS_DIR = /usr/local/lib/gstreamer-0.10
-GST_PLUGINS_SELECTED =   videofilter alpha apetag audiofx audioparsers auparse autodetect avi cutter debugutils deinterlace effectv equalizer flv id3demux icydemux interleave flx goom goom2k1 imagefreeze isomp4 law level matroska multifile multipart replaygain rtp rtpmanager rtsp shapewipe smpte spectrum udp videobox videocrop videomixer wavenc wavparse y4m 
+GST_PLUGINS_SELECTED =                         videofilter alpha   audioparsers  autodetect avi   deinterlace  equalizer flv id3demux icydemux      isomp4        rtp rtpmanager rtsp    udp videobox videocrop videomixer wavenc wavparse  
 GST_PLUGIN_LDFLAGS = -module -avoid-version -export-symbols-regex '^_*gst_plugin_desc.*' -no-undefined
 GST_PREFIX = /usr/local
 GST_TOOLS_DIR = /usr/local/bin
@@ -238,15 +238,15 @@ GUDEV_CFLAGS = -I/usr/include/glib-2.0 -I/usr/lib/arm-linux-gnueabihf/glib-2.0/i
 GUDEV_LIBS = -lgudev-1.0 -lgobject-2.0 -lglib-2.0  
 HAL_CFLAGS = 
 HAL_LIBS = 
-HAVE_AVC1394 = no
+HAVE_AVC1394 = 
 HAVE_BZ2 = no
 HAVE_CXX = yes
 HAVE_DIRECTSOUND = no
 HAVE_GCONFTOOL = yes
-HAVE_ROM1394 = no
+HAVE_ROM1394 = 
 HAVE_SPEEX = no
-HAVE_X = yes
-HAVE_XSHM = yes
+HAVE_X = 
+HAVE_XSHM = 
 HAVE_ZLIB = yes
 HTML_DIR = ${datadir}/gtk-doc/html
 INSTALL = /usr/bin/install -c
@@ -262,7 +262,7 @@ JACK_1_9_7_CFLAGS =
 JACK_1_9_7_LIBS = 
 JACK_CFLAGS = 
 JACK_LIBS = 
-JPEG_LIBS = -ljpeg
+JPEG_LIBS = 
 LD = /usr/bin/ld
 LDFLAGS = 
 LIBCACA_CFLAGS = 
@@ -275,8 +275,8 @@ LIBIEC61883_LIBS =
 LIBINTL = 
 LIBM = -lm
 LIBOBJS = 
-LIBPNG_CFLAGS = -I/usr/include/libpng12  
-LIBPNG_LIBS = -lpng12  
+LIBPNG_CFLAGS = 
+LIBPNG_LIBS = 
 LIBS = 
 LIBTOOL = $(SHELL) $(top_builddir)/libtool
 LIBV4L2_CFLAGS =  
@@ -287,7 +287,7 @@ LOCALEDIR = /usr/local/share/locale
 LTLIBICONV = -liconv
 LTLIBINTL = 
 LTLIBOBJS = 
-MAINT = #
+MAINT = 
 MAKEINFO = ${SHELL} /usr/src/gstreamer/gst-plugins-good/missing --run makeinfo
 MANIFEST_TOOL = :
 MKDIR_P = /bin/mkdir -p
@@ -318,12 +318,12 @@ PACKAGE_VERSION_MAJOR = 0
 PACKAGE_VERSION_MICRO = 31
 PACKAGE_VERSION_MINOR = 10
 PACKAGE_VERSION_NANO = 1
-PACKAGE_VERSION_RELEASE = 0.20130609.110249
+PACKAGE_VERSION_RELEASE = 0.20130613.115227
 PATH_SEPARATOR = :
 PKG_CONFIG = /usr/bin/pkg-config
 PLUGINDIR = /usr/local/lib/gstreamer-0.10
 POSUB = po
-PROFILE_CFLAGS = -g
+PROFILE_CFLAGS = 
 PULSE_0_9_20_CFLAGS = 
 PULSE_0_9_20_LIBS = 
 PULSE_1_0_CFLAGS = 
@@ -349,7 +349,7 @@ SPEEX_CFLAGS =
 SPEEX_LIBS = 
 STRIP = strip
 TAGLIB_CFLAGS = 
-TAGLIB_CXXFLAGS =  -Wno-attributes
+TAGLIB_CXXFLAGS = 
 TAGLIB_LIBS = 
 USE_NLS = yes
 VALGRIND_CFLAGS = 
@@ -370,11 +370,11 @@ XGETTEXT = /usr/bin/xgettext
 XGETTEXT_015 = /usr/bin/xgettext
 XGETTEXT_EXTRA_OPTIONS = 
 XMKMF = 
-XSHM_LIBS = -lXext
-XVIDEO_LIBS = -lXv -lXext
+XSHM_LIBS = 
+XVIDEO_LIBS = 
 X_CFLAGS = 
 X_EXTRA_LIBS = 
-X_LIBS =    -lX11
+X_LIBS = 
 X_PRE_LIBS = 
 ZLIB_LIBS = -lz
 abs_builddir = /usr/src/gstreamer/gst-plugins-good/pkgconfig
@@ -466,7 +466,7 @@ EXTRA_DIST = $(pcinfiles)
 all: all-am
 
 .SUFFIXES:
-$(srcdir)/Makefile.in: # $(srcdir)/Makefile.am  $(am__configure_deps)
+$(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
 	    *$$dep*) \
@@ -491,9 +491,9 @@ Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 $(top_builddir)/config.status: $(top_srcdir)/configure $(CONFIG_STATUS_DEPENDENCIES)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 
-$(top_srcdir)/configure: # $(am__configure_deps)
+$(top_srcdir)/configure:  $(am__configure_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
-$(ACLOCAL_M4): # $(am__aclocal_m4_deps)
+$(ACLOCAL_M4):  $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(am__aclocal_m4_deps):
 gstreamer-plugins-good-uninstalled.pc: $(top_builddir)/config.status $(srcdir)/gstreamer-plugins-good-uninstalled.pc.in

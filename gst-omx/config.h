@@ -38,7 +38,7 @@
 #define GST_PACKAGE_ORIGIN "Unknown package origin"
 
 /* GStreamer package release date/time for plugins as YYYY-MM-DD */
-#define GST_PACKAGE_RELEASE_DATETIME "2013-06-12T17:20Z"
+#define GST_PACKAGE_RELEASE_DATETIME "2013-06-13T13:03Z"
 
 /* Define if the host CPU is an Alpha */
 /* #undef HAVE_CPU_ALPHA */

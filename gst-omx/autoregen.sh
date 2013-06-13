@@ -1,2 +1,2 @@
 #!/bin/sh
-./autogen.sh --disable-debug --disable-tests --disable-examples $@
+./autogen.sh --with-omx-target=rpi --disable-gtk-doc --disable-tests --disable-examples --disable-debug --disable-debugutils --disable-fatal-warnings $@

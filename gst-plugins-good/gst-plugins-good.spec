@@ -5,7 +5,7 @@
 
 Name: 		%{gstreamer}-plugins-good
 Version: 	0.10.31.1
-Release: 	0.20130609.110249.gst
+Release: 	0.20130613.115227.gst
 Summary: 	GStreamer plug-ins with good code and licensing
 
 Group: 		Applications/Multimedia
@@ -27,11 +27,11 @@ BuildRequires:  gcc-c++
 #Provides:		gstreamer-audiosink
 #BuildRequires: flac-devel >= 1.0.3
 #BuildRequires: 	GConf2-devel
-BuildRequires: libjpeg-devel
+#BuildRequires: libjpeg-devel
 #BuildRequires: libcaca-devel
 #BuildRequires: libdv-devel
-BuildRequires: libpng-devel >= 1.2.0
-BuildRequires: glibc-devel
+#BuildRequires: libpng-devel >= 1.2.0
+#BuildRequires: glibc-devel
 #BuildRequires:	speex-devel
 #BuildRequires: hal-devel
 #BuildRequires: libshout-devel >= 2.0
@@ -149,9 +149,9 @@ rm -rf $RPM_BUILD_ROOT
 #%{_libdir}/gstreamer-%{majorminor}/libgstesd.so
 #%{_libdir}/gstreamer-%{majorminor}/libgstflac.so
 #%{_libdir}/gstreamer-%{majorminor}/libgstjack.so
-%{_libdir}/gstreamer-%{majorminor}/libgstjpeg.so
-%{_libdir}/gstreamer-%{majorminor}/libgstpng.so
-%{_libdir}/gstreamer-%{majorminor}/libgstossaudio.so
+#%{_libdir}/gstreamer-%{majorminor}/libgstjpeg.so
+#%{_libdir}/gstreamer-%{majorminor}/libgstpng.so
+#%{_libdir}/gstreamer-%{majorminor}/libgstossaudio.so
 #%{_libdir}/gstreamer-%{majorminor}/libgstspeex.so
 #%{_libdir}/gstreamer-%{majorminor}/libgstgconfelements.so
 #%{_libdir}/gstreamer-%{majorminor}/libgsthalelements.so
