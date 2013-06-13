@@ -63,7 +63,7 @@
 #define GST_PACKAGE_ORIGIN "Unknown package origin"
 
 /* GStreamer package release date/time for plugins as YYYY-MM-DD */
-#define GST_PACKAGE_RELEASE_DATETIME "2013-06-08T23:36Z"
+#define GST_PACKAGE_RELEASE_DATETIME "2013-06-13T10:01Z"
 
 /* location of the installed gst-plugin-scanner */
 #define GST_PLUGIN_SCANNER_INSTALLED "/usr/local/libexec/gstreamer-0.10/gst-plugin-scanner"

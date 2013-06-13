@@ -1,2 +1,2 @@
 #!/bin/sh
-./autogen.sh --libdir=/usr/loca/lib --disable-orc $@
+./autogen.sh --disable-gtk-doc --disable-tests --disable-exaxmples --disable-debug --disable-debugutils --disable-orc $@

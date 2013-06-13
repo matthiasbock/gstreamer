@@ -6,7 +6,7 @@
 
 Name: 		%{gstreamer}
 Version: 	0.10.36.1
-Release: 	0.20130608.233630
+Release: 	0.20130613.100044
 Summary: 	GStreamer streaming media framework runtime
 
 Group: 		Applications/Multimedia
