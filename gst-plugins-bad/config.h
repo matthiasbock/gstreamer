@@ -27,7 +27,7 @@
 
 /* Define to 1 if translation of program messages to the user's native
    language is requested. */
-#define ENABLE_NLS 1
+/* #undef ENABLE_NLS */
 
 /* The x in 2.x */
 /* #undef FAAD2_MINOR_VERSION */
@@ -36,7 +36,7 @@
 /* #undef FAAD_IS_NEAAC */
 
 /* gettext package name */
-#define GETTEXT_PACKAGE "gst-plugins-bad-0.10"
+#define GETTEXT_PACKAGE "NULL"
 
 /* Define if GSM header in gsm/ subdir */
 /* #undef GSM_HEADER_IN_SUBDIR */
@@ -66,7 +66,7 @@
 #define GST_PACKAGE_ORIGIN "Unknown package origin"
 
 /* GStreamer package release date/time for plugins as YYYY-MM-DD */
-#define GST_PACKAGE_RELEASE_DATETIME "2013-06-13T12:24Z"
+#define GST_PACKAGE_RELEASE_DATETIME "2013-06-14T10:02Z"
 
 /* Define to enable Windows ACM library (used by acm). */
 /* #undef HAVE_ACM */
@@ -116,7 +116,7 @@
 /* #undef HAVE_CHROMAPRINT */
 
 /* Define to enable Cog plugin (used by cog). */
-/* #undef HAVE_COG */
+#define HAVE_COG /**/
 
 /* Define if the target CPU is an Alpha */
 /* #undef HAVE_CPU_ALPHA */
@@ -168,7 +168,7 @@
 
 /* Define if the GNU dcgettext() function is already present or preinstalled.
    */
-#define HAVE_DCGETTEXT 1
+/* #undef HAVE_DCGETTEXT */
 
 /* Define to enable decklink (used by decklink). */
 /* #undef HAVE_DECKLINK */
@@ -243,7 +243,7 @@
 #define HAVE_GETPAGESIZE 1
 
 /* Define if the GNU gettext() function is already present or preinstalled. */
-#define HAVE_GETTEXT 1
+/* #undef HAVE_GETTEXT */
 
 /* Define to enable gme decoder (used by gme). */
 /* #undef HAVE_GME */
@@ -498,16 +498,16 @@
 /* #undef HAVE_VOAMRWBENC */
 
 /* Define to enable VP8 decoder (used by vp8). */
-/* #undef HAVE_VP8 */
+#define HAVE_VP8 /**/
 
 /* Defined if the VP8 encoder has tuning API */
-/* #undef HAVE_VP8ENC_TUNING */
+#define HAVE_VP8ENC_TUNING 1
 
 /* Defined if the VP8 decoder is available */
-/* #undef HAVE_VP8_DECODER */
+#define HAVE_VP8_DECODER 1
 
 /* Defined if the VP8 encoder is available */
-/* #undef HAVE_VP8_ENCODER */
+#define HAVE_VP8_ENCODER 1
 
 /* Define to enable WASAPI plug-in (used by wasapi). */
 /* #undef HAVE_WASAPI */

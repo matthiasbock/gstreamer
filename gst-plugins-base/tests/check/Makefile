@@ -129,15 +129,15 @@ CONFIG_CLEAN_VPATH_FILES =
 #am__EXEEXT_1 = elements/alsa$(EXEEXT)
 #am__EXEEXT_2 = elements/gnomevfssink$(EXEEXT)
 am__EXEEXT_3 = pipelines/gio$(EXEEXT)
-#am__EXEEXT_4 = pipelines/oggmux$(EXEEXT)
+am__EXEEXT_4 = pipelines/oggmux$(EXEEXT)
 #am__EXEEXT_5 = elements/textoverlay$(EXEEXT)
 #am__EXEEXT_6 = elements/vorbisdec$(EXEEXT) \
 #	pipelines/vorbisenc$(EXEEXT) \
 #	pipelines/vorbisdec$(EXEEXT) \
 #	elements/vorbistag$(EXEEXT)
-#am__EXEEXT_7 = pipelines/theoraenc$(EXEEXT)
-##am__EXEEXT_8 =  \
-##	elements/encodebin$(EXEEXT)
+am__EXEEXT_7 = pipelines/theoraenc$(EXEEXT)
+#am__EXEEXT_8 =  \
+#	elements/encodebin$(EXEEXT)
 am__EXEEXT_9 = elements/subparse$(EXEEXT)
 am__EXEEXT_10 = libs/gstlibscpp$(EXEEXT)
 #am__EXEEXT_11 = orc/adder$(EXEEXT) \
@@ -876,8 +876,8 @@ NM = /usr/bin/nm -B
 NMEDIT = 
 OBJDUMP = objdump
 OBJEXT = o
-OGG_CFLAGS = 
-OGG_LIBS = 
+OGG_CFLAGS =  
+OGG_LIBS = -logg  
 ORCC = 
 ORCC_FLAGS = 
 ORC_CFLAGS = 
@@ -895,7 +895,7 @@ PACKAGE_VERSION_MAJOR = 0
 PACKAGE_VERSION_MICRO = 36
 PACKAGE_VERSION_MINOR = 10
 PACKAGE_VERSION_NANO = 1
-PACKAGE_VERSION_RELEASE = 0.20130613.111214
+PACKAGE_VERSION_RELEASE = 0.20130613.203618
 PANGO_CFLAGS = 
 PANGO_LIBS = 
 PATH_SEPARATOR = :
@@ -916,8 +916,8 @@ SED = /bin/sed
 SET_MAKE = 
 SHELL = /bin/bash
 STRIP = strip
-THEORA_CFLAGS = 
-THEORA_LIBS = 
+THEORA_CFLAGS =  
+THEORA_LIBS = -ltheoraenc -ltheoradec -logg  
 USE_NLS = yes
 VALGRIND_CFLAGS = 
 VALGRIND_LIBS = 
@@ -1037,18 +1037,18 @@ check_gnomevfs =
 check_gio = pipelines/gio
 check_libvisual = 
 #check_libvisual = elements/libvisual
-check_ogg = 
-#check_ogg = pipelines/oggmux
+#check_ogg = 
+check_ogg = pipelines/oggmux
 check_pango = 
 #check_pango = elements/textoverlay
 check_vorbis = 
 #check_vorbis = elements/vorbisdec pipelines/vorbisenc pipelines/vorbisdec \
 #	elements/vorbistag
 
-check_theora = 
-#check_theora = pipelines/theoraenc
-#check_encodebin = 
-##check_encodebin = elements/encodebin
+#check_theora = 
+check_theora = pipelines/theoraenc
+##check_encodebin = 
+#check_encodebin = elements/encodebin
 check_encodebin = 
 #check_subparse = 
 check_subparse = elements/subparse

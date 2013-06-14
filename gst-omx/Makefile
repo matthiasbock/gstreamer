@@ -50,6 +50,7 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = armv6l-unknown-linux-gnueabihf
 host_triplet = armv6l-unknown-linux-gnueabihf
+#am__append_1 = examples
 subdir = .
 DIST_COMMON = README $(am__configure_deps) $(srcdir)/Makefile.am \
 	$(srcdir)/Makefile.in $(srcdir)/config.h.in \
@@ -117,7 +118,7 @@ AM_RECURSIVE_TARGETS = $(RECURSIVE_TARGETS:-recursive=) \
 	distdir dist dist-all distcheck
 ETAGS = etags
 CTAGS = ctags
-DIST_SUBDIRS = $(SUBDIRS)
+DIST_SUBDIRS = common gst omx tools config examples
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 distdir = $(PACKAGE)-$(VERSION)
 top_distdir = $(distdir)
@@ -159,7 +160,7 @@ am__distuninstallcheck_listfiles = $(distuninstallcheck_listfiles) \
   | sed 's|^\./|$(prefix)/|' | grep -v '$(infodir)/dir$$'
 distcleancheck_listfiles = find . -type f -print
 ACLOCAL = ${SHELL} /usr/src/gstreamer/gst-omx/missing --run aclocal-1.11
-ACLOCAL_AMFLAGS = -I m4
+ACLOCAL_AMFLAGS = -I m4 -I common/m4
 AMTAR = $${TAR-tar}
 AM_DEFAULT_VERBOSITY = 0
 AR = ar
@@ -190,6 +191,8 @@ DUMPBIN =
 ECHO_C = 
 ECHO_N = -n
 ECHO_T = 
+EGL_CFLAGS = 
+EGL_LIBS = 
 EGREP = /bin/grep -E
 ERROR_CFLAGS =  -Werror
 EXEEXT = 
@@ -275,7 +278,7 @@ PACKAGE_VERSION_MAJOR = 0
 PACKAGE_VERSION_MICRO = 0
 PACKAGE_VERSION_MINOR = 10
 PACKAGE_VERSION_NANO = 1
-PACKAGE_VERSION_RELEASE = 0.20130613.130306
+PACKAGE_VERSION_RELEASE = 0.20130613.221616
 PATH_SEPARATOR = :
 PKG_CONFIG = /usr/bin/pkg-config
 PLUGINDIR = /usr/local/lib/gstreamer-0.10
@@ -352,7 +355,7 @@ target_alias =
 top_build_prefix = 
 top_builddir = .
 top_srcdir = .
-SUBDIRS = common omx
+SUBDIRS = common gst omx tools config $(am__append_1)
 DISTCLEANFILES = _stdint.h
 EXTRA_DIST = autogen.sh
 all: config.h

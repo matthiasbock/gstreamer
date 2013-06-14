@@ -31,6 +31,9 @@
 /* GStreamer license */
 #define GST_LICENSE "LGPL"
 
+/* The struct packing used for OpenMAX structures */
+#define GST_OMX_STRUCT_PACKING 4
+
 /* package name in plugins */
 #define GST_PACKAGE_NAME "GStreamer OpenMAX Plug-ins git"
 
@@ -38,7 +41,7 @@
 #define GST_PACKAGE_ORIGIN "Unknown package origin"
 
 /* GStreamer package release date/time for plugins as YYYY-MM-DD */
-#define GST_PACKAGE_RELEASE_DATETIME "2013-06-13T13:03Z"
+#define GST_PACKAGE_RELEASE_DATETIME "2013-06-13T22:16Z"
 
 /* Define if the host CPU is an Alpha */
 /* #undef HAVE_CPU_ALPHA */
@@ -81,6 +84,10 @@
 
 /* Define if the host CPU is a x86_64 */
 /* #undef HAVE_CPU_X86_64 */
+
+/* Define to 1 if you have the declaration of `OMX_VIDEO_CodingVP8', and to 0
+   if you don't. */
+#define HAVE_DECL_OMX_VIDEO_CODINGVP8 0
 
 /* Define to 1 if you have the <dlfcn.h> header file. */
 #define HAVE_DLFCN_H 1
@@ -129,6 +136,13 @@
 
 /* Define if valgrind should be used */
 /* #undef HAVE_VALGRIND */
+
+/* defined if GStreamer base classes for video decoding/encoding are present
+   */
+#define HAVE_VIDEO_BASE_CLASSES 1
+
+/* OpenMAX IL has VP8 support */
+/* #undef HAVE_VP8 */
 
 /* the host CPU */
 #define HOST_CPU "armv6l"
@@ -181,6 +195,24 @@
 
 /* Define to 1 if you have the ANSI C header files. */
 #define STDC_HEADERS 1
+
+/* Use Mali FB EGL window system */
+/* #undef USE_EGL_MALI_FB */
+
+/* Use RPi EGL window system */
+/* #undef USE_EGL_RPI */
+
+/* Use X11 EGL window system */
+/* #undef USE_EGL_X11 */
+
+/* Use Bellagio OpenMAX IL target */
+/* #undef USE_OMX_TARGET_BELLAGIO */
+
+/* Use generic OpenMAX IL target */
+/* #undef USE_OMX_TARGET_GENERIC */
+
+/* Use RPi OpenMAX IL target */
+#define USE_OMX_TARGET_RPI 1
 
 /* Version number of package */
 #define VERSION "0.10.0.1"

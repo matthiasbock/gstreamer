@@ -5,7 +5,7 @@
 
 Name: 		%{gstreamer}-plugins-base
 Version: 	0.10.36.1
-Release: 	0.20130613.111214.gst
+Release: 	0.20130613.203618.gst
 Summary: 	GStreamer streaming media framework plug-ins
 
 Group: 		Applications/Multimedia
@@ -39,8 +39,8 @@ Requires:       libXv-devel
 #Requires:      libvisual
 #BuildRequires: pango-devel
 #Requires: pango
-#BuildRequires: libtheora-devel >= 1.0
-#Requires:      libtheora >= 1.0
+BuildRequires: libtheora-devel >= 1.0
+Requires:      libtheora >= 1.0
 
 %description
 GStreamer is a streaming media framework, based on graphs of filters which
@@ -127,7 +127,7 @@ rm -rf $RPM_BUILD_ROOT
 
 # base plugins with dependencies
 #%{_libdir}/gstreamer-%{majorminor}/libgstalsa.so
-#%{_libdir}/gstreamer-%{majorminor}/libgsttheora.so
+%{_libdir}/gstreamer-%{majorminor}/libgsttheora.so
 #%{_libdir}/gstreamer-%{majorminor}/libgstgnomevfs.so
 #%{_libdir}/gstreamer-%{majorminor}/libgstvorbis.so
 #%{_libdir}/gstreamer-%{majorminor}/libgstogg.so

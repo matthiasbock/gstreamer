@@ -85,7 +85,7 @@
 #define GST_PACKAGE_ORIGIN "Unknown package origin"
 
 /* GStreamer package release date/time for plugins as YYYY-MM-DD */
-#define GST_PACKAGE_RELEASE_DATETIME "2013-06-13T11:12Z"
+#define GST_PACKAGE_RELEASE_DATETIME "2013-06-13T20:37Z"
 
 /* I know the API is subject to change. */
 /* #undef G_UDEV_API_IS_SUBJECT_TO_CHANGE */
@@ -241,7 +241,7 @@
 #define HAVE_MEMORY_H 1
 
 /* Define to enable Xiph Ogg library (used by ogg). */
-/* #undef HAVE_OGG */
+#define HAVE_OGG /**/
 
 /* Use Orc */
 /* #undef HAVE_ORC */
@@ -286,7 +286,7 @@
 #define HAVE_SYS_WAIT_H 1
 
 /* Define to enable Xiph Theora video codec (used by theora). */
-/* #undef HAVE_THEORA */
+#define HAVE_THEORA /**/
 
 /* Define to 1 if you have the <unistd.h> header file. */
 #define HAVE_UNISTD_H 1

@@ -30,7 +30,6 @@ GST_DEBUG_CATEGORY_STATIC (gst_omx_aac_enc_debug_category);
 #define GST_CAT_DEFAULT gst_omx_aac_enc_debug_category
 
 /* prototypes */
-static void gst_omx_aac_enc_finalize (GObject * object);
 static void gst_omx_aac_enc_set_property (GObject * object, guint prop_id,
     const GValue * value, GParamSpec * pspec);
 static void gst_omx_aac_enc_get_property (GObject * object, guint prop_id,
@@ -109,18 +108,12 @@ static void
 gst_omx_aac_enc_base_init (gpointer g_class)
 {
   GstElementClass *element_class = GST_ELEMENT_CLASS (g_class);
-  GstOMXAudioEncClass *audioenc_class = GST_OMX_AUDIO_ENC_CLASS (g_class);
 
   gst_element_class_set_details_simple (element_class,
       "OpenMAX AAC Audio Encoder",
       "Codec/Encoder/Audio",
       "Encode AAC audio streams",
       "Sebastian Dröge <sebastian.droege@collabora.co.uk>");
-
-  /* If no role was set from the config file we set the
-   * default AAC audio encoder role */
-  if (!audioenc_class->component_role)
-    audioenc_class->component_role = "audio_encoder.aac";
 }
 
 static void
@@ -129,7 +122,6 @@ gst_omx_aac_enc_class_init (GstOMXAACEncClass * klass)
   GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
   GstOMXAudioEncClass *audioenc_class = GST_OMX_AUDIO_ENC_CLASS (klass);
 
-  gobject_class->finalize = gst_omx_aac_enc_finalize;
   gobject_class->set_property = gst_omx_aac_enc_set_property;
   gobject_class->get_property = gst_omx_aac_enc_get_property;
 
@@ -161,9 +153,11 @@ gst_omx_aac_enc_class_init (GstOMXAACEncClass * klass)
   audioenc_class->get_num_samples =
       GST_DEBUG_FUNCPTR (gst_omx_aac_enc_get_num_samples);
 
-  audioenc_class->default_src_template_caps = "audio/mpeg, "
+  audioenc_class->cdata.default_src_template_caps = "audio/mpeg, "
       "mpegversion=(int){2, 4}, "
       "stream-format=(string){raw, adts, adif, loas, latm}";
+
+  gst_omx_set_default_role (&audioenc_class->cdata, "audio_encoder.aac");
 }
 
 static void
@@ -172,14 +166,6 @@ gst_omx_aac_enc_init (GstOMXAACEnc * self, GstOMXAACEncClass * klass)
   self->bitrate = DEFAULT_BITRATE;
   self->aac_tools = DEFAULT_AAC_TOOLS;
   self->aac_er_tools = DEFAULT_AAC_ER_TOOLS;
-}
-
-static void
-gst_omx_aac_enc_finalize (GObject * object)
-{
-  /* GstOMXAACEnc *self = GST_OMX_AAC_ENC (object); */
-
-  G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 
 static void
@@ -233,15 +219,13 @@ gst_omx_aac_enc_set_format (GstOMXAudioEnc * enc, GstOMXPort * port,
   GstOMXAACEnc *self = GST_OMX_AAC_ENC (enc);
   OMX_AUDIO_PARAM_AACPROFILETYPE aac_profile;
   GstCaps *peercaps;
-  OMX_AUDIO_AACSTREAMFORMATTYPE stream_format = OMX_AUDIO_AACStreamFormatRAW;
-  OMX_AUDIO_AACPROFILETYPE profile = OMX_AUDIO_AACObjectLC;
   OMX_ERRORTYPE err;
 
   GST_OMX_INIT_STRUCT (&aac_profile);
-  aac_profile.nPortIndex = enc->out_port->index;
+  aac_profile.nPortIndex = enc->enc_out_port->index;
 
   err =
-      gst_omx_component_get_parameter (enc->component, OMX_IndexParamAudioAac,
+      gst_omx_component_get_parameter (enc->enc, OMX_IndexParamAudioAac,
       &aac_profile);
   if (err != OMX_ErrorNone) {
     GST_ERROR_OBJECT (self,
@@ -261,6 +245,7 @@ gst_omx_aac_enc_set_format (GstOMXAudioEnc * enc, GstOMXPort * port,
         gst_caps_intersect (peercaps,
         gst_pad_get_pad_template_caps (GST_AUDIO_ENCODER_SRC_PAD (self)));
     gst_caps_unref (peercaps);
+
     if (gst_caps_is_empty (intersection)) {
       gst_caps_unref (intersection);
       GST_ERROR_OBJECT (self, "Empty caps");
@@ -276,13 +261,13 @@ gst_omx_aac_enc_set_format (GstOMXAudioEnc * enc, GstOMXPort * port,
 
       if (profile_string) {
         if (g_str_equal (profile_string, "main")) {
-          profile = OMX_AUDIO_AACObjectMain;
+          aac_profile.eAACProfile = OMX_AUDIO_AACObjectMain;
         } else if (g_str_equal (profile_string, "lc")) {
-          profile = OMX_AUDIO_AACObjectLC;
+          aac_profile.eAACProfile = OMX_AUDIO_AACObjectLC;
         } else if (g_str_equal (profile_string, "ssr")) {
-          profile = OMX_AUDIO_AACObjectSSR;
+          aac_profile.eAACProfile = OMX_AUDIO_AACObjectSSR;
         } else if (g_str_equal (profile_string, "ltp")) {
-          profile = OMX_AUDIO_AACObjectLTP;
+          aac_profile.eAACProfile = OMX_AUDIO_AACObjectLTP;
         } else {
           GST_ERROR_OBJECT (self, "Unsupported profile '%s'", profile_string);
           gst_caps_unref (intersection);
@@ -294,19 +279,19 @@ gst_omx_aac_enc_set_format (GstOMXAudioEnc * enc, GstOMXPort * port,
     stream_format_string = gst_structure_get_string (s, "stream-format");
     if (stream_format_string) {
       if (g_str_equal (stream_format_string, "raw")) {
-        stream_format = OMX_AUDIO_AACStreamFormatRAW;
+        aac_profile.eAACStreamFormat = OMX_AUDIO_AACStreamFormatRAW;
       } else if (g_str_equal (stream_format_string, "adts")) {
         if (mpegversion == 2) {
-          stream_format = OMX_AUDIO_AACStreamFormatMP2ADTS;
+          aac_profile.eAACStreamFormat = OMX_AUDIO_AACStreamFormatMP2ADTS;
         } else {
-          stream_format = OMX_AUDIO_AACStreamFormatMP4ADTS;
+          aac_profile.eAACStreamFormat = OMX_AUDIO_AACStreamFormatMP4ADTS;
         }
       } else if (g_str_equal (stream_format_string, "loas")) {
-        stream_format = OMX_AUDIO_AACStreamFormatMP4LOAS;
+        aac_profile.eAACStreamFormat = OMX_AUDIO_AACStreamFormatMP4LOAS;
       } else if (g_str_equal (stream_format_string, "latm")) {
-        stream_format = OMX_AUDIO_AACStreamFormatMP4LATM;
+        aac_profile.eAACStreamFormat = OMX_AUDIO_AACStreamFormatMP4LATM;
       } else if (g_str_equal (stream_format_string, "adif")) {
-        stream_format = OMX_AUDIO_AACStreamFormatADIF;
+        aac_profile.eAACStreamFormat = OMX_AUDIO_AACStreamFormatADIF;
       } else {
         GST_ERROR_OBJECT (self, "Unsupported stream-format '%s'",
             stream_format_string);
@@ -318,16 +303,13 @@ gst_omx_aac_enc_set_format (GstOMXAudioEnc * enc, GstOMXPort * port,
     gst_caps_unref (intersection);
   }
 
-  aac_profile.eAACProfile = profile;
-  aac_profile.eAACStreamFormat = stream_format;
-
   aac_profile.nAACtools = self->aac_tools;
   aac_profile.nAACERtools = self->aac_er_tools;
 
   aac_profile.nBitRate = self->bitrate;
 
   err =
-      gst_omx_component_set_parameter (enc->component, OMX_IndexParamAudioAac,
+      gst_omx_component_set_parameter (enc->enc, OMX_IndexParamAudioAac,
       &aac_profile);
   if (err != OMX_ErrorNone) {
     GST_ERROR_OBJECT (self, "Error setting AAC parameters: %s (0x%08x)",
@@ -420,10 +402,10 @@ gst_omx_aac_enc_get_caps (GstOMXAudioEnc * enc, GstOMXPort * port,
   const gchar *stream_format = NULL, *profile = NULL;
 
   GST_OMX_INIT_STRUCT (&aac_profile);
-  aac_profile.nPortIndex = enc->out_port->index;
+  aac_profile.nPortIndex = enc->enc_out_port->index;
 
   err =
-      gst_omx_component_get_parameter (enc->component, OMX_IndexParamAudioAac,
+      gst_omx_component_get_parameter (enc->enc, OMX_IndexParamAudioAac,
       &aac_profile);
   if (err != OMX_ErrorNone) {
     GST_ERROR_OBJECT (enc,

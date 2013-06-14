@@ -30,11 +30,10 @@ GST_DEBUG_CATEGORY_STATIC (gst_omx_h263_enc_debug_category);
 #define GST_CAT_DEFAULT gst_omx_h263_enc_debug_category
 
 /* prototypes */
-static void gst_omx_h263_enc_finalize (GObject * object);
 static gboolean gst_omx_h263_enc_set_format (GstOMXVideoEnc * enc,
-    GstOMXPort * port, GstVideoState * state);
+    GstOMXPort * port, GstVideoCodecState * state);
 static GstCaps *gst_omx_h263_enc_get_caps (GstOMXVideoEnc * enc,
-    GstOMXPort * port, GstVideoState * state);
+    GstOMXPort * port, GstVideoCodecState * state);
 
 enum
 {
@@ -54,33 +53,26 @@ static void
 gst_omx_h263_enc_base_init (gpointer g_class)
 {
   GstElementClass *element_class = GST_ELEMENT_CLASS (g_class);
-  GstOMXVideoEncClass *videoenc_class = GST_OMX_VIDEO_ENC_CLASS (g_class);
 
   gst_element_class_set_details_simple (element_class,
       "OpenMAX H.263 Video Encoder",
       "Codec/Encoder/Video",
       "Encode H.263 video streams",
       "Sebastian Dröge <sebastian.droege@collabora.co.uk>");
-
-  /* If no role was set from the config file we set the
-   * default H263 video encoder role */
-  if (!videoenc_class->component_role)
-    videoenc_class->component_role = "video_encoder.h263";
 }
 
 static void
 gst_omx_h263_enc_class_init (GstOMXH263EncClass * klass)
 {
-  GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
   GstOMXVideoEncClass *videoenc_class = GST_OMX_VIDEO_ENC_CLASS (klass);
-
-  gobject_class->finalize = gst_omx_h263_enc_finalize;
 
   videoenc_class->set_format = GST_DEBUG_FUNCPTR (gst_omx_h263_enc_set_format);
   videoenc_class->get_caps = GST_DEBUG_FUNCPTR (gst_omx_h263_enc_get_caps);
 
-  videoenc_class->default_src_template_caps = "video/x-h263, "
+  videoenc_class->cdata.default_src_template_caps = "video/x-h263, "
       "width=(int) [ 16, 4096 ], " "height=(int) [ 16, 4096 ]";
+
+  gst_omx_set_default_role (&videoenc_class->cdata, "video_encoder.h263");
 }
 
 static void
@@ -88,35 +80,45 @@ gst_omx_h263_enc_init (GstOMXH263Enc * self, GstOMXH263EncClass * klass)
 {
 }
 
-static void
-gst_omx_h263_enc_finalize (GObject * object)
-{
-  /* GstOMXH263Enc *self = GST_OMX_H263_VIDEO_ENC (object); */
-
-  G_OBJECT_CLASS (parent_class)->finalize (object);
-}
-
 static gboolean
 gst_omx_h263_enc_set_format (GstOMXVideoEnc * enc, GstOMXPort * port,
-    GstVideoState * state)
+    GstVideoCodecState * state)
 {
   GstOMXH263Enc *self = GST_OMX_H263_ENC (enc);
   GstCaps *peercaps;
-  OMX_VIDEO_H263PROFILETYPE profile = OMX_VIDEO_H263ProfileBaseline;
-  OMX_VIDEO_H263LEVELTYPE level = OMX_VIDEO_H263Level10;
+  OMX_PARAM_PORTDEFINITIONTYPE port_def;
   OMX_VIDEO_PARAM_PROFILELEVELTYPE param;
   OMX_ERRORTYPE err;
+  guint profile_id, level_id;
 
-  peercaps = gst_pad_peer_get_caps (GST_BASE_VIDEO_CODEC_SRC_PAD (enc));
+  gst_omx_port_get_port_definition (GST_OMX_VIDEO_ENC (self)->enc_out_port,
+      &port_def);
+  port_def.format.video.eCompressionFormat = OMX_VIDEO_CodingH263;
+  err =
+      gst_omx_port_update_port_definition (GST_OMX_VIDEO_ENC
+      (self)->enc_out_port, &port_def);
+  if (err != OMX_ErrorNone)
+    return FALSE;
+
+  GST_OMX_INIT_STRUCT (&param);
+  param.nPortIndex = GST_OMX_VIDEO_ENC (self)->enc_out_port->index;
+  err =
+      gst_omx_component_get_parameter (GST_OMX_VIDEO_ENC (self)->enc,
+      OMX_IndexParamVideoProfileLevelCurrent, &param);
+  if (err != OMX_ErrorNone) {
+    GST_WARNING_OBJECT (self,
+        "Getting profile/level not supported by component");
+    return TRUE;
+  }
+
+  peercaps = gst_pad_peer_get_caps (GST_VIDEO_ENCODER_SRC_PAD (enc));
   if (peercaps) {
     GstStructure *s;
     GstCaps *intersection;
-    guint profile_id, level_id;
 
     intersection =
         gst_caps_intersect (peercaps,
-        gst_pad_get_pad_template_caps (GST_BASE_VIDEO_CODEC_SRC_PAD (enc)));
-    gst_caps_unref (peercaps);
+        gst_pad_get_pad_template_caps (GST_VIDEO_ENCODER_SRC_PAD (enc)));
     if (gst_caps_is_empty (intersection)) {
       gst_caps_unref (intersection);
       GST_ERROR_OBJECT (self, "Empty caps");
@@ -127,91 +129,96 @@ gst_omx_h263_enc_set_format (GstOMXVideoEnc * enc, GstOMXPort * port,
     if (gst_structure_get_uint (s, "profile", &profile_id)) {
       switch (profile_id) {
         case 0:
-          profile = OMX_VIDEO_H263ProfileBaseline;
+          param.eProfile = OMX_VIDEO_H263ProfileBaseline;
           break;
         case 1:
-          profile = OMX_VIDEO_H263ProfileH320Coding;
+          param.eProfile = OMX_VIDEO_H263ProfileH320Coding;
           break;
         case 2:
-          profile = OMX_VIDEO_H263ProfileBackwardCompatible;
+          param.eProfile = OMX_VIDEO_H263ProfileBackwardCompatible;
           break;
         case 3:
-          profile = OMX_VIDEO_H263ProfileISWV2;
+          param.eProfile = OMX_VIDEO_H263ProfileISWV2;
           break;
         case 4:
-          profile = OMX_VIDEO_H263ProfileISWV3;
+          param.eProfile = OMX_VIDEO_H263ProfileISWV3;
           break;
         case 5:
-          profile = OMX_VIDEO_H263ProfileHighCompression;
+          param.eProfile = OMX_VIDEO_H263ProfileHighCompression;
           break;
         case 6:
-          profile = OMX_VIDEO_H263ProfileInternet;
+          param.eProfile = OMX_VIDEO_H263ProfileInternet;
           break;
         case 7:
-          profile = OMX_VIDEO_H263ProfileInterlace;
+          param.eProfile = OMX_VIDEO_H263ProfileInterlace;
           break;
         case 8:
-          profile = OMX_VIDEO_H263ProfileHighLatency;
+          param.eProfile = OMX_VIDEO_H263ProfileHighLatency;
           break;
         default:
-          GST_ERROR_OBJECT (self, "Invalid profile %u", profile_id);
-          return FALSE;
+          goto unsupported_profile;
       }
     }
     if (gst_structure_get_uint (s, "level", &level_id)) {
       switch (level_id) {
         case 10:
-          level = OMX_VIDEO_H263Level10;
+          param.eLevel = OMX_VIDEO_H263Level10;
           break;
         case 20:
-          level = OMX_VIDEO_H263Level20;
+          param.eLevel = OMX_VIDEO_H263Level20;
           break;
         case 30:
-          level = OMX_VIDEO_H263Level30;
+          param.eLevel = OMX_VIDEO_H263Level30;
           break;
         case 40:
-          level = OMX_VIDEO_H263Level40;
+          param.eLevel = OMX_VIDEO_H263Level40;
           break;
         case 50:
-          level = OMX_VIDEO_H263Level50;
+          param.eLevel = OMX_VIDEO_H263Level50;
           break;
         case 60:
-          level = OMX_VIDEO_H263Level60;
+          param.eLevel = OMX_VIDEO_H263Level60;
           break;
         case 70:
-          level = OMX_VIDEO_H263Level70;
+          param.eLevel = OMX_VIDEO_H263Level70;
           break;
         default:
-          GST_ERROR_OBJECT (self, "Unsupported level %u", level_id);
-          return FALSE;
+          goto unsupported_level;
       }
     }
+    gst_caps_unref (peercaps);
   }
 
-  GST_OMX_INIT_STRUCT (&param);
-  param.nPortIndex = GST_OMX_VIDEO_ENC (self)->out_port->index;
-  param.eProfile = profile;
-  param.eLevel = level;
-
   err =
-      gst_omx_component_set_parameter (GST_OMX_VIDEO_ENC (self)->component,
+      gst_omx_component_set_parameter (GST_OMX_VIDEO_ENC (self)->enc,
       OMX_IndexParamVideoProfileLevelCurrent, &param);
   if (err == OMX_ErrorUnsupportedIndex) {
     GST_WARNING_OBJECT (self,
         "Setting profile/level not supported by component");
   } else if (err != OMX_ErrorNone) {
     GST_ERROR_OBJECT (self,
-        "Error setting profile %d and level %d: %s (0x%08x)", profile, level,
+        "Error setting profile %u and level %u: %s (0x%08x)",
+        (guint) param.eProfile, (guint) param.eLevel,
         gst_omx_error_to_string (err), err);
     return FALSE;
   }
 
   return TRUE;
+
+unsupported_profile:
+  GST_ERROR_OBJECT (self, "Unsupported profile %u", profile_id);
+  gst_caps_unref (peercaps);
+  return FALSE;
+
+unsupported_level:
+  GST_ERROR_OBJECT (self, "Unsupported level %u", level_id);
+  gst_caps_unref (peercaps);
+  return FALSE;
 }
 
 static GstCaps *
 gst_omx_h263_enc_get_caps (GstOMXVideoEnc * enc, GstOMXPort * port,
-    GstVideoState * state)
+    GstVideoCodecState * state)
 {
   GstOMXH263Enc *self = GST_OMX_H263_ENC (enc);
   GstCaps *caps;
@@ -219,22 +226,13 @@ gst_omx_h263_enc_get_caps (GstOMXVideoEnc * enc, GstOMXPort * port,
   OMX_VIDEO_PARAM_PROFILELEVELTYPE param;
   guint profile, level;
 
-  caps =
-      gst_caps_new_simple ("video/x-h263", "width", G_TYPE_INT, state->width,
-      "height", G_TYPE_INT, state->height, NULL);
-
-  if (state->fps_n != 0)
-    gst_caps_set_simple (caps, "framerate", GST_TYPE_FRACTION, state->fps_n,
-        state->fps_d, NULL);
-  if (state->par_n != 1 || state->par_d != 1)
-    gst_caps_set_simple (caps, "pixel-aspect-ratio", GST_TYPE_FRACTION,
-        state->par_n, state->par_d, NULL);
+  caps = gst_caps_new_simple ("video/x-h263", NULL);
 
   GST_OMX_INIT_STRUCT (&param);
-  param.nPortIndex = GST_OMX_VIDEO_ENC (self)->out_port->index;
+  param.nPortIndex = GST_OMX_VIDEO_ENC (self)->enc_out_port->index;
 
   err =
-      gst_omx_component_get_parameter (GST_OMX_VIDEO_ENC (self)->component,
+      gst_omx_component_get_parameter (GST_OMX_VIDEO_ENC (self)->enc,
       OMX_IndexParamVideoProfileLevelCurrent, &param);
   if (err != OMX_ErrorNone && err != OMX_ErrorUnsupportedIndex) {
     gst_caps_unref (caps);

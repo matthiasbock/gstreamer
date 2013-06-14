@@ -643,8 +643,6 @@ GST_OMX_CFLAGS
 GST_OPTION_CFLAGS
 DEPRECATED_CFLAGS
 PROFILE_CFLAGS
-USE_XML_FALSE
-USE_XML_TRUE
 GST_DISABLE_XML
 GST_DISABLE_PLUGIN
 GST_DISABLE_REGISTRY
@@ -653,6 +651,8 @@ GST_DISABLE_TRACE
 GST_DISABLE_PARSE
 GST_DISABLE_LOADSAVE
 GST_DISABLE_GST_DEBUG
+USE_LOCAL_VIDEO_BASE_CLASSES_FALSE
+USE_LOCAL_VIDEO_BASE_CLASSES_TRUE
 USE_PLUGIN_OMX_FALSE
 USE_PLUGIN_OMX_TRUE
 DEFAULT_VISUALIZER
@@ -666,6 +666,20 @@ WARNING_CFLAGS
 plugindir
 PLUGINDIR
 GST_LICENSE
+HAVE_EGL_FALSE
+HAVE_EGL_TRUE
+EGL_LIBS
+EGL_CFLAGS
+USE_OMX_TARGET_RPI_FALSE
+USE_OMX_TARGET_RPI_TRUE
+USE_OMX_TARGET_BELLAGIO_FALSE
+USE_OMX_TARGET_BELLAGIO_TRUE
+USE_OMX_TARGET_GENERIC_FALSE
+USE_OMX_TARGET_GENERIC_TRUE
+HAVE_VP8_FALSE
+HAVE_VP8_TRUE
+HAVE_EXTERNAL_OMX_FALSE
+HAVE_EXTERNAL_OMX_TRUE
 GST_PREFIX
 GLIB_PREFIX
 HAVE_GST_CHECK_FALSE
@@ -914,6 +928,9 @@ enable_gtk_doc
 enable_gobject_cast_checks
 enable_glib_asserts
 enable_Bsymbolic
+with_omx_target
+with_omx_struct_packing
+with_egl_window_system
 with_default_audiosink
 with_default_audiosrc
 with_default_videosink
@@ -944,7 +961,9 @@ GST_CONTROLLER_LIBS
 GST_CHECK_CFLAGS
 GST_CHECK_LIBS
 GST_PLUGINS_BASE_CFLAGS
-GST_PLUGINS_BASE_LIBS'
+GST_PLUGINS_BASE_LIBS
+EGL_CFLAGS
+EGL_LIBS'
 
 
 # Initialize some variables set by options.
@@ -1612,6 +1631,11 @@ Optional Packages:
   --with-plugins          comma-separated list of dependencyless plug-ins to
                           compile
   --with-html-dir=PATH    path to installed docs
+  --with-omx-target       Use this OpenMAX IL target (generic, bellagio, rpi)
+  --with-omx-struct-packing 
+                          Force OpenMAX struct packing, (default is none)
+  --with-egl-window-system 
+                          EGL window system to use (x11, mali-fb, rpi, none)
   --with-default-audiosink 
                           specify default audio sink
   --with-default-audiosrc specify default audio source
@@ -1655,6 +1679,8 @@ Some influential environment variables:
               C compiler flags for GST_PLUGINS_BASE, overriding pkg-config
   GST_PLUGINS_BASE_LIBS 
               linker flags for GST_PLUGINS_BASE, overriding pkg-config
+  EGL_CFLAGS  C compiler flags for EGL, overriding pkg-config
+  EGL_LIBS    linker flags for EGL, overriding pkg-config
 
 Use these variables to override the choices made by `configure' or to help
 it to find libraries and programs with nonstandard names/locations.
@@ -2279,6 +2305,97 @@ rm -f conftest.val
   as_fn_set_status $ac_retval
 
 } @%:@ ac_fn_c_compute_int
+
+@%:@ ac_fn_c_check_header_mongrel LINENO HEADER VAR INCLUDES
+@%:@ -------------------------------------------------------
+@%:@ Tests whether HEADER exists, giving a warning if it cannot be compiled using
+@%:@ the include files in INCLUDES and setting the cache variable VAR
+@%:@ accordingly.
+ac_fn_c_check_header_mongrel ()
+{
+  as_lineno=${as_lineno-"$1"} as_lineno_stack=as_lineno_stack=$as_lineno_stack
+  if eval \${$3+:} false; then :
+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $2" >&5
+$as_echo_n "checking for $2... " >&6; }
+if eval \${$3+:} false; then :
+  $as_echo_n "(cached) " >&6
+fi
+eval ac_res=\$$3
+	       { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_res" >&5
+$as_echo "$ac_res" >&6; }
+else
+  # Is the header compilable?
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking $2 usability" >&5
+$as_echo_n "checking $2 usability... " >&6; }
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+$4
+@%:@include <$2>
+_ACEOF
+if ac_fn_c_try_compile "$LINENO"; then :
+  ac_header_compiler=yes
+else
+  ac_header_compiler=no
+fi
+rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_header_compiler" >&5
+$as_echo "$ac_header_compiler" >&6; }
+
+# Is the header present?
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking $2 presence" >&5
+$as_echo_n "checking $2 presence... " >&6; }
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+@%:@include <$2>
+_ACEOF
+if ac_fn_c_try_cpp "$LINENO"; then :
+  ac_header_preproc=yes
+else
+  ac_header_preproc=no
+fi
+rm -f conftest.err conftest.i conftest.$ac_ext
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_header_preproc" >&5
+$as_echo "$ac_header_preproc" >&6; }
+
+# So?  What about this header?
+case $ac_header_compiler:$ac_header_preproc:$ac_c_preproc_warn_flag in #((
+  yes:no: )
+    { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: $2: accepted by the compiler, rejected by the preprocessor!" >&5
+$as_echo "$as_me: WARNING: $2: accepted by the compiler, rejected by the preprocessor!" >&2;}
+    { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: $2: proceeding with the compiler's result" >&5
+$as_echo "$as_me: WARNING: $2: proceeding with the compiler's result" >&2;}
+    ;;
+  no:yes:* )
+    { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: $2: present but cannot be compiled" >&5
+$as_echo "$as_me: WARNING: $2: present but cannot be compiled" >&2;}
+    { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: $2:     check for missing prerequisite headers?" >&5
+$as_echo "$as_me: WARNING: $2:     check for missing prerequisite headers?" >&2;}
+    { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: $2: see the Autoconf documentation" >&5
+$as_echo "$as_me: WARNING: $2: see the Autoconf documentation" >&2;}
+    { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: $2:     section \"Present But Cannot Be Compiled\"" >&5
+$as_echo "$as_me: WARNING: $2:     section \"Present But Cannot Be Compiled\"" >&2;}
+    { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: $2: proceeding with the compiler's result" >&5
+$as_echo "$as_me: WARNING: $2: proceeding with the compiler's result" >&2;}
+( $as_echo "## ------------------------------------------------------------------------ ##
+## Report this to http://bugzilla.gnome.org/enter_bug.cgi?product=GStreamer ##
+## ------------------------------------------------------------------------ ##"
+     ) | sed "s/^/$as_me: WARNING:     /" >&2
+    ;;
+esac
+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $2" >&5
+$as_echo_n "checking for $2... " >&6; }
+if eval \${$3+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  eval "$3=\$ac_header_compiler"
+fi
+eval ac_res=\$$3
+	       { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_res" >&5
+$as_echo "$ac_res" >&6; }
+fi
+  eval $as_lineno_stack; ${as_lineno_stack:+:} unset as_lineno
+
+} @%:@ ac_fn_c_check_header_mongrel
 cat >config.log <<_ACEOF
 This file contains any messages produced by compilers while
 running configure, to aid debugging if configure makes a mistake.
@@ -16471,6 +16588,57 @@ GST_PREFIX="`$PKG_CONFIG --variable=prefix gstreamer-$GST_MAJORMINOR`"
 
 
 
+ac_fn_c_check_header_compile "$LINENO" "OMX_Core.h" "ac_cv_header_OMX_Core_h" "$ac_includes_default
+"
+if test "x$ac_cv_header_OMX_Core_h" = xyes; then :
+  HAVE_EXTERNAL_OMX=yes
+else
+  HAVE_EXTERNAL_OMX=no
+fi
+
+
+ if test "x$HAVE_EXTERNAL_OMX" = "xyes"; then
+  HAVE_EXTERNAL_OMX_TRUE=
+  HAVE_EXTERNAL_OMX_FALSE='#'
+else
+  HAVE_EXTERNAL_OMX_TRUE='#'
+  HAVE_EXTERNAL_OMX_FALSE=
+fi
+
+
+ac_fn_c_check_decl "$LINENO" "OMX_VIDEO_CodingVP8" "ac_cv_have_decl_OMX_VIDEO_CodingVP8" "#include <OMX_Video.h>
+"
+if test "x$ac_cv_have_decl_OMX_VIDEO_CodingVP8" = xyes; then :
+  ac_have_decl=1
+else
+  ac_have_decl=0
+fi
+
+cat >>confdefs.h <<_ACEOF
+@%:@define HAVE_DECL_OMX_VIDEO_CODINGVP8 $ac_have_decl
+_ACEOF
+if test $ac_have_decl = 1; then :
+  
+    
+$as_echo "@%:@define HAVE_VP8 1" >>confdefs.h
+
+    HAVE_VP8=yes
+  
+else
+  
+    HAVE_VP8=no
+  
+fi
+
+ if test "x$HAVE_VP8" = "xyes"; then
+  HAVE_VP8_TRUE=
+  HAVE_VP8_FALSE='#'
+else
+  HAVE_VP8_TRUE='#'
+  HAVE_VP8_FALSE=
+fi
+
+
 @%:@ Check whether --enable-Bsymbolic was given.
 if test "${enable_Bsymbolic+set}" = set; then :
   enableval=$enable_Bsymbolic; 
@@ -16502,6 +16670,765 @@ fi
 rm -f core conftest.err conftest.$ac_objext \
     conftest$ac_exeext conftest.$ac_ext
                LDFLAGS="${SAVED_LDFLAGS}"
+fi
+
+
+
+@%:@ Check whether --with-omx-target was given.
+if test "${with_omx_target+set}" = set; then :
+  withval=$with_omx_target; ac_cv_omx_target="$withval"
+else
+  ac_cv_omx_target="none"
+fi
+
+
+ac_cv_omx_target_struct_packing="none"
+{ $as_echo "$as_me:${as_lineno-$LINENO}: Using $ac_cv_omx_target as OpenMAX IL target" >&5
+$as_echo "$as_me: Using $ac_cv_omx_target as OpenMAX IL target" >&6;}
+case "${ac_cv_omx_target}" in
+  generic)
+    
+$as_echo "@%:@define USE_OMX_TARGET_GENERIC 1" >>confdefs.h
+
+    ;;
+  rpi)
+    
+$as_echo "@%:@define USE_OMX_TARGET_RPI 1" >>confdefs.h
+
+    ac_cv_omx_target_struct_packing=4
+    ;;
+  bellagio)
+    
+$as_echo "@%:@define USE_OMX_TARGET_BELLAGIO 1" >>confdefs.h
+
+    ;;
+  none|*)
+    as_fn_error $? "invalid OpenMAX IL target, you must specify one of --with-omx-target={generic,rpi,bellagio}" "$LINENO" 5
+    ;;
+esac
+ if test "x$ac_cv_omx_target" = "xgeneric"; then
+  USE_OMX_TARGET_GENERIC_TRUE=
+  USE_OMX_TARGET_GENERIC_FALSE='#'
+else
+  USE_OMX_TARGET_GENERIC_TRUE='#'
+  USE_OMX_TARGET_GENERIC_FALSE=
+fi
+
+ if test "x$ac_cv_omx_target" = "xbellagio"; then
+  USE_OMX_TARGET_BELLAGIO_TRUE=
+  USE_OMX_TARGET_BELLAGIO_FALSE='#'
+else
+  USE_OMX_TARGET_BELLAGIO_TRUE='#'
+  USE_OMX_TARGET_BELLAGIO_FALSE=
+fi
+
+ if test "x$ac_cv_omx_target" = "xrpi"; then
+  USE_OMX_TARGET_RPI_TRUE=
+  USE_OMX_TARGET_RPI_FALSE='#'
+else
+  USE_OMX_TARGET_RPI_TRUE='#'
+  USE_OMX_TARGET_RPI_FALSE=
+fi
+
+
+
+@%:@ Check whether --with-omx-struct-packing was given.
+if test "${with_omx_struct_packing+set}" = set; then :
+  withval=$with_omx_struct_packing; ac_cv_omx_struct_packing="$withval"
+else
+  ac_cv_omx_struct_packing="none"
+fi
+
+
+if test x"$ac_cv_omx_struct_packing" != x"none"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: Using $ac_cv_omx_struct_packing as OpenMAX struct packing" >&5
+$as_echo "$as_me: Using $ac_cv_omx_struct_packing as OpenMAX struct packing" >&6;}
+  
+cat >>confdefs.h <<_ACEOF
+@%:@define GST_OMX_STRUCT_PACKING $ac_cv_omx_struct_packing
+_ACEOF
+
+elif test x"$ac_cv_omx_target_struct_packing" != x"none"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: Using $ac_cv_omx_target_struct_packing as OpenMAX struct packing" >&5
+$as_echo "$as_me: Using $ac_cv_omx_target_struct_packing as OpenMAX struct packing" >&6;}
+  
+cat >>confdefs.h <<_ACEOF
+@%:@define GST_OMX_STRUCT_PACKING $ac_cv_omx_target_struct_packing
+_ACEOF
+
+fi
+
+
+@%:@ Check whether --with-egl-window-system was given.
+if test "${with_egl_window_system+set}" = set; then :
+  withval=$with_egl_window_system; EGL_WINDOW_SYSTEM="$withval"
+else
+  EGL_WINDOW_SYSTEM="auto"
+fi
+
+
+if test x"$EGL_WINDOW_SYSTEM" = x"auto"; then
+    old_LIBS=$LIBS
+  old_CFLAGS=$CFLAGS
+  LIBS="$LIBS -lUMP $EGL_LIBS"
+  CFLAGS="$CFLAGS $EGL_CFLAGS"
+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for mali_image_create in -lMali" >&5
+$as_echo_n "checking for mali_image_create in -lMali... " >&6; }
+if ${ac_cv_lib_Mali_mali_image_create+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  ac_check_lib_save_LIBS=$LIBS
+LIBS="-lMali  $LIBS"
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+char mali_image_create ();
+int
+main ()
+{
+return mali_image_create ();
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_link "$LINENO"; then :
+  ac_cv_lib_Mali_mali_image_create=yes
+else
+  ac_cv_lib_Mali_mali_image_create=no
+fi
+rm -f core conftest.err conftest.$ac_objext \
+    conftest$ac_exeext conftest.$ac_ext
+LIBS=$ac_check_lib_save_LIBS
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_Mali_mali_image_create" >&5
+$as_echo "$ac_cv_lib_Mali_mali_image_create" >&6; }
+if test "x$ac_cv_lib_Mali_mali_image_create" = xyes; then :
+  EGL_WINDOW_SYSTEM="mali-fb"
+else
+  EGL_WINDOW_SYSTEM="auto"
+fi
+
+  LIBS=$old_LIBS
+  CFLAGS=$old_CFLAGS
+
+    if test x"$EGL_WINDOW_SYSTEM" = x"auto"; then
+      old_LIBS=$LIBS
+      old_CFLAGS=$CFLAGS
+      LIBS="$LIBS -lvcos -lvchiq_arm"
+      CFLAGS="$CFLAGS"
+      { $as_echo "$as_me:${as_lineno-$LINENO}: checking for bcm_host_init in -lbcm_host" >&5
+$as_echo_n "checking for bcm_host_init in -lbcm_host... " >&6; }
+if ${ac_cv_lib_bcm_host_bcm_host_init+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  ac_check_lib_save_LIBS=$LIBS
+LIBS="-lbcm_host  $LIBS"
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+char bcm_host_init ();
+int
+main ()
+{
+return bcm_host_init ();
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_link "$LINENO"; then :
+  ac_cv_lib_bcm_host_bcm_host_init=yes
+else
+  ac_cv_lib_bcm_host_bcm_host_init=no
+fi
+rm -f core conftest.err conftest.$ac_objext \
+    conftest$ac_exeext conftest.$ac_ext
+LIBS=$ac_check_lib_save_LIBS
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_bcm_host_bcm_host_init" >&5
+$as_echo "$ac_cv_lib_bcm_host_bcm_host_init" >&6; }
+if test "x$ac_cv_lib_bcm_host_bcm_host_init" = xyes; then :
+  
+          LIBS="$LIBS -lbcm_host"
+          ac_fn_c_check_header_mongrel "$LINENO" "bcm_host.h" "ac_cv_header_bcm_host_h" "$ac_includes_default"
+if test "x$ac_cv_header_bcm_host_h" = xyes; then :
+  EGL_WINDOW_SYSTEM="rpi"
+else
+  EGL_WINDOW_SYSTEM="auto"
+fi
+
+
+      
+fi
+
+      LIBS=$old_LIBS
+      CFLAGS=$old_CFLAGS
+  fi
+
+  if test x"$EGL_WINDOW_SYSTEM" = x"auto"; then
+      if test x"$HAVE_X11" = x"yes"; then
+        EGL_WINDOW_SYSTEM="x11"
+      fi
+  fi
+
+  if test x"$EGL_WINDOW_SYSTEM" = x"auto"; then
+    EGL_WINDOW_SYSTEM="none"
+  fi
+fi
+
+case "$EGL_WINDOW_SYSTEM" in
+  x11|none)
+    
+pkg_failed=no
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for EGL" >&5
+$as_echo_n "checking for EGL... " >&6; }
+
+if test -n "$PKG_CONFIG"; then
+    if test -n "$EGL_CFLAGS"; then
+        pkg_cv_EGL_CFLAGS="$EGL_CFLAGS"
+    else
+        if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"egl\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "egl") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_EGL_CFLAGS=`$PKG_CONFIG --cflags "egl" 2>/dev/null`
+else
+  pkg_failed=yes
+fi
+    fi
+else
+	pkg_failed=untried
+fi
+if test -n "$PKG_CONFIG"; then
+    if test -n "$EGL_LIBS"; then
+        pkg_cv_EGL_LIBS="$EGL_LIBS"
+    else
+        if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"egl\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "egl") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_EGL_LIBS=`$PKG_CONFIG --libs "egl" 2>/dev/null`
+else
+  pkg_failed=yes
+fi
+    fi
+else
+	pkg_failed=untried
+fi
+
+
+
+if test $pkg_failed = yes; then
+        
+if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
+        _pkg_short_errors_supported=yes
+else
+        _pkg_short_errors_supported=no
+fi
+        if test $_pkg_short_errors_supported = yes; then
+	        EGL_PKG_ERRORS=`$PKG_CONFIG --short-errors --errors-to-stdout --print-errors "egl"`
+        else
+	        EGL_PKG_ERRORS=`$PKG_CONFIG --errors-to-stdout --print-errors "egl"`
+        fi
+	# Put the nasty error message in config.log where it belongs
+	echo "$EGL_PKG_ERRORS" >&5
+
+	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+                
+      HAVE_EGL="no"
+      old_LIBS=$LIBS
+      old_CFLAGS=$CFLAGS
+      
+      { $as_echo "$as_me:${as_lineno-$LINENO}: checking for eglGetProcAddress in -lEGL" >&5
+$as_echo_n "checking for eglGetProcAddress in -lEGL... " >&6; }
+if ${ac_cv_lib_EGL_eglGetProcAddress+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  ac_check_lib_save_LIBS=$LIBS
+LIBS="-lEGL  $LIBS"
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+char eglGetProcAddress ();
+int
+main ()
+{
+return eglGetProcAddress ();
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_link "$LINENO"; then :
+  ac_cv_lib_EGL_eglGetProcAddress=yes
+else
+  ac_cv_lib_EGL_eglGetProcAddress=no
+fi
+rm -f core conftest.err conftest.$ac_objext \
+    conftest$ac_exeext conftest.$ac_ext
+LIBS=$ac_check_lib_save_LIBS
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_EGL_eglGetProcAddress" >&5
+$as_echo "$ac_cv_lib_EGL_eglGetProcAddress" >&6; }
+if test "x$ac_cv_lib_EGL_eglGetProcAddress" = xyes; then :
+  
+          ac_fn_c_check_header_mongrel "$LINENO" "EGL/egl.h" "ac_cv_header_EGL_egl_h" "$ac_includes_default"
+if test "x$ac_cv_header_EGL_egl_h" = xyes; then :
+  
+              HAVE_EGL="yes"
+              EGL_LIBS="-lEGL"
+              EGL_CFLAGS=""
+            
+          
+fi
+
+
+        
+      
+fi
+
+      
+      LIBS=$old_LIBS
+      CFLAGS=$old_CFLAGS
+    
+elif test $pkg_failed = untried; then
+	
+      HAVE_EGL="no"
+      old_LIBS=$LIBS
+      old_CFLAGS=$CFLAGS
+      
+      { $as_echo "$as_me:${as_lineno-$LINENO}: checking for eglGetProcAddress in -lEGL" >&5
+$as_echo_n "checking for eglGetProcAddress in -lEGL... " >&6; }
+if ${ac_cv_lib_EGL_eglGetProcAddress+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  ac_check_lib_save_LIBS=$LIBS
+LIBS="-lEGL  $LIBS"
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+char eglGetProcAddress ();
+int
+main ()
+{
+return eglGetProcAddress ();
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_link "$LINENO"; then :
+  ac_cv_lib_EGL_eglGetProcAddress=yes
+else
+  ac_cv_lib_EGL_eglGetProcAddress=no
+fi
+rm -f core conftest.err conftest.$ac_objext \
+    conftest$ac_exeext conftest.$ac_ext
+LIBS=$ac_check_lib_save_LIBS
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_EGL_eglGetProcAddress" >&5
+$as_echo "$ac_cv_lib_EGL_eglGetProcAddress" >&6; }
+if test "x$ac_cv_lib_EGL_eglGetProcAddress" = xyes; then :
+  
+          ac_fn_c_check_header_mongrel "$LINENO" "EGL/egl.h" "ac_cv_header_EGL_egl_h" "$ac_includes_default"
+if test "x$ac_cv_header_EGL_egl_h" = xyes; then :
+  
+              HAVE_EGL="yes"
+              EGL_LIBS="-lEGL"
+              EGL_CFLAGS=""
+            
+          
+fi
+
+
+        
+      
+fi
+
+      
+      LIBS=$old_LIBS
+      CFLAGS=$old_CFLAGS
+    
+else
+	EGL_CFLAGS=$pkg_cv_EGL_CFLAGS
+	EGL_LIBS=$pkg_cv_EGL_LIBS
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+$as_echo "yes" >&6; }
+	HAVE_EGL="yes"
+fi
+      
+    if test x"$HAVE_EGL" = x"yes" -a x"$EGL_WINDOW_SYSTEM" = x"x11"; then
+      if test x"$HAVE_X11" != x"yes"; then
+        as_fn_error $? "libX11 not found and is required for EGL X11 window system" "$LINENO" 5
+      else
+        
+$as_echo "@%:@define USE_EGL_X11 1" >>confdefs.h
+
+        EGL_CFLAGS="$EGL_CFLAGS $X11_CFLAGS"
+        EGL_LIBS="$EGL_LIBS $X11_LIBS"
+      fi
+    fi
+    ;;
+  mali-fb)
+        HAVE_EGL="no"
+    old_LIBS=$LIBS
+    old_CFLAGS=$CFLAGS
+    ac_fn_c_check_header_mongrel "$LINENO" "EGL/fbdev_window.h" "ac_cv_header_EGL_fbdev_window_h" "$ac_includes_default"
+if test "x$ac_cv_header_EGL_fbdev_window_h" = xyes; then :
+  
+        LIBS="$LIBS -lUMP"
+        { $as_echo "$as_me:${as_lineno-$LINENO}: checking for mali_image_create in -lMali" >&5
+$as_echo_n "checking for mali_image_create in -lMali... " >&6; }
+if ${ac_cv_lib_Mali_mali_image_create+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  ac_check_lib_save_LIBS=$LIBS
+LIBS="-lMali  $LIBS"
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+char mali_image_create ();
+int
+main ()
+{
+return mali_image_create ();
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_link "$LINENO"; then :
+  ac_cv_lib_Mali_mali_image_create=yes
+else
+  ac_cv_lib_Mali_mali_image_create=no
+fi
+rm -f core conftest.err conftest.$ac_objext \
+    conftest$ac_exeext conftest.$ac_ext
+LIBS=$ac_check_lib_save_LIBS
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_Mali_mali_image_create" >&5
+$as_echo "$ac_cv_lib_Mali_mali_image_create" >&6; }
+if test "x$ac_cv_lib_Mali_mali_image_create" = xyes; then :
+  
+            LIBS="$LIBS -lMali"
+            { $as_echo "$as_me:${as_lineno-$LINENO}: checking for glEnable in -lGLESv2" >&5
+$as_echo_n "checking for glEnable in -lGLESv2... " >&6; }
+if ${ac_cv_lib_GLESv2_glEnable+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  ac_check_lib_save_LIBS=$LIBS
+LIBS="-lGLESv2  $LIBS"
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+char glEnable ();
+int
+main ()
+{
+return glEnable ();
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_link "$LINENO"; then :
+  ac_cv_lib_GLESv2_glEnable=yes
+else
+  ac_cv_lib_GLESv2_glEnable=no
+fi
+rm -f core conftest.err conftest.$ac_objext \
+    conftest$ac_exeext conftest.$ac_ext
+LIBS=$ac_check_lib_save_LIBS
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_GLESv2_glEnable" >&5
+$as_echo "$ac_cv_lib_GLESv2_glEnable" >&6; }
+if test "x$ac_cv_lib_GLESv2_glEnable" = xyes; then :
+  
+                ac_fn_c_check_header_mongrel "$LINENO" "GLES2/gl2.h" "ac_cv_header_GLES2_gl2_h" "$ac_includes_default"
+if test "x$ac_cv_header_GLES2_gl2_h" = xyes; then :
+  
+                    { $as_echo "$as_me:${as_lineno-$LINENO}: checking for eglGetProcAddress in -lEGL" >&5
+$as_echo_n "checking for eglGetProcAddress in -lEGL... " >&6; }
+if ${ac_cv_lib_EGL_eglGetProcAddress+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  ac_check_lib_save_LIBS=$LIBS
+LIBS="-lEGL  $LIBS"
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+char eglGetProcAddress ();
+int
+main ()
+{
+return eglGetProcAddress ();
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_link "$LINENO"; then :
+  ac_cv_lib_EGL_eglGetProcAddress=yes
+else
+  ac_cv_lib_EGL_eglGetProcAddress=no
+fi
+rm -f core conftest.err conftest.$ac_objext \
+    conftest$ac_exeext conftest.$ac_ext
+LIBS=$ac_check_lib_save_LIBS
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_EGL_eglGetProcAddress" >&5
+$as_echo "$ac_cv_lib_EGL_eglGetProcAddress" >&6; }
+if test "x$ac_cv_lib_EGL_eglGetProcAddress" = xyes; then :
+  
+                        ac_fn_c_check_header_mongrel "$LINENO" "EGL/egl.h" "ac_cv_header_EGL_egl_h" "$ac_includes_default"
+if test "x$ac_cv_header_EGL_egl_h" = xyes; then :
+  
+                            HAVE_EGL="yes"
+                            EGL_LIBS="-lGLESv2 -lEGL -lMali -lUMP"
+                            EGL_CFLAGS=""
+                            
+$as_echo "@%:@define USE_EGL_MALI_FB 1" >>confdefs.h
+
+                          
+fi
+
+
+                      
+fi
+
+                  
+fi
+
+
+              
+fi
+
+          
+fi
+
+      
+fi
+
+
+    LIBS=$old_LIBS
+    CFLAGS=$old_CFLAGS
+    ;;
+  rpi)
+    old_LIBS=$LIBS
+    old_CFLAGS=$CFLAGS
+
+            LIBS="$LIBS -lvcos -lvchiq_arm"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: checking for bcm_host_init in -lbcm_host" >&5
+$as_echo_n "checking for bcm_host_init in -lbcm_host... " >&6; }
+if ${ac_cv_lib_bcm_host_bcm_host_init+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  ac_check_lib_save_LIBS=$LIBS
+LIBS="-lbcm_host  $LIBS"
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+char bcm_host_init ();
+int
+main ()
+{
+return bcm_host_init ();
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_link "$LINENO"; then :
+  ac_cv_lib_bcm_host_bcm_host_init=yes
+else
+  ac_cv_lib_bcm_host_bcm_host_init=no
+fi
+rm -f core conftest.err conftest.$ac_objext \
+    conftest$ac_exeext conftest.$ac_ext
+LIBS=$ac_check_lib_save_LIBS
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_bcm_host_bcm_host_init" >&5
+$as_echo "$ac_cv_lib_bcm_host_bcm_host_init" >&6; }
+if test "x$ac_cv_lib_bcm_host_bcm_host_init" = xyes; then :
+  
+        LIBS="$LIBS -lbcm_host"
+        ac_fn_c_check_header_mongrel "$LINENO" "bcm_host.h" "ac_cv_header_bcm_host_h" "$ac_includes_default"
+if test "x$ac_cv_header_bcm_host_h" = xyes; then :
+  
+            LIBS="$LIBS -lGLESv2"
+            { $as_echo "$as_me:${as_lineno-$LINENO}: checking for eglGetProcAddress in -lEGL" >&5
+$as_echo_n "checking for eglGetProcAddress in -lEGL... " >&6; }
+if ${ac_cv_lib_EGL_eglGetProcAddress+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  ac_check_lib_save_LIBS=$LIBS
+LIBS="-lEGL  $LIBS"
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+char eglGetProcAddress ();
+int
+main ()
+{
+return eglGetProcAddress ();
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_link "$LINENO"; then :
+  ac_cv_lib_EGL_eglGetProcAddress=yes
+else
+  ac_cv_lib_EGL_eglGetProcAddress=no
+fi
+rm -f core conftest.err conftest.$ac_objext \
+    conftest$ac_exeext conftest.$ac_ext
+LIBS=$ac_check_lib_save_LIBS
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_EGL_eglGetProcAddress" >&5
+$as_echo "$ac_cv_lib_EGL_eglGetProcAddress" >&6; }
+if test "x$ac_cv_lib_EGL_eglGetProcAddress" = xyes; then :
+  
+                LIBS="$LIBS -lEGL"
+                ac_fn_c_check_header_mongrel "$LINENO" "EGL/egl.h" "ac_cv_header_EGL_egl_h" "$ac_includes_default"
+if test "x$ac_cv_header_EGL_egl_h" = xyes; then :
+  
+                    { $as_echo "$as_me:${as_lineno-$LINENO}: checking for glEnable in -lGLESv2" >&5
+$as_echo_n "checking for glEnable in -lGLESv2... " >&6; }
+if ${ac_cv_lib_GLESv2_glEnable+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  ac_check_lib_save_LIBS=$LIBS
+LIBS="-lGLESv2  $LIBS"
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+char glEnable ();
+int
+main ()
+{
+return glEnable ();
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_link "$LINENO"; then :
+  ac_cv_lib_GLESv2_glEnable=yes
+else
+  ac_cv_lib_GLESv2_glEnable=no
+fi
+rm -f core conftest.err conftest.$ac_objext \
+    conftest$ac_exeext conftest.$ac_ext
+LIBS=$ac_check_lib_save_LIBS
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_GLESv2_glEnable" >&5
+$as_echo "$ac_cv_lib_GLESv2_glEnable" >&6; }
+if test "x$ac_cv_lib_GLESv2_glEnable" = xyes; then :
+  
+                        ac_fn_c_check_header_mongrel "$LINENO" "GLES2/gl2.h" "ac_cv_header_GLES2_gl2_h" "$ac_includes_default"
+if test "x$ac_cv_header_GLES2_gl2_h" = xyes; then :
+  
+                            HAVE_EGL="yes"
+                            EGL_LIBS="-lGLESv2 -lEGL -lbcm_host -lvcos -lvchiq_arm"
+                            EGL_CFLAGS=""
+                            
+$as_echo "@%:@define USE_EGL_RPI 1" >>confdefs.h
+
+                        
+fi
+
+
+                    
+fi
+
+                
+fi
+
+
+            
+fi
+
+        
+fi
+
+
+    
+fi
+
+
+    LIBS=$old_LIBS
+    CFLAGS=$old_CFLAGS
+    ;;
+  *)
+    as_fn_error $? "invalid EGL window system specified" "$LINENO" 5
+    ;;
+esac
+
+
+
+ if test x"$HAVE_EGL" = x"yes"; then
+  HAVE_EGL_TRUE=
+  HAVE_EGL_FALSE='#'
+else
+  HAVE_EGL_TRUE='#'
+  HAVE_EGL_FALSE=
 fi
 
 
@@ -17227,6 +18154,46 @@ fi
 
 
 
+ac_cflags_save="$CFLAGS"
+ac_cppflags_save="$CPPFLAGS"
+CFLAGS="$CFLAGS $GST_PLUGINS_BASE_CFLAGS $GST_BASE_CFLAGS $GST_CFLAGS"
+CPPFLAGS="$CPPFLAGS $GST_PLUGINS_BASE_CFLAGS $GST_BASE_CFLAGS $GST_CFLAGS"
+
+ac_fn_c_check_header_compile "$LINENO" "gst/video/gstvideodecoder.h" "ac_cv_header_gst_video_gstvideodecoder_h" "$ac_includes_default
+"
+if test "x$ac_cv_header_gst_video_gstvideodecoder_h" = xyes; then :
+  HAVE_VIDEO_BASE_CLASSES="yes"
+else
+  HAVE_VIDEO_BASE_CLASSES="no"
+fi
+
+
+
+CFLAGS="$ac_cflags_save"
+CPPFLAGS="$ac_cppflags_save"
+
+if test "x$HAVE_VIDEO_BASE_CLASSES" = "xyes"
+then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: GStreamer base classes for video decoding/encoding found" >&5
+$as_echo "$as_me: GStreamer base classes for video decoding/encoding found" >&6;}
+  
+cat >>confdefs.h <<_ACEOF
+@%:@define HAVE_VIDEO_BASE_CLASSES 1
+_ACEOF
+
+else
+  { $as_echo "$as_me:${as_lineno-$LINENO}: using local copy of GStreamer base classes for video decoding/encoding" >&5
+$as_echo "$as_me: using local copy of GStreamer base classes for video decoding/encoding" >&6;}
+fi
+ if test "x$HAVE_VIDEO_BASE_CLASSES" = "xno"; then
+  USE_LOCAL_VIDEO_BASE_CLASSES_TRUE=
+  USE_LOCAL_VIDEO_BASE_CLASSES_FALSE='#'
+else
+  USE_LOCAL_VIDEO_BASE_CLASSES_TRUE='#'
+  USE_LOCAL_VIDEO_BASE_CLASSES_FALSE=
+fi
+
+
 GST_CONFIGPATH=`$PKG_CONFIG --variable=includedir gstreamer-0.10`"/gst/gstconfig.h"
 
   
@@ -17302,14 +18269,6 @@ GST_CONFIGPATH=`$PKG_CONFIG --variable=includedir gstreamer-0.10`"/gst/gstconfig
   
 
 
- if test $GST_DISABLE_XML != "1"; then
-  USE_XML_TRUE=
-  USE_XML_FALSE='#'
-else
-  USE_XML_TRUE='#'
-  USE_XML_FALSE=
-fi
-
 
 
 
@@ -17346,7 +18305,7 @@ GST_PLUGIN_LDFLAGS="-module -avoid-version -export-symbols-regex '^_*gst_plugin_
 
 
 
-ac_config_files="$ac_config_files Makefile omx/Makefile common/Makefile common/m4/Makefile"
+ac_config_files="$ac_config_files Makefile gst/Makefile gst/egl/Makefile gst/egl/gstreamer-egl-$GST_MAJORMINOR.pc omx/Makefile common/Makefile common/m4/Makefile tools/Makefile config/Makefile config/bellagio/Makefile config/rpi/Makefile examples/Makefile examples/egl/Makefile"
 
 
 cat >confcache <<\_ACEOF
@@ -17575,12 +18534,36 @@ if test -z "${HAVE_GST_CHECK_TRUE}" && test -z "${HAVE_GST_CHECK_FALSE}"; then
   as_fn_error $? "conditional \"HAVE_GST_CHECK\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
+if test -z "${HAVE_EXTERNAL_OMX_TRUE}" && test -z "${HAVE_EXTERNAL_OMX_FALSE}"; then
+  as_fn_error $? "conditional \"HAVE_EXTERNAL_OMX\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${HAVE_VP8_TRUE}" && test -z "${HAVE_VP8_FALSE}"; then
+  as_fn_error $? "conditional \"HAVE_VP8\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${USE_OMX_TARGET_GENERIC_TRUE}" && test -z "${USE_OMX_TARGET_GENERIC_FALSE}"; then
+  as_fn_error $? "conditional \"USE_OMX_TARGET_GENERIC\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${USE_OMX_TARGET_BELLAGIO_TRUE}" && test -z "${USE_OMX_TARGET_BELLAGIO_FALSE}"; then
+  as_fn_error $? "conditional \"USE_OMX_TARGET_BELLAGIO\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${USE_OMX_TARGET_RPI_TRUE}" && test -z "${USE_OMX_TARGET_RPI_FALSE}"; then
+  as_fn_error $? "conditional \"USE_OMX_TARGET_RPI\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${HAVE_EGL_TRUE}" && test -z "${HAVE_EGL_FALSE}"; then
+  as_fn_error $? "conditional \"HAVE_EGL\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
 if test -z "${USE_PLUGIN_OMX_TRUE}" && test -z "${USE_PLUGIN_OMX_FALSE}"; then
   as_fn_error $? "conditional \"USE_PLUGIN_OMX\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
-if test -z "${USE_XML_TRUE}" && test -z "${USE_XML_FALSE}"; then
-  as_fn_error $? "conditional \"USE_XML\" was never defined.
+if test -z "${USE_LOCAL_VIDEO_BASE_CLASSES_TRUE}" && test -z "${USE_LOCAL_VIDEO_BASE_CLASSES_FALSE}"; then
+  as_fn_error $? "conditional \"USE_LOCAL_VIDEO_BASE_CLASSES\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 
@@ -18477,9 +19460,18 @@ do
     "libtool") CONFIG_COMMANDS="$CONFIG_COMMANDS libtool" ;;
     "$ac_stdint_h") CONFIG_COMMANDS="$CONFIG_COMMANDS $ac_stdint_h" ;;
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
+    "gst/Makefile") CONFIG_FILES="$CONFIG_FILES gst/Makefile" ;;
+    "gst/egl/Makefile") CONFIG_FILES="$CONFIG_FILES gst/egl/Makefile" ;;
+    "gst/egl/gstreamer-egl-$GST_MAJORMINOR.pc") CONFIG_FILES="$CONFIG_FILES gst/egl/gstreamer-egl-$GST_MAJORMINOR.pc" ;;
     "omx/Makefile") CONFIG_FILES="$CONFIG_FILES omx/Makefile" ;;
     "common/Makefile") CONFIG_FILES="$CONFIG_FILES common/Makefile" ;;
     "common/m4/Makefile") CONFIG_FILES="$CONFIG_FILES common/m4/Makefile" ;;
+    "tools/Makefile") CONFIG_FILES="$CONFIG_FILES tools/Makefile" ;;
+    "config/Makefile") CONFIG_FILES="$CONFIG_FILES config/Makefile" ;;
+    "config/bellagio/Makefile") CONFIG_FILES="$CONFIG_FILES config/bellagio/Makefile" ;;
+    "config/rpi/Makefile") CONFIG_FILES="$CONFIG_FILES config/rpi/Makefile" ;;
+    "examples/Makefile") CONFIG_FILES="$CONFIG_FILES examples/Makefile" ;;
+    "examples/egl/Makefile") CONFIG_FILES="$CONFIG_FILES examples/egl/Makefile" ;;
 
   *) as_fn_error $? "invalid argument: \`$ac_config_target'" "$LINENO" 5;;
   esac

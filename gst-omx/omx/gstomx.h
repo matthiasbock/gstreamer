@@ -1,6 +1,8 @@
 /*
  * Copyright (C) 2011, Hewlett-Packard Development Company, L.P.
  *   Author: Sebastian Dröge <sebastian.droege@collabora.co.uk>, Collabora Ltd.
+ * Copyright (C) 2013, Collabora Ltd.
+ *   Author: Sebastian Dröge <sebastian.droege@collabora.co.uk>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,20 +23,60 @@
 #ifndef __GST_OMX_H__
 #define __GST_OMX_H__
 
+#include <gmodule.h>
 #include <gst/gst.h>
 #include <string.h>
+
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
+#ifdef GST_OMX_STRUCT_PACKING
+# if GST_OMX_STRUCT_PACKING == 1
+#  pragma pack(1)
+# elif GST_OMX_STRUCT_PACKING == 2
+#  pragma pack(2)
+# elif GST_OMX_STRUCT_PACKING == 4
+#  pragma pack(4)
+# elif GST_OMX_STRUCT_PACKING == 8
+#  pragma pack(8)
+# else
+#  error "Unsupported struct packing value"
+# endif
+#endif
+
 #include <OMX_Core.h>
 #include <OMX_Component.h>
 
-#include "gstomxrecmutex.h"
+#ifdef USE_OMX_TARGET_RPI
+#include <OMX_Broadcom.h>
+#endif
+
+#ifdef GST_OMX_STRUCT_PACKING
+#pragma pack()
+#endif
 
 G_BEGIN_DECLS
+
+#if (!GLIB_CHECK_VERSION(2,28,0))
+static inline void
+g_list_free_full (GList * list, GDestroyNotify free_func)
+{
+  GList *next = list;
+  while (next) {
+    free_func (next->data);
+    next = g_list_remove_link (next, next);
+  }
+}
+#endif
 
 #define GST_OMX_INIT_STRUCT(st) G_STMT_START { \
   memset ((st), 0, sizeof (*(st))); \
   (st)->nSize = sizeof (*(st)); \
-  (st)->nVersion.s.nVersionMajor = 1; \
-  (st)->nVersion.s.nVersionMinor = 1; \
+  (st)->nVersion.s.nVersionMajor = OMX_VERSION_MAJOR; \
+  (st)->nVersion.s.nVersionMinor = OMX_VERSION_MINOR; \
+  (st)->nVersion.s.nRevision = OMX_VERSION_REVISION; \
+  (st)->nVersion.s.nStep = OMX_VERSION_STEP; \
 } G_STMT_END
 
 /* Different hacks that are required to work around
@@ -77,12 +119,13 @@ G_BEGIN_DECLS
  */
 #define GST_OMX_HACK_NO_COMPONENT_ROLE                                G_GUINT64_CONSTANT (0x0000000000000080)
 
-
 typedef struct _GstOMXCore GstOMXCore;
 typedef struct _GstOMXPort GstOMXPort;
 typedef enum _GstOMXPortDirection GstOMXPortDirection;
 typedef struct _GstOMXComponent GstOMXComponent;
 typedef struct _GstOMXBuffer GstOMXBuffer;
+typedef struct _GstOMXClassData GstOMXClassData;
+typedef struct _GstOMXMessage GstOMXMessage;
 
 typedef enum {
   /* Everything good and the buffer is valid */
@@ -91,9 +134,8 @@ typedef enum {
   GST_OMX_ACQUIRE_BUFFER_FLUSHING,
   /* The port must be reconfigured */
   GST_OMX_ACQUIRE_BUFFER_RECONFIGURE,
-  /* The port was reconfigured and the caps might have changed
-   * NOTE: This is only returned a single time! */
-  GST_OMX_ACQUIRE_BUFFER_RECONFIGURED,
+  /* The port is EOS */
+  GST_OMX_ACQUIRE_BUFFER_EOS,
   /* A fatal error happened */
   GST_OMX_ACQUIRE_BUFFER_ERROR
 } GstOMXAcquireBufferReturn;
@@ -108,46 +150,77 @@ struct _GstOMXCore {
   gint user_count; /* LOCK */
 
   /* OpenMAX core library functions, protected with LOCK */
-  /* FIXME: OpenMAX spec does not specify that this is required
-   * but gst-openmax does it */
   OMX_ERRORTYPE (*init) (void);
   OMX_ERRORTYPE (*deinit) (void);
   OMX_ERRORTYPE (*get_handle) (OMX_HANDLETYPE * handle,
       OMX_STRING name, OMX_PTR data, OMX_CALLBACKTYPE * callbacks);
   OMX_ERRORTYPE (*free_handle) (OMX_HANDLETYPE handle);
+  OMX_ERRORTYPE (*setup_tunnel) (OMX_HANDLETYPE output, OMX_U32 outport, OMX_HANDLETYPE input, OMX_U32 inport);
+};
+
+typedef enum {
+  GST_OMX_MESSAGE_STATE_SET,
+  GST_OMX_MESSAGE_FLUSH,
+  GST_OMX_MESSAGE_ERROR,
+  GST_OMX_MESSAGE_PORT_ENABLE,
+  GST_OMX_MESSAGE_PORT_SETTINGS_CHANGED,
+  GST_OMX_MESSAGE_BUFFER_FLAG,
+  GST_OMX_MESSAGE_BUFFER_DONE,
+} GstOMXMessageType;
+
+typedef enum {
+  GST_OMX_COMPONENT_TYPE_SINK,
+  GST_OMX_COMPONENT_TYPE_SOURCE,
+  GST_OMX_COMPONENT_TYPE_FILTER
+} GstOmxComponentType;
+
+struct _GstOMXMessage {
+  GstOMXMessageType type;
+
+  union {
+    struct {
+      OMX_STATETYPE state;
+    } state_set;
+    struct {
+      OMX_U32 port;
+    } flush;
+    struct {
+      OMX_ERRORTYPE error;
+    } error;
+    struct {
+      OMX_U32 port;
+      OMX_BOOL enable;
+    } port_enable;
+    struct {
+      OMX_U32 port;
+    } port_settings_changed;
+    struct {
+      OMX_U32 port;
+      OMX_U32 flags;
+    } buffer_flag;
+    struct {
+      OMX_HANDLETYPE component;
+      OMX_PTR app_data;
+      OMX_BUFFERHEADERTYPE *buffer;
+      OMX_BOOL empty;
+    } buffer_done;
+  } content;
 };
 
 struct _GstOMXPort {
   GstOMXComponent *comp;
   guint32 index;
 
-  /* Protects port_def, buffers, pending_buffers,
-   * settings_changed, flushing, flushed, enabled_changed
-   * and settings_cookie.
-   *
-   * Signalled if pending_buffers gets a
-   * new buffer or flushing/flushed is set
-   * to TRUE or the port is enabled/disabled
-   * or the settings change or an error happens.
-   *
-   * Note: Always check comp->last_error before
-   * waiting and after being signalled!
-   *
-   * Note: flushed==TRUE implies flushing==TRUE!
-   *
-   * Note: This lock must always be taken before
-   * the component's state lock if both are needed!
-   */
-  GstOMXRecMutex port_lock;
-  GCond *port_cond;
+  gboolean tunneled;
+
   OMX_PARAM_PORTDEFINITIONTYPE port_def;
   GPtrArray *buffers; /* Contains GstOMXBuffer* */
-  GQueue *pending_buffers; /* Contains GstOMXBuffer* */
-  /* If TRUE we need to get the new caps of this port */
-  gboolean settings_changed;
+  GQueue pending_buffers; /* Contains GstOMXBuffer* */
   gboolean flushing;
   gboolean flushed; /* TRUE after OMX_CommandFlush was done */
-  gboolean enabled_changed; /* TRUE after OMX_Command{En,Dis}able was done */
+  gboolean enabled_pending;  /* TRUE after OMX_Command{En,Dis}able */
+  gboolean disabled_pending; /* was done until it took effect */
+  gboolean eos; /* TRUE after a buffer with EOS flag was received */
 
   /* Increased whenever the settings of these port change.
    * If settings_cookie != configured_settings_cookie
@@ -159,27 +232,34 @@ struct _GstOMXPort {
 
 struct _GstOMXComponent {
   GstObject *parent;
+
+  gchar *name; /* for debugging mostly */
+
   OMX_HANDLETYPE handle;
   GstOMXCore *core;
 
   guint64 hacks; /* Flags, GST_OMX_HACK_* */
 
+  /* Added once, never changed. No locks necessary */
   GPtrArray *ports; /* Contains GstOMXPort* */
   gint n_in_ports, n_out_ports;
 
-  /* Protecting state, pending_state, last_error,
-   * pending_reconfigure_outports.
-   * Signalled if one of them changes
-   */
-  GstOMXRecMutex state_lock;
-  GCond *state_cond;
+  /* Locking order: lock -> messages_lock
+   *
+   * Never hold lock while waiting for messages_cond
+   * Always check that messages is empty before waiting */
+  GMutex *lock;
+
+  GQueue messages; /* Queue of GstOMXMessages */
+  GMutex *messages_lock;
+  GCond *messages_cond;
+
   OMX_STATETYPE state;
   /* OMX_StateInvalid if no pending state */
   OMX_STATETYPE pending_state;
   /* OMX_ErrorNone usually, if different nothing will work */
   OMX_ERRORTYPE last_error;
 
-  gint have_pending_reconfigure_outports; /* atomic */
   GList *pending_reconfigure_outports;
 };
 
@@ -194,59 +274,84 @@ struct _GstOMXBuffer {
 
   /* Cookie of the settings when this buffer was allocated */
   gint settings_cookie;
+
+  /* > -1 if this is an EGLImage */
+  gint eglimage;
 };
 
-extern GQuark     gst_omx_element_name_quark;
+struct _GstOMXClassData {
+  const gchar *core_name;
+  const gchar *component_name;
+  const gchar *component_role;
+
+  const gchar *default_src_template_caps;
+  const gchar *default_sink_template_caps;
+
+  guint32 in_port_index, out_port_index;
+
+  guint64 hacks;
+
+  GstOmxComponentType type;
+};
 
 GKeyFile *        gst_omx_get_configuration (void);
 
 const gchar *     gst_omx_error_to_string (OMX_ERRORTYPE err);
+const gchar *     gst_omx_state_to_string (OMX_STATETYPE state);
+const gchar *     gst_omx_command_to_string (OMX_COMMANDTYPE cmd);
+
 guint64           gst_omx_parse_hacks (gchar ** hacks);
 
 GstOMXCore *      gst_omx_core_acquire (const gchar * filename);
 void              gst_omx_core_release (GstOMXCore * core);
 
 
-GstOMXComponent * gst_omx_component_new  (GstObject *parent, const gchar * core_name, const gchar * component_name, const gchar *component_role, guint64 hacks);
+GstOMXComponent * gst_omx_component_new (GstObject * parent, const gchar * core_name, const gchar * component_name, const gchar *component_role, guint64 hacks);
 void              gst_omx_component_free (GstOMXComponent * comp);
 
 OMX_ERRORTYPE     gst_omx_component_set_state (GstOMXComponent * comp, OMX_STATETYPE state);
 OMX_STATETYPE     gst_omx_component_get_state (GstOMXComponent * comp, GstClockTime timeout);
 
-void              gst_omx_component_set_last_error (GstOMXComponent * comp, OMX_ERRORTYPE err);
 OMX_ERRORTYPE     gst_omx_component_get_last_error (GstOMXComponent * comp);
 const gchar *     gst_omx_component_get_last_error_string (GstOMXComponent * comp);
 
 GstOMXPort *      gst_omx_component_add_port (GstOMXComponent * comp, guint32 index);
 GstOMXPort *      gst_omx_component_get_port (GstOMXComponent * comp, guint32 index);
 
-void              gst_omx_component_trigger_settings_changed (GstOMXComponent * comp, guint32 port_index);
-
 OMX_ERRORTYPE     gst_omx_component_get_parameter (GstOMXComponent * comp, OMX_INDEXTYPE index, gpointer param);
 OMX_ERRORTYPE     gst_omx_component_set_parameter (GstOMXComponent * comp, OMX_INDEXTYPE index, gpointer param);
 
 OMX_ERRORTYPE     gst_omx_component_get_config (GstOMXComponent * comp, OMX_INDEXTYPE index, gpointer config);
 OMX_ERRORTYPE     gst_omx_component_set_config (GstOMXComponent * comp, OMX_INDEXTYPE index, gpointer config);
+OMX_ERRORTYPE     gst_omx_component_setup_tunnel (GstOMXComponent * comp1, GstOMXPort * port1, GstOMXComponent * comp2, GstOMXPort * port2);
+OMX_ERRORTYPE     gst_omx_component_close_tunnel (GstOMXComponent * comp1, GstOMXPort * port1, GstOMXComponent * comp2, GstOMXPort * port2);
 
 
-void              gst_omx_port_get_port_definition (GstOMXPort * port, OMX_PARAM_PORTDEFINITIONTYPE * port_def);
-gboolean          gst_omx_port_update_port_definition (GstOMXPort *port, OMX_PARAM_PORTDEFINITIONTYPE *port_definition);
+OMX_ERRORTYPE     gst_omx_port_get_port_definition (GstOMXPort * port, OMX_PARAM_PORTDEFINITIONTYPE * port_def);
+OMX_ERRORTYPE     gst_omx_port_update_port_definition (GstOMXPort *port, OMX_PARAM_PORTDEFINITIONTYPE *port_definition);
 
 GstOMXAcquireBufferReturn gst_omx_port_acquire_buffer (GstOMXPort *port, GstOMXBuffer **buf);
 OMX_ERRORTYPE     gst_omx_port_release_buffer (GstOMXPort *port, GstOMXBuffer *buf);
 
-OMX_ERRORTYPE     gst_omx_port_set_flushing (GstOMXPort *port, gboolean flush);
+OMX_ERRORTYPE     gst_omx_port_set_flushing (GstOMXPort *port, GstClockTime timeout, gboolean flush);
 gboolean          gst_omx_port_is_flushing (GstOMXPort *port);
 
 OMX_ERRORTYPE     gst_omx_port_allocate_buffers (GstOMXPort *port);
+OMX_ERRORTYPE     gst_omx_port_use_buffers (GstOMXPort *port, const GList *buffers);
+OMX_ERRORTYPE     gst_omx_port_use_eglimages (GstOMXPort *port, const GList *images);
 OMX_ERRORTYPE     gst_omx_port_deallocate_buffers (GstOMXPort *port);
+OMX_ERRORTYPE     gst_omx_port_populate (GstOMXPort *port);
+OMX_ERRORTYPE     gst_omx_port_wait_buffers_released (GstOMXPort * port, GstClockTime timeout);
 
-OMX_ERRORTYPE     gst_omx_port_reconfigure (GstOMXPort * port);
+OMX_ERRORTYPE     gst_omx_port_mark_reconfigured (GstOMXPort * port);
 
 OMX_ERRORTYPE     gst_omx_port_set_enabled (GstOMXPort * port, gboolean enabled);
+OMX_ERRORTYPE     gst_omx_port_wait_enabled (GstOMXPort * port, GstClockTime timeout);
 gboolean          gst_omx_port_is_enabled (GstOMXPort * port);
 
-OMX_ERRORTYPE     gst_omx_port_manual_reconfigure (GstOMXPort * port, gboolean start);
+
+void              gst_omx_set_default_role (GstOMXClassData *class_data, const gchar *default_role);
+
 
 G_END_DECLS
 

@@ -24,7 +24,7 @@ dnl can autoconf find the source ?
 AC_CONFIG_SRCDIR([omx/gstomx.c])
 
 dnl define the output header for config
-AM_CONFIG_HEADER([config.h])
+AC_CONFIG_HEADERS([config.h])
 
 dnl AM_MAINTAINER_MODE only provides the option to configure to enable it
 AM_MAINTAINER_MODE
@@ -158,6 +158,19 @@ GST_PREFIX="`$PKG_CONFIG --variable=prefix gstreamer-$GST_MAJORMINOR`"
 AC_SUBST(GLIB_PREFIX)
 AC_SUBST(GST_PREFIX)
 
+dnl Check for external OpenMAX IL headers
+AC_CHECK_HEADER([OMX_Core.h], [HAVE_EXTERNAL_OMX=yes], [HAVE_EXTERNAL_OMX=no], [AC_INCLUDES_DEFAULT])
+AM_CONDITIONAL(HAVE_EXTERNAL_OMX, test "x$HAVE_EXTERNAL_OMX" = "xyes")
+
+AC_CHECK_DECLS([OMX_VIDEO_CodingVP8],
+  [
+    AC_DEFINE(HAVE_VP8, 1, [OpenMAX IL has VP8 support])
+    HAVE_VP8=yes
+  ], [
+    HAVE_VP8=no
+  ], [[#include <OMX_Video.h>]])
+AM_CONDITIONAL(HAVE_VP8, test "x$HAVE_VP8" = "xyes")
+
 dnl Check for -Bsymbolic-functions linker flag used to avoid
 dnl intra-library PLT jumps, if available.
 AC_ARG_ENABLE(Bsymbolic,
@@ -172,6 +185,195 @@ AC_ARG_ENABLE(Bsymbolic,
                            AC_MSG_RESULT(no)
                            enable_Bsymbolic=no)
                LDFLAGS="${SAVED_LDFLAGS}"])
+
+AC_ARG_WITH([omx-target],
+        AS_HELP_STRING([--with-omx-target],[Use this OpenMAX IL target (generic, bellagio, rpi)]),
+        [ac_cv_omx_target="$withval"], [ac_cv_omx_target="none"])
+
+ac_cv_omx_target_struct_packing="none"
+AC_MSG_NOTICE([Using $ac_cv_omx_target as OpenMAX IL target])
+case "${ac_cv_omx_target}" in
+  generic)
+    AC_DEFINE(USE_OMX_TARGET_GENERIC, 1, [Use generic OpenMAX IL target])
+    ;;
+  rpi)
+    AC_DEFINE(USE_OMX_TARGET_RPI, 1, [Use RPi OpenMAX IL target])
+    ac_cv_omx_target_struct_packing=4
+    ;;
+  bellagio)
+    AC_DEFINE(USE_OMX_TARGET_BELLAGIO, 1, [Use Bellagio OpenMAX IL target])
+    ;;
+  none|*)
+    AC_ERROR([invalid OpenMAX IL target, you must specify one of --with-omx-target={generic,rpi,bellagio}])
+    ;;
+esac
+AM_CONDITIONAL(USE_OMX_TARGET_GENERIC, test "x$ac_cv_omx_target" = "xgeneric")
+AM_CONDITIONAL(USE_OMX_TARGET_BELLAGIO, test "x$ac_cv_omx_target" = "xbellagio")
+AM_CONDITIONAL(USE_OMX_TARGET_RPI, test "x$ac_cv_omx_target" = "xrpi")
+
+AC_ARG_WITH([omx-struct-packing],
+        AS_HELP_STRING([--with-omx-struct-packing],[Force OpenMAX struct packing, (default is none)]),
+        [ac_cv_omx_struct_packing="$withval"], [ac_cv_omx_struct_packing="none"])
+
+if test x"$ac_cv_omx_struct_packing" != x"none"; then
+  AC_MSG_NOTICE([Using $ac_cv_omx_struct_packing as OpenMAX struct packing])
+  AC_DEFINE_UNQUOTED(GST_OMX_STRUCT_PACKING, $ac_cv_omx_struct_packing, [The struct packing used for OpenMAX structures])
+elif test x"$ac_cv_omx_target_struct_packing" != x"none"; then
+  AC_MSG_NOTICE([Using $ac_cv_omx_target_struct_packing as OpenMAX struct packing])
+  AC_DEFINE_UNQUOTED(GST_OMX_STRUCT_PACKING, $ac_cv_omx_target_struct_packing, [The struct packing used for OpenMAX structures])
+fi
+
+dnl *** gst-libs/gst/egl ***
+AC_ARG_WITH([egl-window-system],
+              AS_HELP_STRING([--with-egl-window-system],[EGL window system to use (x11, mali-fb, rpi, none)]),
+              [EGL_WINDOW_SYSTEM="$withval"],
+              [EGL_WINDOW_SYSTEM="auto"])
+
+if test x"$EGL_WINDOW_SYSTEM" = x"auto"; then
+  dnl Mali
+  old_LIBS=$LIBS
+  old_CFLAGS=$CFLAGS
+  LIBS="$LIBS -lUMP $EGL_LIBS"
+  CFLAGS="$CFLAGS $EGL_CFLAGS"
+  AC_CHECK_LIB([Mali], [mali_image_create], [EGL_WINDOW_SYSTEM="mali-fb"], [EGL_WINDOW_SYSTEM="auto"])
+  LIBS=$old_LIBS
+  CFLAGS=$old_CFLAGS
+
+  dnl RPi
+  if test x"$EGL_WINDOW_SYSTEM" = x"auto"; then
+      old_LIBS=$LIBS
+      old_CFLAGS=$CFLAGS
+      LIBS="$LIBS -lvcos -lvchiq_arm"
+      CFLAGS="$CFLAGS"
+      AC_CHECK_LIB([bcm_host], [bcm_host_init],
+        [
+          LIBS="$LIBS -lbcm_host"
+          AC_CHECK_HEADER([bcm_host.h], [EGL_WINDOW_SYSTEM="rpi"], [EGL_WINDOW_SYSTEM="auto"])
+      ])
+      LIBS=$old_LIBS
+      CFLAGS=$old_CFLAGS
+  fi
+
+  if test x"$EGL_WINDOW_SYSTEM" = x"auto"; then
+      if test x"$HAVE_X11" = x"yes"; then
+        EGL_WINDOW_SYSTEM="x11"
+      fi
+  fi
+
+  if test x"$EGL_WINDOW_SYSTEM" = x"auto"; then
+    EGL_WINDOW_SYSTEM="none"
+  fi
+fi
+
+case "$EGL_WINDOW_SYSTEM" in
+  x11|none)
+    PKG_CHECK_MODULES(EGL, egl, HAVE_EGL="yes", [
+      HAVE_EGL="no"
+      old_LIBS=$LIBS
+      old_CFLAGS=$CFLAGS
+      
+      AC_CHECK_LIB([EGL], [eglGetProcAddress],
+        [
+          AC_CHECK_HEADER([EGL/egl.h],
+            [
+              HAVE_EGL="yes"
+              EGL_LIBS="-lEGL"
+              EGL_CFLAGS=""
+            ]
+          )
+        ]
+      )
+      
+      LIBS=$old_LIBS
+      CFLAGS=$old_CFLAGS
+    ])
+      
+    if test x"$HAVE_EGL" = x"yes" -a x"$EGL_WINDOW_SYSTEM" = x"x11"; then
+      if test x"$HAVE_X11" != x"yes"; then
+        AC_MSG_ERROR([libX11 not found and is required for EGL X11 window system])
+      else
+        AC_DEFINE(USE_EGL_X11, [1], [Use X11 EGL window system])
+        EGL_CFLAGS="$EGL_CFLAGS $X11_CFLAGS"
+        EGL_LIBS="$EGL_LIBS $X11_LIBS"
+      fi
+    fi
+    ;;
+  mali-fb)
+    dnl FIXME: Mali EGL depends on GLESv1 or GLESv2
+    HAVE_EGL="no"
+    old_LIBS=$LIBS
+    old_CFLAGS=$CFLAGS
+    AC_CHECK_HEADER([EGL/fbdev_window.h],
+      [
+        LIBS="$LIBS -lUMP"
+        AC_CHECK_LIB([Mali], [mali_image_create],
+          [
+            LIBS="$LIBS -lMali"
+            AC_CHECK_LIB([GLESv2], [glEnable],
+              [
+                AC_CHECK_HEADER([GLES2/gl2.h],
+                  [
+                    AC_CHECK_LIB([EGL], [eglGetProcAddress],
+                      [
+                        AC_CHECK_HEADER([EGL/egl.h],
+                          [
+                            HAVE_EGL="yes"
+                            EGL_LIBS="-lGLESv2 -lEGL -lMali -lUMP"
+                            EGL_CFLAGS=""
+                            AC_DEFINE(USE_EGL_MALI_FB, [1], [Use Mali FB EGL window system])
+                          ])
+                      ])
+                  ])
+              ])
+          ])
+      ])
+    LIBS=$old_LIBS
+    CFLAGS=$old_CFLAGS
+    ;;
+  rpi)
+    old_LIBS=$LIBS
+    old_CFLAGS=$CFLAGS
+
+    dnl FIXME: EGL of RPi depends on GLESv1 or GLESv2
+    dnl FIXME: GLESv2 of RPi depends on EGL... WTF!
+    LIBS="$LIBS -lvcos -lvchiq_arm"
+    AC_CHECK_LIB([bcm_host], [bcm_host_init],
+      [
+        LIBS="$LIBS -lbcm_host"
+        AC_CHECK_HEADER(bcm_host.h,
+          [
+            LIBS="$LIBS -lGLESv2"
+            AC_CHECK_LIB([EGL], [eglGetProcAddress],
+              [
+                LIBS="$LIBS -lEGL"
+                AC_CHECK_HEADER([EGL/egl.h],
+                  [
+                    AC_CHECK_LIB([GLESv2], [glEnable],
+                      [
+                        AC_CHECK_HEADER([GLES2/gl2.h],
+                          [
+                            HAVE_EGL="yes"
+                            EGL_LIBS="-lGLESv2 -lEGL -lbcm_host -lvcos -lvchiq_arm"
+                            EGL_CFLAGS=""
+                            AC_DEFINE(USE_EGL_RPI, [1], [Use RPi EGL window system])
+                        ])
+                    ])
+                ])
+            ])
+        ])
+    ])
+
+    LIBS=$old_LIBS
+    CFLAGS=$old_CFLAGS
+    ;;
+  *)
+    AC_MSG_ERROR([invalid EGL window system specified])
+    ;;
+esac
+
+AC_SUBST(EGL_LIBS)
+AC_SUBST(EGL_CFLAGS)
+AM_CONDITIONAL(HAVE_EGL, test x"$HAVE_EGL" = x"yes")
 
 dnl *** set variables based on configure arguments ***
 
@@ -206,11 +408,32 @@ dnl *** plug-ins to include ***
 dnl these are all the gst plug-ins, compilable without additional libs
 AG_GST_CHECK_PLUGIN(omx)
 
+dnl check for gstreamer video base classes
+ac_cflags_save="$CFLAGS"
+ac_cppflags_save="$CPPFLAGS"
+CFLAGS="$CFLAGS $GST_PLUGINS_BASE_CFLAGS $GST_BASE_CFLAGS $GST_CFLAGS"
+CPPFLAGS="$CPPFLAGS $GST_PLUGINS_BASE_CFLAGS $GST_BASE_CFLAGS $GST_CFLAGS"
+
+AC_CHECK_HEADER([gst/video/gstvideodecoder.h], [HAVE_VIDEO_BASE_CLASSES="yes"],
+  [HAVE_VIDEO_BASE_CLASSES="no"], [AC_INCLUDES_DEFAULT])
+
+CFLAGS="$ac_cflags_save"
+CPPFLAGS="$ac_cppflags_save"
+
+if test "x$HAVE_VIDEO_BASE_CLASSES" = "xyes"
+then
+  AC_MSG_NOTICE([GStreamer base classes for video decoding/encoding found])
+  AC_DEFINE_UNQUOTED(HAVE_VIDEO_BASE_CLASSES, 1,
+    [defined if GStreamer base classes for video decoding/encoding are present])
+else
+  AC_MSG_NOTICE([using local copy of GStreamer base classes for video decoding/encoding])
+fi
+AM_CONDITIONAL(USE_LOCAL_VIDEO_BASE_CLASSES, test "x$HAVE_VIDEO_BASE_CLASSES" = "xno")
+
 dnl check for gstreamer core features (subsystems)
 dnl FIXME: this assumes srcdir == builddir for uninstalled setups
 GST_CONFIGPATH=`$PKG_CONFIG --variable=includedir gstreamer-0.10`"/gst/gstconfig.h"
 AG_GST_PARSE_SUBSYSTEM_DISABLES($GST_CONFIGPATH)
-AM_CONDITIONAL(USE_XML, test $GST_DISABLE_XML != "1")
 
 dnl *** finalize CFLAGS, LDFLAGS, LIBS
 
@@ -274,9 +497,18 @@ dnl *** output files ***
 
 AC_CONFIG_FILES(
 Makefile
+gst/Makefile
+gst/egl/Makefile
+gst/egl/gstreamer-egl-$GST_MAJORMINOR.pc
 omx/Makefile
 common/Makefile
 common/m4/Makefile
+tools/Makefile
+config/Makefile
+config/bellagio/Makefile
+config/rpi/Makefile
+examples/Makefile
+examples/egl/Makefile
 )
 
 AC_OUTPUT

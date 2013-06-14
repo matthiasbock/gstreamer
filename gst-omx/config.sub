@@ -4,7 +4,7 @@
 #   2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010,
 #   2011, 2012 Free Software Foundation, Inc.
 
-timestamp='2012-02-10'
+timestamp='2012-04-18'
 
 # This file is (in principle) common to ALL GNU software.
 # The presence of a machine in this file suggests that SOME GNU software
@@ -225,6 +225,12 @@ case $os in
 	-isc*)
 		basic_machine=`echo $1 | sed -e 's/86-.*/86-pc/'`
 		;;
+	-lynx*178)
+		os=-lynxos178
+		;;
+	-lynx*5)
+		os=-lynxos5
+		;;
 	-lynx*)
 		os=-lynxos
 		;;
@@ -257,7 +263,7 @@ case $basic_machine in
         | be32 | be64 \
 	| bfin \
 	| c4x | clipper \
-	| d10v | d30v | dlx | dsp16xx | dvp \
+	| d10v | d30v | dlx | dsp16xx \
 	| epiphany \
 	| fido | fr30 | frv \
 	| h8300 | h8500 | hppa | hppa1.[01] | hppa2.0 | hppa2.0[nw] | hppa64 \
@@ -799,24 +805,6 @@ case $basic_machine in
 	*mint | -mint[0-9]* | *MiNT | *MiNT[0-9]*)
 		basic_machine=m68k-atari
 		os=-mint
-		;;
-	mipsEE* | ee | ps2)
-		basic_machine=mips64r5900el-scei
-		case $os in
-		    -linux*)
-			;;
-		    *)
-			os=-elf
-			;;
-		esac
-		;;
-	iop)
-		basic_machine=mipsel-scei
-		os=-irx
-		;;
-	dvp)
-		basic_machine=dvp-scei
-		os=-elf
 		;;
 	mips3*-*)
 		basic_machine=`echo $basic_machine | sed -e 's/mips3/mips64/'`
@@ -1376,7 +1364,7 @@ case $os in
 	      | -uxpv* | -beos* | -mpeix* | -udk* \
 	      | -interix* | -uwin* | -mks* | -rhapsody* | -darwin* | -opened* \
 	      | -openstep* | -oskit* | -conix* | -pw32* | -nonstopux* \
-	      | -storm-chaos* | -tops10* | -tenex* | -tops20* | -its* | -irx* \
+	      | -storm-chaos* | -tops10* | -tenex* | -tops20* | -its* \
 	      | -os2* | -vos* | -palmos* | -uclinux* | -nucleus* \
 	      | -morphos* | -superux* | -rtmk* | -rtmk-nova* | -windiss* \
 	      | -powermax* | -dnix* | -nx6 | -nx7 | -sei* | -dragonfly* \
@@ -1554,6 +1542,9 @@ case $basic_machine in
 		;;
 	c4x-* | tic4x-*)
 		os=-coff
+		;;
+	hexagon-*)
+		os=-elf
 		;;
 	tic54x-*)
 		os=-coff

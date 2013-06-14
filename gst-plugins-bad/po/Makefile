@@ -16,7 +16,7 @@ VERSION = 0.10.23.1
 PACKAGE_BUGREPORT = http://bugzilla.gnome.org/enter_bug.cgi?product=GStreamer
 
 # thomas: add GETTEXT_PACKAGE substitution as used in Makevars
-GETTEXT_PACKAGE = gst-plugins-bad-0.10
+GETTEXT_PACKAGE = NULL
 
 SHELL = /bin/sh
 
@@ -152,7 +152,7 @@ MSGFILTER = msgfilter --no-location
 	mv t-$@ $@
 
 
-all: check-macro-version all-yes
+all: check-macro-version all-no
 
 all-yes: stamp-po
 all-no:
@@ -258,7 +258,7 @@ $(POFILES): $(srcdir)/$(DOMAIN).pot
 
 install: install-exec install-data
 install-exec:
-install-data: install-data-yes
+install-data: install-data-no
 	if test "$(PACKAGE)" = "gettext-tools"; then \
 	  $(mkdir_p) $(DESTDIR)$(gettextsrcdir); \
 	  for file in $(DISTFILES.common) Makevars.template; do \
@@ -317,7 +317,7 @@ install-strip: install
 
 installdirs: installdirs-exec installdirs-data
 installdirs-exec:
-installdirs-data: installdirs-data-yes
+installdirs-data: installdirs-data-no
 	if test "$(PACKAGE)" = "gettext-tools"; then \
 	  $(mkdir_p) $(DESTDIR)$(gettextsrcdir); \
 	else \
@@ -362,7 +362,7 @@ installcheck:
 
 uninstall: uninstall-exec uninstall-data
 uninstall-exec:
-uninstall-data: uninstall-data-yes
+uninstall-data: uninstall-data-no
 	if test "$(PACKAGE)" = "gettext-tools"; then \
 	  for file in $(DISTFILES.common) Makevars.template; do \
 	    rm -f $(DESTDIR)$(gettextsrcdir)/$$file; \

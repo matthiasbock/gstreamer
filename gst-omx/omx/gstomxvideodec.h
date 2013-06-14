@@ -21,8 +21,35 @@
 #ifndef __GST_OMX_VIDEO_DEC_H__
 #define __GST_OMX_VIDEO_DEC_H__
 
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
 #include <gst/gst.h>
-#include "gstbasevideodecoder.h"
+
+#if defined(USE_EGL_RPI)
+#if defined (__GNUC__)
+#ifndef __VCCOREVER__
+#define __VCCOREVER__ 0x04000000
+#endif
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wredundant-decls"
+#pragma GCC optimize ("gnu89-inline")
+#endif
+
+#include <gst/egl/egl.h>
+
+#if defined (__GNUC__)
+#pragma GCC reset_options
+#pragma GCC diagnostic pop
+#endif
+#endif /* defined(USE_EGL_RPI) */
+
+#ifdef HAVE_VIDEO_BASE_CLASSES
+#include <gst/video/gstvideodecoder.h>
+#else
+#include "video/gstvideodecoder.h"
+#endif
 
 #include "gstomx.h"
 
@@ -46,14 +73,14 @@ typedef struct _GstOMXVideoDecClass GstOMXVideoDecClass;
 
 struct _GstOMXVideoDec
 {
-  GstBaseVideoDecoder parent;
+  GstVideoDecoder parent;
 
   /* < protected > */
-  GstOMXCore *core;
-  GstOMXComponent *component;
-  GstOMXPort *in_port, *out_port;
+  GstOMXComponent *dec;
+  GstOMXPort *dec_in_port, *dec_out_port;
 
   /* < private > */
+  GstVideoCodecState *input_state;
   GstBuffer *codec_data;
   /* TRUE if the component is configured and saw
    * the first buffer */
@@ -71,26 +98,29 @@ struct _GstOMXVideoDec
   gboolean eos;
 
   GstFlowReturn downstream_flow_ret;
+
+#ifdef USE_EGL_RPI
+  gboolean egl_transport_allowed;
+  gboolean egl_transport_active;
+
+  GstEGLDisplay * egl_display;
+
+  GstOMXComponent *egl_render;
+  GstOMXPort *egl_in_port, *egl_out_port;
+  
+  GstEGLImageMemoryPool * out_port_pool;
+#endif
 };
 
 struct _GstOMXVideoDecClass
 {
-  GstBaseVideoDecoderClass parent_class;
+  GstVideoDecoderClass parent_class;
 
-  const gchar *core_name;
-  const gchar *component_name;
-  const gchar *component_role;
+  GstOMXClassData cdata;
 
-  const gchar *default_src_template_caps;
-  const gchar *default_sink_template_caps;
-  
-  guint32 in_port_index, out_port_index;
-
-  guint64 hacks;
-
-  gboolean (*is_format_change) (GstOMXVideoDec * self, GstOMXPort * port, GstVideoState * state);
-  gboolean (*set_format)       (GstOMXVideoDec * self, GstOMXPort * port, GstVideoState * state);
-  GstFlowReturn (*prepare_frame)   (GstOMXVideoDec * self, GstVideoFrame *frame);
+  gboolean (*is_format_change) (GstOMXVideoDec * self, GstOMXPort * port, GstVideoCodecState * state);
+  gboolean (*set_format)       (GstOMXVideoDec * self, GstOMXPort * port, GstVideoCodecState * state);
+  GstFlowReturn (*prepare_frame)   (GstOMXVideoDec * self, GstVideoCodecFrame *frame);
 };
 
 GType gst_omx_video_dec_get_type (void);

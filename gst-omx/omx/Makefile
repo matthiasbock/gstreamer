@@ -52,8 +52,9 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = armv6l-unknown-linux-gnueabihf
 host_triplet = armv6l-unknown-linux-gnueabihf
+#am__append_1 = $(VIDEO_BASE_CLASSES_C)
 subdir = omx
-DIST_COMMON = $(noinst_HEADERS) $(srcdir)/Makefile.am \
+DIST_COMMON = $(am__noinst_HEADERS_DIST) $(srcdir)/Makefile.am \
 	$(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/common/m4/as-ac-expand.m4 \
@@ -118,24 +119,34 @@ am__installdirs = "$(DESTDIR)$(plugindir)"
 LTLIBRARIES = $(plugin_LTLIBRARIES)
 am__DEPENDENCIES_1 =
 libgstopenmax_la_DEPENDENCIES = $(am__DEPENDENCIES_1) \
-	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) $(GST_EGL_LIBS)
+am__libgstopenmax_la_SOURCES_DIST = gstomx.c gstomxvideodec.c \
+	gstomxvideoenc.c gstomxaudioenc.c gstomxmjpegdec.c \
+	gstomxmpeg4videodec.c gstomxmpeg2videodec.c gstomxh264dec.c \
+	gstomxh263dec.c gstomxvp8dec.c gstomxwmvdec.c \
+	gstomxmpeg4videoenc.c gstomxh264enc.c gstomxh263enc.c \
+	gstomxaacenc.c video/video.c video/gstvideodecoder.c \
+	video/gstvideoencoder.c video/gstvideoutils.c
+#am__objects_1 = libgstopenmax_la-gstomxvp8dec.lo
+am__objects_2 = libgstopenmax_la-video.lo \
+	libgstopenmax_la-gstvideodecoder.lo \
+	libgstopenmax_la-gstvideoencoder.lo \
+	libgstopenmax_la-gstvideoutils.lo
+#am__objects_3 = $(am__objects_2)
 am_libgstopenmax_la_OBJECTS = libgstopenmax_la-gstomx.lo \
 	libgstopenmax_la-gstomxvideodec.lo \
 	libgstopenmax_la-gstomxvideoenc.lo \
 	libgstopenmax_la-gstomxaudioenc.lo \
+	libgstopenmax_la-gstomxmjpegdec.lo \
 	libgstopenmax_la-gstomxmpeg4videodec.lo \
+	libgstopenmax_la-gstomxmpeg2videodec.lo \
 	libgstopenmax_la-gstomxh264dec.lo \
-	libgstopenmax_la-gstomxh263dec.lo \
+	libgstopenmax_la-gstomxh263dec.lo $(am__objects_1) \
 	libgstopenmax_la-gstomxwmvdec.lo \
 	libgstopenmax_la-gstomxmpeg4videoenc.lo \
 	libgstopenmax_la-gstomxh264enc.lo \
 	libgstopenmax_la-gstomxh263enc.lo \
-	libgstopenmax_la-gstomxaacenc.lo \
-	libgstopenmax_la-gstbasevideocodec.lo \
-	libgstopenmax_la-gstbasevideodecoder.lo \
-	libgstopenmax_la-gstbasevideoencoder.lo \
-	libgstopenmax_la-gstbasevideoutils.lo \
-	libgstopenmax_la-gstomxrecmutex.lo
+	libgstopenmax_la-gstomxaacenc.lo $(am__objects_3)
 libgstopenmax_la_OBJECTS = $(am_libgstopenmax_la_OBJECTS)
 AM_V_lt = $(am__v_lt_$(V))
 am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
@@ -171,12 +182,17 @@ AM_V_GEN = $(am__v_GEN_$(V))
 am__v_GEN_ = $(am__v_GEN_$(AM_DEFAULT_VERBOSITY))
 am__v_GEN_0 = @echo "  GEN   " $@;
 SOURCES = $(libgstopenmax_la_SOURCES)
-DIST_SOURCES = $(libgstopenmax_la_SOURCES)
+DIST_SOURCES = $(am__libgstopenmax_la_SOURCES_DIST)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
     *) (install-info --version) >/dev/null 2>&1;; \
   esac
+am__noinst_HEADERS_DIST = gstomx.h gstomxvideodec.h gstomxvideoenc.h \
+	gstomxaudioenc.h gstomxmjpegdec.h gstomxmpeg2videodec.h \
+	gstomxmpeg4videodec.h gstomxh264dec.h gstomxh263dec.h \
+	gstomxvp8dec.h gstomxwmvdec.h gstomxmpeg4videoenc.h \
+	gstomxh264enc.h gstomxh263enc.h gstomxaacenc.h
 HEADERS = $(noinst_HEADERS)
 ETAGS = etags
 CTAGS = ctags
@@ -213,6 +229,8 @@ DUMPBIN =
 ECHO_C = 
 ECHO_N = -n
 ECHO_T = 
+EGL_CFLAGS = 
+EGL_LIBS = 
 EGREP = /bin/grep -E
 ERROR_CFLAGS =  -Werror
 EXEEXT = 
@@ -298,7 +316,7 @@ PACKAGE_VERSION_MAJOR = 0
 PACKAGE_VERSION_MICRO = 0
 PACKAGE_VERSION_MINOR = 10
 PACKAGE_VERSION_NANO = 1
-PACKAGE_VERSION_RELEASE = 0.20130613.130306
+PACKAGE_VERSION_RELEASE = 0.20130613.221616
 PATH_SEPARATOR = :
 PKG_CONFIG = /usr/bin/pkg-config
 PLUGINDIR = /usr/local/lib/gstreamer-0.10
@@ -376,59 +394,50 @@ top_build_prefix = ../
 top_builddir = ..
 top_srcdir = ..
 plugin_LTLIBRARIES = libgstopenmax.la
-libgstopenmax_la_SOURCES = \
-	gstomx.c \
-	gstomxvideodec.c \
-	gstomxvideoenc.c \
-	gstomxaudioenc.c \
-	gstomxmpeg4videodec.c \
-	gstomxh264dec.c \
-	gstomxh263dec.c \
-	gstomxwmvdec.c \
-	gstomxmpeg4videoenc.c \
-	gstomxh264enc.c \
-	gstomxh263enc.c \
-	gstomxaacenc.c \
-	gstbasevideocodec.c \
-	gstbasevideodecoder.c \
-	gstbasevideoencoder.c \
-	gstbasevideoutils.c \
-	gstomxrecmutex.c
+VIDEO_BASE_CLASSES_C = \
+	video/video.c \
+	video/gstvideodecoder.c \
+	video/gstvideoencoder.c \
+	video/gstvideoutils.c
 
+VIDEO_BASE_CLASSES_H = \
+	video/video.h \
+	video/gstvideodecoder.h \
+	video/gstvideoencoder.h \
+	video/gstvideoutils.h
+
+#VP8_C_FILES = gstomxvp8dec.c
+#VP8_H_FILES = gstomxvp8dec.h
+#GST_EGL_LIBS = $(top_builddir)/gst/egl/libgstegl-$(GST_MAJORMINOR).la
+libgstopenmax_la_SOURCES = gstomx.c gstomxvideodec.c gstomxvideoenc.c \
+	gstomxaudioenc.c gstomxmjpegdec.c gstomxmpeg4videodec.c \
+	gstomxmpeg2videodec.c gstomxh264dec.c gstomxh263dec.c \
+	$(VP8_C_FILES) gstomxwmvdec.c gstomxmpeg4videoenc.c \
+	gstomxh264enc.c gstomxh263enc.c gstomxaacenc.c $(am__append_1)
 noinst_HEADERS = \
 	gstomx.h \
 	gstomxvideodec.h \
 	gstomxvideoenc.h \
 	gstomxaudioenc.h \
+	gstomxmjpegdec.h \
+	gstomxmpeg2videodec.h \
 	gstomxmpeg4videodec.h \
 	gstomxh264dec.h \
 	gstomxh263dec.h \
+	$(VP8_H_FILES) \
 	gstomxwmvdec.h \
 	gstomxmpeg4videoenc.h \
 	gstomxh264enc.h \
 	gstomxh263enc.h \
-	gstomxaacenc.h \
-	gstbasevideocodec.h \
-	gstbasevideodecoder.h \
-	gstbasevideoencoder.h \
-	gstbasevideoutils.h \
-	gstomxrecmutex.h
+	gstomxaacenc.h
 
-fixbaseclasses = \
-        -DGstBaseVideoCodec=OMXBaseVideoCodec \
-        -DGstBaseVideoCodecClass=OMXBaseVideoCodecClass \
-        -DGstBaseVideoEncoder=OMXBaseVideoEncoder \
-        -DGstBaseVideoEncoderClass=OMXBaseVideoEncoderClass \
-        -DGstBaseVideoDecoder=OMXBaseVideoDecoder \
-        -DGstBaseVideoDecoderClass=OMXBaseVideoDecoderClass
-
+OMX_INCLUDEPATH = -I$(abs_srcdir)/openmax
 libgstopenmax_la_CFLAGS = \
 	-DGST_USE_UNSTABLE_API=1 \
-	-I$(abs_srcdir)/openmax \
+	$(OMX_INCLUDEPATH) \
 	$(GST_PLUGINS_BASE_CFLAGS) \
 	$(GST_BASE_CFLAGS) \
-	$(GST_CFLAGS) \
-	$(fixbaseclasses)
+	$(GST_CFLAGS)
 
 libgstopenmax_la_LIBADD = \
 	$(GST_PLUGINS_BASE_LIBS) \
@@ -436,10 +445,17 @@ libgstopenmax_la_LIBADD = \
 	-lgstpbutils-0.10 \
 	-lgstvideo-0.10 \
 	$(GST_BASE_LIBS) \
-	$(GST_LIBS)
+	$(GST_LIBS) \
+	$(GST_EGL_LIBS)
 
 libgstopenmax_la_LDFLAGS = $(GST_PLUGIN_LDFLAGS)
-EXTRA_DIST = openmax gstomx.conf
+EXTRA_DIST = \
+  openmax \
+  $(VIDEO_BASE_CLASSES_C) \
+  $(VIDEO_BASE_CLASSES_H) \
+  gstomxvp8dec.c \
+  gstomxvp8dec.h
+
 all: all-am
 
 .SUFFIXES:
@@ -515,10 +531,6 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-include ./$(DEPDIR)/libgstopenmax_la-gstbasevideocodec.Plo
-include ./$(DEPDIR)/libgstopenmax_la-gstbasevideodecoder.Plo
-include ./$(DEPDIR)/libgstopenmax_la-gstbasevideoencoder.Plo
-include ./$(DEPDIR)/libgstopenmax_la-gstbasevideoutils.Plo
 include ./$(DEPDIR)/libgstopenmax_la-gstomx.Plo
 include ./$(DEPDIR)/libgstopenmax_la-gstomxaacenc.Plo
 include ./$(DEPDIR)/libgstopenmax_la-gstomxaudioenc.Plo
@@ -526,12 +538,18 @@ include ./$(DEPDIR)/libgstopenmax_la-gstomxh263dec.Plo
 include ./$(DEPDIR)/libgstopenmax_la-gstomxh263enc.Plo
 include ./$(DEPDIR)/libgstopenmax_la-gstomxh264dec.Plo
 include ./$(DEPDIR)/libgstopenmax_la-gstomxh264enc.Plo
+include ./$(DEPDIR)/libgstopenmax_la-gstomxmjpegdec.Plo
+include ./$(DEPDIR)/libgstopenmax_la-gstomxmpeg2videodec.Plo
 include ./$(DEPDIR)/libgstopenmax_la-gstomxmpeg4videodec.Plo
 include ./$(DEPDIR)/libgstopenmax_la-gstomxmpeg4videoenc.Plo
-include ./$(DEPDIR)/libgstopenmax_la-gstomxrecmutex.Plo
 include ./$(DEPDIR)/libgstopenmax_la-gstomxvideodec.Plo
 include ./$(DEPDIR)/libgstopenmax_la-gstomxvideoenc.Plo
+include ./$(DEPDIR)/libgstopenmax_la-gstomxvp8dec.Plo
 include ./$(DEPDIR)/libgstopenmax_la-gstomxwmvdec.Plo
+include ./$(DEPDIR)/libgstopenmax_la-gstvideodecoder.Plo
+include ./$(DEPDIR)/libgstopenmax_la-gstvideoencoder.Plo
+include ./$(DEPDIR)/libgstopenmax_la-gstvideoutils.Plo
+include ./$(DEPDIR)/libgstopenmax_la-video.Plo
 
 .c.o:
 	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -582,12 +600,26 @@ libgstopenmax_la-gstomxaudioenc.lo: gstomxaudioenc.c
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstopenmax_la_CFLAGS) $(CFLAGS) -c -o libgstopenmax_la-gstomxaudioenc.lo `test -f 'gstomxaudioenc.c' || echo '$(srcdir)/'`gstomxaudioenc.c
 
+libgstopenmax_la-gstomxmjpegdec.lo: gstomxmjpegdec.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstopenmax_la_CFLAGS) $(CFLAGS) -MT libgstopenmax_la-gstomxmjpegdec.lo -MD -MP -MF $(DEPDIR)/libgstopenmax_la-gstomxmjpegdec.Tpo -c -o libgstopenmax_la-gstomxmjpegdec.lo `test -f 'gstomxmjpegdec.c' || echo '$(srcdir)/'`gstomxmjpegdec.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libgstopenmax_la-gstomxmjpegdec.Tpo $(DEPDIR)/libgstopenmax_la-gstomxmjpegdec.Plo
+#	$(AM_V_CC)source='gstomxmjpegdec.c' object='libgstopenmax_la-gstomxmjpegdec.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstopenmax_la_CFLAGS) $(CFLAGS) -c -o libgstopenmax_la-gstomxmjpegdec.lo `test -f 'gstomxmjpegdec.c' || echo '$(srcdir)/'`gstomxmjpegdec.c
+
 libgstopenmax_la-gstomxmpeg4videodec.lo: gstomxmpeg4videodec.c
 	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstopenmax_la_CFLAGS) $(CFLAGS) -MT libgstopenmax_la-gstomxmpeg4videodec.lo -MD -MP -MF $(DEPDIR)/libgstopenmax_la-gstomxmpeg4videodec.Tpo -c -o libgstopenmax_la-gstomxmpeg4videodec.lo `test -f 'gstomxmpeg4videodec.c' || echo '$(srcdir)/'`gstomxmpeg4videodec.c
 	$(AM_V_at)$(am__mv) $(DEPDIR)/libgstopenmax_la-gstomxmpeg4videodec.Tpo $(DEPDIR)/libgstopenmax_la-gstomxmpeg4videodec.Plo
 #	$(AM_V_CC)source='gstomxmpeg4videodec.c' object='libgstopenmax_la-gstomxmpeg4videodec.lo' libtool=yes \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstopenmax_la_CFLAGS) $(CFLAGS) -c -o libgstopenmax_la-gstomxmpeg4videodec.lo `test -f 'gstomxmpeg4videodec.c' || echo '$(srcdir)/'`gstomxmpeg4videodec.c
+
+libgstopenmax_la-gstomxmpeg2videodec.lo: gstomxmpeg2videodec.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstopenmax_la_CFLAGS) $(CFLAGS) -MT libgstopenmax_la-gstomxmpeg2videodec.lo -MD -MP -MF $(DEPDIR)/libgstopenmax_la-gstomxmpeg2videodec.Tpo -c -o libgstopenmax_la-gstomxmpeg2videodec.lo `test -f 'gstomxmpeg2videodec.c' || echo '$(srcdir)/'`gstomxmpeg2videodec.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libgstopenmax_la-gstomxmpeg2videodec.Tpo $(DEPDIR)/libgstopenmax_la-gstomxmpeg2videodec.Plo
+#	$(AM_V_CC)source='gstomxmpeg2videodec.c' object='libgstopenmax_la-gstomxmpeg2videodec.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstopenmax_la_CFLAGS) $(CFLAGS) -c -o libgstopenmax_la-gstomxmpeg2videodec.lo `test -f 'gstomxmpeg2videodec.c' || echo '$(srcdir)/'`gstomxmpeg2videodec.c
 
 libgstopenmax_la-gstomxh264dec.lo: gstomxh264dec.c
 	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstopenmax_la_CFLAGS) $(CFLAGS) -MT libgstopenmax_la-gstomxh264dec.lo -MD -MP -MF $(DEPDIR)/libgstopenmax_la-gstomxh264dec.Tpo -c -o libgstopenmax_la-gstomxh264dec.lo `test -f 'gstomxh264dec.c' || echo '$(srcdir)/'`gstomxh264dec.c
@@ -602,6 +634,13 @@ libgstopenmax_la-gstomxh263dec.lo: gstomxh263dec.c
 #	$(AM_V_CC)source='gstomxh263dec.c' object='libgstopenmax_la-gstomxh263dec.lo' libtool=yes \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstopenmax_la_CFLAGS) $(CFLAGS) -c -o libgstopenmax_la-gstomxh263dec.lo `test -f 'gstomxh263dec.c' || echo '$(srcdir)/'`gstomxh263dec.c
+
+libgstopenmax_la-gstomxvp8dec.lo: gstomxvp8dec.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstopenmax_la_CFLAGS) $(CFLAGS) -MT libgstopenmax_la-gstomxvp8dec.lo -MD -MP -MF $(DEPDIR)/libgstopenmax_la-gstomxvp8dec.Tpo -c -o libgstopenmax_la-gstomxvp8dec.lo `test -f 'gstomxvp8dec.c' || echo '$(srcdir)/'`gstomxvp8dec.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libgstopenmax_la-gstomxvp8dec.Tpo $(DEPDIR)/libgstopenmax_la-gstomxvp8dec.Plo
+#	$(AM_V_CC)source='gstomxvp8dec.c' object='libgstopenmax_la-gstomxvp8dec.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstopenmax_la_CFLAGS) $(CFLAGS) -c -o libgstopenmax_la-gstomxvp8dec.lo `test -f 'gstomxvp8dec.c' || echo '$(srcdir)/'`gstomxvp8dec.c
 
 libgstopenmax_la-gstomxwmvdec.lo: gstomxwmvdec.c
 	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstopenmax_la_CFLAGS) $(CFLAGS) -MT libgstopenmax_la-gstomxwmvdec.lo -MD -MP -MF $(DEPDIR)/libgstopenmax_la-gstomxwmvdec.Tpo -c -o libgstopenmax_la-gstomxwmvdec.lo `test -f 'gstomxwmvdec.c' || echo '$(srcdir)/'`gstomxwmvdec.c
@@ -638,40 +677,33 @@ libgstopenmax_la-gstomxaacenc.lo: gstomxaacenc.c
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstopenmax_la_CFLAGS) $(CFLAGS) -c -o libgstopenmax_la-gstomxaacenc.lo `test -f 'gstomxaacenc.c' || echo '$(srcdir)/'`gstomxaacenc.c
 
-libgstopenmax_la-gstbasevideocodec.lo: gstbasevideocodec.c
-	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstopenmax_la_CFLAGS) $(CFLAGS) -MT libgstopenmax_la-gstbasevideocodec.lo -MD -MP -MF $(DEPDIR)/libgstopenmax_la-gstbasevideocodec.Tpo -c -o libgstopenmax_la-gstbasevideocodec.lo `test -f 'gstbasevideocodec.c' || echo '$(srcdir)/'`gstbasevideocodec.c
-	$(AM_V_at)$(am__mv) $(DEPDIR)/libgstopenmax_la-gstbasevideocodec.Tpo $(DEPDIR)/libgstopenmax_la-gstbasevideocodec.Plo
-#	$(AM_V_CC)source='gstbasevideocodec.c' object='libgstopenmax_la-gstbasevideocodec.lo' libtool=yes \
+libgstopenmax_la-video.lo: video/video.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstopenmax_la_CFLAGS) $(CFLAGS) -MT libgstopenmax_la-video.lo -MD -MP -MF $(DEPDIR)/libgstopenmax_la-video.Tpo -c -o libgstopenmax_la-video.lo `test -f 'video/video.c' || echo '$(srcdir)/'`video/video.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libgstopenmax_la-video.Tpo $(DEPDIR)/libgstopenmax_la-video.Plo
+#	$(AM_V_CC)source='video/video.c' object='libgstopenmax_la-video.lo' libtool=yes \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstopenmax_la_CFLAGS) $(CFLAGS) -c -o libgstopenmax_la-gstbasevideocodec.lo `test -f 'gstbasevideocodec.c' || echo '$(srcdir)/'`gstbasevideocodec.c
+#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstopenmax_la_CFLAGS) $(CFLAGS) -c -o libgstopenmax_la-video.lo `test -f 'video/video.c' || echo '$(srcdir)/'`video/video.c
 
-libgstopenmax_la-gstbasevideodecoder.lo: gstbasevideodecoder.c
-	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstopenmax_la_CFLAGS) $(CFLAGS) -MT libgstopenmax_la-gstbasevideodecoder.lo -MD -MP -MF $(DEPDIR)/libgstopenmax_la-gstbasevideodecoder.Tpo -c -o libgstopenmax_la-gstbasevideodecoder.lo `test -f 'gstbasevideodecoder.c' || echo '$(srcdir)/'`gstbasevideodecoder.c
-	$(AM_V_at)$(am__mv) $(DEPDIR)/libgstopenmax_la-gstbasevideodecoder.Tpo $(DEPDIR)/libgstopenmax_la-gstbasevideodecoder.Plo
-#	$(AM_V_CC)source='gstbasevideodecoder.c' object='libgstopenmax_la-gstbasevideodecoder.lo' libtool=yes \
+libgstopenmax_la-gstvideodecoder.lo: video/gstvideodecoder.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstopenmax_la_CFLAGS) $(CFLAGS) -MT libgstopenmax_la-gstvideodecoder.lo -MD -MP -MF $(DEPDIR)/libgstopenmax_la-gstvideodecoder.Tpo -c -o libgstopenmax_la-gstvideodecoder.lo `test -f 'video/gstvideodecoder.c' || echo '$(srcdir)/'`video/gstvideodecoder.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libgstopenmax_la-gstvideodecoder.Tpo $(DEPDIR)/libgstopenmax_la-gstvideodecoder.Plo
+#	$(AM_V_CC)source='video/gstvideodecoder.c' object='libgstopenmax_la-gstvideodecoder.lo' libtool=yes \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstopenmax_la_CFLAGS) $(CFLAGS) -c -o libgstopenmax_la-gstbasevideodecoder.lo `test -f 'gstbasevideodecoder.c' || echo '$(srcdir)/'`gstbasevideodecoder.c
+#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstopenmax_la_CFLAGS) $(CFLAGS) -c -o libgstopenmax_la-gstvideodecoder.lo `test -f 'video/gstvideodecoder.c' || echo '$(srcdir)/'`video/gstvideodecoder.c
 
-libgstopenmax_la-gstbasevideoencoder.lo: gstbasevideoencoder.c
-	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstopenmax_la_CFLAGS) $(CFLAGS) -MT libgstopenmax_la-gstbasevideoencoder.lo -MD -MP -MF $(DEPDIR)/libgstopenmax_la-gstbasevideoencoder.Tpo -c -o libgstopenmax_la-gstbasevideoencoder.lo `test -f 'gstbasevideoencoder.c' || echo '$(srcdir)/'`gstbasevideoencoder.c
-	$(AM_V_at)$(am__mv) $(DEPDIR)/libgstopenmax_la-gstbasevideoencoder.Tpo $(DEPDIR)/libgstopenmax_la-gstbasevideoencoder.Plo
-#	$(AM_V_CC)source='gstbasevideoencoder.c' object='libgstopenmax_la-gstbasevideoencoder.lo' libtool=yes \
+libgstopenmax_la-gstvideoencoder.lo: video/gstvideoencoder.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstopenmax_la_CFLAGS) $(CFLAGS) -MT libgstopenmax_la-gstvideoencoder.lo -MD -MP -MF $(DEPDIR)/libgstopenmax_la-gstvideoencoder.Tpo -c -o libgstopenmax_la-gstvideoencoder.lo `test -f 'video/gstvideoencoder.c' || echo '$(srcdir)/'`video/gstvideoencoder.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libgstopenmax_la-gstvideoencoder.Tpo $(DEPDIR)/libgstopenmax_la-gstvideoencoder.Plo
+#	$(AM_V_CC)source='video/gstvideoencoder.c' object='libgstopenmax_la-gstvideoencoder.lo' libtool=yes \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstopenmax_la_CFLAGS) $(CFLAGS) -c -o libgstopenmax_la-gstbasevideoencoder.lo `test -f 'gstbasevideoencoder.c' || echo '$(srcdir)/'`gstbasevideoencoder.c
+#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstopenmax_la_CFLAGS) $(CFLAGS) -c -o libgstopenmax_la-gstvideoencoder.lo `test -f 'video/gstvideoencoder.c' || echo '$(srcdir)/'`video/gstvideoencoder.c
 
-libgstopenmax_la-gstbasevideoutils.lo: gstbasevideoutils.c
-	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstopenmax_la_CFLAGS) $(CFLAGS) -MT libgstopenmax_la-gstbasevideoutils.lo -MD -MP -MF $(DEPDIR)/libgstopenmax_la-gstbasevideoutils.Tpo -c -o libgstopenmax_la-gstbasevideoutils.lo `test -f 'gstbasevideoutils.c' || echo '$(srcdir)/'`gstbasevideoutils.c
-	$(AM_V_at)$(am__mv) $(DEPDIR)/libgstopenmax_la-gstbasevideoutils.Tpo $(DEPDIR)/libgstopenmax_la-gstbasevideoutils.Plo
-#	$(AM_V_CC)source='gstbasevideoutils.c' object='libgstopenmax_la-gstbasevideoutils.lo' libtool=yes \
+libgstopenmax_la-gstvideoutils.lo: video/gstvideoutils.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstopenmax_la_CFLAGS) $(CFLAGS) -MT libgstopenmax_la-gstvideoutils.lo -MD -MP -MF $(DEPDIR)/libgstopenmax_la-gstvideoutils.Tpo -c -o libgstopenmax_la-gstvideoutils.lo `test -f 'video/gstvideoutils.c' || echo '$(srcdir)/'`video/gstvideoutils.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libgstopenmax_la-gstvideoutils.Tpo $(DEPDIR)/libgstopenmax_la-gstvideoutils.Plo
+#	$(AM_V_CC)source='video/gstvideoutils.c' object='libgstopenmax_la-gstvideoutils.lo' libtool=yes \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstopenmax_la_CFLAGS) $(CFLAGS) -c -o libgstopenmax_la-gstbasevideoutils.lo `test -f 'gstbasevideoutils.c' || echo '$(srcdir)/'`gstbasevideoutils.c
-
-libgstopenmax_la-gstomxrecmutex.lo: gstomxrecmutex.c
-	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstopenmax_la_CFLAGS) $(CFLAGS) -MT libgstopenmax_la-gstomxrecmutex.lo -MD -MP -MF $(DEPDIR)/libgstopenmax_la-gstomxrecmutex.Tpo -c -o libgstopenmax_la-gstomxrecmutex.lo `test -f 'gstomxrecmutex.c' || echo '$(srcdir)/'`gstomxrecmutex.c
-	$(AM_V_at)$(am__mv) $(DEPDIR)/libgstopenmax_la-gstomxrecmutex.Tpo $(DEPDIR)/libgstopenmax_la-gstomxrecmutex.Plo
-#	$(AM_V_CC)source='gstomxrecmutex.c' object='libgstopenmax_la-gstomxrecmutex.lo' libtool=yes \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstopenmax_la_CFLAGS) $(CFLAGS) -c -o libgstopenmax_la-gstomxrecmutex.lo `test -f 'gstomxrecmutex.c' || echo '$(srcdir)/'`gstomxrecmutex.c
+#	$(AM_V_CC_no)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstopenmax_la_CFLAGS) $(CFLAGS) -c -o libgstopenmax_la-gstvideoutils.lo `test -f 'video/gstvideoutils.c' || echo '$(srcdir)/'`video/gstvideoutils.c
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -885,6 +917,7 @@ uninstall-am: uninstall-pluginLTLIBRARIES
 	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
 	tags uninstall uninstall-am uninstall-pluginLTLIBRARIES
 
+	$(VIDEO_BASE_CLASSES_H)
 
 Android.mk: Makefile.am $(BUILT_SOURCES)
 	androgenizer \
@@ -898,7 +931,7 @@ Android.mk: Makefile.am $(BUILT_SOURCES)
 	           $(libgstopenmax_la_LIBADD) \
 	           -ldl \
 	 -:PASSTHROUGH LOCAL_ARM_MODE:=arm \
-		       LOCAL_MODULE_PATH:='$$(TARGET_OUT)/lib/gstreamer-0.10' \
+		       LOCAL_MODULE_PATH:='$$(TARGET_OUT)/lib/gstreamer-$(GST_API_VERSION)' \
 	> $@
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
