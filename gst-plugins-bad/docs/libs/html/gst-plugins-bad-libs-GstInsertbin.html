@@ -1,0 +1,634 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GstInsertbin</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="GStreamer Bad Plugins 1.0 Library Reference Manual">
+<link rel="up" href="tools.html" title="Useful elements">
+<link rel="prev" href="tools.html" title="Useful elements">
+<link rel="next" href="gstreamer-libs-hierarchy.html" title="Part II. Object Hierarchy">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="tools.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="tools.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer Bad Plugins 1.0 Library Reference Manual</th>
+<td><a accesskey="n" href="gstreamer-libs-hierarchy.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gst-plugins-bad-libs-GstInsertbin.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gst-plugins-bad-libs-GstInsertbin.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#gst-plugins-bad-libs-GstInsertbin.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#gst-plugins-bad-libs-GstInsertbin.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                   | 
+                  <a href="#gst-plugins-bad-libs-GstInsertbin.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gst-plugins-bad-libs-GstInsertbin"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gst-plugins-bad-libs-GstInsertbin.top_of_page"></a>GstInsertbin</span></h2>
+<p>GstInsertbin — A <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstBin.html"><span class="type">GstBin</span></a> to insertally link filter-like elements.</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gst-plugins-bad-libs-GstInsertbin.synopsis"></a><h2>Synopsis</h2>
+<a name="GstInsertBin"></a><pre class="synopsis">struct              <a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#GstInsertBin-struct" title="struct GstInsertBin">GstInsertBin</a>;
+struct              <a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#GstInsertBinClass" title="struct GstInsertBinClass">GstInsertBinClass</a>;
+<span class="returnvalue">void</span>                (<a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#GstInsertBinCallback" title="GstInsertBinCallback ()">*GstInsertBinCallback</a>)             (<em class="parameter"><code><a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#GstInsertBin"><span class="type">GstInsertBin</span></a> *insertbin</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> success</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="returnvalue">GstElement</span></a> *        <a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#gst-insert-bin-new" title="gst_insert_bin_new ()">gst_insert_bin_new</a>                  (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#gst-insert-bin-append" title="gst_insert_bin_append ()">gst_insert_bin_append</a>               (<em class="parameter"><code><a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#GstInsertBin"><span class="type">GstInsertBin</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#GstInsertBinCallback" title="GstInsertBinCallback ()"><span class="type">GstInsertBinCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#gst-insert-bin-prepend" title="gst_insert_bin_prepend ()">gst_insert_bin_prepend</a>              (<em class="parameter"><code><a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#GstInsertBin"><span class="type">GstInsertBin</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#GstInsertBinCallback" title="GstInsertBinCallback ()"><span class="type">GstInsertBinCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#gst-insert-bin-insert-after" title="gst_insert_bin_insert_after ()">gst_insert_bin_insert_after</a>         (<em class="parameter"><code><a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#GstInsertBin"><span class="type">GstInsertBin</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *sibling</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#GstInsertBinCallback" title="GstInsertBinCallback ()"><span class="type">GstInsertBinCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#gst-insert-bin-insert-before" title="gst_insert_bin_insert_before ()">gst_insert_bin_insert_before</a>        (<em class="parameter"><code><a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#GstInsertBin"><span class="type">GstInsertBin</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *sibling</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#GstInsertBinCallback" title="GstInsertBinCallback ()"><span class="type">GstInsertBinCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#gst-insert-bin-remove" title="gst_insert_bin_remove ()">gst_insert_bin_remove</a>               (<em class="parameter"><code><a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#GstInsertBin"><span class="type">GstInsertBin</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#GstInsertBinCallback" title="GstInsertBinCallback ()"><span class="type">GstInsertBinCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-bad-libs-GstInsertbin.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstObject.html">GstObject</a>
+               +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html">GstElement</a>
+                     +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstBin.html">GstBin</a>
+                           +----GstInsertBin
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-bad-libs-GstInsertbin.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+GstInsertBin implements
+ <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstChildProxy.html">GstChildProxy</a>.</p>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-bad-libs-GstInsertbin.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#GstInsertBin-append" title='The "append" signal'>append</a>"                                         : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-ACTION:CAPS"><code class="literal">Action</code></a>
+  "<a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#GstInsertBin-insert-after" title='The "insert-after" signal'>insert-after</a>"                                   : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-ACTION:CAPS"><code class="literal">Action</code></a>
+  "<a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#GstInsertBin-insert-before" title='The "insert-before" signal'>insert-before</a>"                                  : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-ACTION:CAPS"><code class="literal">Action</code></a>
+  "<a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#GstInsertBin-prepend" title='The "prepend" signal'>prepend</a>"                                        : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-ACTION:CAPS"><code class="literal">Action</code></a>
+  "<a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#GstInsertBin-remove" title='The "remove" signal'>remove</a>"                                         : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-ACTION:CAPS"><code class="literal">Action</code></a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-bad-libs-GstInsertbin.description"></a><h2>Description</h2>
+<p>
+This element is a <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstBin.html"><span class="type">GstBin</span></a> that has a single source and sink pad. It allows
+the user (the application) to easily add and remove filter-like element
+(that has a single source and sink pad), to the pipeline while it is running.
+It features a fully asynchronous API inspired by GLib's GAsyncResult based
+APIs.
+</p>
+<p>
+Each operation (addition or removal) can take a callback, this callback
+is guaranteed to be called. Unlike GIO, there is no guarantee about where
+this callback will be called from, it could be called before the action
+returns or it could be called later from another thread. The signature of
+this callback <a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#GstInsertBinCallback" title="GstInsertBinCallback ()"><code class="function">GstInsertBinCallback()</code></a>.
+</p>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-bad-libs-GstInsertbin.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstInsertBin-struct"></a><h3>struct GstInsertBin</h3>
+<pre class="programlisting">struct GstInsertBin;</pre>
+<p>
+The object structure.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstInsertBinClass"></a><h3>struct GstInsertBinClass</h3>
+<pre class="programlisting">struct GstInsertBinClass {
+  GstBinClass parent_class;
+};
+</pre>
+<p>
+The object class structure.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstInsertBinCallback"></a><h3>GstInsertBinCallback ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*GstInsertBinCallback)             (<em class="parameter"><code><a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#GstInsertBin"><span class="type">GstInsertBin</span></a> *insertbin</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> success</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+This is the prototype of callbacks to be called when the operation completes.
+It could be called at any time, including as a re-entrant call while the
+operation is requested.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>insertbin</code></em> :</span></p></td>
+<td>A <a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#GstInsertBin"><span class="type">GstInsertBin</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>element</code></em> :</span></p></td>
+<td>The <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> on which the operation was performed</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>success</code></em> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the operation was successful</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>The user data passed</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-insert-bin-new"></a><h3>gst_insert_bin_new ()</h3>
+<pre class="programlisting"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="returnvalue">GstElement</span></a> *        gst_insert_bin_new                  (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);</pre>
+<p>
+Creates a new <a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#GstInsertBin"><span class="type">GstInsertBin</span></a>
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>The name of the new <a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#GstInsertBin"><span class="type">GstInsertBin</span></a> element (or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>). <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The new <a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#GstInsertBin"><span class="type">GstInsertBin</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-insert-bin-append"></a><h3>gst_insert_bin_append ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_insert_bin_append               (<em class="parameter"><code><a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#GstInsertBin"><span class="type">GstInsertBin</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#GstInsertBinCallback" title="GstInsertBinCallback ()"><span class="type">GstInsertBinCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+This action signal adds the filter like element after any other element
+in the bin.
+</p>
+<p>
+Same as the <a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#GstInsertBin-append" title='The "append" signal'><span class="type">"append"</span></a> signal.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>element</code></em> :</span></p></td>
+<td>the <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> to add</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>the callback to call when the element has been
+added or not, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="The callback is valid until first called."><span class="acronym">scope async</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>The data to pass to the callback</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-insert-bin-prepend"></a><h3>gst_insert_bin_prepend ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_insert_bin_prepend              (<em class="parameter"><code><a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#GstInsertBin"><span class="type">GstInsertBin</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#GstInsertBinCallback" title="GstInsertBinCallback ()"><span class="type">GstInsertBinCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+This action signal adds the filter like element before any other element
+in the bin.
+</p>
+<p>
+Same as the <a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#GstInsertBin-prepend" title='The "prepend" signal'><span class="type">"prepend"</span></a> signal.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>element</code></em> :</span></p></td>
+<td>the <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> to add</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>the callback to call when the element has been
+added or not, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="The callback is valid until first called."><span class="acronym">scope async</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>The data to pass to the callback</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-insert-bin-insert-after"></a><h3>gst_insert_bin_insert_after ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_insert_bin_insert_after         (<em class="parameter"><code><a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#GstInsertBin"><span class="type">GstInsertBin</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *sibling</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#GstInsertBinCallback" title="GstInsertBinCallback ()"><span class="type">GstInsertBinCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+This action signal adds the filter like element after the <em class="parameter"><code>sibling</code></em>
+element in the bin.
+</p>
+<p>
+Same as the <a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#GstInsertBin-insert-after" title='The "insert-after" signal'><span class="type">"insert-after"</span></a> signal.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>element</code></em> :</span></p></td>
+<td>the <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> to add</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sibling</code></em> :</span></p></td>
+<td>the <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> to add <em class="parameter"><code>element</code></em> after</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>the callback to call when the element has been
+added or not, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="The callback is valid until first called."><span class="acronym">scope async</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>The data to pass to the callback</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-insert-bin-insert-before"></a><h3>gst_insert_bin_insert_before ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_insert_bin_insert_before        (<em class="parameter"><code><a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#GstInsertBin"><span class="type">GstInsertBin</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *sibling</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#GstInsertBinCallback" title="GstInsertBinCallback ()"><span class="type">GstInsertBinCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+This action signal adds the filter like element before the <em class="parameter"><code>sibling</code></em>
+element in the bin.
+</p>
+<p>
+Same as the <a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#GstInsertBin-insert-before" title='The "insert-before" signal'><span class="type">"insert-before"</span></a> signal.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>element</code></em> :</span></p></td>
+<td>the <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> to add</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sibling</code></em> :</span></p></td>
+<td>the <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> to add <em class="parameter"><code>element</code></em> before</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>the callback to call when the element has been
+added or not, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="The callback is valid until first called."><span class="acronym">scope async</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>The data to pass to the callback</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-insert-bin-remove"></a><h3>gst_insert_bin_remove ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_insert_bin_remove               (<em class="parameter"><code><a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#GstInsertBin"><span class="type">GstInsertBin</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#GstInsertBinCallback" title="GstInsertBinCallback ()"><span class="type">GstInsertBinCallback</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+This action signal removed the filter like element from the bin.
+</p>
+<p>
+Same as the <a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#GstInsertBin-remove" title='The "remove" signal'><span class="type">"remove"</span></a> signal.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>element</code></em> :</span></p></td>
+<td>the <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> to remove</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>the callback to call when the element has been
+removed or not, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="The callback is valid until first called."><span class="acronym">scope async</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>The data to pass to the callback</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.2</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-bad-libs-GstInsertbin.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="GstInsertBin-append"></a><h3>The <code class="literal">"append"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#GstInsertBin"><span class="type">GstInsertBin</span></a> *element,
+                                                        <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a>   *callback,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      arg3,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-ACTION:CAPS"><code class="literal">Action</code></a></pre>
+<p>
+This action signal adds the filter like element after any other element
+in the bin.
+</p>
+<p>
+Same as <a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#gst-insert-bin-append" title="gst_insert_bin_append ()"><code class="function">gst_insert_bin_append()</code></a>
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>element</code></em> :</span></p></td>
+<td>the <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> to add</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>the callback to call when the element has been added or not, or
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>The data to pass to the callback</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstInsertBin-insert-after"></a><h3>The <code class="literal">"insert-after"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#GstInsertBin"><span class="type">GstInsertBin</span></a> *element,
+                                                        <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a>   *sibling,
+                                                        <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a>   *callback,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      arg4,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-ACTION:CAPS"><code class="literal">Action</code></a></pre>
+<p>
+This action signal adds the filter like element after the <em class="parameter"><code>sibling</code></em>
+element in the bin.
+element in the bin.
+</p>
+<p>
+Same as <a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#gst-insert-bin-insert-after" title="gst_insert_bin_insert_after ()"><code class="function">gst_insert_bin_insert_after()</code></a>
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>element</code></em> :</span></p></td>
+<td>the <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> to add</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sibling</code></em> :</span></p></td>
+<td>the <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> to add <em class="parameter"><code>element</code></em> after</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>the callback to call when the element has been added or not, or
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>The data to pass to the callback</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstInsertBin-insert-before"></a><h3>The <code class="literal">"insert-before"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#GstInsertBin"><span class="type">GstInsertBin</span></a> *element,
+                                                        <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a>   *sibling,
+                                                        <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a>   *callback,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      arg4,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-ACTION:CAPS"><code class="literal">Action</code></a></pre>
+<p>
+This action signal adds the filter like element before the <em class="parameter"><code>sibling</code></em>
+element in the bin.
+</p>
+<p>
+Same as <a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#gst-insert-bin-insert-before" title="gst_insert_bin_insert_before ()"><code class="function">gst_insert_bin_insert_before()</code></a>
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>element</code></em> :</span></p></td>
+<td>the <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> to add</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sibling</code></em> :</span></p></td>
+<td>the <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> to add <em class="parameter"><code>element</code></em> before</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>the callback to call when the element has been added or not, or
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>The data to pass to the callback</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstInsertBin-prepend"></a><h3>The <code class="literal">"prepend"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#GstInsertBin"><span class="type">GstInsertBin</span></a> *element,
+                                                        <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a>   *callback,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      arg3,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-ACTION:CAPS"><code class="literal">Action</code></a></pre>
+<p>
+This action signal adds the filter like element before any other element
+in the bin.
+</p>
+<p>
+Same as <a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#gst-insert-bin-prepend" title="gst_insert_bin_prepend ()"><code class="function">gst_insert_bin_prepend()</code></a>
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>element</code></em> :</span></p></td>
+<td>the <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> to add</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>the callback to call when the element has been added or not, or
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>The data to pass to the callback</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstInsertBin-remove"></a><h3>The <code class="literal">"remove"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#GstInsertBin"><span class="type">GstInsertBin</span></a> *element,
+                                                        <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a>   *callback,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      arg3,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-ACTION:CAPS"><code class="literal">Action</code></a></pre>
+<p>
+This action signal removed the filter like element from the bin.
+</p>
+<p>
+Same as <a class="link" href="gst-plugins-bad-libs-GstInsertbin.html#gst-insert-bin-remove" title="gst_insert_bin_remove ()"><code class="function">gst_insert_bin_remove()</code></a>
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>element</code></em> :</span></p></td>
+<td>the <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> to remove</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>the callback to call when the element has been removed or not,
+or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>The data to pass to the callback</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

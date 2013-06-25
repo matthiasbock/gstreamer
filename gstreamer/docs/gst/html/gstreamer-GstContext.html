@@ -1,0 +1,340 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GstContext</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="GStreamer 1.0 Core Reference Manual">
+<link rel="up" href="libgstreamer.html" title="GStreamer Core Library">
+<link rel="prev" href="gstreamer-gstconfig.html" title="gstconfig">
+<link rel="next" href="GstControlBinding.html" title="GstControlBinding">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gstreamer-gstconfig.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="libgstreamer.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer 1.0 Core Reference Manual</th>
+<td><a accesskey="n" href="GstControlBinding.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gstreamer-GstContext.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gstreamer-GstContext.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gstreamer-GstContext"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gstreamer-GstContext.top_of_page"></a>GstContext</span></h2>
+<p>GstContext — Lightweight objects to represent element contexts</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gstreamer-GstContext.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;gst/gst.h&gt;
+
+                    <a class="link" href="gstreamer-GstContext.html#GstContext" title="GstContext">GstContext</a>;
+<a class="link" href="gstreamer-GstContext.html#GstContext" title="GstContext"><span class="returnvalue">GstContext</span></a> *        <a class="link" href="gstreamer-GstContext.html#gst-context-new" title="gst_context_new ()">gst_context_new</a>                     (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a class="link" href="gstreamer-GstContext.html#GstContext" title="GstContext"><span class="returnvalue">GstContext</span></a> *        <a class="link" href="gstreamer-GstContext.html#gst-context-ref" title="gst_context_ref ()">gst_context_ref</a>                     (<em class="parameter"><code><a class="link" href="gstreamer-GstContext.html#GstContext" title="GstContext"><span class="type">GstContext</span></a> *context</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gstreamer-GstContext.html#gst-context-unref" title="gst_context_unref ()">gst_context_unref</a>                   (<em class="parameter"><code><a class="link" href="gstreamer-GstContext.html#GstContext" title="GstContext"><span class="type">GstContext</span></a> *context</code></em>);
+<a class="link" href="gstreamer-GstContext.html#GstContext" title="GstContext"><span class="returnvalue">GstContext</span></a> *        <a class="link" href="gstreamer-GstContext.html#gst-context-copy" title="gst_context_copy ()">gst_context_copy</a>                    (<em class="parameter"><code>const <a class="link" href="gstreamer-GstContext.html#GstContext" title="GstContext"><span class="type">GstContext</span></a> *context</code></em>);
+const <a class="link" href="gstreamer-GstStructure.html#GstStructure" title="struct GstStructure"><span class="returnvalue">GstStructure</span></a> * <a class="link" href="gstreamer-GstContext.html#gst-context-get-structure" title="gst_context_get_structure ()">gst_context_get_structure</a>          (<em class="parameter"><code><a class="link" href="gstreamer-GstContext.html#GstContext" title="GstContext"><span class="type">GstContext</span></a> *context</code></em>);
+<a class="link" href="gstreamer-GstStructure.html#GstStructure" title="struct GstStructure"><span class="returnvalue">GstStructure</span></a> *      <a class="link" href="gstreamer-GstContext.html#gst-context-writable-structure" title="gst_context_writable_structure ()">gst_context_writable_structure</a>      (<em class="parameter"><code><a class="link" href="gstreamer-GstContext.html#GstContext" title="GstContext"><span class="type">GstContext</span></a> *context</code></em>);
+#define             <a class="link" href="gstreamer-GstContext.html#gst-context-make-writable" title="gst_context_make_writable()">gst_context_make_writable</a>           (context)
+#define             <a class="link" href="gstreamer-GstContext.html#gst-context-is-writable" title="gst_context_is_writable()">gst_context_is_writable</a>             (context)
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="gstreamer-GstContext.html#gst-context-replace" title="gst_context_replace ()">gst_context_replace</a>                 (<em class="parameter"><code><a class="link" href="gstreamer-GstContext.html#GstContext" title="GstContext"><span class="type">GstContext</span></a> **old_context</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstContext.html#GstContext" title="GstContext"><span class="type">GstContext</span></a> *new_context</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="gstreamer-GstContext.description"></a><h2>Description</h2>
+<p>
+<a class="link" href="gstreamer-GstContext.html#GstContext" title="GstContext"><span class="type">GstContext</span></a> is a container object used to store contexts like a device
+context, a display server connection and similar concepts that should
+be shared between multiple elements.
+</p>
+<p>
+Applications can set a context on a complete pipeline by using
+<a class="link" href="GstElement.html#gst-element-set-context" title="gst_element_set_context ()"><code class="function">gst_element_set_context()</code></a>, which will then be propagated to all
+child elements. Elements can handle these in GstElement::<code class="function">set_context()</code>
+and merge them with the context information they already have.
+</p>
+<p>
+When an element needs a context it will do the following actions in this
+order until one step succeeds:
+1) Check if the element already has a context
+2) Query downstream with GST_QUERY_CONTEXT for the context
+3) Post a GST_MESSAGE_NEED_CONTEXT message on the bus with the required
+   context types and afterwards check if a usable context was set now
+4) Create a context by itself and post a GST_MESSAGE_HAVE_CONTEXT message
+   and send a GST_EVENT_CONTEXT event downstream, containing the complete
+   context information at this time.
+</p>
+<p>
+Applications should catch the GST_MESSAGE_HAVE_CONTEXT messages and remember
+any content from it unless it has a custom version of a specific context. If
+later an element is posting a GST_MESSAGE_NEED_CONTEXT message for a specific
+context that was created by an element before, the application should pass it
+to the element or the complete pipeline.
+</p>
+</div>
+<div class="refsect1">
+<a name="gstreamer-GstContext.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstContext"></a><h3>GstContext</h3>
+<pre class="programlisting">typedef struct _GstContext GstContext;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-context-new"></a><h3>gst_context_new ()</h3>
+<pre class="programlisting"><a class="link" href="gstreamer-GstContext.html#GstContext" title="GstContext"><span class="returnvalue">GstContext</span></a> *        gst_context_new                     (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Create a new context.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The new context. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 1.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-context-ref"></a><h3>gst_context_ref ()</h3>
+<pre class="programlisting"><a class="link" href="gstreamer-GstContext.html#GstContext" title="GstContext"><span class="returnvalue">GstContext</span></a> *        gst_context_ref                     (<em class="parameter"><code><a class="link" href="gstreamer-GstContext.html#GstContext" title="GstContext"><span class="type">GstContext</span></a> *context</code></em>);</pre>
+<p>
+Convenience macro to increase the reference count of the context.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>the context to ref</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<em class="parameter"><code>context</code></em> (for convenience when doing assignments)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-context-unref"></a><h3>gst_context_unref ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_context_unref                   (<em class="parameter"><code><a class="link" href="gstreamer-GstContext.html#GstContext" title="GstContext"><span class="type">GstContext</span></a> *context</code></em>);</pre>
+<p>
+Convenience macro to decrease the reference count of the context, possibly
+freeing it.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>the context to unref</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-context-copy"></a><h3>gst_context_copy ()</h3>
+<pre class="programlisting"><a class="link" href="gstreamer-GstContext.html#GstContext" title="GstContext"><span class="returnvalue">GstContext</span></a> *        gst_context_copy                    (<em class="parameter"><code>const <a class="link" href="gstreamer-GstContext.html#GstContext" title="GstContext"><span class="type">GstContext</span></a> *context</code></em>);</pre>
+<p>
+Creates a copy of the context. Returns a copy of the context.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>the context to copy</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new copy of <em class="parameter"><code>context</code></em>.
+MT safe. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-context-get-structure"></a><h3>gst_context_get_structure ()</h3>
+<pre class="programlisting">const <a class="link" href="gstreamer-GstStructure.html#GstStructure" title="struct GstStructure"><span class="returnvalue">GstStructure</span></a> * gst_context_get_structure          (<em class="parameter"><code><a class="link" href="gstreamer-GstContext.html#GstContext" title="GstContext"><span class="type">GstContext</span></a> *context</code></em>);</pre>
+<p>
+Access the structure of the context.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The <a class="link" href="gstreamer-GstContext.html#GstContext" title="GstContext"><span class="type">GstContext</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The structure of the context. The structure is
+still owned by the context, which means that you should not modify it,
+free it and that the pointer becomes invalid when you free the context. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-context-writable-structure"></a><h3>gst_context_writable_structure ()</h3>
+<pre class="programlisting"><a class="link" href="gstreamer-GstStructure.html#GstStructure" title="struct GstStructure"><span class="returnvalue">GstStructure</span></a> *      gst_context_writable_structure      (<em class="parameter"><code><a class="link" href="gstreamer-GstContext.html#GstContext" title="GstContext"><span class="type">GstContext</span></a> *context</code></em>);</pre>
+<p>
+Get a writable version of the structure.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>The <a class="link" href="gstreamer-GstContext.html#GstContext" title="GstContext"><span class="type">GstContext</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The structure of the context. The structure is still
+owned by the event, which means that you should not free it and
+that the pointer becomes invalid when you free the event.
+This function checks if <em class="parameter"><code>context</code></em> is writable.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-context-make-writable"></a><h3>gst_context_make_writable()</h3>
+<pre class="programlisting">#define         gst_context_make_writable(context)  GST_CONTEXT_CAST (gst_mini_object_make_writable (GST_MINI_OBJECT_CAST (context)))
+</pre>
+<p>
+Checks if a context is writable. If not, a writable copy is made and
+returned.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>the context to make writable. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a context (possibly a duplicate) that is writable.
+MT safe. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-context-is-writable"></a><h3>gst_context_is_writable()</h3>
+<pre class="programlisting">#define         gst_context_is_writable(context)     gst_mini_object_is_writable (GST_MINI_OBJECT_CAST (context))
+</pre>
+<p>
+Tests if you can safely write into a context's structure or validly
+modify the seqnum and timestamp fields.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstContext.html#GstContext" title="GstContext"><span class="type">GstContext</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-context-replace"></a><h3>gst_context_replace ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_context_replace                 (<em class="parameter"><code><a class="link" href="gstreamer-GstContext.html#GstContext" title="GstContext"><span class="type">GstContext</span></a> **old_context</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstContext.html#GstContext" title="GstContext"><span class="type">GstContext</span></a> *new_context</code></em>);</pre>
+<p>
+Modifies a pointer to a <a class="link" href="gstreamer-GstContext.html#GstContext" title="GstContext"><span class="type">GstContext</span></a> to point to a different <a class="link" href="gstreamer-GstContext.html#GstContext" title="GstContext"><span class="type">GstContext</span></a>. The
+modification is done atomically (so this is useful for ensuring thread safety
+in some cases), and the reference counts are updated appropriately (the old
+context is unreffed, the new one is reffed).
+</p>
+<p>
+Either <em class="parameter"><code>new_context</code></em> or the <a class="link" href="gstreamer-GstContext.html#GstContext" title="GstContext"><span class="type">GstContext</span></a> pointed to by <em class="parameter"><code>old_context</code></em> may be NULL.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>old_context</code></em> :</span></p></td>
+<td>pointer to a pointer to a <a class="link" href="gstreamer-GstContext.html#GstContext" title="GstContext"><span class="type">GstContext</span></a>
+to be replaced. <span class="annotation">[<acronym title="Parameter for input and for returning results. Default is transfer full."><span class="acronym">inout</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>new_context</code></em> :</span></p></td>
+<td>pointer to a <a class="link" href="gstreamer-GstContext.html#GstContext" title="GstContext"><span class="type">GstContext</span></a> that will
+replace the context pointed to by <em class="parameter"><code>old_context</code></em>. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE if <em class="parameter"><code>new_context</code></em> was different from <em class="parameter"><code>old_context</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="gstreamer-GstContext.see-also"></a><h2>See Also</h2>
+<a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a>, <a class="link" href="GstElement.html" title="GstElement"><span class="type">GstElement</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

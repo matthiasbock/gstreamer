@@ -1,0 +1,754 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GstTestClock</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="GStreamer 1.0 Library Reference Manual">
+<link rel="up" href="gstreamer-check.html" title="GStreamer Check Unit Testing">
+<link rel="prev" href="gstreamer-libs-GstStreamConsistency.html" title="GstStreamConsistency">
+<link rel="next" href="gstreamer-hierarchy.html" title="Object Hierarchy">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gstreamer-libs-GstStreamConsistency.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="gstreamer-check.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer 1.0 Library Reference Manual</th>
+<td><a accesskey="n" href="gstreamer-hierarchy.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#GstTestClock.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#GstTestClock.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#GstTestClock.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#GstTestClock.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="GstTestClock"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GstTestClock.top_of_page"></a>GstTestClock</span></h2>
+<p>GstTestClock — Controllable, deterministic clock for GStreamer unit tests</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="GstTestClock.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;gst/check/gsttestclock.h&gt;
+
+struct              <a class="link" href="GstTestClock.html#GstTestClock-struct" title="struct GstTestClock">GstTestClock</a>;
+struct              <a class="link" href="GstTestClock.html#GstTestClockClass" title="struct GstTestClockClass">GstTestClockClass</a>;
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html"><span class="returnvalue">GstClock</span></a> *          <a class="link" href="GstTestClock.html#gst-test-clock-new" title="gst_test_clock_new ()">gst_test_clock_new</a>                  (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html"><span class="returnvalue">GstClock</span></a> *          <a class="link" href="GstTestClock.html#gst-test-clock-new-with-start-time" title="gst_test_clock_new_with_start_time ()">gst_test_clock_new_with_start_time</a>  (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockTime"><span class="type">GstClockTime</span></a> start_time</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="GstTestClock.html#gst-test-clock-set-time" title="gst_test_clock_set_time ()">gst_test_clock_set_time</a>             (<em class="parameter"><code><a class="link" href="GstTestClock.html" title="GstTestClock"><span class="type">GstTestClock</span></a> *test_clock</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockTime"><span class="type">GstClockTime</span></a> new_time</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="GstTestClock.html#gst-test-clock-advance-time" title="gst_test_clock_advance_time ()">gst_test_clock_advance_time</a>         (<em class="parameter"><code><a class="link" href="GstTestClock.html" title="GstTestClock"><span class="type">GstTestClock</span></a> *test_clock</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockTimeDiff"><span class="type">GstClockTimeDiff</span></a> delta</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               <a class="link" href="GstTestClock.html#gst-test-clock-peek-id-count" title="gst_test_clock_peek_id_count ()">gst_test_clock_peek_id_count</a>        (<em class="parameter"><code><a class="link" href="GstTestClock.html" title="GstTestClock"><span class="type">GstTestClock</span></a> *test_clock</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="GstTestClock.html#gst-test-clock-has-id" title="gst_test_clock_has_id ()">gst_test_clock_has_id</a>               (<em class="parameter"><code><a class="link" href="GstTestClock.html" title="GstTestClock"><span class="type">GstTestClock</span></a> *test_clock</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockID"><span class="type">GstClockID</span></a> id</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="GstTestClock.html#gst-test-clock-peek-next-pending-id" title="gst_test_clock_peek_next_pending_id ()">gst_test_clock_peek_next_pending_id</a> (<em class="parameter"><code><a class="link" href="GstTestClock.html" title="GstTestClock"><span class="type">GstTestClock</span></a> *test_clock</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockID"><span class="type">GstClockID</span></a> *pending_id</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="GstTestClock.html#gst-test-clock-wait-for-next-pending-id" title="gst_test_clock_wait_for_next_pending_id ()">gst_test_clock_wait_for_next_pending_id</a>
+                                                        (<em class="parameter"><code><a class="link" href="GstTestClock.html" title="GstTestClock"><span class="type">GstTestClock</span></a> *test_clock</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockID"><span class="type">GstClockID</span></a> *pending_id</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="GstTestClock.html#gst-test-clock-wait-for-pending-id-count" title="gst_test_clock_wait_for_pending_id_count ()">gst_test_clock_wait_for_pending_id_count</a>
+                                                        (<em class="parameter"><code><a class="link" href="GstTestClock.html" title="GstTestClock"><span class="type">GstTestClock</span></a> *test_clock</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> count</code></em>);
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockID"><span class="returnvalue">GstClockID</span></a>          <a class="link" href="GstTestClock.html#gst-test-clock-process-next-clock-id" title="gst_test_clock_process_next_clock_id ()">gst_test_clock_process_next_clock_id</a>
+                                                        (<em class="parameter"><code><a class="link" href="GstTestClock.html" title="GstTestClock"><span class="type">GstTestClock</span></a> *test_clock</code></em>);
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockTime"><span class="returnvalue">GstClockTime</span></a>        <a class="link" href="GstTestClock.html#gst-test-clock-get-next-entry-time" title="gst_test_clock_get_next_entry_time ()">gst_test_clock_get_next_entry_time</a>  (<em class="parameter"><code><a class="link" href="GstTestClock.html" title="GstTestClock"><span class="type">GstTestClock</span></a> *test_clock</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="GstTestClock.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstObject.html">GstObject</a>
+               +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html">GstClock</a>
+                     +----GstTestClock
+</pre>
+</div>
+<div class="refsect1">
+<a name="GstTestClock.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="GstTestClock.html#GstTestClock--start-time" title='The "start-time" property'>start-time</a>"               <span class="type">guint64</span>               : Read / Write / Construct Only
+</pre>
+</div>
+<div class="refsect1">
+<a name="GstTestClock.description"></a><h2>Description</h2>
+<p>
+GstTestClock is an implementation of <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html"><span class="type">GstClock</span></a> which has different
+behaviour compared to <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstSystemClock.html"><span class="type">GstSystemClock</span></a>. Time for <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstSystemClock.html"><span class="type">GstSystemClock</span></a> advances
+according to the system time, while time for <a class="link" href="GstTestClock.html" title="GstTestClock"><span class="type">GstTestClock</span></a> changes only
+when <a class="link" href="GstTestClock.html#gst-test-clock-set-time" title="gst_test_clock_set_time ()"><code class="function">gst_test_clock_set_time()</code></a> or <a class="link" href="GstTestClock.html#gst-test-clock-advance-time" title="gst_test_clock_advance_time ()"><code class="function">gst_test_clock_advance_time()</code></a> are
+called. <a class="link" href="GstTestClock.html" title="GstTestClock"><span class="type">GstTestClock</span></a> provides unit tests with the possibility to
+precisely advance the time in a deterministic manner, independent of the
+system time or any other external factors.
+</p>
+<p>
+</p>
+<div class="example">
+<a name="idp3203712"></a><p class="title"><b>Example 1. Advancing the time of a <a class="link" href="GstTestClock.html" title="GstTestClock"><span class="type">GstTestClock</span></a></b></p>
+<div class="example-contents">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="gtkdoc ppc">#include &lt;gst/gst.h&gt;</span>
+<span class="gtkdoc ppc">#include &lt;gst/check/gsttestclock.h&gt;</span>
+
+GstClock <span class="gtkdoc opt">*</span>clock<span class="gtkdoc opt">;</span>
+GstTestClock <span class="gtkdoc opt">*</span>test_clock<span class="gtkdoc opt">;</span>
+
+clock <span class="gtkdoc opt">=</span> <span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer-libs/html/GstTestClock.html#gst-test-clock-new">gst_test_clock_new</a></span> <span class="gtkdoc opt">();</span>
+test_clock <span class="gtkdoc opt">=</span> <span class="function">GST_TEST_CLOCK</span> <span class="gtkdoc opt">(</span>clock<span class="gtkdoc opt">);</span>
+<span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstInfo.html#GST-INFO:CAPS">GST_INFO</a></span> <span class="gtkdoc opt">(</span><span class="string">&quot;Time: %&quot;</span> GST_TIME_FORMAT<span class="gtkdoc opt">,</span> <span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstInfo.html#GST-TIME-ARGS:CAPS">GST_TIME_ARGS</a></span> <span class="gtkdoc opt">(</span><span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#gst-clock-get-time">gst_clock_get_time</a></span> <span class="gtkdoc opt">(</span>clock<span class="gtkdoc opt">)));</span>
+<span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer-libs/html/GstTestClock.html#gst-test-clock-advance-time">gst_test_clock_advance_time</a></span> <span class="gtkdoc opt">(</span> test_clock<span class="gtkdoc opt">,</span> <span class="number">1</span> <span class="gtkdoc opt">*</span> GST_SECOND<span class="gtkdoc opt">);</span>
+<span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstInfo.html#GST-INFO:CAPS">GST_INFO</a></span> <span class="gtkdoc opt">(</span><span class="string">&quot;Time: %&quot;</span> GST_TIME_FORMAT<span class="gtkdoc opt">,</span> <span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstInfo.html#GST-TIME-ARGS:CAPS">GST_TIME_ARGS</a></span> <span class="gtkdoc opt">(</span><span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#gst-clock-get-time">gst_clock_get_time</a></span> <span class="gtkdoc opt">(</span>clock<span class="gtkdoc opt">)));</span>
+<span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-Date-and-Time-Functions.html#g-usleep">g_usleep</a></span> <span class="gtkdoc opt">(</span><span class="number">10</span> <span class="gtkdoc opt">*</span> G_USEC_PER_SEC<span class="gtkdoc opt">);</span>
+<span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstInfo.html#GST-INFO:CAPS">GST_INFO</a></span> <span class="gtkdoc opt">(</span><span class="string">&quot;Time: %&quot;</span> GST_TIME_FORMAT<span class="gtkdoc opt">,</span> <span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstInfo.html#GST-TIME-ARGS:CAPS">GST_TIME_ARGS</a></span> <span class="gtkdoc opt">(</span><span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#gst-clock-get-time">gst_clock_get_time</a></span> <span class="gtkdoc opt">(</span>clock<span class="gtkdoc opt">)));</span>
+<span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer-libs/html/GstTestClock.html#gst-test-clock-set-time">gst_test_clock_set_time</a></span> <span class="gtkdoc opt">(</span>test_clock<span class="gtkdoc opt">,</span> <span class="number">42</span> <span class="gtkdoc opt">*</span> GST_SECOND<span class="gtkdoc opt">);</span>
+<span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstInfo.html#GST-INFO:CAPS">GST_INFO</a></span> <span class="gtkdoc opt">(</span><span class="string">&quot;Time: %&quot;</span> GST_TIME_FORMAT<span class="gtkdoc opt">,</span> <span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstInfo.html#GST-TIME-ARGS:CAPS">GST_TIME_ARGS</a></span> <span class="gtkdoc opt">(</span><span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#gst-clock-get-time">gst_clock_get_time</a></span> <span class="gtkdoc opt">(</span>clock<span class="gtkdoc opt">)));</span>
+<span class="gtkdoc opt">...</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</div>
+<p><br class="example-break">
+</p>
+<p>
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html"><span class="type">GstClock</span></a> allows for setting up single shot or periodic clock notifications
+as well as waiting for these notifications synchronously (using
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#gst-clock-id-wait"><code class="function">gst_clock_id_wait()</code></a>) or asynchronously (using <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#gst-clock-id-wait-async"><code class="function">gst_clock_id_wait_async()</code></a> or
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#gst-clock-id-wait-async-full"><code class="function">gst_clock_id_wait_async_full()</code></a>). This is used by many GStreamer elements,
+among them <a class="link" href="GstBaseSrc.html" title="GstBaseSrc"><span class="type">GstBaseSrc</span></a> and <a class="link" href="GstBaseSink.html" title="GstBaseSink"><span class="type">GstBaseSink</span></a>.
+</p>
+<p>
+<a class="link" href="GstTestClock.html" title="GstTestClock"><span class="type">GstTestClock</span></a> keeps track of these clock notifications. By calling
+<a class="link" href="GstTestClock.html#gst-test-clock-wait-for-next-pending-id" title="gst_test_clock_wait_for_next_pending_id ()"><code class="function">gst_test_clock_wait_for_next_pending_id()</code></a> or
+<a class="link" href="GstTestClock.html#gst-test-clock-wait-for-pending-id-count" title="gst_test_clock_wait_for_pending_id_count ()"><code class="function">gst_test_clock_wait_for_pending_id_count()</code></a> a unit tests may wait for the
+next one or several clock notifications to be requested. Additionally unit
+tests may release blocked waits in a controlled fashion by calling
+<a class="link" href="GstTestClock.html#gst-test-clock-process-next-clock-id" title="gst_test_clock_process_next_clock_id ()"><code class="function">gst_test_clock_process_next_clock_id()</code></a>. This way a unit test can control the
+inaccuracy (jitter) of clock notifications, since the test can decide to
+release blocked waits when the clock time has advanced exactly to, or past,
+the requested clock notification time.
+</p>
+<p>
+There are also interfaces for determining if a notification belongs to a
+<a class="link" href="GstTestClock.html" title="GstTestClock"><span class="type">GstTestClock</span></a> or not, as well as getting the number of requested clock
+notifications so far.
+</p>
+<p>
+N.B.: When a unit test waits for a certain amount of clock notifications to
+be requested in <a class="link" href="GstTestClock.html#gst-test-clock-wait-for-next-pending-id" title="gst_test_clock_wait_for_next_pending_id ()"><code class="function">gst_test_clock_wait_for_next_pending_id()</code></a> or
+<a class="link" href="GstTestClock.html#gst-test-clock-wait-for-pending-id-count" title="gst_test_clock_wait_for_pending_id_count ()"><code class="function">gst_test_clock_wait_for_pending_id_count()</code></a> then these functions may block
+for a long time. If they block forever then the expected clock notifications
+were never requested from <a class="link" href="GstTestClock.html" title="GstTestClock"><span class="type">GstTestClock</span></a>, and so the assumptions in the code
+of the unit test are wrong. The unit test case runner in <span class="type">GstCheck</span> is
+expected to catch these cases either by the default test case timeout or the
+one set for the unit test by calling <code class="function">tcase_set_timeout()</code>.
+</p>
+<p>
+The sample code below assumes that the element under test will delay a
+buffer pushed on the source pad by some latency until it arrives on the sink
+pad. Moreover it is assumed that the element will at some point call
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#gst-clock-id-wait"><code class="function">gst_clock_id_wait()</code></a> to synchronously wait for a specific time. The first
+buffer sent will arrive exactly on time only delayed by the latency. The
+second buffer will arrive a little late (7ms) due to simulated jitter in the
+clock notification.
+</p>
+<p>
+</p>
+<div class="example">
+<a name="idp14368640"></a><p class="title"><b>Example 2. Demonstration of how to work with clock notifications and <a class="link" href="GstTestClock.html" title="GstTestClock"><span class="type">GstTestClock</span></a></b></p>
+<div class="example-contents">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="gtkdoc ppc">#include &lt;gst/gst.h&gt;</span>
+<span class="gtkdoc ppc">#include &lt;gst/check/gstcheck.h&gt;</span>
+<span class="gtkdoc ppc">#include &lt;gst/check/gsttestclock.h&gt;</span>
+
+GstClockTime latency<span class="gtkdoc opt">;</span>
+GstElement <span class="gtkdoc opt">*</span>element<span class="gtkdoc opt">;</span>
+GstPad <span class="gtkdoc opt">*</span>srcpad<span class="gtkdoc opt">;</span>
+GstClock <span class="gtkdoc opt">*</span>clock<span class="gtkdoc opt">;</span>
+GstTestClock <span class="gtkdoc opt">*</span>test_clock<span class="gtkdoc opt">;</span>
+GstBuffer buf<span class="gtkdoc opt">;</span>
+GstClockID pending_id<span class="gtkdoc opt">;</span>
+GstClockID processed_id<span class="gtkdoc opt">;</span>
+
+latency <span class="gtkdoc opt">=</span> <span class="number">42</span> <span class="gtkdoc opt">*</span> GST_MSECOND<span class="gtkdoc opt">;</span>
+element <span class="gtkdoc opt">=</span> <span class="function">create_element</span> <span class="gtkdoc opt">(</span>latency<span class="gtkdoc opt">, ...);</span>
+srcpad <span class="gtkdoc opt">=</span> <span class="function">get_source_pad</span> <span class="gtkdoc opt">(</span>element<span class="gtkdoc opt">);</span>
+
+clock <span class="gtkdoc opt">=</span> <span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer-libs/html/GstTestClock.html#gst-test-clock-new">gst_test_clock_new</a></span> <span class="gtkdoc opt">();</span>
+test_clock <span class="gtkdoc opt">=</span> <span class="function">GST_TEST_CLOCK</span> <span class="gtkdoc opt">(</span>clock<span class="gtkdoc opt">);</span>
+<span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html#gst-element-set-clock">gst_element_set_clock</a></span> <span class="gtkdoc opt">(</span>element<span class="gtkdoc opt">,</span> clock<span class="gtkdoc opt">);</span>
+
+<span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstInfo.html#GST-INFO:CAPS">GST_INFO</a></span> <span class="gtkdoc opt">(</span><span class="string">&quot;Set time, create and push the first buffer</span><span class="gtkdoc esc">\n</span><span class="string">&quot;</span><span class="gtkdoc opt">);</span>
+<span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer-libs/html/GstTestClock.html#gst-test-clock-set-time">gst_test_clock_set_time</a></span> <span class="gtkdoc opt">(</span>test_clock<span class="gtkdoc opt">,</span> <span class="number">0</span><span class="gtkdoc opt">);</span>
+buf <span class="gtkdoc opt">=</span> <span class="function">create_test_buffer</span> <span class="gtkdoc opt">(</span><span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#gst-clock-get-time">gst_clock_get_time</a></span> <span class="gtkdoc opt">(</span>clock<span class="gtkdoc opt">), ...);</span>
+<span class="function">gst_assert_cmpint</span> <span class="gtkdoc opt">(</span><span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPad.html#gst-pad-push">gst_pad_push</a></span> <span class="gtkdoc opt">(</span>srcpad<span class="gtkdoc opt">,</span> buf<span class="gtkdoc opt">), ==,</span> GST_FLOW_OK<span class="gtkdoc opt">);</span>
+
+<span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstInfo.html#GST-INFO:CAPS">GST_INFO</a></span> <span class="gtkdoc opt">(</span><span class="string">&quot;Block until element is waiting for a clock notification</span><span class="gtkdoc esc">\n</span><span class="string">&quot;</span><span class="gtkdoc opt">);</span>
+<span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer-libs/html/GstTestClock.html#gst-test-clock-wait-for-next-pending-id">gst_test_clock_wait_for_next_pending_id</a></span> <span class="gtkdoc opt">(</span>test_clock<span class="gtkdoc opt">, &amp;</span>pending_id<span class="gtkdoc opt">);</span>
+<span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstInfo.html#GST-INFO:CAPS">GST_INFO</a></span> <span class="gtkdoc opt">(</span><span class="string">&quot;Advance to the requested time of the clock notification</span><span class="gtkdoc esc">\n</span><span class="string">&quot;</span><span class="gtkdoc opt">);</span>
+<span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer-libs/html/GstTestClock.html#gst-test-clock-advance-time">gst_test_clock_advance_time</a></span> <span class="gtkdoc opt">(</span>test_clock<span class="gtkdoc opt">,</span> latency<span class="gtkdoc opt">);</span>
+<span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstInfo.html#GST-INFO:CAPS">GST_INFO</a></span> <span class="gtkdoc opt">(</span><span class="string">&quot;Release the next blocking wait and make sure it is the one from element</span><span class="gtkdoc esc">\n</span><span class="string">&quot;</span><span class="gtkdoc opt">);</span>
+processed_id <span class="gtkdoc opt">=</span> <span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer-libs/html/GstTestClock.html#gst-test-clock-process-next-clock-id">gst_test_clock_process_next_clock_id</a></span> <span class="gtkdoc opt">(</span>test_clock<span class="gtkdoc opt">);</span>
+<span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-Testing.html#g-assert">g_assert</a></span> <span class="gtkdoc opt">(</span>processed_id <span class="gtkdoc opt">==</span> pending_id<span class="gtkdoc opt">);</span>
+<span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-Testing.html#g-assert-cmpint">g_assert_cmpint</a></span> <span class="gtkdoc opt">(</span><span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GST-CLOCK-ENTRY-STATUS:CAPS">GST_CLOCK_ENTRY_STATUS</a></span> <span class="gtkdoc opt">(</span>processed_id<span class="gtkdoc opt">), ==,</span> GST_CLOCK_OK<span class="gtkdoc opt">);</span>
+<span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#gst-clock-id-unref">gst_clock_id_unref</a></span> <span class="gtkdoc opt">(</span>pending_id<span class="gtkdoc opt">);</span>
+<span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#gst-clock-id-unref">gst_clock_id_unref</a></span> <span class="gtkdoc opt">(</span>processed_id<span class="gtkdoc opt">);</span>
+
+<span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstInfo.html#GST-INFO:CAPS">GST_INFO</a></span> <span class="gtkdoc opt">(</span><span class="string">&quot;Validate that element produced an output buffer and check its timestamp</span><span class="gtkdoc esc">\n</span><span class="string">&quot;</span><span class="gtkdoc opt">);</span>
+<span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-Testing.html#g-assert-cmpint">g_assert_cmpint</a></span> <span class="gtkdoc opt">(</span><span class="function">get_number_of_output_buffer</span> <span class="gtkdoc opt">(...), ==,</span> <span class="number">1</span><span class="gtkdoc opt">);</span>
+buf <span class="gtkdoc opt">=</span> <span class="function">get_buffer_pushed_by_element</span> <span class="gtkdoc opt">(</span>element<span class="gtkdoc opt">, ...);</span>
+<span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-Testing.html#g-assert-cmpint">g_assert_cmpint</a></span> <span class="gtkdoc opt">(</span><span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GST-BUFFER-TIMESTAMP:CAPS">GST_BUFFER_TIMESTAMP</a></span> <span class="gtkdoc opt">(</span>buf<span class="gtkdoc opt">), ==,</span> latency<span class="gtkdoc opt">);</span>
+<span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#gst-buffer-unref">gst_buffer_unref</a></span> <span class="gtkdoc opt">(</span>buf<span class="gtkdoc opt">);</span>
+<span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstInfo.html#GST-INFO:CAPS">GST_INFO</a></span> <span class="gtkdoc opt">(</span><span class="string">&quot;Check that element does not wait for any clock notification</span><span class="gtkdoc esc">\n</span><span class="string">&quot;</span><span class="gtkdoc opt">);</span>
+<span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-Testing.html#g-assert">g_assert</a></span> <span class="gtkdoc opt">(</span><span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer-libs/html/GstTestClock.html#gst-test-clock-peek-next-pending-id">gst_test_clock_peek_next_pending_id</a></span> <span class="gtkdoc opt">(</span>test_clock<span class="gtkdoc opt">,</span> NULL<span class="gtkdoc opt">) ==</span> FALSE<span class="gtkdoc opt">);</span>
+
+<span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstInfo.html#GST-INFO:CAPS">GST_INFO</a></span> <span class="gtkdoc opt">(</span><span class="string">&quot;Set time, create and push the second buffer</span><span class="gtkdoc esc">\n</span><span class="string">&quot;</span><span class="gtkdoc opt">);</span>
+<span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer-libs/html/GstTestClock.html#gst-test-clock-advance-time">gst_test_clock_advance_time</a></span> <span class="gtkdoc opt">(</span>test_clock<span class="gtkdoc opt">,</span> <span class="number">10</span> <span class="gtkdoc opt">*</span> GST_SECOND<span class="gtkdoc opt">);</span>
+buf <span class="gtkdoc opt">=</span> <span class="function">create_test_buffer</span> <span class="gtkdoc opt">(</span><span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#gst-clock-get-time">gst_clock_get_time</a></span> <span class="gtkdoc opt">(</span>clock<span class="gtkdoc opt">), ...);</span>
+<span class="function">gst_assert_cmpint</span> <span class="gtkdoc opt">(</span><span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPad.html#gst-pad-push">gst_pad_push</a></span> <span class="gtkdoc opt">(</span>srcpad<span class="gtkdoc opt">,</span> buf<span class="gtkdoc opt">), ==,</span> GST_FLOW_OK<span class="gtkdoc opt">);</span>
+
+<span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstInfo.html#GST-INFO:CAPS">GST_INFO</a></span> <span class="gtkdoc opt">(</span><span class="string">&quot;Block until element is waiting for a new clock notification</span><span class="gtkdoc esc">\n</span><span class="string">&quot;</span><span class="gtkdoc opt">);</span>
+<span class="gtkdoc opt">(</span><span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer-libs/html/GstTestClock.html#gst-test-clock-wait-for-next-pending-id">gst_test_clock_wait_for_next_pending_id</a></span> <span class="gtkdoc opt">(</span>test_clock<span class="gtkdoc opt">, &amp;</span>pending_id<span class="gtkdoc opt">);</span>
+<span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstInfo.html#GST-INFO:CAPS">GST_INFO</a></span> <span class="gtkdoc opt">(</span><span class="string">&quot;Advance past 7ms beyond the requested time of the clock notification</span><span class="gtkdoc esc">\n</span><span class="string">&quot;</span><span class="gtkdoc opt">);</span>
+<span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer-libs/html/GstTestClock.html#gst-test-clock-advance-time">gst_test_clock_advance_time</a></span> <span class="gtkdoc opt">(</span>test_clock<span class="gtkdoc opt">,</span> latency <span class="gtkdoc opt">+</span> <span class="number">7</span> <span class="gtkdoc opt">*</span> GST_MSECOND<span class="gtkdoc opt">);</span>
+<span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstInfo.html#GST-INFO:CAPS">GST_INFO</a></span> <span class="gtkdoc opt">(</span><span class="string">&quot;Release the next blocking wait and make sure it is the one from element</span><span class="gtkdoc esc">\n</span><span class="string">&quot;</span><span class="gtkdoc opt">);</span>
+processed_id <span class="gtkdoc opt">=</span> <span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer-libs/html/GstTestClock.html#gst-test-clock-process-next-clock-id">gst_test_clock_process_next_clock_id</a></span> <span class="gtkdoc opt">(</span>test_clock<span class="gtkdoc opt">);</span>
+<span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-Testing.html#g-assert">g_assert</a></span> <span class="gtkdoc opt">(</span>processed_id <span class="gtkdoc opt">==</span> pending_id<span class="gtkdoc opt">);</span>
+<span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-Testing.html#g-assert-cmpint">g_assert_cmpint</a></span> <span class="gtkdoc opt">(</span><span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GST-CLOCK-ENTRY-STATUS:CAPS">GST_CLOCK_ENTRY_STATUS</a></span> <span class="gtkdoc opt">(</span>processed_id<span class="gtkdoc opt">), ==,</span> GST_CLOCK_OK<span class="gtkdoc opt">);</span>
+<span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#gst-clock-id-unref">gst_clock_id_unref</a></span> <span class="gtkdoc opt">(</span>pending_id<span class="gtkdoc opt">);</span>
+<span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#gst-clock-id-unref">gst_clock_id_unref</a></span> <span class="gtkdoc opt">(</span>processed_id<span class="gtkdoc opt">);</span>
+
+<span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstInfo.html#GST-INFO:CAPS">GST_INFO</a></span> <span class="gtkdoc opt">(</span><span class="string">&quot;Validate that element produced an output buffer and check its timestamp</span><span class="gtkdoc esc">\n</span><span class="string">&quot;</span><span class="gtkdoc opt">);</span>
+<span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-Testing.html#g-assert-cmpint">g_assert_cmpint</a></span> <span class="gtkdoc opt">(</span><span class="function">get_number_of_output_buffer</span> <span class="gtkdoc opt">(...), ==,</span> <span class="number">1</span><span class="gtkdoc opt">);</span>
+buf <span class="gtkdoc opt">=</span> <span class="function">get_buffer_pushed_by_element</span> <span class="gtkdoc opt">(</span>element<span class="gtkdoc opt">, ...);</span>
+<span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-Testing.html#g-assert-cmpint">g_assert_cmpint</a></span> <span class="gtkdoc opt">(</span><span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GST-BUFFER-TIMESTAMP:CAPS">GST_BUFFER_TIMESTAMP</a></span> <span class="gtkdoc opt">(</span>buf<span class="gtkdoc opt">), ==,</span>
+    <span class="number">10</span> <span class="gtkdoc opt">*</span> GST_SECOND <span class="gtkdoc opt">+</span> latency <span class="gtkdoc opt">+</span> <span class="number">7</span> <span class="gtkdoc opt">*</span> GST_MSECOND<span class="gtkdoc opt">);</span>
+<span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#gst-buffer-unref">gst_buffer_unref</a></span> <span class="gtkdoc opt">(</span>buf<span class="gtkdoc opt">);</span>
+<span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstInfo.html#GST-INFO:CAPS">GST_INFO</a></span> <span class="gtkdoc opt">(</span><span class="string">&quot;Check that element does not wait for any clock notification</span><span class="gtkdoc esc">\n</span><span class="string">&quot;</span><span class="gtkdoc opt">);</span>
+<span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-Testing.html#g-assert">g_assert</a></span> <span class="gtkdoc opt">(</span><span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer-libs/html/GstTestClock.html#gst-test-clock-peek-next-pending-id">gst_test_clock_peek_next_pending_id</a></span> <span class="gtkdoc opt">(</span>test_clock<span class="gtkdoc opt">,</span> NULL<span class="gtkdoc opt">) ==</span> FALSE<span class="gtkdoc opt">);</span>
+<span class="gtkdoc opt">...</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</div>
+<p><br class="example-break">
+</p>
+<p>
+Since <a class="link" href="GstTestClock.html" title="GstTestClock"><span class="type">GstTestClock</span></a> is only supposed to be used in unit tests it calls
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Testing.html#g-assert"><code class="function">g_assert()</code></a>, <a href="http://library.gnome.org/devel/glib/unstable/glib-Testing.html#g-assert-cmpint"><code class="function">g_assert_cmpint()</code></a> or <a href="http://library.gnome.org/devel/glib/unstable/glib-Testing.html#g-assert-cmpuint"><code class="function">g_assert_cmpuint()</code></a> to validate all function
+arguments. This will highlight any issues with the unit test code itself.
+</p>
+</div>
+<div class="refsect1">
+<a name="GstTestClock.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstTestClock-struct"></a><h3>struct GstTestClock</h3>
+<pre class="programlisting">struct GstTestClock;</pre>
+<p>
+A <a class="link" href="GstTestClock.html" title="GstTestClock"><span class="type">GstTestClock</span></a> structure which is based on a <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html"><span class="type">GstClock</span></a> along with some
+private data.
+</p>
+<p class="since">Since 1.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstTestClockClass"></a><h3>struct GstTestClockClass</h3>
+<pre class="programlisting">struct GstTestClockClass {
+  GstClockClass parent_class;
+};
+</pre>
+<p>
+The class of a <a class="link" href="GstTestClock.html" title="GstTestClock"><span class="type">GstTestClock</span></a>, which has no virtual methods to override.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockClass"><span class="type">GstClockClass</span></a> <em class="structfield"><code><a name="GstTestClockClass.parent-class"></a>parent_class</code></em>;</span></p></td>
+<td>the parent class structure</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 1.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-test-clock-new"></a><h3>gst_test_clock_new ()</h3>
+<pre class="programlisting"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html"><span class="returnvalue">GstClock</span></a> *          gst_test_clock_new                  (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Creates a new test clock with its time set to zero.
+</p>
+<p>
+MT safe.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a class="link" href="GstTestClock.html" title="GstTestClock"><span class="type">GstTestClock</span></a> cast to <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html"><span class="type">GstClock</span></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 1.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-test-clock-new-with-start-time"></a><h3>gst_test_clock_new_with_start_time ()</h3>
+<pre class="programlisting"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html"><span class="returnvalue">GstClock</span></a> *          gst_test_clock_new_with_start_time  (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockTime"><span class="type">GstClockTime</span></a> start_time</code></em>);</pre>
+<p>
+Creates a new test clock with its time set to the specified time.
+</p>
+<p>
+MT safe.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>start_time</code></em> :</span></p></td>
+<td>a <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockTime"><span class="type">GstClockTime</span></a> set to the desired start time of the clock.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a class="link" href="GstTestClock.html" title="GstTestClock"><span class="type">GstTestClock</span></a> cast to <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html"><span class="type">GstClock</span></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-test-clock-set-time"></a><h3>gst_test_clock_set_time ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_test_clock_set_time             (<em class="parameter"><code><a class="link" href="GstTestClock.html" title="GstTestClock"><span class="type">GstTestClock</span></a> *test_clock</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockTime"><span class="type">GstClockTime</span></a> new_time</code></em>);</pre>
+<p>
+Sets the time of <em class="parameter"><code>test_clock</code></em> to the time given by <em class="parameter"><code>new_time</code></em>. The time of
+<em class="parameter"><code>test_clock</code></em> is monotonically increasing, therefore providing a <em class="parameter"><code>new_time</code></em>
+which is earlier or equal to the time of the clock as given by
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#gst-clock-get-time"><code class="function">gst_clock_get_time()</code></a> is a programming error.
+</p>
+<p>
+MT safe.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>test_clock</code></em> :</span></p></td>
+<td>a <a class="link" href="GstTestClock.html" title="GstTestClock"><span class="type">GstTestClock</span></a> of which to set the time</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>new_time</code></em> :</span></p></td>
+<td>a <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockTime"><span class="type">GstClockTime</span></a> later than that returned by <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#gst-clock-get-time"><code class="function">gst_clock_get_time()</code></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-test-clock-advance-time"></a><h3>gst_test_clock_advance_time ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_test_clock_advance_time         (<em class="parameter"><code><a class="link" href="GstTestClock.html" title="GstTestClock"><span class="type">GstTestClock</span></a> *test_clock</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockTimeDiff"><span class="type">GstClockTimeDiff</span></a> delta</code></em>);</pre>
+<p>
+Advances the time of the <em class="parameter"><code>test_clock</code></em> by the amount given by <em class="parameter"><code>delta</code></em>. The
+time of <em class="parameter"><code>test_clock</code></em> is monotonically increasing, therefore providing a
+<em class="parameter"><code>delta</code></em> which is negative or zero is a programming error.
+</p>
+<p>
+MT safe.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>test_clock</code></em> :</span></p></td>
+<td>a <a class="link" href="GstTestClock.html" title="GstTestClock"><span class="type">GstTestClock</span></a> for which to increase the time</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>delta</code></em> :</span></p></td>
+<td>a positive <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockTimeDiff"><span class="type">GstClockTimeDiff</span></a> to be added to the time of the clock</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-test-clock-peek-id-count"></a><h3>gst_test_clock_peek_id_count ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               gst_test_clock_peek_id_count        (<em class="parameter"><code><a class="link" href="GstTestClock.html" title="GstTestClock"><span class="type">GstTestClock</span></a> *test_clock</code></em>);</pre>
+<p>
+Determine the number of pending clock notifications that have been
+requested from the <em class="parameter"><code>test_clock</code></em>.
+</p>
+<p>
+MT safe.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>test_clock</code></em> :</span></p></td>
+<td>a <a class="link" href="GstTestClock.html" title="GstTestClock"><span class="type">GstTestClock</span></a> for which to count notifications</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the number of pending clock notifications.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-test-clock-has-id"></a><h3>gst_test_clock_has_id ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_test_clock_has_id               (<em class="parameter"><code><a class="link" href="GstTestClock.html" title="GstTestClock"><span class="type">GstTestClock</span></a> *test_clock</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockID"><span class="type">GstClockID</span></a> id</code></em>);</pre>
+<p>
+Checks whether <em class="parameter"><code>test_clock</code></em> was requested to provide the clock notification
+given by <em class="parameter"><code>id</code></em>.
+</p>
+<p>
+MT safe.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>test_clock</code></em> :</span></p></td>
+<td>a <a class="link" href="GstTestClock.html" title="GstTestClock"><span class="type">GstTestClock</span></a> to ask if it provided the notification</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>id</code></em> :</span></p></td>
+<td>a <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockID"><span class="type">GstClockID</span></a> clock notification. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the clock has been asked to provide the given clock
+notification, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-test-clock-peek-next-pending-id"></a><h3>gst_test_clock_peek_next_pending_id ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_test_clock_peek_next_pending_id (<em class="parameter"><code><a class="link" href="GstTestClock.html" title="GstTestClock"><span class="type">GstTestClock</span></a> *test_clock</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockID"><span class="type">GstClockID</span></a> *pending_id</code></em>);</pre>
+<p>
+Determines if the <em class="parameter"><code>pending_id</code></em> is the next clock notification scheduled to
+be triggered given the current time of the <em class="parameter"><code>test_clock</code></em>.
+</p>
+<p>
+MT safe.
+</p>
+<p>
+Return: <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if <em class="parameter"><code>pending_id</code></em> is the next clock notification to be
+triggered, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>test_clock</code></em> :</span></p></td>
+<td>a <a class="link" href="GstTestClock.html" title="GstTestClock"><span class="type">GstTestClock</span></a> to check the clock notifications for</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pending_id</code></em> :</span></p></td>
+<td>a <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockID"><span class="type">GstClockID</span></a> clock
+notification to look for. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>][<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-test-clock-wait-for-next-pending-id"></a><h3>gst_test_clock_wait_for_next_pending_id ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_test_clock_wait_for_next_pending_id
+                                                        (<em class="parameter"><code><a class="link" href="GstTestClock.html" title="GstTestClock"><span class="type">GstTestClock</span></a> *test_clock</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockID"><span class="type">GstClockID</span></a> *pending_id</code></em>);</pre>
+<p>
+Waits until a clock notification is requested from <em class="parameter"><code>test_clock</code></em>. There is no
+timeout for this wait, see the main description of <a class="link" href="GstTestClock.html" title="GstTestClock"><span class="type">GstTestClock</span></a>. A reference
+to the pending clock notification is stored in <em class="parameter"><code>pending_id</code></em>.
+</p>
+<p>
+MT safe.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>test_clock</code></em> :</span></p></td>
+<td>
+<a class="link" href="GstTestClock.html" title="GstTestClock"><span class="type">GstTestClock</span></a> for which to get the pending clock notification</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pending_id</code></em> :</span></p></td>
+<td>
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockID"><span class="type">GstClockID</span></a>
+with information about the pending clock notification. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>][<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-test-clock-wait-for-pending-id-count"></a><h3>gst_test_clock_wait_for_pending_id_count ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_test_clock_wait_for_pending_id_count
+                                                        (<em class="parameter"><code><a class="link" href="GstTestClock.html" title="GstTestClock"><span class="type">GstTestClock</span></a> *test_clock</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> count</code></em>);</pre>
+<p>
+Blocks until at least <em class="parameter"><code>count</code></em> clock notifications have been requested from
+<em class="parameter"><code>test_clock</code></em>. There is no timeout for this wait, see the main description of
+<a class="link" href="GstTestClock.html" title="GstTestClock"><span class="type">GstTestClock</span></a>.
+</p>
+<p>
+MT safe.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>test_clock</code></em> :</span></p></td>
+<td>
+<a class="link" href="GstTestClock.html" title="GstTestClock"><span class="type">GstTestClock</span></a> for which to await having enough pending clock</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>count</code></em> :</span></p></td>
+<td>the number of pending clock notifications to wait for</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-test-clock-process-next-clock-id"></a><h3>gst_test_clock_process_next_clock_id ()</h3>
+<pre class="programlisting"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockID"><span class="returnvalue">GstClockID</span></a>          gst_test_clock_process_next_clock_id
+                                                        (<em class="parameter"><code><a class="link" href="GstTestClock.html" title="GstTestClock"><span class="type">GstTestClock</span></a> *test_clock</code></em>);</pre>
+<p>
+MT safe.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>test_clock</code></em> :</span></p></td>
+<td>a <a class="link" href="GstTestClock.html" title="GstTestClock"><span class="type">GstTestClock</span></a> for which to retrive the next pending clock
+notification</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockID"><span class="type">GstClockID</span></a> containing the next pending clock
+notification. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-test-clock-get-next-entry-time"></a><h3>gst_test_clock_get_next_entry_time ()</h3>
+<pre class="programlisting"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockTime"><span class="returnvalue">GstClockTime</span></a>        gst_test_clock_get_next_entry_time  (<em class="parameter"><code><a class="link" href="GstTestClock.html" title="GstTestClock"><span class="type">GstTestClock</span></a> *test_clock</code></em>);</pre>
+<p>
+Retrieve the requested time for the next pending clock notification.
+</p>
+<p>
+MT safe.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>test_clock</code></em> :</span></p></td>
+<td>a <a class="link" href="GstTestClock.html" title="GstTestClock"><span class="type">GstTestClock</span></a> to fetch the next clock notification time for</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockTime"><span class="type">GstClockTime</span></a> set to the time of the next pending clock
+notification. If no clock notifications have been requested
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GST-CLOCK-TIME-NONE:CAPS"><code class="literal">GST_CLOCK_TIME_NONE</code></a> will be returned.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.2</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GstTestClock.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GstTestClock--start-time"></a><h3>The <code class="literal">"start-time"</code> property</h3>
+<pre class="programlisting">  "start-time"               <span class="type">guint64</span>               : Read / Write / Construct Only</pre>
+<p>
+When a <a class="link" href="GstTestClock.html" title="GstTestClock"><span class="type">GstTestClock</span></a> is constructed it will have a certain start time set.
+If the clock was created using <a class="link" href="GstTestClock.html#gst-test-clock-new-with-start-time" title="gst_test_clock_new_with_start_time ()"><code class="function">gst_test_clock_new_with_start_time()</code></a> then
+this property contains the value of the <em class="parameter"><code>start_time</code></em> argument. If
+<a class="link" href="GstTestClock.html#gst-test-clock-new" title="gst_test_clock_new ()"><code class="function">gst_test_clock_new()</code></a> was called the clock started at time zero, and thus
+this property contains the value 0.
+</p>
+<p>Default value: 0</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GstTestClock.see-also"></a><h2>See Also</h2>
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstSystemClock.html"><span class="type">GstSystemClock</span></a>, <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html"><span class="type">GstClock</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

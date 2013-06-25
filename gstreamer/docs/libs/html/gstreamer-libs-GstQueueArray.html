@@ -1,0 +1,306 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GstQueueArray</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="GStreamer 1.0 Library Reference Manual">
+<link rel="up" href="gstreamer-base.html" title="GStreamer Base and Utillity Classes">
+<link rel="prev" href="gstreamer-libs-GstDataQueue.html" title="GstDataQueue">
+<link rel="next" href="gstreamer-control.html" title="GStreamer Dynamic Parameter Control">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gstreamer-libs-GstDataQueue.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="gstreamer-base.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer 1.0 Library Reference Manual</th>
+<td><a accesskey="n" href="gstreamer-control.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gstreamer-libs-GstQueueArray.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gstreamer-libs-GstQueueArray.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gstreamer-libs-GstQueueArray"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gstreamer-libs-GstQueueArray.top_of_page"></a>GstQueueArray</span></h2>
+<p>GstQueueArray — Array based queue object</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gstreamer-libs-GstQueueArray.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;gst/base/gstqueuearray.h&gt;
+
+                    <a class="link" href="gstreamer-libs-GstQueueArray.html#GstQueueArray" title="GstQueueArray">GstQueueArray</a>;
+<a class="link" href="gstreamer-libs-GstQueueArray.html#GstQueueArray" title="GstQueueArray"><span class="returnvalue">GstQueueArray</span></a> *     <a class="link" href="gstreamer-libs-GstQueueArray.html#gst-queue-array-new" title="gst_queue_array_new ()">gst_queue_array_new</a>                 (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> initial_size</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gstreamer-libs-GstQueueArray.html#gst-queue-array-free" title="gst_queue_array_free ()">gst_queue_array_free</a>                (<em class="parameter"><code><a class="link" href="gstreamer-libs-GstQueueArray.html#GstQueueArray" title="GstQueueArray"><span class="type">GstQueueArray</span></a> *array</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               <a class="link" href="gstreamer-libs-GstQueueArray.html#gst-queue-array-get-length" title="gst_queue_array_get_length ()">gst_queue_array_get_length</a>          (<em class="parameter"><code><a class="link" href="gstreamer-libs-GstQueueArray.html#GstQueueArray" title="GstQueueArray"><span class="type">GstQueueArray</span></a> *array</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            <a class="link" href="gstreamer-libs-GstQueueArray.html#gst-queue-array-pop-head" title="gst_queue_array_pop_head ()">gst_queue_array_pop_head</a>            (<em class="parameter"><code><a class="link" href="gstreamer-libs-GstQueueArray.html#GstQueueArray" title="GstQueueArray"><span class="type">GstQueueArray</span></a> *array</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            <a class="link" href="gstreamer-libs-GstQueueArray.html#gst-queue-array-peek-head" title="gst_queue_array_peek_head ()">gst_queue_array_peek_head</a>           (<em class="parameter"><code><a class="link" href="gstreamer-libs-GstQueueArray.html#GstQueueArray" title="GstQueueArray"><span class="type">GstQueueArray</span></a> *array</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gstreamer-libs-GstQueueArray.html#gst-queue-array-push-tail" title="gst_queue_array_push_tail ()">gst_queue_array_push_tail</a>           (<em class="parameter"><code><a class="link" href="gstreamer-libs-GstQueueArray.html#GstQueueArray" title="GstQueueArray"><span class="type">GstQueueArray</span></a> *array</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="gstreamer-libs-GstQueueArray.html#gst-queue-array-is-empty" title="gst_queue_array_is_empty ()">gst_queue_array_is_empty</a>            (<em class="parameter"><code><a class="link" href="gstreamer-libs-GstQueueArray.html#GstQueueArray" title="GstQueueArray"><span class="type">GstQueueArray</span></a> *array</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            <a class="link" href="gstreamer-libs-GstQueueArray.html#gst-queue-array-drop-element" title="gst_queue_array_drop_element ()">gst_queue_array_drop_element</a>        (<em class="parameter"><code><a class="link" href="gstreamer-libs-GstQueueArray.html#GstQueueArray" title="GstQueueArray"><span class="type">GstQueueArray</span></a> *array</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> idx</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               <a class="link" href="gstreamer-libs-GstQueueArray.html#gst-queue-array-find" title="gst_queue_array_find ()">gst_queue_array_find</a>                (<em class="parameter"><code><a class="link" href="gstreamer-libs-GstQueueArray.html#GstQueueArray" title="GstQueueArray"><span class="type">GstQueueArray</span></a> *array</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GCompareFunc"><span class="type">GCompareFunc</span></a> func</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="gstreamer-libs-GstQueueArray.description"></a><h2>Description</h2>
+<p>
+<a class="link" href="gstreamer-libs-GstQueueArray.html#GstQueueArray" title="GstQueueArray"><span class="type">GstQueueArray</span></a> is an object that provides standard queue functionality
+based on an array instead of linked lists. This reduces the overhead
+caused by memory managment by a large factor.
+</p>
+</div>
+<div class="refsect1">
+<a name="gstreamer-libs-GstQueueArray.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstQueueArray"></a><h3>GstQueueArray</h3>
+<pre class="programlisting">typedef struct _GstQueueArray GstQueueArray;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-queue-array-new"></a><h3>gst_queue_array_new ()</h3>
+<pre class="programlisting"><a class="link" href="gstreamer-libs-GstQueueArray.html#GstQueueArray" title="GstQueueArray"><span class="returnvalue">GstQueueArray</span></a> *     gst_queue_array_new                 (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> initial_size</code></em>);</pre>
+<p>
+Allocates a new <a class="link" href="gstreamer-libs-GstQueueArray.html#GstQueueArray" title="GstQueueArray"><span class="type">GstQueueArray</span></a> object with an initial
+queue size of <em class="parameter"><code>initial_size</code></em>.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>initial_size</code></em> :</span></p></td>
+<td>Initial size of the new queue</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="gstreamer-libs-GstQueueArray.html#GstQueueArray" title="GstQueueArray"><span class="type">GstQueueArray</span></a> object</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.2.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-queue-array-free"></a><h3>gst_queue_array_free ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_queue_array_free                (<em class="parameter"><code><a class="link" href="gstreamer-libs-GstQueueArray.html#GstQueueArray" title="GstQueueArray"><span class="type">GstQueueArray</span></a> *array</code></em>);</pre>
+<p>
+Frees queue <em class="parameter"><code>array</code></em> and all memory associated to it.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>array</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-libs-GstQueueArray.html#GstQueueArray" title="GstQueueArray"><span class="type">GstQueueArray</span></a> object</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 1.2.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-queue-array-get-length"></a><h3>gst_queue_array_get_length ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               gst_queue_array_get_length          (<em class="parameter"><code><a class="link" href="gstreamer-libs-GstQueueArray.html#GstQueueArray" title="GstQueueArray"><span class="type">GstQueueArray</span></a> *array</code></em>);</pre>
+<p>
+Returns the length of the queue <em class="parameter"><code>array</code></em>
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>array</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-libs-GstQueueArray.html#GstQueueArray" title="GstQueueArray"><span class="type">GstQueueArray</span></a> object</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the length of the queue <em class="parameter"><code>array</code></em>.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.2.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-queue-array-pop-head"></a><h3>gst_queue_array_pop_head ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            gst_queue_array_pop_head            (<em class="parameter"><code><a class="link" href="gstreamer-libs-GstQueueArray.html#GstQueueArray" title="GstQueueArray"><span class="type">GstQueueArray</span></a> *array</code></em>);</pre>
+<p>
+Returns and head of the queue <em class="parameter"><code>array</code></em> and does not
+remove it from the queue.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>array</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-libs-GstQueueArray.html#GstQueueArray" title="GstQueueArray"><span class="type">GstQueueArray</span></a> object</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The head of the queue</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.2.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-queue-array-peek-head"></a><h3>gst_queue_array_peek_head ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            gst_queue_array_peek_head           (<em class="parameter"><code><a class="link" href="gstreamer-libs-GstQueueArray.html#GstQueueArray" title="GstQueueArray"><span class="type">GstQueueArray</span></a> *array</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-queue-array-push-tail"></a><h3>gst_queue_array_push_tail ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_queue_array_push_tail           (<em class="parameter"><code><a class="link" href="gstreamer-libs-GstQueueArray.html#GstQueueArray" title="GstQueueArray"><span class="type">GstQueueArray</span></a> *array</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);</pre>
+<p>
+Pushes <em class="parameter"><code>data</code></em> to the tail of the queue <em class="parameter"><code>array</code></em>.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>array</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-libs-GstQueueArray.html#GstQueueArray" title="GstQueueArray"><span class="type">GstQueueArray</span></a> object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>object to push</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.2.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-queue-array-is-empty"></a><h3>gst_queue_array_is_empty ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_queue_array_is_empty            (<em class="parameter"><code><a class="link" href="gstreamer-libs-GstQueueArray.html#GstQueueArray" title="GstQueueArray"><span class="type">GstQueueArray</span></a> *array</code></em>);</pre>
+<p>
+Checks if the queue <em class="parameter"><code>array</code></em> is empty.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>array</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-libs-GstQueueArray.html#GstQueueArray" title="GstQueueArray"><span class="type">GstQueueArray</span></a> object</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the queue <em class="parameter"><code>array</code></em> is empty</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.2.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-queue-array-drop-element"></a><h3>gst_queue_array_drop_element ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            gst_queue_array_drop_element        (<em class="parameter"><code><a class="link" href="gstreamer-libs-GstQueueArray.html#GstQueueArray" title="GstQueueArray"><span class="type">GstQueueArray</span></a> *array</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> idx</code></em>);</pre>
+<p>
+Drops the queue element at position <em class="parameter"><code>idx</code></em> from queue <em class="parameter"><code>array</code></em>.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>array</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-libs-GstQueueArray.html#GstQueueArray" title="GstQueueArray"><span class="type">GstQueueArray</span></a> object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>idx</code></em> :</span></p></td>
+<td>index to drop</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the dropped element</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.2.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-queue-array-find"></a><h3>gst_queue_array_find ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               gst_queue_array_find                (<em class="parameter"><code><a class="link" href="gstreamer-libs-GstQueueArray.html#GstQueueArray" title="GstQueueArray"><span class="type">GstQueueArray</span></a> *array</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GCompareFunc"><span class="type">GCompareFunc</span></a> func</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);</pre>
+<p>
+Finds an element in the queue <em class="parameter"><code>array</code></em>, either by comparing every element
+with <em class="parameter"><code>func</code></em> or by looking up <em class="parameter"><code>data</code></em> if no compare function <em class="parameter"><code>func</code></em> is provided,
+and returning the index of the found element.
+</p>
+<p>
+Note that the index is not 0-based, but an internal index number with a
+random offset. The index can be used in connection with
+<a class="link" href="gstreamer-libs-GstQueueArray.html#gst-queue-array-drop-element" title="gst_queue_array_drop_element ()"><code class="function">gst_queue_array_drop_element()</code></a>. FIXME: return index 0-based and make
+<code class="function">_drop_element()</code> take a 0-based index.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>array</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-libs-GstQueueArray.html#GstQueueArray" title="GstQueueArray"><span class="type">GstQueueArray</span></a> object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>func</code></em> :</span></p></td>
+<td>comparison function, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> to find <em class="parameter"><code>data</code></em> by value. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>data for comparison function</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>Index of the found element or -1 if nothing was found.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.2.0</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

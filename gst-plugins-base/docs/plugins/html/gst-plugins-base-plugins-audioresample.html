@@ -1,0 +1,231 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>audioresample</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="GStreamer Base Plugins 1.0 Plugins Reference Manual">
+<link rel="up" href="ch01.html" title="gst-plugins-base Elements">
+<link rel="prev" href="gst-plugins-base-plugins-audiorate.html" title="audiorate">
+<link rel="next" href="gst-plugins-base-plugins-audiotestsrc.html" title="audiotestsrc">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gst-plugins-base-plugins-audiorate.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer Base Plugins 1.0 Plugins Reference Manual</th>
+<td><a accesskey="n" href="gst-plugins-base-plugins-audiotestsrc.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gst-plugins-base-plugins-audioresample.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gst-plugins-base-plugins-audioresample.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#gst-plugins-base-plugins-audioresample.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#gst-plugins-base-plugins-audioresample.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gst-plugins-base-plugins-audioresample"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gst-plugins-base-plugins-audioresample.top_of_page"></a>audioresample</span></h2>
+<p>audioresample — Resamples audio</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gst-plugins-base-plugins-audioresample.synopsis"></a><h2>Synopsis</h2>
+<a name="GstAudioResample"></a><pre class="synopsis">struct              <a class="link" href="gst-plugins-base-plugins-audioresample.html#GstAudioResample-struct" title="struct GstAudioResample">GstAudioResample</a>;
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-plugins-audioresample.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstObject.html">GstObject</a>
+               +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html">GstElement</a>
+                     +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer-libs/html/GstBaseTransform.html">GstBaseTransform</a>
+                           +----GstAudioResample
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-plugins-audioresample.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="gst-plugins-base-plugins-audioresample.html#GstAudioResample--filter-length" title='The "filter-length" property'>filter-length</a>"            <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                  : Read / Write
+  "<a class="link" href="gst-plugins-base-plugins-audioresample.html#GstAudioResample--quality" title='The "quality" property'>quality</a>"                  <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                  : Read / Write / Construct
+  "<a class="link" href="gst-plugins-base-plugins-audioresample.html#GstAudioResample--sinc-filter-auto-threshold" title='The "sinc-filter-auto-threshold" property'>sinc-filter-auto-threshold</a>" <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write
+  "<a class="link" href="gst-plugins-base-plugins-audioresample.html#GstAudioResample--sinc-filter-mode" title='The "sinc-filter-mode" property'>sinc-filter-mode</a>"         <span class="type">SpeexResamplerSincFilterMode</span>  : Read / Write
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-plugins-audioresample.description"></a><h2>Description</h2>
+<p>
+audioresample resamples raw audio buffers to different sample rates using
+a configurable windowing function to enhance quality.
+</p>
+<p>
+By default, the resampler uses a reduced sinc table, with cubic interpolation filling in
+the gaps. This ensures that the table does not become too big. However, the interpolation
+increases the CPU usage considerably. As an alternative, a full sinc table can be used.
+Doing so can drastically reduce CPU usage (4x faster with 44.1 -&gt; 48 kHz conversions for
+example), at the cost of increased memory consumption, plus the sinc table takes longer
+to initialize when the element is created. A third mode exists, which uses the full table
+unless said table would become too large, in which case the interpolated one is used instead.
+</p>
+<p>
+</p>
+<div class="refsect2">
+<a name="idp9821824"></a><h3>Example launch line</h3>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1</pre></td>
+        <td class="listing_code"><pre class="programlisting">gst<span class="gtkdoc opt">-</span>launch <span class="gtkdoc opt">-</span>v filesrc location<span class="gtkdoc opt">=</span>sine<span class="gtkdoc opt">.</span>ogg <span class="gtkdoc opt">!</span> oggdemux <span class="gtkdoc opt">!</span> vorbisdec <span class="gtkdoc opt">!</span> audioconvert <span class="gtkdoc opt">!</span> audioresample <span class="gtkdoc opt">!</span> audio<span class="gtkdoc opt">/</span>x<span class="gtkdoc opt">-</span>raw<span class="gtkdoc opt">,</span> rate<span class="gtkdoc opt">=</span><span class="number">8000</span> <span class="gtkdoc opt">!</span> alsasink</pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+ Decode an Ogg/Vorbis downsample to 8Khz and play sound through alsa.
+To create the Ogg/Vorbis file refer to the documentation of vorbisenc.
+</div>
+<p>
+</p>
+<div class="refsynopsisdiv">
+<h2>Synopsis</h2>
+<div class="refsect2">
+<a name="idp7699760"></a><h3>Element Information</h3>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term">plugin</span></p></td>
+<td>
+            <a class="link" href="gst-plugins-base-plugins-plugin-audioresample.html#plugin-audioresample">audioresample</a>
+          </td>
+</tr>
+<tr>
+<td><p><span class="term">author</span></p></td>
+<td>Sebastian Dröge &lt;sebastian.droege@collabora.co.uk&gt;</td>
+</tr>
+<tr>
+<td><p><span class="term">class</span></p></td>
+<td>Filter/Converter/Audio</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="idp7707168"></a><h3>Element Pads</h3>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term">name</span></p></td>
+<td>sink</td>
+</tr>
+<tr>
+<td><p><span class="term">direction</span></p></td>
+<td>sink</td>
+</tr>
+<tr>
+<td><p><span class="term">presence</span></p></td>
+<td>always</td>
+</tr>
+<tr>
+<td><p><span class="term">details</span></p></td>
+<td>audio/x-raw, format=(string){ F32LE, F64LE, S32LE, S24LE, S16LE, S8 }, rate=(int)[ 1, 2147483647 ], channels=(int)[ 1, 2147483647 ], layout=(string){ interleaved, non-interleaved }</td>
+</tr>
+</tbody>
+</table></div>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term">name</span></p></td>
+<td>src</td>
+</tr>
+<tr>
+<td><p><span class="term">direction</span></p></td>
+<td>source</td>
+</tr>
+<tr>
+<td><p><span class="term">presence</span></p></td>
+<td>always</td>
+</tr>
+<tr>
+<td><p><span class="term">details</span></p></td>
+<td>audio/x-raw, format=(string){ F32LE, F64LE, S32LE, S24LE, S16LE, S8 }, rate=(int)[ 1, 2147483647 ], channels=(int)[ 1, 2147483647 ], layout=(string){ interleaved, non-interleaved }</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<p>
+</p>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-plugins-audioresample.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstAudioResample-struct"></a><h3>struct GstAudioResample</h3>
+<pre class="programlisting">struct GstAudioResample;</pre>
+<p>
+Opaque data structure.
+</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-plugins-audioresample.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GstAudioResample--filter-length"></a><h3>The <code class="literal">"filter-length"</code> property</h3>
+<pre class="programlisting">  "filter-length"            <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                  : Read / Write</pre>
+<p>Length of the resample filter.</p>
+<p>Allowed values: &gt;= 0</p>
+<p>Default value: 64</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstAudioResample--quality"></a><h3>The <code class="literal">"quality"</code> property</h3>
+<pre class="programlisting">  "quality"                  <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                  : Read / Write / Construct</pre>
+<p>Resample quality with 0 being the lowest and 10 being the best.</p>
+<p>Allowed values: [0,10]</p>
+<p>Default value: 4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstAudioResample--sinc-filter-auto-threshold"></a><h3>The <code class="literal">"sinc-filter-auto-threshold"</code> property</h3>
+<pre class="programlisting">  "sinc-filter-auto-threshold" <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write</pre>
+<p>Memory usage threshold to use if sinc filter mode is AUTO, given in bytes.</p>
+<p>Default value: 1048576</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstAudioResample--sinc-filter-mode"></a><h3>The <code class="literal">"sinc-filter-mode"</code> property</h3>
+<pre class="programlisting">  "sinc-filter-mode"         <span class="type">SpeexResamplerSincFilterMode</span>  : Read / Write</pre>
+<p>What sinc filter table mode to use.</p>
+<p>Default value: Use full table if table size below threshold</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

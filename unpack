@@ -1,0 +1,14 @@
+#!/bin/bash
+
+for archive in gstreamer-1.1.1.tar.xz gst-plugins-base-1.1.1.tar.xz gst-plugins-good-1.1.1.tar.xz gst-plugins-bad-1.1.1.tar.xz; do
+	tar -xJf $archive
+done
+
+mv gstreamer-1.1.1 gstreamer
+mv gst-plugins-base-1.1.1 gst-plugins-base
+mv gst-plugins-good-1.1.1 gst-plugins-good
+mv gst-plugins-bad-1.1.1 gst-plugins-bad
+
+git clone git://anongit.freedesktop.org/gstreamer/gst-omx -b master --depth=1
+
+wget https://raw.github.com/raspberrypi/firmware/master/opt/vc/include/IL/OMX_Broadcom.h -O gst-omx/OMX_Broadcom.h

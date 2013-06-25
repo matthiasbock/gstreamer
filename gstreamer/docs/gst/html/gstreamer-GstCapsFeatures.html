@@ -1,0 +1,783 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GstCapsFeatures</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="GStreamer 1.0 Core Reference Manual">
+<link rel="up" href="libgstreamer.html" title="GStreamer Core Library">
+<link rel="prev" href="gstreamer-GstCaps.html" title="GstCaps">
+<link rel="next" href="gstreamer-GstSample.html" title="GstSample">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gstreamer-GstCaps.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="libgstreamer.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer 1.0 Core Reference Manual</th>
+<td><a accesskey="n" href="gstreamer-GstSample.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gstreamer-GstCapsFeatures.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gstreamer-GstCapsFeatures.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gstreamer-GstCapsFeatures"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gstreamer-GstCapsFeatures.top_of_page"></a>GstCapsFeatures</span></h2>
+<p>GstCapsFeatures — A set of features in caps</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gstreamer-GstCapsFeatures.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;gst/gst.h&gt;
+
+                    <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures">GstCapsFeatures</a>;
+<a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="returnvalue">GstCapsFeatures</span></a> *   <a class="link" href="gstreamer-GstCapsFeatures.html#gst-caps-features-new" title="gst_caps_features_new ()">gst_caps_features_new</a>               (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *feature1</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);
+<a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="returnvalue">GstCapsFeatures</span></a> *   <a class="link" href="gstreamer-GstCapsFeatures.html#gst-caps-features-new-empty" title="gst_caps_features_new_empty ()">gst_caps_features_new_empty</a>         (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="returnvalue">GstCapsFeatures</span></a> *   <a class="link" href="gstreamer-GstCapsFeatures.html#gst-caps-features-new-any" title="gst_caps_features_new_any ()">gst_caps_features_new_any</a>           (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="returnvalue">GstCapsFeatures</span></a> *   <a class="link" href="gstreamer-GstCapsFeatures.html#gst-caps-features-new-id" title="gst_caps_features_new_id ()">gst_caps_features_new_id</a>            (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> feature1</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);
+<a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="returnvalue">GstCapsFeatures</span></a> *   <a class="link" href="gstreamer-GstCapsFeatures.html#gst-caps-features-new-id-valist" title="gst_caps_features_new_id_valist ()">gst_caps_features_new_id_valist</a>     (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> feature1</code></em>,
+                                                         <em class="parameter"><code><span class="type">va_list</span> varargs</code></em>);
+<a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="returnvalue">GstCapsFeatures</span></a> *   <a class="link" href="gstreamer-GstCapsFeatures.html#gst-caps-features-new-valist" title="gst_caps_features_new_valist ()">gst_caps_features_new_valist</a>        (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *feature1</code></em>,
+                                                         <em class="parameter"><code><span class="type">va_list</span> varargs</code></em>);
+<a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="returnvalue">GstCapsFeatures</span></a> *   <a class="link" href="gstreamer-GstCapsFeatures.html#gst-caps-features-copy" title="gst_caps_features_copy ()">gst_caps_features_copy</a>              (<em class="parameter"><code>const <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a> *features</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gstreamer-GstCapsFeatures.html#gst-caps-features-free" title="gst_caps_features_free ()">gst_caps_features_free</a>              (<em class="parameter"><code><a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a> *features</code></em>);
+<a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="returnvalue">GstCapsFeatures</span></a> *   <a class="link" href="gstreamer-GstCapsFeatures.html#gst-caps-features-from-string" title="gst_caps_features_from_string ()">gst_caps_features_from_string</a>       (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *features</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             <a class="link" href="gstreamer-GstCapsFeatures.html#gst-caps-features-to-string" title="gst_caps_features_to_string ()">gst_caps_features_to_string</a>         (<em class="parameter"><code>const <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a> *features</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="gstreamer-GstCapsFeatures.html#gst-caps-features-set-parent-refcount" title="gst_caps_features_set_parent_refcount ()">gst_caps_features_set_parent_refcount</a>
+                                                        (<em class="parameter"><code><a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a> *features</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> *refcount</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="gstreamer-GstCapsFeatures.html#gst-caps-features-is-equal" title="gst_caps_features_is_equal ()">gst_caps_features_is_equal</a>          (<em class="parameter"><code>const <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a> *features1</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a> *features2</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="gstreamer-GstCapsFeatures.html#gst-caps-features-is-any" title="gst_caps_features_is_any ()">gst_caps_features_is_any</a>            (<em class="parameter"><code>const <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a> *features</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="gstreamer-GstCapsFeatures.html#gst-caps-features-contains" title="gst_caps_features_contains ()">gst_caps_features_contains</a>          (<em class="parameter"><code>const <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a> *features</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *feature</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="gstreamer-GstCapsFeatures.html#gst-caps-features-contains-id" title="gst_caps_features_contains_id ()">gst_caps_features_contains_id</a>       (<em class="parameter"><code>const <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a> *features</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> feature</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               <a class="link" href="gstreamer-GstCapsFeatures.html#gst-caps-features-get-size" title="gst_caps_features_get_size ()">gst_caps_features_get_size</a>          (<em class="parameter"><code>const <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a> *features</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="gstreamer-GstCapsFeatures.html#gst-caps-features-get-nth" title="gst_caps_features_get_nth ()">gst_caps_features_get_nth</a>           (<em class="parameter"><code>const <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a> *features</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> i</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="returnvalue">GQuark</span></a>              <a class="link" href="gstreamer-GstCapsFeatures.html#gst-caps-features-get-nth-id" title="gst_caps_features_get_nth_id ()">gst_caps_features_get_nth_id</a>        (<em class="parameter"><code>const <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a> *features</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> i</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gstreamer-GstCapsFeatures.html#gst-caps-features-add" title="gst_caps_features_add ()">gst_caps_features_add</a>               (<em class="parameter"><code><a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a> *features</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *feature</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gstreamer-GstCapsFeatures.html#gst-caps-features-add-id" title="gst_caps_features_add_id ()">gst_caps_features_add_id</a>            (<em class="parameter"><code><a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a> *features</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> feature</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gstreamer-GstCapsFeatures.html#gst-caps-features-remove" title="gst_caps_features_remove ()">gst_caps_features_remove</a>            (<em class="parameter"><code><a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a> *features</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *feature</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gstreamer-GstCapsFeatures.html#gst-caps-features-remove-id" title="gst_caps_features_remove_id ()">gst_caps_features_remove_id</a>         (<em class="parameter"><code><a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a> *features</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> feature</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="gstreamer-GstCapsFeatures.description"></a><h2>Description</h2>
+<p>
+<a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a> can optionally be set on a <a class="link" href="gstreamer-GstCaps.html#GstCaps" title="struct GstCaps"><span class="type">GstCaps</span></a> to add requirements
+for additional features for a specific <a class="link" href="gstreamer-GstStructure.html#GstStructure" title="struct GstStructure"><span class="type">GstStructure</span></a>. Caps structures with
+the same name but with a non-equal set of caps features are not compatible.
+If a pad supports multiple sets of features it has to add multiple equal
+structures with different feature sets to the caps.
+</p>
+<p>
+Empty <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a> are equivalent with the <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a> that only
+contain <span class="type">GST_CAPS_FEATURE_MEMORY_SYSTEM_MEMORY</span>. ANY <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a> as
+created by <a class="link" href="gstreamer-GstCapsFeatures.html#gst-caps-features-new-any" title="gst_caps_features_new_any ()"><code class="function">gst_caps_features_new_any()</code></a> are equal to any other <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a>
+and can be used to specify that any <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a> would be supported, e.g.
+for elements that don't touch buffer memory. <a class="link" href="gstreamer-GstCaps.html#GstCaps" title="struct GstCaps"><span class="type">GstCaps</span></a> with ANY <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a>
+are considered non-fixed and during negotiation some <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a> have
+to be selected.
+</p>
+<p>
+Examples for caps features would be the requirement of a specific <a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a>
+types or the requirement of having a specific <a class="link" href="gstreamer-GstMeta.html#GstMeta" title="struct GstMeta"><span class="type">GstMeta</span></a> on the buffer. Features
+are given as a string of the format "memory:GstMemoryTypeName" or
+"meta:GstMetaAPIName".
+</p>
+</div>
+<div class="refsect1">
+<a name="gstreamer-GstCapsFeatures.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstCapsFeatures"></a><h3>GstCapsFeatures</h3>
+<pre class="programlisting">typedef struct _GstCapsFeatures GstCapsFeatures;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-caps-features-new"></a><h3>gst_caps_features_new ()</h3>
+<pre class="programlisting"><a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="returnvalue">GstCapsFeatures</span></a> *   gst_caps_features_new               (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *feature1</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);</pre>
+<p>
+Creates a new <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a> with the given features.
+The last argument must be NULL.
+</p>
+<p>
+Free-function: gst_caps_features_free
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>feature1</code></em> :</span></p></td>
+<td>name of first feature to set</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>additional features</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new, empty <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-caps-features-new-empty"></a><h3>gst_caps_features_new_empty ()</h3>
+<pre class="programlisting"><a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="returnvalue">GstCapsFeatures</span></a> *   gst_caps_features_new_empty         (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Creates a new, empty <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a>.
+</p>
+<p>
+Free-function: gst_caps_features_free
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new, empty <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 1.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-caps-features-new-any"></a><h3>gst_caps_features_new_any ()</h3>
+<pre class="programlisting"><a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="returnvalue">GstCapsFeatures</span></a> *   gst_caps_features_new_any           (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Creates a new, ANY <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a>. This will be equal
+to any other <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a> but caps with these are
+unfixed.
+</p>
+<p>
+Free-function: gst_caps_features_free
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new, ANY <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 1.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-caps-features-new-id"></a><h3>gst_caps_features_new_id ()</h3>
+<pre class="programlisting"><a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="returnvalue">GstCapsFeatures</span></a> *   gst_caps_features_new_id            (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> feature1</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);</pre>
+<p>
+Creates a new <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a> with the given features.
+The last argument must be 0.
+</p>
+<p>
+Free-function: gst_caps_features_free
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>feature1</code></em> :</span></p></td>
+<td>name of first feature to set</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>additional features</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new, empty <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-caps-features-new-id-valist"></a><h3>gst_caps_features_new_id_valist ()</h3>
+<pre class="programlisting"><a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="returnvalue">GstCapsFeatures</span></a> *   gst_caps_features_new_id_valist     (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> feature1</code></em>,
+                                                         <em class="parameter"><code><span class="type">va_list</span> varargs</code></em>);</pre>
+<p>
+Creates a new <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a> with the given features.
+</p>
+<p>
+Free-function: gst_caps_features_free
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>feature1</code></em> :</span></p></td>
+<td>name of first feature to set</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>varargs</code></em> :</span></p></td>
+<td>variable argument list</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new, empty <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-caps-features-new-valist"></a><h3>gst_caps_features_new_valist ()</h3>
+<pre class="programlisting"><a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="returnvalue">GstCapsFeatures</span></a> *   gst_caps_features_new_valist        (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *feature1</code></em>,
+                                                         <em class="parameter"><code><span class="type">va_list</span> varargs</code></em>);</pre>
+<p>
+Creates a new <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a> with the given features.
+</p>
+<p>
+Free-function: gst_caps_features_free
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>feature1</code></em> :</span></p></td>
+<td>name of first feature to set</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>varargs</code></em> :</span></p></td>
+<td>variable argument list</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new, empty <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-caps-features-copy"></a><h3>gst_caps_features_copy ()</h3>
+<pre class="programlisting"><a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="returnvalue">GstCapsFeatures</span></a> *   gst_caps_features_copy              (<em class="parameter"><code>const <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a> *features</code></em>);</pre>
+<p>
+Duplicates a <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a> and all its values.
+</p>
+<p>
+Free-function: gst_caps_features_free
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>features</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a> to duplicate</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-caps-features-free"></a><h3>gst_caps_features_free ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_caps_features_free              (<em class="parameter"><code><a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a> *features</code></em>);</pre>
+<p>
+Frees a <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a> and all its values. The caps features must not
+have a parent when this function is called.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>features</code></em> :</span></p></td>
+<td>the <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a> to free. <span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 1.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-caps-features-from-string"></a><h3>gst_caps_features_from_string ()</h3>
+<pre class="programlisting"><a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="returnvalue">GstCapsFeatures</span></a> *   gst_caps_features_from_string       (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *features</code></em>);</pre>
+<p>
+Creates a <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a> from a string representation.
+</p>
+<p>
+Free-function: gst_caps_features_free
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>features</code></em> :</span></p></td>
+<td>a string representation of a <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a> or NULL when the string could
+not be parsed. Free with <a class="link" href="gstreamer-GstCapsFeatures.html#gst-caps-features-free" title="gst_caps_features_free ()"><code class="function">gst_caps_features_free()</code></a> after use. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-caps-features-to-string"></a><h3>gst_caps_features_to_string ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             gst_caps_features_to_string         (<em class="parameter"><code>const <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a> *features</code></em>);</pre>
+<p>
+Converts <em class="parameter"><code>features</code></em> to a human-readable string representation.
+</p>
+<p>
+For debugging purposes its easier to do something like this:
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstInfo.html#GST-LOG:CAPS">GST_LOG</a></span> <span class="gtkdoc opt">(</span><span class="string">&quot;features is %&quot;</span> GST_PTR_FORMAT<span class="gtkdoc opt">,</span> features<span class="gtkdoc opt">);</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+This prints the features in human readble form.
+</p>
+<p>
+Free-function: g_free
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>features</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a pointer to string allocated by <a href="http://library.gnome.org/devel/glib/unstable/glib-Memory-Allocation.html#g-malloc"><code class="function">g_malloc()</code></a>.
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Memory-Allocation.html#g-free"><code class="function">g_free()</code></a> after usage. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-caps-features-set-parent-refcount"></a><h3>gst_caps_features_set_parent_refcount ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_caps_features_set_parent_refcount
+                                                        (<em class="parameter"><code><a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a> *features</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> *refcount</code></em>);</pre>
+<p>
+Sets the parent_refcount field of <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a>. This field is used to
+determine whether a caps features is mutable or not. This function should only be
+called by code implementing parent objects of <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a>, as described in
+the MT Refcounting section of the design documents.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>features</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>refcount</code></em> :</span></p></td>
+<td>a pointer to the parent's refcount. <span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the parent refcount could be set.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-caps-features-is-equal"></a><h3>gst_caps_features_is_equal ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_caps_features_is_equal          (<em class="parameter"><code>const <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a> *features1</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a> *features2</code></em>);</pre>
+<p>
+Check if <em class="parameter"><code>features1</code></em> and <em class="parameter"><code>features2</code></em> are equal.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>features1</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>features2</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if <em class="parameter"><code>features1</code></em> and <em class="parameter"><code>features2</code></em> are equal.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-caps-features-is-any"></a><h3>gst_caps_features_is_any ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_caps_features_is_any            (<em class="parameter"><code>const <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a> *features</code></em>);</pre>
+<p>
+Check if <em class="parameter"><code>features</code></em> is <code class="literal">GST_CAPS_FEATURES_ANY</code>.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>features</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if <em class="parameter"><code>features</code></em> is <code class="literal">GST_CAPS_FEATURES_ANY</code>.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-caps-features-contains"></a><h3>gst_caps_features_contains ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_caps_features_contains          (<em class="parameter"><code>const <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a> *features</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *feature</code></em>);</pre>
+<p>
+Check if <em class="parameter"><code>features</code></em> contains <em class="parameter"><code>feature</code></em>.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>features</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>feature</code></em> :</span></p></td>
+<td>a feature</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if <em class="parameter"><code>features</code></em> contains <em class="parameter"><code>feature</code></em>.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-caps-features-contains-id"></a><h3>gst_caps_features_contains_id ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_caps_features_contains_id       (<em class="parameter"><code>const <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a> *features</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> feature</code></em>);</pre>
+<p>
+Check if <em class="parameter"><code>features</code></em> contains <em class="parameter"><code>feature</code></em>.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>features</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>feature</code></em> :</span></p></td>
+<td>a feature</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if <em class="parameter"><code>features</code></em> contains <em class="parameter"><code>feature</code></em>.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-caps-features-get-size"></a><h3>gst_caps_features_get_size ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               gst_caps_features_get_size          (<em class="parameter"><code>const <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a> *features</code></em>);</pre>
+<p>
+Returns the number of features in <em class="parameter"><code>features</code></em>.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>features</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The number of features in <em class="parameter"><code>features</code></em>.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-caps-features-get-nth"></a><h3>gst_caps_features_get_nth ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       gst_caps_features_get_nth           (<em class="parameter"><code>const <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a> *features</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> i</code></em>);</pre>
+<p>
+Returns the <em class="parameter"><code>i</code></em>-th feature of <em class="parameter"><code>features</code></em>.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>features</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>i</code></em> :</span></p></td>
+<td>index of the feature</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The <em class="parameter"><code>i</code></em>-th feature of <em class="parameter"><code>features</code></em>.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-caps-features-get-nth-id"></a><h3>gst_caps_features_get_nth_id ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="returnvalue">GQuark</span></a>              gst_caps_features_get_nth_id        (<em class="parameter"><code>const <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a> *features</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> i</code></em>);</pre>
+<p>
+Returns the <em class="parameter"><code>i</code></em>-th feature of <em class="parameter"><code>features</code></em>.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>features</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>i</code></em> :</span></p></td>
+<td>index of the feature</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The <em class="parameter"><code>i</code></em>-th feature of <em class="parameter"><code>features</code></em>.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-caps-features-add"></a><h3>gst_caps_features_add ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_caps_features_add               (<em class="parameter"><code><a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a> *features</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *feature</code></em>);</pre>
+<p>
+Adds <em class="parameter"><code>feature</code></em> to <em class="parameter"><code>features</code></em>.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>features</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>feature</code></em> :</span></p></td>
+<td>a feature.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-caps-features-add-id"></a><h3>gst_caps_features_add_id ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_caps_features_add_id            (<em class="parameter"><code><a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a> *features</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> feature</code></em>);</pre>
+<p>
+Adds <em class="parameter"><code>feature</code></em> to <em class="parameter"><code>features</code></em>.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>features</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>feature</code></em> :</span></p></td>
+<td>a feature.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-caps-features-remove"></a><h3>gst_caps_features_remove ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_caps_features_remove            (<em class="parameter"><code><a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a> *features</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *feature</code></em>);</pre>
+<p>
+Removes <em class="parameter"><code>feature</code></em> from <em class="parameter"><code>features</code></em>.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>features</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>feature</code></em> :</span></p></td>
+<td>a feature.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-caps-features-remove-id"></a><h3>gst_caps_features_remove_id ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_caps_features_remove_id         (<em class="parameter"><code><a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a> *features</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> feature</code></em>);</pre>
+<p>
+Removes <em class="parameter"><code>feature</code></em> from <em class="parameter"><code>features</code></em>.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>features</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstCapsFeatures.html#GstCapsFeatures" title="GstCapsFeatures"><span class="type">GstCapsFeatures</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>feature</code></em> :</span></p></td>
+<td>a feature.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.2</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="gstreamer-GstCapsFeatures.see-also"></a><h2>See Also</h2>
+<a class="link" href="gstreamer-GstCaps.html#GstCaps" title="struct GstCaps"><span class="type">GstCaps</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>
