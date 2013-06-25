@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GstTriggerControlSource</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer 1.0 Library Reference Manual">
+<link rel="up" href="gstreamer-control.html" title="GStreamer Dynamic Parameter Control">
+<link rel="prev" href="GstLFOControlSource.html" title="GstLFOControlSource">
+<link rel="next" href="gstreamer-net.html" title="GStreamer Network Classes">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="GstLFOControlSource.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="gstreamer-control.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer 1.0 Library Reference Manual</th>
+<td><a accesskey="n" href="gstreamer-net.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#GstTriggerControlSource.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#GstTriggerControlSource.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#GstTriggerControlSource.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#GstTriggerControlSource.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="GstTriggerControlSource"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GstTriggerControlSource.top_of_page"></a>GstTriggerControlSource</span></h2>
+<p>GstTriggerControlSource — interpolation control source</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="GstTriggerControlSource.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;libs/controller/gsttriggercontrolsource.h&gt;
+
+struct              <a class="link" href="GstTriggerControlSource.html#GstTriggerControlSource-struct" title="struct GstTriggerControlSource">GstTriggerControlSource</a>;
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstControlSource.html"><span class="returnvalue">GstControlSource</span></a> *  <a class="link" href="GstTriggerControlSource.html#gst-trigger-control-source-new" title="gst_trigger_control_source_new ()">gst_trigger_control_source_new</a>      (<em class="parameter"><code><span class="type">void</span></code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="GstTriggerControlSource.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstObject.html">GstObject</a>
+               +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstControlSource.html">GstControlSource</a>
+                     +----<a class="link" href="GstTimedValueControlSource.html" title="GstTimedValueControlSource">GstTimedValueControlSource</a>
+                           +----GstTriggerControlSource
+</pre>
+</div>
+<div class="refsect1">
+<a name="GstTriggerControlSource.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="GstTriggerControlSource.html#GstTriggerControlSource--tolerance" title='The "tolerance" property'>tolerance</a>"                <span class="type">gint64</span>                : Read / Write
+</pre>
+</div>
+<div class="refsect1">
+<a name="GstTriggerControlSource.description"></a><h2>Description</h2>
+<p>
+<a class="link" href="GstTriggerControlSource.html" title="GstTriggerControlSource"><span class="type">GstTriggerControlSource</span></a> is a <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstControlSource.html"><span class="type">GstControlSource</span></a>, that returns values from user-given
+control points. It allows for a tolerance on the time-stamps.
+</p>
+<p>
+To use <a class="link" href="GstTriggerControlSource.html" title="GstTriggerControlSource"><span class="type">GstTriggerControlSource</span></a> get a new instance by calling
+<a class="link" href="GstTriggerControlSource.html#gst-trigger-control-source-new" title="gst_trigger_control_source_new ()"><code class="function">gst_trigger_control_source_new()</code></a>, bind it to a <a href="http://library.gnome.org/devel/gobject/unstable/gobject-GParamSpec.html#GParamSpec"><span class="type">GParamSpec</span></a> and set some
+control points by calling <a class="link" href="GstTimedValueControlSource.html#gst-timed-value-control-source-set" title="gst_timed_value_control_source_set ()"><code class="function">gst_timed_value_control_source_set()</code></a>.
+</p>
+<p>
+All functions are MT-safe.
+</p>
+</div>
+<div class="refsect1">
+<a name="GstTriggerControlSource.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstTriggerControlSource-struct"></a><h3>struct GstTriggerControlSource</h3>
+<pre class="programlisting">struct GstTriggerControlSource;</pre>
+<p>
+The instance structure of <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstControlSource.html"><span class="type">GstControlSource</span></a>.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-trigger-control-source-new"></a><h3>gst_trigger_control_source_new ()</h3>
+<pre class="programlisting"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstControlSource.html"><span class="returnvalue">GstControlSource</span></a> *  gst_trigger_control_source_new      (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+This returns a new, unbound <a class="link" href="GstTriggerControlSource.html" title="GstTriggerControlSource"><span class="type">GstTriggerControlSource</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new, unbound <a class="link" href="GstTriggerControlSource.html" title="GstTriggerControlSource"><span class="type">GstTriggerControlSource</span></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="GstTriggerControlSource.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GstTriggerControlSource--tolerance"></a><h3>The <code class="literal">"tolerance"</code> property</h3>
+<pre class="programlisting">  "tolerance"                <span class="type">gint64</span>                : Read / Write</pre>
+<p>Amount of ns a control time can be off to still trigger.</p>
+<p>Allowed values: &gt;= 0</p>
+<p>Default value: 0</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

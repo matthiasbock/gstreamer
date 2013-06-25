@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>dtmfdetect</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer Bad Plugins 1.0 Plugins Reference Manual">
+<link rel="up" href="ch01.html" title="gst-plugins-bad Elements">
+<link rel="prev" href="gst-plugins-bad-plugins-dodge.html" title="dodge">
+<link rel="next" href="gst-plugins-bad-plugins-dtmfsrc.html" title="dtmfsrc">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gst-plugins-bad-plugins-dodge.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer Bad Plugins 1.0 Plugins Reference Manual</th>
+<td><a accesskey="n" href="gst-plugins-bad-plugins-dtmfsrc.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gst-plugins-bad-plugins-dtmfdetect.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gst-plugins-bad-plugins-dtmfdetect.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#gst-plugins-bad-plugins-dtmfdetect.object-hierarchy" class="shortcut">Object Hierarchy</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gst-plugins-bad-plugins-dtmfdetect"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gst-plugins-bad-plugins-dtmfdetect.top_of_page"></a>dtmfdetect</span></h2>
+<p>dtmfdetect — Detects DTMF tones</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gst-plugins-bad-plugins-dtmfdetect.synopsis"></a><h2>Synopsis</h2>
+<a name="GstDtmfDetect"></a><pre class="synopsis">struct              <a class="link" href="gst-plugins-bad-plugins-dtmfdetect.html#GstDtmfDetect-struct" title="struct GstDtmfDetect">GstDtmfDetect</a>;
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-bad-plugins-dtmfdetect.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstObject.html">GstObject</a>
+               +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html">GstElement</a>
+                     +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer-libs/html/GstBaseTransform.html">GstBaseTransform</a>
+                           +----GstDtmfDetect
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-bad-plugins-dtmfdetect.description"></a><h2>Description</h2>
+<p>
+This element will detect DTMF tones and emit messages.
+</p>
+<p>
+The message is called <code class="classname">"dtmf-event"</code> and has
+the following fields:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem"><p>
+  gint <code class="classname">type</code> (0-1):
+  The application uses this field to specify which of the two methods
+  specified in RFC 2833 to use. The value should be 0 for tones and 1 for
+  named events. Tones are specified by their frequencies and events are
+  specfied by their number. This element can only take events as input.
+  Do not confuse with "method" which specified the output.
+  </p></li>
+<li class="listitem"><p>
+  gint <code class="classname">number</code> (0-16):
+  The event number.
+  </p></li>
+<li class="listitem"><p>
+  gint <code class="classname">method</code> (2):
+  This field will always been 2 (ie sound) from this element.
+  </p></li>
+</ul></div>
+<p>
+</p>
+<div class="refsynopsisdiv">
+<h2>Synopsis</h2>
+<div class="refsect2">
+<a name="idp7107936"></a><h3>Element Information</h3>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">plugin</span></p></td>
+<td>
+            <a class="link" href="gst-plugins-bad-plugins-plugin-dtmf.html#plugin-dtmf">dtmf</a>
+          </td>
+</tr>
+<tr>
+<td><p><span class="term">author</span></p></td>
+<td>Olivier Crete &lt;olivier.crete@collabora.com&gt;</td>
+</tr>
+<tr>
+<td><p><span class="term">class</span></p></td>
+<td>Filter/Analyzer/Audio</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="idp8983824"></a><h3>Element Pads</h3>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">name</span></p></td>
+<td>sink</td>
+</tr>
+<tr>
+<td><p><span class="term">direction</span></p></td>
+<td>sink</td>
+</tr>
+<tr>
+<td><p><span class="term">presence</span></p></td>
+<td>always</td>
+</tr>
+<tr>
+<td><p><span class="term">details</span></p></td>
+<td>audio/x-raw, format=(string)S16LE, rate=(int)8000, channels=(int)1</td>
+</tr>
+</tbody>
+</table></div>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">name</span></p></td>
+<td>src</td>
+</tr>
+<tr>
+<td><p><span class="term">direction</span></p></td>
+<td>source</td>
+</tr>
+<tr>
+<td><p><span class="term">presence</span></p></td>
+<td>always</td>
+</tr>
+<tr>
+<td><p><span class="term">details</span></p></td>
+<td>audio/x-raw, format=(string)S16LE, rate=(int)8000, channels=(int)1</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<p>
+</p>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-bad-plugins-dtmfdetect.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstDtmfDetect-struct"></a><h3>struct GstDtmfDetect</h3>
+<pre class="programlisting">struct GstDtmfDetect;</pre>
+<p>
+</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

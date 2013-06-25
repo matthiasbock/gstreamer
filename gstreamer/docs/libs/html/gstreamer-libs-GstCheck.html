@@ -1,0 +1,765 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GstCheck</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer 1.0 Library Reference Manual">
+<link rel="up" href="gstreamer-check.html" title="GStreamer Check Unit Testing">
+<link rel="prev" href="gstreamer-check.html" title="GStreamer Check Unit Testing">
+<link rel="next" href="gstreamer-libs-GstBufferStraw.html" title="GstBufferStraw">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gstreamer-check.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="gstreamer-check.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer 1.0 Library Reference Manual</th>
+<td><a accesskey="n" href="gstreamer-libs-GstBufferStraw.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gstreamer-libs-GstCheck.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gstreamer-libs-GstCheck.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gstreamer-libs-GstCheck"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gstreamer-libs-GstCheck.top_of_page"></a>GstCheck</span></h2>
+<p>GstCheck — Common code for GStreamer unit tests</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gstreamer-libs-GstCheck.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;gst/check/gstcheck.h&gt;
+
+#define             <a class="link" href="gstreamer-libs-GstCheck.html#GST-START-TEST:CAPS" title="GST_START_TEST()">GST_START_TEST</a>                      (__testname)
+#define             <a class="link" href="gstreamer-libs-GstCheck.html#GST-END-TEST:CAPS" title="GST_END_TEST">GST_END_TEST</a>
+#define             <a class="link" href="gstreamer-libs-GstCheck.html#ASSERT-BUFFER-REFCOUNT:CAPS" title="ASSERT_BUFFER_REFCOUNT()">ASSERT_BUFFER_REFCOUNT</a>              (buffer,
+                                                         name,
+                                                         value)
+#define             <a class="link" href="gstreamer-libs-GstCheck.html#ASSERT-CAPS-REFCOUNT:CAPS" title="ASSERT_CAPS_REFCOUNT()">ASSERT_CAPS_REFCOUNT</a>                (caps,
+                                                         name,
+                                                         value)
+#define             <a class="link" href="gstreamer-libs-GstCheck.html#ASSERT-CRITICAL:CAPS" title="ASSERT_CRITICAL()">ASSERT_CRITICAL</a>                     (code)
+#define             <a class="link" href="gstreamer-libs-GstCheck.html#ASSERT-WARNING:CAPS" title="ASSERT_WARNING()">ASSERT_WARNING</a>                      (code)
+#define             <a class="link" href="gstreamer-libs-GstCheck.html#ASSERT-MINI-OBJECT-REFCOUNT:CAPS" title="ASSERT_MINI_OBJECT_REFCOUNT()">ASSERT_MINI_OBJECT_REFCOUNT</a>         (miniobj,
+                                                         name,
+                                                         value)
+#define             <a class="link" href="gstreamer-libs-GstCheck.html#ASSERT-OBJECT-REFCOUNT:CAPS" title="ASSERT_OBJECT_REFCOUNT()">ASSERT_OBJECT_REFCOUNT</a>              (object,
+                                                         name,
+                                                         value)
+#define             <a class="link" href="gstreamer-libs-GstCheck.html#ASSERT-OBJECT-REFCOUNT-BETWEEN:CAPS" title="ASSERT_OBJECT_REFCOUNT_BETWEEN()">ASSERT_OBJECT_REFCOUNT_BETWEEN</a>      (object,
+                                                         name,
+                                                         lower,
+                                                         upper)
+#define             <a class="link" href="gstreamer-libs-GstCheck.html#ASSERT-SET-STATE:CAPS" title="ASSERT_SET_STATE()">ASSERT_SET_STATE</a>                    (element,
+                                                         state,
+                                                         ret)
+#define             <a class="link" href="gstreamer-libs-GstCheck.html#fail-unless-equals-int" title="fail_unless_equals_int()">fail_unless_equals_int</a>              (a,
+                                                         b)
+#define             <a class="link" href="gstreamer-libs-GstCheck.html#fail-unless-equals-float" title="fail_unless_equals_float()">fail_unless_equals_float</a>            (a,
+                                                         b)
+#define             <a class="link" href="gstreamer-libs-GstCheck.html#fail-unless-equals-string" title="fail_unless_equals_string()">fail_unless_equals_string</a>           (a,
+                                                         b)
+#define             <a class="link" href="gstreamer-libs-GstCheck.html#fail-unless-equals-uint64" title="fail_unless_equals_uint64()">fail_unless_equals_uint64</a>           (a,
+                                                         b)
+#define             <a class="link" href="gstreamer-libs-GstCheck.html#fail-unless-equals-int64" title="fail_unless_equals_int64()">fail_unless_equals_int64</a>            (a,
+                                                         b)
+#define             <a class="link" href="gstreamer-libs-GstCheck.html#fail-unless-message-error" title="fail_unless_message_error()">fail_unless_message_error</a>           (msg,
+                                                         domain,
+                                                         code)
+#define             <a class="link" href="gstreamer-libs-GstCheck.html#assert-equals-int" title="assert_equals_int()">assert_equals_int</a>                   (a,
+                                                         b)
+#define             <a class="link" href="gstreamer-libs-GstCheck.html#assert-equals-float" title="assert_equals_float()">assert_equals_float</a>                 (a,
+                                                         b)
+#define             <a class="link" href="gstreamer-libs-GstCheck.html#assert-equals-string" title="assert_equals_string()">assert_equals_string</a>                (a,
+                                                         b)
+#define             <a class="link" href="gstreamer-libs-GstCheck.html#assert-equals-uint64" title="assert_equals_uint64()">assert_equals_uint64</a>                (a,
+                                                         b)
+#define             <a class="link" href="gstreamer-libs-GstCheck.html#assert-equals-int64" title="assert_equals_int64()">assert_equals_int64</a>                 (a,
+                                                         b)
+#define             <a class="link" href="gstreamer-libs-GstCheck.html#assert-message-error" title="assert_message_error()">assert_message_error</a>                (m,
+                                                         d,
+                                                         c)
+<span class="returnvalue">void</span>                <a class="link" href="gstreamer-libs-GstCheck.html#gst-check-init" title="gst_check_init ()">gst_check_init</a>                      (<em class="parameter"><code><span class="type">int</span> *argc</code></em>,
+                                                         <em class="parameter"><code><span class="type">char</span> **argv[]</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gstreamer-libs-GstCheck.html#gst-check-message-error" title="gst_check_message_error ()">gst_check_message_error</a>             (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstMessage.html#GstMessage"><span class="type">GstMessage</span></a> *message</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstMessage.html#GstMessageType"><span class="type">GstMessageType</span></a> type</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> domain</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> code</code></em>);
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="returnvalue">GstElement</span></a> *        <a class="link" href="gstreamer-libs-GstCheck.html#gst-check-setup-element" title="gst_check_setup_element ()">gst_check_setup_element</a>             (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *factory</code></em>);
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPad.html"><span class="returnvalue">GstPad</span></a> *            <a class="link" href="gstreamer-libs-GstCheck.html#gst-check-setup-sink-pad" title="gst_check_setup_sink_pad ()">gst_check_setup_sink_pad</a>            (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPadTemplate.html#GstStaticPadTemplate"><span class="type">GstStaticPadTemplate</span></a> *tmpl</code></em>);
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPad.html"><span class="returnvalue">GstPad</span></a> *            <a class="link" href="gstreamer-libs-GstCheck.html#gst-check-setup-src-pad" title="gst_check_setup_src_pad ()">gst_check_setup_src_pad</a>             (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPadTemplate.html#GstStaticPadTemplate"><span class="type">GstStaticPadTemplate</span></a> *tmpl</code></em>);
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPad.html"><span class="returnvalue">GstPad</span></a> *            <a class="link" href="gstreamer-libs-GstCheck.html#gst-check-setup-sink-pad-by-name" title="gst_check_setup_sink_pad_by_name ()">gst_check_setup_sink_pad_by_name</a>    (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPadTemplate.html#GstStaticPadTemplate"><span class="type">GstStaticPadTemplate</span></a> *tmpl</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPad.html"><span class="returnvalue">GstPad</span></a> *            <a class="link" href="gstreamer-libs-GstCheck.html#gst-check-setup-src-pad-by-name" title="gst_check_setup_src_pad_by_name ()">gst_check_setup_src_pad_by_name</a>     (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPadTemplate.html#GstStaticPadTemplate"><span class="type">GstStaticPadTemplate</span></a> *tmpl</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gstreamer-libs-GstCheck.html#gst-check-teardown-pad-by-name" title="gst_check_teardown_pad_by_name ()">gst_check_teardown_pad_by_name</a>      (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gstreamer-libs-GstCheck.html#gst-check-teardown-element" title="gst_check_teardown_element ()">gst_check_teardown_element</a>          (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gstreamer-libs-GstCheck.html#gst-check-teardown-sink-pad" title="gst_check_teardown_sink_pad ()">gst_check_teardown_sink_pad</a>         (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gstreamer-libs-GstCheck.html#gst-check-teardown-src-pad" title="gst_check_teardown_src_pad ()">gst_check_teardown_src_pad</a>          (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gstreamer-libs-GstCheck.html#gst-check-drop-buffers" title="gst_check_drop_buffers ()">gst_check_drop_buffers</a>              (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gstreamer-libs-GstCheck.html#gst-check-buffer-data" title="gst_check_buffer_data ()">gst_check_buffer_data</a>               (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *buffer</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gconstpointer"><span class="type">gconstpointer</span></a> data</code></em>,
+                                                         <em class="parameter"><code><span class="type">gsize</span> size</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gstreamer-libs-GstCheck.html#gst-check-caps-equal" title="gst_check_caps_equal ()">gst_check_caps_equal</a>                (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="type">GstCaps</span></a> *caps1</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="type">GstCaps</span></a> *caps2</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gstreamer-libs-GstCheck.html#gst-check-element-push-buffer-list" title="gst_check_element_push_buffer_list ()">gst_check_element_push_buffer_list</a>  (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *element_name</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *buffer_in</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="type">GstCaps</span></a> *caps_in</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *buffer_out</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="type">GstCaps</span></a> *caps_out</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPad.html#GstFlowReturn"><span class="type">GstFlowReturn</span></a> last_flow_return</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gstreamer-libs-GstCheck.html#gst-check-element-push-buffer" title="gst_check_element_push_buffer ()">gst_check_element_push_buffer</a>       (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *element_name</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *buffer_in</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="type">GstCaps</span></a> *caps_in</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *buffer_out</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="type">GstCaps</span></a> *caps_out</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>                <a class="link" href="gstreamer-libs-GstCheck.html#gst-check-run-suite" title="gst_check_run_suite ()">gst_check_run_suite</a>                 (<em class="parameter"><code><span class="type">Suite</span> *suite</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *fname</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="gstreamer-libs-GstCheck.description"></a><h2>Description</h2>
+<p>
+These macros and functions are for internal use of the unit tests found
+inside the 'check' directories of various GStreamer packages.
+</p>
+</div>
+<div class="refsect1">
+<a name="gstreamer-libs-GstCheck.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GST-START-TEST:CAPS"></a><h3>GST_START_TEST()</h3>
+<pre class="programlisting">#define             GST_START_TEST(__testname)</pre>
+<p>
+wrapper for checks START_TEST
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>__testname</code></em> :</span></p></td>
+<td>test function name</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-END-TEST:CAPS"></a><h3>GST_END_TEST</h3>
+<pre class="programlisting">#define             GST_END_TEST</pre>
+<p>
+wrapper for checks END_TEST
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ASSERT-BUFFER-REFCOUNT:CAPS"></a><h3>ASSERT_BUFFER_REFCOUNT()</h3>
+<pre class="programlisting">#define             ASSERT_BUFFER_REFCOUNT(buffer, name, value)</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ASSERT-CAPS-REFCOUNT:CAPS"></a><h3>ASSERT_CAPS_REFCOUNT()</h3>
+<pre class="programlisting">#define             ASSERT_CAPS_REFCOUNT(caps, name, value)</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ASSERT-CRITICAL:CAPS"></a><h3>ASSERT_CRITICAL()</h3>
+<pre class="programlisting">#define             ASSERT_CRITICAL(code)</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ASSERT-WARNING:CAPS"></a><h3>ASSERT_WARNING()</h3>
+<pre class="programlisting">#define             ASSERT_WARNING(code)</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ASSERT-MINI-OBJECT-REFCOUNT:CAPS"></a><h3>ASSERT_MINI_OBJECT_REFCOUNT()</h3>
+<pre class="programlisting">#define             ASSERT_MINI_OBJECT_REFCOUNT(miniobj, name, value)</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ASSERT-OBJECT-REFCOUNT:CAPS"></a><h3>ASSERT_OBJECT_REFCOUNT()</h3>
+<pre class="programlisting">#define             ASSERT_OBJECT_REFCOUNT(object, name, value)</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ASSERT-OBJECT-REFCOUNT-BETWEEN:CAPS"></a><h3>ASSERT_OBJECT_REFCOUNT_BETWEEN()</h3>
+<pre class="programlisting">#define             ASSERT_OBJECT_REFCOUNT_BETWEEN(object, name, lower, upper)</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ASSERT-SET-STATE:CAPS"></a><h3>ASSERT_SET_STATE()</h3>
+<pre class="programlisting">#define             ASSERT_SET_STATE(element, state, ret)</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fail-unless-equals-int"></a><h3>fail_unless_equals_int()</h3>
+<pre class="programlisting">#define             fail_unless_equals_int(a, b)</pre>
+<p>
+This macro checks that <em class="parameter"><code>a</code></em> and <em class="parameter"><code>b</code></em> are equal and aborts if this is not the
+case, printing both expressions and the values they evaluated to. This
+macro is for use in unit tests.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> value or expression</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> value or expression</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fail-unless-equals-float"></a><h3>fail_unless_equals_float()</h3>
+<pre class="programlisting">#define             fail_unless_equals_float(a, b)</pre>
+<p>
+This macro checks that <em class="parameter"><code>a</code></em> and <em class="parameter"><code>b</code></em> are (almost) equal and aborts if this
+is not the case, printing both expressions and the values they evaluated
+to. This macro is for use in unit tests.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a> or <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gfloat"><span class="type">gfloat</span></a> value or expression</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a> or <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gfloat"><span class="type">gfloat</span></a> value or expression</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fail-unless-equals-string"></a><h3>fail_unless_equals_string()</h3>
+<pre class="programlisting">#define             fail_unless_equals_string(a, b)</pre>
+<p>
+This macro checks that <em class="parameter"><code>a</code></em> and <em class="parameter"><code>b</code></em> are equal (as per strcmp) and aborts if
+this is not the case, printing both expressions and the values they
+evaluated to. This macro is for use in unit tests.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td>a string literal or expression</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td>a string literal or expression</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fail-unless-equals-uint64"></a><h3>fail_unless_equals_uint64()</h3>
+<pre class="programlisting">#define             fail_unless_equals_uint64(a, b)</pre>
+<p>
+This macro checks that <em class="parameter"><code>a</code></em> and <em class="parameter"><code>b</code></em> are equal and aborts if this is not the
+case, printing both expressions and the values they evaluated to. This
+macro is for use in unit tests.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td>a <span class="type">guint64</span> value or expression</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td>a <span class="type">guint64</span> value or expression</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fail-unless-equals-int64"></a><h3>fail_unless_equals_int64()</h3>
+<pre class="programlisting">#define             fail_unless_equals_int64(a, b)</pre>
+<p>
+This macro checks that <em class="parameter"><code>a</code></em> and <em class="parameter"><code>b</code></em> are equal and aborts if this is not the
+case, printing both expressions and the values they evaluated to. This
+macro is for use in unit tests.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td>a <span class="type">gint64</span> value or expression</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td>a <span class="type">gint64</span> value or expression</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fail-unless-message-error"></a><h3>fail_unless_message_error()</h3>
+<pre class="programlisting">#define             fail_unless_message_error(msg, domain, code)</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="assert-equals-int"></a><h3>assert_equals_int()</h3>
+<pre class="programlisting">#define assert_equals_int(a, b) fail_unless_equals_int(a, b)
+</pre>
+<p>
+This macro checks that <em class="parameter"><code>a</code></em> and <em class="parameter"><code>b</code></em> are equal and aborts if this is not the
+case, printing both expressions and the values they evaluated to. This
+macro is for use in unit tests.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> value or expression</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> value or expression</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="assert-equals-float"></a><h3>assert_equals_float()</h3>
+<pre class="programlisting">#define assert_equals_float(a, b) fail_unless_equals_float(a, b)
+</pre>
+<p>
+This macro checks that <em class="parameter"><code>a</code></em> and <em class="parameter"><code>b</code></em> are (almost) equal and aborts if this
+is not the case, printing both expressions and the values they evaluated
+to. This macro is for use in unit tests.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a> or <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gfloat"><span class="type">gfloat</span></a> value or expression</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a> or <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gfloat"><span class="type">gfloat</span></a> value or expression</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="assert-equals-string"></a><h3>assert_equals_string()</h3>
+<pre class="programlisting">#define assert_equals_string(a, b) fail_unless_equals_string(a, b)
+</pre>
+<p>
+This macro checks that <em class="parameter"><code>a</code></em> and <em class="parameter"><code>b</code></em> are equal (as per strcmp) and aborts if
+this is not the case, printing both expressions and the values they
+evaluated to. This macro is for use in unit tests.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td>a string literal or expression</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td>a string literal or expression</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="assert-equals-uint64"></a><h3>assert_equals_uint64()</h3>
+<pre class="programlisting">#define assert_equals_uint64(a, b) fail_unless_equals_uint64(a, b)
+</pre>
+<p>
+This macro checks that <em class="parameter"><code>a</code></em> and <em class="parameter"><code>b</code></em> are equal and aborts if this is not the
+case, printing both expressions and the values they evaluated to. This
+macro is for use in unit tests.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td>a <span class="type">guint64</span> value or expression</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td>a <span class="type">guint64</span> value or expression</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="assert-equals-int64"></a><h3>assert_equals_int64()</h3>
+<pre class="programlisting">#define assert_equals_int64(a, b) fail_unless_equals_int64(a, b)
+</pre>
+<p>
+This macro checks that <em class="parameter"><code>a</code></em> and <em class="parameter"><code>b</code></em> are equal and aborts if this is not the
+case, printing both expressions and the values they evaluated to. This
+macro is for use in unit tests.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td>a <span class="type">gint64</span> value or expression</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td>a <span class="type">gint64</span> value or expression</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="assert-message-error"></a><h3>assert_message_error()</h3>
+<pre class="programlisting">#define assert_message_error(m, d, c) fail_unless_message_error(m, d, c)
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-check-init"></a><h3>gst_check_init ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_check_init                      (<em class="parameter"><code><span class="type">int</span> *argc</code></em>,
+                                                         <em class="parameter"><code><span class="type">char</span> **argv[]</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-check-message-error"></a><h3>gst_check_message_error ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_check_message_error             (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstMessage.html#GstMessage"><span class="type">GstMessage</span></a> *message</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstMessage.html#GstMessageType"><span class="type">GstMessageType</span></a> type</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> domain</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> code</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-check-setup-element"></a><h3>gst_check_setup_element ()</h3>
+<pre class="programlisting"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="returnvalue">GstElement</span></a> *        gst_check_setup_element             (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *factory</code></em>);</pre>
+<p>
+setup an element for a filter test with mysrcpad and mysinkpad
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>factory</code></em> :</span></p></td>
+<td>factory</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new element. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-check-setup-sink-pad"></a><h3>gst_check_setup_sink_pad ()</h3>
+<pre class="programlisting"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPad.html"><span class="returnvalue">GstPad</span></a> *            gst_check_setup_sink_pad            (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPadTemplate.html#GstStaticPadTemplate"><span class="type">GstStaticPadTemplate</span></a> *tmpl</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>element</code></em> :</span></p></td>
+<td>element to setup pad on</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>tmpl</code></em> :</span></p></td>
+<td>pad template</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new pad. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-check-setup-src-pad"></a><h3>gst_check_setup_src_pad ()</h3>
+<pre class="programlisting"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPad.html"><span class="returnvalue">GstPad</span></a> *            gst_check_setup_src_pad             (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPadTemplate.html#GstStaticPadTemplate"><span class="type">GstStaticPadTemplate</span></a> *tmpl</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>element</code></em> :</span></p></td>
+<td>element to setup pad on</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>tmpl</code></em> :</span></p></td>
+<td>pad template</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new pad. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-check-setup-sink-pad-by-name"></a><h3>gst_check_setup_sink_pad_by_name ()</h3>
+<pre class="programlisting"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPad.html"><span class="returnvalue">GstPad</span></a> *            gst_check_setup_sink_pad_by_name    (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPadTemplate.html#GstStaticPadTemplate"><span class="type">GstStaticPadTemplate</span></a> *tmpl</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>element</code></em> :</span></p></td>
+<td>element to setup pad on</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>tmpl</code></em> :</span></p></td>
+<td>pad template</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>name</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new pad. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-check-setup-src-pad-by-name"></a><h3>gst_check_setup_src_pad_by_name ()</h3>
+<pre class="programlisting"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPad.html"><span class="returnvalue">GstPad</span></a> *            gst_check_setup_src_pad_by_name     (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPadTemplate.html#GstStaticPadTemplate"><span class="type">GstStaticPadTemplate</span></a> *tmpl</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>element</code></em> :</span></p></td>
+<td>element to setup pad on</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>tmpl</code></em> :</span></p></td>
+<td>pad template</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>name</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new pad. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-check-teardown-pad-by-name"></a><h3>gst_check_teardown_pad_by_name ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_check_teardown_pad_by_name      (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-check-teardown-element"></a><h3>gst_check_teardown_element ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_check_teardown_element          (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-check-teardown-sink-pad"></a><h3>gst_check_teardown_sink_pad ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_check_teardown_sink_pad         (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-check-teardown-src-pad"></a><h3>gst_check_teardown_src_pad ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_check_teardown_src_pad          (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-check-drop-buffers"></a><h3>gst_check_drop_buffers ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_check_drop_buffers              (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Unref and remove all buffers that are in the global <em class="parameter"><code>buffers</code></em> GList,
+emptying the list.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-check-buffer-data"></a><h3>gst_check_buffer_data ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_check_buffer_data               (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *buffer</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gconstpointer"><span class="type">gconstpointer</span></a> data</code></em>,
+                                                         <em class="parameter"><code><span class="type">gsize</span> size</code></em>);</pre>
+<p>
+Compare the buffer contents with <em class="parameter"><code>data</code></em> and <em class="parameter"><code>size</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>buffer</code></em> :</span></p></td>
+<td>buffer to compare</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>data to compare to</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>size</code></em> :</span></p></td>
+<td>size of data to compare</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-check-caps-equal"></a><h3>gst_check_caps_equal ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_check_caps_equal                (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="type">GstCaps</span></a> *caps1</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="type">GstCaps</span></a> *caps2</code></em>);</pre>
+<p>
+Compare two caps with gst_caps_is_equal and fail unless they are
+equal.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>caps1</code></em> :</span></p></td>
+<td>first caps to compare</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>caps2</code></em> :</span></p></td>
+<td>second caps to compare</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-check-element-push-buffer-list"></a><h3>gst_check_element_push_buffer_list ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_check_element_push_buffer_list  (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *element_name</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *buffer_in</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="type">GstCaps</span></a> *caps_in</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *buffer_out</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="type">GstCaps</span></a> *caps_out</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPad.html#GstFlowReturn"><span class="type">GstFlowReturn</span></a> last_flow_return</code></em>);</pre>
+<p>
+Create an <em class="parameter"><code>element</code></em> with the factory with the name and push the buffers in
+<em class="parameter"><code>buffer_in</code></em> to this element. The element should create the buffers equal to
+the buffers in <em class="parameter"><code>buffer_out</code></em>. We only check the caps, size and the data of the
+buffers. This function unrefs the buffers in the two lists.
+The last_flow_return parameter indicates the expected flow return value from
+pushing the final buffer in the list.
+This can be used to set up a test which pushes some buffers and then an
+invalid buffer, when the final buffer is expected to fail, for example.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>element_name</code></em> :</span></p></td>
+<td>name of the element that needs to be created</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>buffer_in</code></em> :</span></p></td>
+<td>a list of buffers that needs to be
+puched to the element. <span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> GstBuffer][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>buffer_out</code></em> :</span></p></td>
+<td>a list of buffers that we expect from
+the element. <span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> GstBuffer][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>last_flow_return</code></em> :</span></p></td>
+<td>the last buffer push needs to give this GstFlowReturn</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-check-element-push-buffer"></a><h3>gst_check_element_push_buffer ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_check_element_push_buffer       (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *element_name</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *buffer_in</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="type">GstCaps</span></a> *caps_in</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *buffer_out</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="type">GstCaps</span></a> *caps_out</code></em>);</pre>
+<p>
+Create an <em class="parameter"><code>element</code></em> with the factory with the name and push the
+<em class="parameter"><code>buffer_in</code></em> to this element. The element should create one buffer
+and this will be compared with <em class="parameter"><code>buffer_out</code></em>. We only check the caps
+and the data of the buffers. This function unrefs the buffers.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>element_name</code></em> :</span></p></td>
+<td>name of the element that needs to be created</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>buffer_in</code></em> :</span></p></td>
+<td>push this buffer to the element</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>buffer_out</code></em> :</span></p></td>
+<td>compare the result with this buffer</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-check-run-suite"></a><h3>gst_check_run_suite ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>                gst_check_run_suite                 (<em class="parameter"><code><span class="type">Suite</span> *suite</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *fname</code></em>);</pre>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

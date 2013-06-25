@@ -1,0 +1,606 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GstChildProxy</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer 1.0 Core Reference Manual">
+<link rel="up" href="libgstreamer.html" title="GStreamer Core Library">
+<link rel="prev" href="gstreamer-GstSample.html" title="GstSample">
+<link rel="next" href="GstClock.html" title="GstClock">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gstreamer-GstSample.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="libgstreamer.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer 1.0 Core Reference Manual</th>
+<td><a accesskey="n" href="GstClock.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#GstChildProxy.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#GstChildProxy.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#GstChildProxy.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#GstChildProxy.prerequisites" class="shortcut">Prerequisites</a>
+                   | 
+                  <a href="#GstChildProxy.implementations" class="shortcut">Known Implementations</a>
+                   | 
+                  <a href="#GstChildProxy.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="GstChildProxy"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GstChildProxy.top_of_page"></a>GstChildProxy</span></h2>
+<p>GstChildProxy — Interface for multi child elements.</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="GstChildProxy.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;gst/gst.h&gt;
+
+                    <a class="link" href="GstChildProxy.html#GstChildProxy-struct" title="GstChildProxy">GstChildProxy</a>;
+struct              <a class="link" href="GstChildProxy.html#GstChildProxyInterface" title="struct GstChildProxyInterface">GstChildProxyInterface</a>;
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               <a class="link" href="GstChildProxy.html#gst-child-proxy-get-children-count" title="gst_child_proxy_get_children_count ()">gst_child_proxy_get_children_count</a>  (<em class="parameter"><code><a class="link" href="GstChildProxy.html" title="GstChildProxy"><span class="type">GstChildProxy</span></a> *parent</code></em>);
+<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="returnvalue">GObject</span></a> *           <a class="link" href="GstChildProxy.html#gst-child-proxy-get-child-by-name" title="gst_child_proxy_get_child_by_name ()">gst_child_proxy_get_child_by_name</a>   (<em class="parameter"><code><a class="link" href="GstChildProxy.html" title="GstChildProxy"><span class="type">GstChildProxy</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);
+<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="returnvalue">GObject</span></a> *           <a class="link" href="GstChildProxy.html#gst-child-proxy-get-child-by-index" title="gst_child_proxy_get_child_by_index ()">gst_child_proxy_get_child_by_index</a>  (<em class="parameter"><code><a class="link" href="GstChildProxy.html" title="GstChildProxy"><span class="type">GstChildProxy</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> index</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="GstChildProxy.html#gst-child-proxy-lookup" title="gst_child_proxy_lookup ()">gst_child_proxy_lookup</a>              (<em class="parameter"><code><a class="link" href="GstChildProxy.html" title="GstChildProxy"><span class="type">GstChildProxy</span></a> *object</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> **target</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-GParamSpec.html#GParamSpec"><span class="type">GParamSpec</span></a> **pspec</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="GstChildProxy.html#gst-child-proxy-get-property" title="gst_child_proxy_get_property ()">gst_child_proxy_get_property</a>        (<em class="parameter"><code><a class="link" href="GstChildProxy.html" title="GstChildProxy"><span class="type">GstChildProxy</span></a> *object</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *value</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="GstChildProxy.html#gst-child-proxy-get-valist" title="gst_child_proxy_get_valist ()">gst_child_proxy_get_valist</a>          (<em class="parameter"><code><a class="link" href="GstChildProxy.html" title="GstChildProxy"><span class="type">GstChildProxy</span></a> *object</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *first_property_name</code></em>,
+                                                         <em class="parameter"><code><span class="type">va_list</span> var_args</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="GstChildProxy.html#gst-child-proxy-get" title="gst_child_proxy_get ()">gst_child_proxy_get</a>                 (<em class="parameter"><code><a class="link" href="GstChildProxy.html" title="GstChildProxy"><span class="type">GstChildProxy</span></a> *object</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *first_property_name</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="GstChildProxy.html#gst-child-proxy-set-property" title="gst_child_proxy_set_property ()">gst_child_proxy_set_property</a>        (<em class="parameter"><code><a class="link" href="GstChildProxy.html" title="GstChildProxy"><span class="type">GstChildProxy</span></a> *object</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *value</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="GstChildProxy.html#gst-child-proxy-set-valist" title="gst_child_proxy_set_valist ()">gst_child_proxy_set_valist</a>          (<em class="parameter"><code><a class="link" href="GstChildProxy.html" title="GstChildProxy"><span class="type">GstChildProxy</span></a> *object</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *first_property_name</code></em>,
+                                                         <em class="parameter"><code><span class="type">va_list</span> var_args</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="GstChildProxy.html#gst-child-proxy-set" title="gst_child_proxy_set ()">gst_child_proxy_set</a>                 (<em class="parameter"><code><a class="link" href="GstChildProxy.html" title="GstChildProxy"><span class="type">GstChildProxy</span></a> *object</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *first_property_name</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="GstChildProxy.html#gst-child-proxy-child-added" title="gst_child_proxy_child_added ()">gst_child_proxy_child_added</a>         (<em class="parameter"><code><a class="link" href="GstChildProxy.html" title="GstChildProxy"><span class="type">GstChildProxy</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *child</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="GstChildProxy.html#gst-child-proxy-child-removed" title="gst_child_proxy_child_removed ()">gst_child_proxy_child_removed</a>       (<em class="parameter"><code><a class="link" href="GstChildProxy.html" title="GstChildProxy"><span class="type">GstChildProxy</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *child</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="GstChildProxy.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  GInterface
+   +----GstChildProxy
+</pre>
+</div>
+<div class="refsect1">
+<a name="GstChildProxy.prerequisites"></a><h2>Prerequisites</h2>
+<p>
+GstChildProxy requires
+ <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>.</p>
+</div>
+<div class="refsect1">
+<a name="GstChildProxy.implementations"></a><h2>Known Implementations</h2>
+<p>
+GstChildProxy is implemented by
+ <a class="link" href="GstBin.html" title="GstBin">GstBin</a> and  <a class="link" href="GstPipeline.html" title="GstPipeline">GstPipeline</a>.</p>
+</div>
+<div class="refsect1">
+<a name="GstChildProxy.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="GstChildProxy.html#GstChildProxy-child-added" title='The "child-added" signal'>child-added</a>"                                    : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-FIRST:CAPS"><code class="literal">Run First</code></a>
+  "<a class="link" href="GstChildProxy.html#GstChildProxy-child-removed" title='The "child-removed" signal'>child-removed</a>"                                  : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-FIRST:CAPS"><code class="literal">Run First</code></a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="GstChildProxy.description"></a><h2>Description</h2>
+<p>
+This interface abstracts handling of property sets for elements with
+children. Imagine elements such as mixers or polyphonic generators. They all
+have multiple <a class="link" href="GstPad.html" title="GstPad"><span class="type">GstPad</span></a> or some kind of voice objects. Another use case are
+container elements like <a class="link" href="GstBin.html" title="GstBin"><span class="type">GstBin</span></a>.
+The element implementing the interface acts as a parent for those child
+objects.
+</p>
+<p>
+By implementing this interface the child properties can be accessed from the
+parent element by using <a class="link" href="GstChildProxy.html#gst-child-proxy-get" title="gst_child_proxy_get ()"><code class="function">gst_child_proxy_get()</code></a> and <a class="link" href="GstChildProxy.html#gst-child-proxy-set" title="gst_child_proxy_set ()"><code class="function">gst_child_proxy_set()</code></a>.
+</p>
+<p>
+Property names are written as "child-name::property-name". The whole naming
+scheme is recursive. Thus "child1::child2::property" is valid too, if
+"child1" and "child2" implement the <a class="link" href="GstChildProxy.html" title="GstChildProxy"><span class="type">GstChildProxy</span></a> interface.
+</p>
+</div>
+<div class="refsect1">
+<a name="GstChildProxy.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstChildProxy-struct"></a><h3>GstChildProxy</h3>
+<pre class="programlisting">typedef struct _GstChildProxy GstChildProxy;</pre>
+<p>
+Opaque <a class="link" href="GstChildProxy.html" title="GstChildProxy"><span class="type">GstChildProxy</span></a> data structure.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstChildProxyInterface"></a><h3>struct GstChildProxyInterface</h3>
+<pre class="programlisting">struct GstChildProxyInterface {
+  GTypeInterface parent;
+
+  /* methods */
+  GObject * (*get_child_by_name)  (GstChildProxy * parent, const gchar * name);
+  GObject * (*get_child_by_index) (GstChildProxy * parent, guint index);
+  guint     (*get_children_count) (GstChildProxy * parent);
+};
+</pre>
+<p>
+<a class="link" href="GstChildProxy.html" title="GstChildProxy"><span class="type">GstChildProxy</span></a> interface.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GTypeInterface"><span class="type">GTypeInterface</span></a> <em class="structfield"><code><a name="GstChildProxyInterface.parent"></a>parent</code></em>;</span></p></td>
+<td>parent interface type.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GstChildProxyInterface.get-child-by-name"></a>get_child_by_name</code></em> ()</span></p></td>
+<td>virtual method to fetch the child by name</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GstChildProxyInterface.get-child-by-index"></a>get_child_by_index</code></em> ()</span></p></td>
+<td>virtual method to fetch the child by index</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GstChildProxyInterface.get-children-count"></a>get_children_count</code></em> ()</span></p></td>
+<td>virtual method to get the children count</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-child-proxy-get-children-count"></a><h3>gst_child_proxy_get_children_count ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               gst_child_proxy_get_children_count  (<em class="parameter"><code><a class="link" href="GstChildProxy.html" title="GstChildProxy"><span class="type">GstChildProxy</span></a> *parent</code></em>);</pre>
+<p>
+Gets the number of child objects this parent contains.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>the parent object</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the number of child objects
+MT safe.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-child-proxy-get-child-by-name"></a><h3>gst_child_proxy_get_child_by_name ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="returnvalue">GObject</span></a> *           gst_child_proxy_get_child_by_name   (<em class="parameter"><code><a class="link" href="GstChildProxy.html" title="GstChildProxy"><span class="type">GstChildProxy</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);</pre>
+<p>
+Looks up a child element by the given name.
+</p>
+<p>
+This virtual method has a default implementation that uses <a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a>
+together with <a class="link" href="GstObject.html#gst-object-get-name" title="gst_object_get_name ()"><code class="function">gst_object_get_name()</code></a>. If the interface is to be used with
+<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObjects</span></a>, this methods needs to be overridden.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>the parent object to get the child from</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>the childs name</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the child object or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if not found. Unref
+after usage.
+MT safe. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-child-proxy-get-child-by-index"></a><h3>gst_child_proxy_get_child_by_index ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="returnvalue">GObject</span></a> *           gst_child_proxy_get_child_by_index  (<em class="parameter"><code><a class="link" href="GstChildProxy.html" title="GstChildProxy"><span class="type">GstChildProxy</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> index</code></em>);</pre>
+<p>
+Fetches a child by its number.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>the parent object to get the child from</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>index</code></em> :</span></p></td>
+<td>the childs position in the child list</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the child object or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if not found (index
+too high). Unref after usage.
+MT safe. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-child-proxy-lookup"></a><h3>gst_child_proxy_lookup ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_child_proxy_lookup              (<em class="parameter"><code><a class="link" href="GstChildProxy.html" title="GstChildProxy"><span class="type">GstChildProxy</span></a> *object</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> **target</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-GParamSpec.html#GParamSpec"><span class="type">GParamSpec</span></a> **pspec</code></em>);</pre>
+<p>
+Looks up which object and <a href="http://library.gnome.org/devel/gobject/unstable/gobject-GParamSpec.html#GParamSpec"><span class="type">GParamSpec</span></a> would be effected by the given <em class="parameter"><code>name</code></em>.
+</p>
+<p>
+MT safe.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>childproxy</code></em> :</span></p></td>
+<td>child proxy object to lookup the property in</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>name of the property to look up</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>target</code></em> :</span></p></td>
+<td>pointer to a <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> that
+takes the real object to set property on. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pspec</code></em> :</span></p></td>
+<td>pointer to take the <a href="http://library.gnome.org/devel/gobject/unstable/gobject-GParamSpec.html#GParamSpec"><span class="type">GParamSpec</span></a>
+describing the property. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE if <em class="parameter"><code>target</code></em> and <em class="parameter"><code>pspec</code></em> could be found. FALSE otherwise. In that
+case the values for <em class="parameter"><code>pspec</code></em> and <em class="parameter"><code>target</code></em> are not modified. Unref <em class="parameter"><code>target</code></em> after
+usage. For plain GObjects <em class="parameter"><code>target</code></em> is the same as <em class="parameter"><code>object</code></em>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-child-proxy-get-property"></a><h3>gst_child_proxy_get_property ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_child_proxy_get_property        (<em class="parameter"><code><a class="link" href="GstChildProxy.html" title="GstChildProxy"><span class="type">GstChildProxy</span></a> *object</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *value</code></em>);</pre>
+<p>
+Gets a single property using the GstChildProxy mechanism.
+You are responsible for freeing it by calling <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#g-value-unset"><code class="function">g_value_unset()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>object to query</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>name of the property</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> that should take the result. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym> caller-allocates]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-child-proxy-get-valist"></a><h3>gst_child_proxy_get_valist ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_child_proxy_get_valist          (<em class="parameter"><code><a class="link" href="GstChildProxy.html" title="GstChildProxy"><span class="type">GstChildProxy</span></a> *object</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *first_property_name</code></em>,
+                                                         <em class="parameter"><code><span class="type">va_list</span> var_args</code></em>);</pre>
+<p>
+Gets properties of the parent object and its children.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>the object to query</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>first_property_name</code></em> :</span></p></td>
+<td>name of the first property to get</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>var_args</code></em> :</span></p></td>
+<td>return location for the first property, followed optionally by more name/return location pairs, followed by NULL</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-child-proxy-get"></a><h3>gst_child_proxy_get ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_child_proxy_get                 (<em class="parameter"><code><a class="link" href="GstChildProxy.html" title="GstChildProxy"><span class="type">GstChildProxy</span></a> *object</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *first_property_name</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);</pre>
+<p>
+Gets properties of the parent object and its children.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>the parent object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>first_property_name</code></em> :</span></p></td>
+<td>name of the first property to get</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>return location for the first property, followed optionally by more name/return location pairs, followed by NULL</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-child-proxy-set-property"></a><h3>gst_child_proxy_set_property ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_child_proxy_set_property        (<em class="parameter"><code><a class="link" href="GstChildProxy.html" title="GstChildProxy"><span class="type">GstChildProxy</span></a> *object</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *value</code></em>);</pre>
+<p>
+Sets a single property using the GstChildProxy mechanism.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>the parent object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>name of the property to set</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>new <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> for the property</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-child-proxy-set-valist"></a><h3>gst_child_proxy_set_valist ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_child_proxy_set_valist          (<em class="parameter"><code><a class="link" href="GstChildProxy.html" title="GstChildProxy"><span class="type">GstChildProxy</span></a> *object</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *first_property_name</code></em>,
+                                                         <em class="parameter"><code><span class="type">va_list</span> var_args</code></em>);</pre>
+<p>
+Sets properties of the parent object and its children.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>the parent object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>first_property_name</code></em> :</span></p></td>
+<td>name of the first property to set</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>var_args</code></em> :</span></p></td>
+<td>value for the first property, followed optionally by more name/value pairs, followed by NULL</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-child-proxy-set"></a><h3>gst_child_proxy_set ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_child_proxy_set                 (<em class="parameter"><code><a class="link" href="GstChildProxy.html" title="GstChildProxy"><span class="type">GstChildProxy</span></a> *object</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *first_property_name</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);</pre>
+<p>
+Sets properties of the parent object and its children.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>the parent object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>first_property_name</code></em> :</span></p></td>
+<td>name of the first property to set</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>value for the first property, followed optionally by more name/value pairs, followed by NULL</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-child-proxy-child-added"></a><h3>gst_child_proxy_child_added ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_child_proxy_child_added         (<em class="parameter"><code><a class="link" href="GstChildProxy.html" title="GstChildProxy"><span class="type">GstChildProxy</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *child</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);</pre>
+<p>
+Emits the "child-added" signal.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>the parent object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>child</code></em> :</span></p></td>
+<td>the newly added child</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>the name of the new child</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-child-proxy-child-removed"></a><h3>gst_child_proxy_child_removed ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_child_proxy_child_removed       (<em class="parameter"><code><a class="link" href="GstChildProxy.html" title="GstChildProxy"><span class="type">GstChildProxy</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *child</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);</pre>
+<p>
+Emits the "child-removed" signal.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>the parent object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>child</code></em> :</span></p></td>
+<td>the removed child</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>the name of the old child</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="GstChildProxy.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="GstChildProxy-child-added"></a><h3>The <code class="literal">"child-added"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="GstChildProxy.html" title="GstChildProxy"><span class="type">GstChildProxy</span></a> *child_proxy,
+                                                        <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a>       *object,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>         *name,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>       user_data)        : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-FIRST:CAPS"><code class="literal">Run First</code></a></pre>
+<p>
+Will be emitted after the <em class="parameter"><code>object</code></em> was added to the <em class="parameter"><code>child_proxy</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>child_proxy</code></em> :</span></p></td>
+<td>the <a class="link" href="GstChildProxy.html" title="GstChildProxy"><span class="type">GstChildProxy</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>the <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> that was added</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>the name of the new child</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstChildProxy-child-removed"></a><h3>The <code class="literal">"child-removed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="GstChildProxy.html" title="GstChildProxy"><span class="type">GstChildProxy</span></a> *child_proxy,
+                                                        <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a>       *object,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>         *name,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>       user_data)        : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-FIRST:CAPS"><code class="literal">Run First</code></a></pre>
+<p>
+Will be emitted after the <em class="parameter"><code>object</code></em> was removed from the <em class="parameter"><code>child_proxy</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>child_proxy</code></em> :</span></p></td>
+<td>the <a class="link" href="GstChildProxy.html" title="GstChildProxy"><span class="type">GstChildProxy</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>the <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> that was removed</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>the name of the old child</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="GstChildProxy.see-also"></a><h2>See Also</h2>
+<a class="link" href="GstBin.html" title="GstBin"><span class="type">GstBin</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

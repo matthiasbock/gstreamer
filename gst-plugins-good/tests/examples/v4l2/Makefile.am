@@ -1,0 +1,5 @@
+noinst_PROGRAMS = camctrl
+
+camctrl_SOURCES = camctrl.c
+camctrl_CFLAGS  = $(GST_BASE_CFLAGS) $(GST_CONTROLLER_CFLAGS) $(GST_CFLAGS)
+camctrl_LDADD = $(GST_BASE_LIBS) $(GST_CONTROLLER_LIBS) $(GST_LIBS)

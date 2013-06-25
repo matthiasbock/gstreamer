@@ -1,0 +1,170 @@
+This is GStreamer Good Plugins 1.0.6
+
+Changes since 1.0.5:
+
+      * auparse: fix caps leak
+      * avidemux: push mode: handle some more 0-size buffer cases
+      * deinterlace: fix infinite loop on EOS with non-default methods or fields
+      * dvdemux: don't return FALSE when dropping sink events, fixes flow errors
+      * level: send a last message on EOS 
+      * mp4mux: in faststart mode, don't output up to 4 kB of garbage at the end
+      * osxvideosink: Fix crash in osxvideosink with external window output
+      * osxvideosink: Make GstGLView propagate input events to its parent view
+      * osxvideosink: Make GstNavigation key input events in osxvideosink compatible with x(v)imagesink ones
+      * pulsesink: don't error out if pa_stream_proplist_update() with new tags fails
+      * qtdemux: fix potential crash on short MOOV atom
+      * qtdemux: fix sample leak when processing private qt tags
+      * qtdemux: push mode: only parse moov 1 once
+      * qtdemux: skip disabled tracks
+      * qtmux: set stream language code from tag
+      * rtph264pay: Don't use upstream caps with peer_query_caps()
+      * rtpmp4gdepay: streamtype is not put by all RTSP server, not make it optional
+      * rtpptdemux: forward sticky events and then set caps
+      * rtpsession: Fix wrong code organisation in case of collision
+      * rtspsrc: flush connection when stopping
+      * rtspsrc: only EOS when our source sends BYE
+      * rtspsrc: save the stream SSRC
+      * v4l2: don't check stride for encoded formats
+      * v4l2: fix compilation against newer kernel headers as on FC19
+      * videomixer2: avoid caps leak
+      * videomixer: fix eos timestamp check
+      * ximagesrc: Set the pixel aspect ratio correctly in the caps
+      * build: allow calling autogen.sh from out-of-tree
+      * build: fix build with automake 1.13
+
+Bugs fixed since 1.0.5:
+
+      * 628790 : qtdemux: OSD displays persistent chapters subtitles
+      * 656068 : pulsesink: errors out if pa_stream_proplist_update() fails with old pulseaudio versions
+      * 675453 : rtspsrc: only EOS if BYE came from SSRC of the stream
+      * 678429 : souphttpsrc: should return GST_FLOW_ERROR from create function in case of HTTP error 404 not found
+      * 684924 : rtspsrc: flush connection when going to null state
+      * 684944 : avidemux: " unhandled buffer size " error for cyuv.avi in push mode
+      * 688935 : rtpjitterbuffer not always correctly warns about resetting skew
+      * 689809 : osxvideosink: inconsistent keyboard navigation events
+      * 691484 : osxvideosink: crash when displaying on Qt widget
+      * 691570 : [isomp4/qtdemux] lots of critical warnings on this sample file
+      * 691580 : ximagesrc sets bad pixel-aspect-ratio caps
+      * 691832 : osxvideosink doesn't propagate input events to output window
+      * 692309 : allow autogen.sh to be call out-of-tree
+      * 692786 : CAPS event is forwarded before STREAM_START in rtpptdemux element
+      * 692935 : videomixer: hangs on eos
+      * 692950 :  " rtpjitterbuffer " properties can't be changed after pipeline is started
+      * 693055 : level: 32-bit formats don't work because of typo in format list: S32LEF32LE
+      * 693173 : deinterlace method=greedyl fields=top does not complete
+      * 693307 : videomixer2 leaks caps reference
+      * 693373 : 1.0 branch is still using AM_CONFIG_HEADER
+      * 694010 : qtdemux: crash with partial mp4 / moov atom
+      * 694184 : Wrong code organisation in case of collision in rtpsession
+      * 694275 : auparse: src_caps are leaked
+      * 695629 : rtph264pay: caps negotiation fails if upstream caps is not NULL
+      * 695643 : dvdemux: returns wrong value when it is not processing the sink events
+      * 695644 : deinterlace: going to infinite loop on EOS with method=scalerbob fields=bff
+      * 696355 : qtdemux: sample leak in tag handling
+      * 696358 : qtmux: set language code on streams
+
+Changes since 1.0.4:
+
+      * rtspsrc: fix regression that make rtspsrc hang when stopping
+      * audio/video parsers: fix negotiation with encoders in some transcoding cases
+      * cairo: port cairooverlay to 1.0
+      * jpegenc: pass flow returns upstream
+      * qtdemux: fix pixel-aspect-ratio of some files with ProRes video
+      * cairo: port cairooverlay to 1.0
+
+Bugs fixed since 1.0.4:
+
+      * 690184 : [parsers] Return too strict caps on the sinkpads
+      * 690476 : regression: unable to stop rtsp stream
+      * 691098 : v4l2src: breaks because of changed ioctl error return code from driver on failed control query in 3.8-rc1
+
+Changes since 1.0.3:
+
+      * deinterleave: properly set srcpad channel position
+      * osxvideosink: Fix resizing the Cocoa window on receiving new caps
+      * rtspsrc fixes
+      * shout2send: also accept audio/webm in addition to video/webm
+      * videobox: fix border filling for planar YUV formats
+      * webmmux: fix linking to shout2send
+      * v4l2: fix build on FreeBSD
+
+Bugs fixed since 1.0.3:
+
+      * 684312 : rtspsrc: mutex blocks going to NULL state
+      * 684991 : videobox: sometimes incorrectly crops producing visual artifacts, and green instead of black border
+      * 687469 : mulawdec: integer overrun with large chunks of data
+      * 689732 : osxvideosink can't resize Cocoa window on receiving caps
+      * 689336 : webmmux: can't link webmux to shout2send
+
+Changes since 1.0.2:
+
+      * rtspsrc: numerous improvements
+      * build fix for gst-plugins-base installed in non-default prefix
+      * multifilesink: post messages in max-size mode as well
+      * vp8dec: improve robustness on decoding errors, e.g. for videocalls over RTP
+
+Bugs fixed since 1.0.2:
+
+      * 639420 : RTSP setup, add client_ports
+      * 686837 : imagefreeze: improve caps negotiation
+      * 686985 : [pulsesrc] Assertion 'm' failed at pulse/thread-mainloop.c:166, function pa_threaded_mainloop_lock(). Aborting.
+      * 687013 : auparse,level,videocrop,y4m,caca: Fix missing GST_PLUGINS_BASE_LIBS dependency in Makefile.am
+      * 687154 : examples: error in level plugin example code
+      * 687330 : videobox, videomixer: height obtained using _WIDTH macros
+      * 687464 : speexdec: Don't unmap or finish_frame an invalid GstBuffer
+      * 688382 : rtspsrc doesn't work with the interleaved protocols
+
+Changes since 1.0.1:
+
+      * Parallel installability with 0.10.x series
+      * avidemux: fix handling of paletted and other raw RGB data
+      * flacparse: ignore bad headers if we have a valid STREAMINFO header; improve coverart extraction
+      * jpegdepay: store quant tables in zigzag order
+      * matroskamux: do not use unoffical V_MJPEG codec id; fix subtitle request sink pad name and functionality
+      * videofilter: add videomedian element
+      * multiudpsink: add "force-ipv4" option and "multicast-iface" property
+      * pulsesink: fix caps leak and potential crasher in acceptcaps function
+      * pulsesink: start the ringbuffer on GAP events without duration
+      * qtdemux: add support for 'generic' samples; allow more streams
+      * qtdemux: support more ProRes variants; fix memory leak for MS/RIFF audio
+      * qtdemux: with raw audio, set a default channel-mask for multichannel audio
+      * rtpbin: set PTS and DTS in jitterbufffer
+      * rtpbin: use running-time for NTP time when use-pipeline-clock is set
+      * rtpsession: inform source when caps change
+      * udpsrc: use negotiated allocator or pool
+      * videobox: use out_info for out properties
+      * videocrop: port to videofilter
+      * videomixer2: Fix race condition where a src setcaps is ignored
+      * vp8enc: fix default target-bitrate value; set DECODE_ONLY flag on invisible frames
+
+Bugs fixed since 1.0.1:
+
+      * 654216 : vp8enc: tag invisible frames
+      * 682481 : multiudpsink: add force-ipv4 option (problem when streaming RTP to multicast address)
+      * 683782 : Segfault in pulsesink.c:2077 gst_pulsesink_pad_acceptcaps()
+      * 683842 : Fix race condition in videomixer2 on 0.10
+      * 684701 : flacparse: fails to parse flac file with broken header: " Invalid metablock size for STREAMINFO: 8196 "
+      * 685864 : Add multicast-iface property to multiudpsink
+      * 686008 : qtdemux: crashes in push mode with gst_qtdemux_guess_bitrate: assertion failed: (size > = qtdemux- > header_size)
+      * 686046 : avidemux: can't play 8-bit indexed RGB video
+      * 686550 : qtdemux: no streams found for journal.pone.0030940.s002.mov, m1v video fourcc
+      * 686642 : udpsrc: trivial typo causes compilation error
+
+Changes since 1.0.0:
+
+      * interleave, deinterlave: channel handling fixes for mono audio
+      * videobalance now supports NV12 and NV21 as well
+
+Bugs fixed since 1.0.0:
+
+      * 683622 : flvdemux: Internal flow error when demuxing speex
+      * 684972 : qtdemux: cannot play mp4 file when MOOV atom is at the end of file
+      * 684977 : Can't seek in AVI file in push mode
+      * 685059 : avidemux: cannot play video in push mode
+      * 685213 : rtph264pay: pushing unmapped data.
+      * 685512 : rtpgstdepay has a memory leak
+
+New features in 1.0.0:
+
+      * Parallel installability with 0.10.x series
+      * See release notes for more details

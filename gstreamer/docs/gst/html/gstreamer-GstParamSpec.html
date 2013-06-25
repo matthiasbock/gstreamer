@@ -1,0 +1,249 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GstParamSpec</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer 1.0 Core Reference Manual">
+<link rel="up" href="libgstreamer.html" title="GStreamer Core Library">
+<link rel="prev" href="GstPadTemplate.html" title="GstPadTemplate">
+<link rel="next" href="gstreamer-GstParse.html" title="GstParse">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="GstPadTemplate.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="libgstreamer.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer 1.0 Core Reference Manual</th>
+<td><a accesskey="n" href="gstreamer-GstParse.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gstreamer-GstParamSpec.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gstreamer-GstParamSpec.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gstreamer-GstParamSpec"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gstreamer-GstParamSpec.top_of_page"></a>GstParamSpec</span></h2>
+<p>GstParamSpec — GParamSpec implementations specific
+to GStreamer</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gstreamer-GstParamSpec.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;gst/gst.h&gt;
+
+#define             <a class="link" href="gstreamer-GstParamSpec.html#GST-PARAM-CONTROLLABLE:CAPS" title="GST_PARAM_CONTROLLABLE">GST_PARAM_CONTROLLABLE</a>
+#define             <a class="link" href="gstreamer-GstParamSpec.html#GST-PARAM-USER-SHIFT:CAPS" title="GST_PARAM_USER_SHIFT">GST_PARAM_USER_SHIFT</a>
+#define             <a class="link" href="gstreamer-GstParamSpec.html#GST-PARAM-MUTABLE-PAUSED:CAPS" title="GST_PARAM_MUTABLE_PAUSED">GST_PARAM_MUTABLE_PAUSED</a>
+#define             <a class="link" href="gstreamer-GstParamSpec.html#GST-PARAM-MUTABLE-PLAYING:CAPS" title="GST_PARAM_MUTABLE_PLAYING">GST_PARAM_MUTABLE_PLAYING</a>
+#define             <a class="link" href="gstreamer-GstParamSpec.html#GST-PARAM-MUTABLE-READY:CAPS" title="GST_PARAM_MUTABLE_READY">GST_PARAM_MUTABLE_READY</a>
+
+struct              <a class="link" href="gstreamer-GstParamSpec.html#GstParamSpecFraction" title="struct GstParamSpecFraction">GstParamSpecFraction</a>;
+<a href="http://library.gnome.org/devel/gobject/unstable/gobject-GParamSpec.html#GParamSpec"><span class="returnvalue">GParamSpec</span></a> *        <a class="link" href="gstreamer-GstParamSpec.html#gst-param-spec-fraction" title="gst_param_spec_fraction ()">gst_param_spec_fraction</a>             (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *nick</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *blurb</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> min_num</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> min_denom</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> max_num</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> max_denom</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> default_num</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> default_denom</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-GParamSpec.html#GParamFlags"><span class="type">GParamFlags</span></a> flags</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="gstreamer-GstParamSpec.description"></a><h2>Description</h2>
+<p>
+GParamSpec implementations specific to GStreamer.
+</p>
+<p>
+Last reviewed on 2008-03-11 (0.10.18)
+</p>
+</div>
+<div class="refsect1">
+<a name="gstreamer-GstParamSpec.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GST-PARAM-CONTROLLABLE:CAPS"></a><h3>GST_PARAM_CONTROLLABLE</h3>
+<pre class="programlisting">#define GST_PARAM_CONTROLLABLE (1 &lt;&lt; (G_PARAM_USER_SHIFT + 1))
+</pre>
+<p>
+Use this flag on GObject properties to signal they can make sense to be.
+controlled over time. This hint is used by the GstController.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-PARAM-USER-SHIFT:CAPS"></a><h3>GST_PARAM_USER_SHIFT</h3>
+<pre class="programlisting">#define GST_PARAM_USER_SHIFT (1 &lt;&lt; (G_PARAM_USER_SHIFT + 8))
+</pre>
+<p>
+Bits based on GST_PARAM_USER_SHIFT can be used by 3rd party applications.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-PARAM-MUTABLE-PAUSED:CAPS"></a><h3>GST_PARAM_MUTABLE_PAUSED</h3>
+<pre class="programlisting">#define GST_PARAM_MUTABLE_PAUSED  (1 &lt;&lt; (G_PARAM_USER_SHIFT + 3))
+</pre>
+<p>
+Use this flag on GObject properties of GstElements to indicate that
+they can be changed when the element is in the PAUSED or lower state.
+This flag implies GST_PARAM_MUTABLE_READY.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-PARAM-MUTABLE-PLAYING:CAPS"></a><h3>GST_PARAM_MUTABLE_PLAYING</h3>
+<pre class="programlisting">#define GST_PARAM_MUTABLE_PLAYING  (1 &lt;&lt; (G_PARAM_USER_SHIFT + 4))
+</pre>
+<p>
+Use this flag on GObject properties of GstElements to indicate that
+they can be changed when the element is in the PLAYING or lower state.
+This flag implies GST_PARAM_MUTABLE_PAUSED.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-PARAM-MUTABLE-READY:CAPS"></a><h3>GST_PARAM_MUTABLE_READY</h3>
+<pre class="programlisting">#define GST_PARAM_MUTABLE_READY  (1 &lt;&lt; (G_PARAM_USER_SHIFT + 2))
+</pre>
+<p>
+Use this flag on GObject properties of GstElements to indicate that
+they can be changed when the element is in the READY or lower state.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstParamSpecFraction"></a><h3>struct GstParamSpecFraction</h3>
+<pre class="programlisting">struct GstParamSpecFraction {
+  GParamSpec    parent_instance;
+
+  gint          min_num, min_den;
+  gint          max_num, max_den;
+  gint          def_num, def_den;
+};
+</pre>
+<p>
+A GParamSpec derived structure that contains the meta data for fractional
+properties.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-GParamSpec.html#GParamSpec"><span class="type">GParamSpec</span></a> <em class="structfield"><code><a name="GstParamSpecFraction.parent-instance"></a>parent_instance</code></em>;</span></p></td>
+<td>super class</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> <em class="structfield"><code><a name="GstParamSpecFraction.min-num"></a>min_num</code></em>;</span></p></td>
+<td>minimal numerator</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> <em class="structfield"><code><a name="GstParamSpecFraction.min-den"></a>min_den</code></em>;</span></p></td>
+<td>minimal denominator</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> <em class="structfield"><code><a name="GstParamSpecFraction.max-num"></a>max_num</code></em>;</span></p></td>
+<td>maximal numerator</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> <em class="structfield"><code><a name="GstParamSpecFraction.max-den"></a>max_den</code></em>;</span></p></td>
+<td>maximal denominator</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> <em class="structfield"><code><a name="GstParamSpecFraction.def-num"></a>def_num</code></em>;</span></p></td>
+<td>default numerator</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> <em class="structfield"><code><a name="GstParamSpecFraction.def-den"></a>def_den</code></em>;</span></p></td>
+<td>default denominator</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-param-spec-fraction"></a><h3>gst_param_spec_fraction ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-GParamSpec.html#GParamSpec"><span class="returnvalue">GParamSpec</span></a> *        gst_param_spec_fraction             (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *nick</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *blurb</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> min_num</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> min_denom</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> max_num</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> max_denom</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> default_num</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> default_denom</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-GParamSpec.html#GParamFlags"><span class="type">GParamFlags</span></a> flags</code></em>);</pre>
+<p>
+This function creates a fraction GParamSpec for use by objects/elements
+that want to expose properties of fraction type. This function is typically
+used in connection with <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-class-install-property"><code class="function">g_object_class_install_property()</code></a> in a GObjects's
+instance_init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>canonical name of the property specified</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>nick</code></em> :</span></p></td>
+<td>nick name for the property specified</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>blurb</code></em> :</span></p></td>
+<td>description of the property specified</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>min_num</code></em> :</span></p></td>
+<td>minimum value (fraction numerator)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>min_denom</code></em> :</span></p></td>
+<td>minimum value (fraction denominator)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>max_num</code></em> :</span></p></td>
+<td>maximum value (fraction numerator)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>max_denom</code></em> :</span></p></td>
+<td>maximum value (fraction denominator)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>default_num</code></em> :</span></p></td>
+<td>default value (fraction numerator)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>default_denom</code></em> :</span></p></td>
+<td>default value (fraction denominator)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>flags</code></em> :</span></p></td>
+<td>flags for the property specified</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a newly created parameter specification. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

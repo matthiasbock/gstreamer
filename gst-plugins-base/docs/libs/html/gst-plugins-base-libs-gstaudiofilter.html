@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>gstaudiofilter</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer Base Plugins 1.0 Library Reference Manual">
+<link rel="up" href="gstreamer-audio.html" title="Audio Library">
+<link rel="prev" href="gst-plugins-base-libs-gstaudioencoder.html" title="gstaudioencoder">
+<link rel="next" href="gst-plugins-base-libs-gstaudiomixerutils.html" title="gstaudiomixerutils">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gst-plugins-base-libs-gstaudioencoder.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="gstreamer-audio.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer Base Plugins 1.0 Library Reference Manual</th>
+<td><a accesskey="n" href="gst-plugins-base-libs-gstaudiomixerutils.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gst-plugins-base-libs-gstaudiofilter.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gst-plugins-base-libs-gstaudiofilter.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#gst-plugins-base-libs-gstaudiofilter.object-hierarchy" class="shortcut">Object Hierarchy</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gst-plugins-base-libs-gstaudiofilter"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gst-plugins-base-libs-gstaudiofilter.top_of_page"></a>gstaudiofilter</span></h2>
+<p>gstaudiofilter — Base class for simple audio filters</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gst-plugins-base-libs-gstaudiofilter.synopsis"></a><h2>Synopsis</h2>
+<a name="GstAudioFilter"></a><pre class="synopsis">
+#include &lt;gst/audio/gstaudiofilter.h&gt;
+
+struct              <a class="link" href="gst-plugins-base-libs-gstaudiofilter.html#GstAudioFilter-struct" title="struct GstAudioFilter">GstAudioFilter</a>;
+struct              <a class="link" href="gst-plugins-base-libs-gstaudiofilter.html#GstAudioFilterClass" title="struct GstAudioFilterClass">GstAudioFilterClass</a>;
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-base-libs-gstaudiofilter.html#gst-audio-filter-class-add-pad-templates" title="gst_audio_filter_class_add_pad_templates ()">gst_audio_filter_class_add_pad_templates</a>
+                                                        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiofilter.html#GstAudioFilterClass" title="struct GstAudioFilterClass"><span class="type">GstAudioFilterClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="type">GstCaps</span></a> *allowed_caps</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-libs-gstaudiofilter.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstObject.html">GstObject</a>
+               +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html">GstElement</a>
+                     +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer-libs/html/GstBaseTransform.html">GstBaseTransform</a>
+                           +----GstAudioFilter
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-libs-gstaudiofilter.description"></a><h2>Description</h2>
+<p>
+<a class="link" href="gst-plugins-base-libs-gstaudiofilter.html#GstAudioFilter"><span class="type">GstAudioFilter</span></a> is a <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer-libs/html/GstBaseTransform.html"><span class="type">GstBaseTransform</span></a>-derived base class for simple audio
+filters, ie. those that output the same format that they get as input.
+</p>
+<p>
+<a class="link" href="gst-plugins-base-libs-gstaudiofilter.html#GstAudioFilter"><span class="type">GstAudioFilter</span></a> will parse the input format for you (with error checking)
+before calling your setup function. Also, elements deriving from
+<a class="link" href="gst-plugins-base-libs-gstaudiofilter.html#GstAudioFilter"><span class="type">GstAudioFilter</span></a> may use <a class="link" href="gst-plugins-base-libs-gstaudiofilter.html#gst-audio-filter-class-add-pad-templates" title="gst_audio_filter_class_add_pad_templates ()"><code class="function">gst_audio_filter_class_add_pad_templates()</code></a> from
+their class_init function to easily configure the set of caps/formats that
+the element is able to handle.
+</p>
+<p>
+Derived classes should override the <a class="link" href="gst-plugins-base-libs-gstaudiofilter.html#GstAudioFilterClass.setup"><code class="function">GstAudioFilterClass.setup()</code></a> and
+<code class="function">GstBaseTransformClass.transform_ip()</code> and/or
+<code class="function">GstBaseTransformClass.transform()</code>
+virtual functions in their class_init function.
+</p>
+<p>
+Last reviewed on 2007-02-03 (0.10.11.1)
+</p>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-libs-gstaudiofilter.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstAudioFilter-struct"></a><h3>struct GstAudioFilter</h3>
+<pre class="programlisting">struct GstAudioFilter;</pre>
+<p>
+Base class for audio filters with the same format for input and output.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstAudioFilterClass"></a><h3>struct GstAudioFilterClass</h3>
+<pre class="programlisting">struct GstAudioFilterClass {
+  GstBaseTransformClass basetransformclass;
+
+  /* virtual function, called whenever the format changes */
+  gboolean  (*setup) (GstAudioFilter * filter, const GstAudioInfo * info);
+};
+</pre>
+<p>
+In addition to the <em class="parameter"><code>setup</code></em> virtual function, you should also override the
+GstBaseTransform::transform and/or GstBaseTransform::transform_ip virtual
+function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer-libs/html/GstBaseTransform.html#GstBaseTransformClass"><span class="type">GstBaseTransformClass</span></a> <em class="structfield"><code><a name="GstAudioFilterClass.basetransformclass"></a>basetransformclass</code></em>;</span></p></td>
+<td>parent class</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GstAudioFilterClass.setup"></a>setup</code></em> ()</span></p></td>
+<td>virtual function called whenever the format changes</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-filter-class-add-pad-templates"></a><h3>gst_audio_filter_class_add_pad_templates ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_audio_filter_class_add_pad_templates
+                                                        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiofilter.html#GstAudioFilterClass" title="struct GstAudioFilterClass"><span class="type">GstAudioFilterClass</span></a> *klass</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="type">GstCaps</span></a> *allowed_caps</code></em>);</pre>
+<p>
+Convenience function to add pad templates to this element class, with
+<em class="parameter"><code>allowed_caps</code></em> as the caps that can be handled.
+</p>
+<p>
+This function is usually used from within a GObject class_init function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>klass</code></em> :</span></p></td>
+<td>an <a class="link" href="gst-plugins-base-libs-gstaudiofilter.html#GstAudioFilterClass" title="struct GstAudioFilterClass"><span class="type">GstAudioFilterClass</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>allowed_caps</code></em> :</span></p></td>
+<td>what formats the filter can handle, as <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="type">GstCaps</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

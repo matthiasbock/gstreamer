@@ -1,0 +1,209 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>capssetter</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer Good Plugins 1.0 Plugins Reference Manual">
+<link rel="up" href="ch01.html" title="gst-plugins-good Elements">
+<link rel="prev" href="gst-plugins-good-plugins-cairooverlay.html" title="cairooverlay">
+<link rel="next" href="gst-plugins-good-plugins-cutter.html" title="cutter">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gst-plugins-good-plugins-cairooverlay.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer Good Plugins 1.0 Plugins Reference Manual</th>
+<td><a accesskey="n" href="gst-plugins-good-plugins-cutter.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gst-plugins-good-plugins-capssetter.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gst-plugins-good-plugins-capssetter.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#gst-plugins-good-plugins-capssetter.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#gst-plugins-good-plugins-capssetter.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gst-plugins-good-plugins-capssetter"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gst-plugins-good-plugins-capssetter.top_of_page"></a>capssetter</span></h2>
+<p>capssetter — Set/merge caps on stream</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gst-plugins-good-plugins-capssetter.synopsis"></a><h2>Synopsis</h2>
+<a name="GstCapsSetter"></a><pre class="synopsis">struct              <a class="link" href="gst-plugins-good-plugins-capssetter.html#GstCapsSetter-struct" title="struct GstCapsSetter">GstCapsSetter</a>;
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-good-plugins-capssetter.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstObject.html">GstObject</a>
+               +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html">GstElement</a>
+                     +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer-libs/html/GstBaseTransform.html">GstBaseTransform</a>
+                           +----GstCapsSetter
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-good-plugins-capssetter.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="gst-plugins-good-plugins-capssetter.html#GstCapsSetter--caps" title='The "caps" property'>caps</a>"                     <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="type">GstCaps</span></a>*              : Read / Write
+  "<a class="link" href="gst-plugins-good-plugins-capssetter.html#GstCapsSetter--join" title='The "join" property'>join</a>"                     <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write
+  "<a class="link" href="gst-plugins-good-plugins-capssetter.html#GstCapsSetter--replace" title='The "replace" property'>replace</a>"                  <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-good-plugins-capssetter.description"></a><h2>Description</h2>
+<p>
+</p>
+<div class="refsect2">
+<a name="idp10602592"></a><p>
+Sets or merges caps on a stream's buffers.
+That is, a buffer's caps are updated using (fields of)
+<a class="link" href="gst-plugins-good-plugins-capssetter.html#GstCapsSetter--caps" title='The "caps" property'>caps</a>.  Note that this may
+contain multiple structures (though not likely recommended), but each
+of these must be fixed (or will otherwise be rejected).
+</p>
+<p>
+If <a class="link" href="gst-plugins-good-plugins-capssetter.html#GstCapsSetter--join" title='The "join" property'>join</a>
+is TRUE, then the incoming caps' mime-type is compared to the mime-type(s)
+of provided caps and only matching structure(s) are considered for updating.
+</p>
+<p>
+If <a class="link" href="gst-plugins-good-plugins-capssetter.html#GstCapsSetter--replace" title='The "replace" property'>replace</a>
+is TRUE, then any caps update is preceded by clearing existing fields,
+making provided fields (as a whole) replace incoming ones.
+Otherwise, no clearing is performed, in which case provided fields are
+added/merged onto incoming caps
+</p>
+<p>
+Although this element might mainly serve as debug helper,
+it can also practically be used to correct a faulty pixel-aspect-ratio,
+or to modify a yuv fourcc value to effectively swap chroma components or such
+alike.
+</p>
+</div>
+<p>
+</p>
+<div class="refsynopsisdiv">
+<h2>Synopsis</h2>
+<div class="refsect2">
+<a name="idp5542880"></a><h3>Element Information</h3>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">plugin</span></p></td>
+<td>
+            <a class="link" href="gst-plugins-good-plugins-plugin-debug.html#plugin-debug">debug</a>
+          </td>
+</tr>
+<tr>
+<td><p><span class="term">author</span></p></td>
+<td>Mark Nauwelaerts &lt;mnauw@users.sourceforge.net&gt;</td>
+</tr>
+<tr>
+<td><p><span class="term">class</span></p></td>
+<td>Generic</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="idp7172336"></a><h3>Element Pads</h3>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">name</span></p></td>
+<td>sink</td>
+</tr>
+<tr>
+<td><p><span class="term">direction</span></p></td>
+<td>sink</td>
+</tr>
+<tr>
+<td><p><span class="term">presence</span></p></td>
+<td>always</td>
+</tr>
+<tr>
+<td><p><span class="term">details</span></p></td>
+<td>ANY</td>
+</tr>
+</tbody>
+</table></div>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">name</span></p></td>
+<td>src</td>
+</tr>
+<tr>
+<td><p><span class="term">direction</span></p></td>
+<td>source</td>
+</tr>
+<tr>
+<td><p><span class="term">presence</span></p></td>
+<td>always</td>
+</tr>
+<tr>
+<td><p><span class="term">details</span></p></td>
+<td>ANY</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<p>
+</p>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-good-plugins-capssetter.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstCapsSetter-struct"></a><h3>struct GstCapsSetter</h3>
+<pre class="programlisting">struct GstCapsSetter;</pre>
+<p>
+</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-good-plugins-capssetter.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GstCapsSetter--caps"></a><h3>The <code class="literal">"caps"</code> property</h3>
+<pre class="programlisting">  "caps"                     <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="type">GstCaps</span></a>*              : Read / Write</pre>
+<p>Merge these caps (thereby overwriting) in the stream.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstCapsSetter--join"></a><h3>The <code class="literal">"join"</code> property</h3>
+<pre class="programlisting">  "join"                     <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write</pre>
+<p>Match incoming caps' mime-type to mime-type of provided caps.</p>
+<p>Default value: TRUE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstCapsSetter--replace"></a><h3>The <code class="literal">"replace"</code> property</h3>
+<pre class="programlisting">  "replace"                  <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write</pre>
+<p>Drop fields of incoming caps.</p>
+<p>Default value: FALSE</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

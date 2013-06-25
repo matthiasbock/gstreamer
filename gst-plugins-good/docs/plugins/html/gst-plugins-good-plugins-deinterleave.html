@@ -1,0 +1,216 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>deinterleave</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer Good Plugins 1.0 Plugins Reference Manual">
+<link rel="up" href="ch01.html" title="gst-plugins-good Elements">
+<link rel="prev" href="gst-plugins-good-plugins-deinterlace.html" title="deinterlace">
+<link rel="next" href="gst-plugins-good-plugins-dicetv.html" title="dicetv">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gst-plugins-good-plugins-deinterlace.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer Good Plugins 1.0 Plugins Reference Manual</th>
+<td><a accesskey="n" href="gst-plugins-good-plugins-dicetv.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gst-plugins-good-plugins-deinterleave.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gst-plugins-good-plugins-deinterleave.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#gst-plugins-good-plugins-deinterleave.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#gst-plugins-good-plugins-deinterleave.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gst-plugins-good-plugins-deinterleave"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gst-plugins-good-plugins-deinterleave.top_of_page"></a>deinterleave</span></h2>
+<p>deinterleave — Splits one interleaved multichannel audio stream into many mono audio streams</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gst-plugins-good-plugins-deinterleave.synopsis"></a><h2>Synopsis</h2>
+<a name="GstDeinterleave"></a><pre class="synopsis">struct              <a class="link" href="gst-plugins-good-plugins-deinterleave.html#GstDeinterleave-struct" title="struct GstDeinterleave">GstDeinterleave</a>;
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-good-plugins-deinterleave.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstObject.html">GstObject</a>
+               +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html">GstElement</a>
+                     +----GstDeinterleave
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-good-plugins-deinterleave.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="gst-plugins-good-plugins-deinterleave.html#GstDeinterleave--keep-positions" title='The "keep-positions" property'>keep-positions</a>"           <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-good-plugins-deinterleave.description"></a><h2>Description</h2>
+<p>
+Splits one interleaved multichannel audio stream into many mono audio streams.
+</p>
+<p>
+This element handles all raw audio formats and supports changing the input caps as long as
+all downstream elements can handle the new caps and the number of channels and the channel
+positions stay the same. This restriction will be removed in later versions by adding or
+removing some source pads as required.
+</p>
+<p>
+In most cases a queue and an audioconvert element should be added after each source pad
+before further processing of the audio data.
+</p>
+<p>
+</p>
+<div class="refsect2">
+<a name="idp11541648"></a><h3>Example launch line</h3>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1</pre></td>
+        <td class="listing_code"><pre class="programlisting">gst<span class="gtkdoc opt">-</span>launch<span class="gtkdoc opt">-</span><span class="number">1.0</span> filesrc location<span class="gtkdoc opt">=/</span>path<span class="gtkdoc opt">/</span>to<span class="gtkdoc opt">/</span>file<span class="gtkdoc opt">.</span>mp3 <span class="gtkdoc opt">!</span> decodebin <span class="gtkdoc opt">!</span> audioconvert <span class="gtkdoc opt">!</span> <span class="string">&quot;audio/x-raw,channels=2 ! deinterleave name=d  d.src_0 ! queue ! audioconvert ! vorbisenc ! oggmux ! filesink location=channel1.ogg  d.src_1 ! queue ! audioconvert ! vorbisenc ! oggmux ! filesink location=channel2.ogg</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+ Decodes an MP3 file and encodes the left and right channel into separate
+Ogg Vorbis files.
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1</pre></td>
+        <td class="listing_code"><pre class="programlisting">gst<span class="gtkdoc opt">-</span>launch<span class="gtkdoc opt">-</span><span class="number">1.0</span> filesrc location<span class="gtkdoc opt">=</span>file<span class="gtkdoc opt">.</span>mp3 <span class="gtkdoc opt">!</span> decodebin <span class="gtkdoc opt">!</span> audioconvert <span class="gtkdoc opt">!</span> <span class="string">&quot;audio/x-raw,channels=2&quot;</span> <span class="gtkdoc opt">!</span> deinterleave name<span class="gtkdoc opt">=</span>d  interleave name<span class="gtkdoc opt">=</span>i <span class="gtkdoc opt">!</span> audioconvert <span class="gtkdoc opt">!</span> wavenc <span class="gtkdoc opt">!</span> filesink location<span class="gtkdoc opt">=</span>test<span class="gtkdoc opt">.</span>wav    d<span class="gtkdoc opt">.</span>src_0 <span class="gtkdoc opt">!</span> queue <span class="gtkdoc opt">!</span> audioconvert <span class="gtkdoc opt">!</span> i<span class="gtkdoc opt">.</span>sink_1    d<span class="gtkdoc opt">.</span>src_1 <span class="gtkdoc opt">!</span> queue <span class="gtkdoc opt">!</span> audioconvert <span class="gtkdoc opt">!</span> i<span class="gtkdoc opt">.</span>sink_0</pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+ Decodes and deinterleaves a Stereo MP3 file into separate channels and
+then interleaves the channels again to a WAV file with the channel with the
+channels exchanged.
+</div>
+<p>
+</p>
+<div class="refsynopsisdiv">
+<h2>Synopsis</h2>
+<div class="refsect2">
+<a name="idp5496480"></a><h3>Element Information</h3>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">plugin</span></p></td>
+<td>
+            <a class="link" href="gst-plugins-good-plugins-plugin-interleave.html#plugin-interleave">interleave</a>
+          </td>
+</tr>
+<tr>
+<td><p><span class="term">author</span></p></td>
+<td>Andy Wingo &lt;wingo at pobox.com&gt;, Iain &lt;iain@prettypeople.org&gt;, Sebastian Dröge &lt;slomo@circular-chaos.org&gt;</td>
+</tr>
+<tr>
+<td><p><span class="term">class</span></p></td>
+<td>Filter/Converter/Audio</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="idp7399344"></a><h3>Element Pads</h3>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">name</span></p></td>
+<td>sink</td>
+</tr>
+<tr>
+<td><p><span class="term">direction</span></p></td>
+<td>sink</td>
+</tr>
+<tr>
+<td><p><span class="term">presence</span></p></td>
+<td>always</td>
+</tr>
+<tr>
+<td><p><span class="term">details</span></p></td>
+<td>audio/x-raw, format=(string){ S8, U8, S16LE, S16BE, U16LE, U16BE, S24_32LE, S24_32BE, U24_32LE, U24_32BE, S32LE, S32BE, U32LE, U32BE, S24LE, S24BE, U24LE, U24BE, S20LE, S20BE, U20LE, U20BE, S18LE, S18BE, U18LE, U18BE, F32LE, F32BE, F64LE, F64BE }, rate=(int)[ 1, 2147483647 ], channels=(int)[ 1, 2147483647 ], layout=(string)interleaved</td>
+</tr>
+</tbody>
+</table></div>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">name</span></p></td>
+<td>src_%u</td>
+</tr>
+<tr>
+<td><p><span class="term">direction</span></p></td>
+<td>source</td>
+</tr>
+<tr>
+<td><p><span class="term">presence</span></p></td>
+<td>sometimes</td>
+</tr>
+<tr>
+<td><p><span class="term">details</span></p></td>
+<td>audio/x-raw, format=(string){ S8, U8, S16LE, S16BE, U16LE, U16BE, S24_32LE, S24_32BE, U24_32LE, U24_32BE, S32LE, S32BE, U32LE, U32BE, S24LE, S24BE, U24LE, U24BE, S20LE, S20BE, U20LE, U20BE, S18LE, S18BE, U18LE, U18BE, F32LE, F32BE, F64LE, F64BE }, rate=(int)[ 1, 2147483647 ], channels=(int)1, layout=(string){ non-interleaved, interleaved }</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<p>
+</p>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-good-plugins-deinterleave.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstDeinterleave-struct"></a><h3>struct GstDeinterleave</h3>
+<pre class="programlisting">struct GstDeinterleave;</pre>
+<p>
+</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-good-plugins-deinterleave.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GstDeinterleave--keep-positions"></a><h3>The <code class="literal">"keep-positions"</code> property</h3>
+<pre class="programlisting">  "keep-positions"           <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write</pre>
+<p>
+Keep positions: When enable the caps on the output buffers will
+contain the original channel positions. This can be used to correctly
+interleave the output again later but can also lead to unwanted effects
+if the output should be handled as Mono.
+</p>
+<p>Default value: FALSE</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-good-plugins-deinterleave.see-also"></a><h2>See Also</h2>
+interleave
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

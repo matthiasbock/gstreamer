@@ -1,0 +1,752 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GstVideoContextInterface</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer Bad Plugins 1.0 Library Reference Manual">
+<link rel="up" href="video.html" title="Base video element classes">
+<link rel="prev" href="gst-plugins-bad-libs-gstbasevideoutils.html" title="gstbasevideoutils">
+<link rel="next" href="gst-plugins-bad-libs-GstSurfaceBuffer.html" title="GstSurfaceBuffer">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gst-plugins-bad-libs-gstbasevideoutils.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="video.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer Bad Plugins 1.0 Library Reference Manual</th>
+<td><a accesskey="n" href="gst-plugins-bad-libs-GstSurfaceBuffer.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gst-plugins-bad-libs-GstVideoContextInterface.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gst-plugins-bad-libs-GstVideoContextInterface.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gst-plugins-bad-libs-GstVideoContextInterface"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gst-plugins-bad-libs-GstVideoContextInterface.top_of_page"></a>GstVideoContextInterface</span></h2>
+<p>GstVideoContextInterface — Interface to handle video library context</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gst-plugins-bad-libs-GstVideoContextInterface.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">#define             <a class="link" href="gst-plugins-bad-libs-GstVideoContextInterface.html#GST-IS-VIDEO-CONTEXT:CAPS" title="GST_IS_VIDEO_CONTEXT()">GST_IS_VIDEO_CONTEXT</a>                (obj)
+                    <a class="link" href="gst-plugins-bad-libs-GstVideoContextInterface.html#GstVideoContext" title="GstVideoContext">GstVideoContext</a>;
+struct              <a class="link" href="gst-plugins-bad-libs-GstVideoContextInterface.html#GstVideoContextInterface" title="struct GstVideoContextInterface">GstVideoContextInterface</a>;
+<a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GType"><span class="returnvalue">GType</span></a>               <a class="link" href="gst-plugins-bad-libs-GstVideoContextInterface.html#gst-video-context-iface-get-type" title="gst_video_context_iface_get_type ()">gst_video_context_iface_get_type</a>    (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-bad-libs-GstVideoContextInterface.html#gst-video-context-set-context" title="gst_video_context_set_context ()">gst_video_context_set_context</a>       (<em class="parameter"><code><a class="link" href="gst-plugins-bad-libs-GstVideoContextInterface.html#GstVideoContext" title="GstVideoContext"><span class="type">GstVideoContext</span></a> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *type</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *value</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-bad-libs-GstVideoContextInterface.html#gst-video-context-set-context-string" title="gst_video_context_set_context_string ()">gst_video_context_set_context_string</a>
+                                                        (<em class="parameter"><code><a class="link" href="gst-plugins-bad-libs-GstVideoContextInterface.html#GstVideoContext" title="GstVideoContext"><span class="type">GstVideoContext</span></a> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *type</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-bad-libs-GstVideoContextInterface.html#gst-video-context-set-context-pointer" title="gst_video_context_set_context_pointer ()">gst_video_context_set_context_pointer</a>
+                                                        (<em class="parameter"><code><a class="link" href="gst-plugins-bad-libs-GstVideoContextInterface.html#GstVideoContext" title="GstVideoContext"><span class="type">GstVideoContext</span></a> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *type</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> value</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-bad-libs-GstVideoContextInterface.html#gst-video-context-set-context-object" title="gst_video_context_set_context_object ()">gst_video_context_set_context_object</a>
+                                                        (<em class="parameter"><code><a class="link" href="gst-plugins-bad-libs-GstVideoContextInterface.html#GstVideoContext" title="GstVideoContext"><span class="type">GstVideoContext</span></a> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *type</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *value</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-bad-libs-GstVideoContextInterface.html#gst-video-context-prepare" title="gst_video_context_prepare ()">gst_video_context_prepare</a>           (<em class="parameter"><code><a class="link" href="gst-plugins-bad-libs-GstVideoContextInterface.html#GstVideoContext" title="GstVideoContext"><span class="type">GstVideoContext</span></a> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **types</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="gst-plugins-bad-libs-GstVideoContextInterface.html#gst-video-context-message-parse-prepare" title="gst_video_context_message_parse_prepare ()">gst_video_context_message_parse_prepare</a>
+                                                        (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstMessage.html#GstMessage"><span class="type">GstMessage</span></a> *message</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> ***types</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gst-plugins-bad-libs-GstVideoContextInterface.html#GstVideoContext" title="GstVideoContext"><span class="type">GstVideoContext</span></a> **ctx</code></em>);
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstQuery.html#GstQuery"><span class="returnvalue">GstQuery</span></a> *          <a class="link" href="gst-plugins-bad-libs-GstVideoContextInterface.html#gst-video-context-query-new" title="gst_video_context_query_new ()">gst_video_context_query_new</a>         (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **types</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="gst-plugins-bad-libs-GstVideoContextInterface.html#gst-video-context-run-query" title="gst_video_context_run_query ()">gst_video_context_run_query</a>         (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstQuery.html#GstQuery"><span class="type">GstQuery</span></a> *query</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> **      <a class="link" href="gst-plugins-bad-libs-GstVideoContextInterface.html#gst-video-context-query-get-supported-types" title="gst_video_context_query_get_supported_types ()">gst_video_context_query_get_supported_types</a>
+                                                        (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstQuery.html#GstQuery"><span class="type">GstQuery</span></a> *query</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-bad-libs-GstVideoContextInterface.html#gst-video-context-query-parse-value" title="gst_video_context_query_parse_value ()">gst_video_context_query_parse_value</a> (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstQuery.html#GstQuery"><span class="type">GstQuery</span></a> *query</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **type</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> **value</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-bad-libs-GstVideoContextInterface.html#gst-video-context-query-set-value" title="gst_video_context_query_set_value ()">gst_video_context_query_set_value</a>   (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstQuery.html#GstQuery"><span class="type">GstQuery</span></a> *query</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *type</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *value</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-bad-libs-GstVideoContextInterface.html#gst-video-context-query-set-string" title="gst_video_context_query_set_string ()">gst_video_context_query_set_string</a>  (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstQuery.html#GstQuery"><span class="type">GstQuery</span></a> *query</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *type</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-bad-libs-GstVideoContextInterface.html#gst-video-context-query-set-pointer" title="gst_video_context_query_set_pointer ()">gst_video_context_query_set_pointer</a> (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstQuery.html#GstQuery"><span class="type">GstQuery</span></a> *query</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *type</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> value</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-bad-libs-GstVideoContextInterface.html#gst-video-context-query-set-object" title="gst_video_context_query_set_object ()">gst_video_context_query_set_object</a>  (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstQuery.html#GstQuery"><span class="type">GstQuery</span></a> *query</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *type</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *value</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-bad-libs-GstVideoContextInterface.description"></a><h2>Description</h2>
+<p>
+The Video Context interface enable sharing video context (such as display
+name, X11 Display, VA-API Display, etc) between neighboor elements and the
+application.
+</p>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Note</h3>
+  The GstVideoContext interface is unstable API and may change in future.
+  One can define GST_USE_UNSTABLE_API to acknowledge and avoid this warning.
+</div>
+<p>
+</p>
+<p>
+</p>
+<div class="refsect2">
+<a name="idp12008256"></a><h3>For Element</h3>
+<p>
+  This interface shall be implement by group of elements that need to share
+  a specific video context (like VDPAU, LibVA, OpenGL elements) or by video
+  sink in order to let the application select appropriate display information
+  (like the X11 display name) when those sink are auto-plugged.
+</p>
+<p>
+  Along with implementing the interface, elements will need to query
+  neighboor elements or send message to the application when preparing
+  the context (see <a class="link" href="gst-plugins-bad-libs-GstVideoContextInterface.html#gst-video-context-prepare" title="gst_video_context_prepare ()"><code class="function">gst_video_context_prepare()</code></a>). They also need to reply
+  to the neighboors element queries, so the context can be shared without
+  the application help.
+</p>
+<p>
+  Elements that are guarantied to have both upstream and downstream
+  neighboors element implementing the <a class="link" href="gst-plugins-bad-libs-GstVideoContextInterface.html#GstVideoContext" title="GstVideoContext"><span class="type">GstVideoContext</span></a> (like the gloverlay
+  element in gst-plugins-opengl) is not required to also implement the
+  interface. Relying on neighboors query shall be sufficient (see
+  <a class="link" href="gst-plugins-bad-libs-GstVideoContextInterface.html#gst-video-context-run-query" title="gst_video_context_run_query ()"><code class="function">gst_video_context_run_query()</code></a>).
+</p>
+<p>
+  The query is an application query with a structure name set to
+  "prepare-video-context" and an array of supported video context types set
+  in the field named "types". This query shall be send downstream and
+  upstream, iterating the pads in order to find neighboors regardless of a
+  static (sink to src) or a dynamic (src to sink) activation. Element should
+  used the helpers method <a class="link" href="gst-plugins-bad-libs-GstVideoContextInterface.html#gst-video-context-prepare" title="gst_video_context_prepare ()"><code class="function">gst_video_context_prepare()</code></a> (or
+  <a class="link" href="gst-plugins-bad-libs-GstVideoContextInterface.html#gst-video-context-run-query" title="gst_video_context_run_query ()"><code class="function">gst_video_context_run_query()</code></a> if no GstVideoContext interface) to
+  correctly execute the query . The result is set using the query helper
+  functions, the structures fields name being "video-context-type" as
+  string and "video-context" as a <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a>.
+</p>
+<p>
+  If the query is not handled by any neighboor, the element should ask the
+  application using the "prepare-video-context" message. The application
+  may then use the interface to set the video context information. If no
+  context was set, the element shall create one using default configuration.
+  Elements with multiple src or sink pad shall implement proper locking to
+  prevent the race of parallel queries being replied.
+</p>
+<p>
+  Well known video-context are: "x11-display-name" a string representing the
+  X11 display to use, "x11-display" the X11 Display structure, "va-display",
+  the VADisplay structure and more.
+</p>
+</div>
+<p>
+</p>
+<p>
+</p>
+<div class="refsect2">
+<a name="idp12020512"></a><h3>For Application</h3>
+<p>
+  In the case there is no neighboor element with video context to share,
+  the element will first turn toward the application, by sending a
+  "prepare-video-context" message. This message is sent along with a list
+  of supported display types. The application can optionally reply to this
+  message by calling appropriate setter through the <a class="link" href="gst-plugins-bad-libs-GstVideoContextInterface.html#GstVideoContext" title="GstVideoContext"><span class="type">GstVideoContext</span></a>
+  interface. If the application supports more then one video context type,
+  it should choose the first one to occure in the supported list. It's
+  important to remember that the message is delivered from the streaming
+  thread, and appropriate locking should be considered. If the application
+  does not have a video context to share, the element will simply allocate
+  one base on default settings. Usually, only applications using OpenGL
+  base sink, or running on special X11 display need to share a video context.
+  </p>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Note</h3>
+    Applications sharing X11 Display structure should always initialize the
+    X11 threading support using <code class="function">XInitThreads()</code> as GStreamer will need to
+    manipulate the display from a separeate threads.
+  </div>
+<p>
+</p>
+<div class="refsect2">
+<a name="idp12025008"></a><h3>Example using ClutterVideoGstVideoSink</h3>
+<p>
+  This example is for user of ClutterGstVideoSink element, the
+  ClutterGstPlayer object transparently handle this.
+ </p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="gtkdoc ppc">#if CLUTTER_WINDOWING_X11</span>
+<span class="gtkdoc kwb">static</span> GstBusSyncReply
+<span class="function">on_sync_message</span> <span class="gtkdoc opt">(</span>GstBus <span class="gtkdoc opt">*</span> bus<span class="gtkdoc opt">,</span> GstMessage <span class="gtkdoc opt">*</span> message<span class="gtkdoc opt">,</span> gpointer user_data<span class="gtkdoc opt">)</span>
+<span class="gtkdoc opt">{</span>
+  Display <span class="gtkdoc opt">*</span>display <span class="gtkdoc opt">=</span> user_data<span class="gtkdoc opt">;</span>
+  GstVideoContext <span class="gtkdoc opt">*</span>context<span class="gtkdoc opt">;</span>
+  <span class="gtkdoc kwb">const</span> gchar <span class="gtkdoc opt">**</span>types<span class="gtkdoc opt">;</span>
+
+  <span class="keyword">if</span> <span class="gtkdoc opt">(</span><span class="function"><a href="../gst-plugins-bad-libs-1.0/gst-plugins-bad-libs-GstVideoContextInterface.html#gst-video-context-message-parse-prepare">gst_video_context_message_parse_prepare</a></span> <span class="gtkdoc opt">(</span>message<span class="gtkdoc opt">, &amp;</span>types<span class="gtkdoc opt">, &amp;</span>context<span class="gtkdoc opt">)) {</span>
+    gint i<span class="gtkdoc opt">;</span>
+
+    <span class="keyword">for</span> <span class="gtkdoc opt">(</span>i <span class="gtkdoc opt">=</span> <span class="number">0</span><span class="gtkdoc opt">;</span> types<span class="gtkdoc opt">[</span>i<span class="gtkdoc opt">];</span> i<span class="gtkdoc opt">++) {</span>
+
+      <span class="keyword">if</span> <span class="gtkdoc opt">(!</span><span class="function">strcmp</span><span class="gtkdoc opt">(</span>types<span class="gtkdoc opt">[</span>i<span class="gtkdoc opt">],</span> <span class="string">&quot;x11-display&quot;</span><span class="gtkdoc opt">)) {</span>
+        <span class="function"><a href="../gst-plugins-bad-libs-1.0/gst-plugins-bad-libs-GstVideoContextInterface.html#gst-video-context-set-context-pointer">gst_video_context_set_context_pointer</a></span> <span class="gtkdoc opt">(</span>context<span class="gtkdoc opt">,</span> <span class="string">&quot;x11-display&quot;</span><span class="gtkdoc opt">,</span> display<span class="gtkdoc opt">);</span>
+      <span class="gtkdoc opt">}</span>
+      <span class="keyword">else if</span> <span class="gtkdoc opt">(!</span><span class="function">strcmp</span><span class="gtkdoc opt">(</span>types<span class="gtkdoc opt">[</span>i<span class="gtkdoc opt">],</span> <span class="string">&quot;x11-display-name&quot;</span><span class="gtkdoc opt">)) {</span>
+        <span class="function"><a href="../gst-plugins-bad-libs-1.0/gst-plugins-bad-libs-GstVideoContextInterface.html#gst-video-context-set-context-string">gst_video_context_set_context_string</a></span> <span class="gtkdoc opt">(</span>context<span class="gtkdoc opt">,</span> <span class="string">&quot;x11-display-name&quot;</span><span class="gtkdoc opt">,</span>
+            <span class="function">DisplayString</span> <span class="gtkdoc opt">(</span>display<span class="gtkdoc opt">));</span>
+      <span class="gtkdoc opt">}</span> <span class="keyword">else</span> <span class="gtkdoc opt">{</span>
+        <span class="keyword">continue</span><span class="gtkdoc opt">;</span>
+      <span class="gtkdoc opt">}</span>
+
+      <span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstMessage.html#gst-message-unref">gst_message_unref</a></span> <span class="gtkdoc opt">(</span>message<span class="gtkdoc opt">);</span>
+      <span class="keyword">return</span> GST_BUS_DROP<span class="gtkdoc opt">;</span>
+    <span class="gtkdoc opt">}</span>
+  <span class="gtkdoc opt">}</span>
+
+  <span class="keyword">return</span> GST_BUS_PASS<span class="gtkdoc opt">;</span>
+<span class="gtkdoc opt">}</span>
+<span class="gtkdoc ppc">#endif</span>
+
+gint
+<span class="function">main</span> <span class="gtkdoc opt">(</span>gint argc<span class="gtkdoc opt">,</span> gchar <span class="gtkdoc opt">**</span>argv<span class="gtkdoc opt">)</span>
+<span class="gtkdoc opt">{</span>
+  GstBin <span class="gtkdoc opt">*</span>pipeline<span class="gtkdoc opt">;</span>
+  GstBus <span class="gtkdoc opt">*</span>bus<span class="gtkdoc opt">;</span>
+
+  <span class="gtkdoc opt">...</span>
+
+  bus <span class="gtkdoc opt">=</span> <span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPipeline.html#gst-pipeline-get-bus">gst_pipeline_get_bus</a></span> <span class="gtkdoc opt">(</span><span class="function">GST_PIPELINE</span> <span class="gtkdoc opt">(</span>pipeline<span class="gtkdoc opt">));</span>
+
+  <span class="gtkdoc ppc">#if CLUTTER_WINDOWING_X11</span>
+  <span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstBus.html#gst-bus-set-sync-handler">gst_bus_set_sync_handler</a></span> <span class="gtkdoc opt">(</span>priv<span class="gtkdoc opt">-&gt;</span>bus<span class="gtkdoc opt">,</span> on_sync_message<span class="gtkdoc opt">,</span>
+      <span class="function">clutter_x11_get_default_display</span> <span class="gtkdoc opt">(),</span> NULL<span class="gtkdoc opt">);</span>
+  <span class="gtkdoc ppc">#endif</span>
+
+  <span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstObject.html#gst-object-unref">gst_object_unref</a></span> <span class="gtkdoc opt">(</span><span class="function">GST_OBJECT</span> <span class="gtkdoc opt">(</span>priv<span class="gtkdoc opt">-&gt;</span>bus<span class="gtkdoc opt">));</span>
+
+  <span class="gtkdoc opt">...</span>
+<span class="gtkdoc opt">}</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</div>
+</div>
+<p>
+</p>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-bad-libs-GstVideoContextInterface.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GST-IS-VIDEO-CONTEXT:CAPS"></a><h3>GST_IS_VIDEO_CONTEXT()</h3>
+<pre class="programlisting">#define GST_IS_VIDEO_CONTEXT(obj)           (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GST_TYPE_VIDEO_CONTEXT))
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstVideoContext"></a><h3>GstVideoContext</h3>
+<pre class="programlisting">typedef struct _GstVideoContext GstVideoContext;</pre>
+<p>
+Opaque <a class="link" href="gst-plugins-bad-libs-GstVideoContextInterface.html#GstVideoContext" title="GstVideoContext"><span class="type">GstVideoContext</span></a> data structure.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstVideoContextInterface"></a><h3>struct GstVideoContextInterface</h3>
+<pre class="programlisting">struct GstVideoContextInterface {
+  GTypeInterface parent;
+
+  /* virtual functions */
+  void (*set_context) (GstVideoContext * context,
+                       const gchar * type,
+                       const GValue * value);
+};
+</pre>
+<p>
+<a class="link" href="gst-plugins-bad-libs-GstVideoContextInterface.html#GstVideoContextInterface" title="struct GstVideoContextInterface"><span class="type">GstVideoContextInterface</span></a> interface.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GTypeInterface"><span class="type">GTypeInterface</span></a> <em class="structfield"><code><a name="GstVideoContextInterface.parent"></a>parent</code></em>;</span></p></td>
+<td>parent interface type.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GstVideoContextInterface.set-context"></a>set_context</code></em> ()</span></p></td>
+<td>vmethod to set video context.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-video-context-iface-get-type"></a><h3>gst_video_context_iface_get_type ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GType"><span class="returnvalue">GType</span></a>               gst_video_context_iface_get_type    (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-video-context-set-context"></a><h3>gst_video_context_set_context ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_video_context_set_context       (<em class="parameter"><code><a class="link" href="gst-plugins-bad-libs-GstVideoContextInterface.html#GstVideoContext" title="GstVideoContext"><span class="type">GstVideoContext</span></a> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *type</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *value</code></em>);</pre>
+<p>
+This is a wrapper for the <code class="function">set_context()</code> virtual method. It is suggested to
+use one of the helpers to avoid having to manipulate <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>an element implementing <a class="link" href="gst-plugins-bad-libs-GstVideoContextInterface.html#GstVideoContext" title="GstVideoContext"><span class="type">GstVideoContext</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>type</code></em> :</span></p></td>
+<td>the type of display being set</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> containing the context</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-video-context-set-context-string"></a><h3>gst_video_context_set_context_string ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_video_context_set_context_string
+                                                        (<em class="parameter"><code><a class="link" href="gst-plugins-bad-libs-GstVideoContextInterface.html#GstVideoContext" title="GstVideoContext"><span class="type">GstVideoContext</span></a> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *type</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>);</pre>
+<p>
+This helper is commonly used for setting video context represented by a
+string like the X11 display name ("x11-display-name")/
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>an element implementing <a class="link" href="gst-plugins-bad-libs-GstVideoContextInterface.html#GstVideoContext" title="GstVideoContext"><span class="type">GstVideoContext</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>type</code></em> :</span></p></td>
+<td>the type of display being set</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>string</code></em> :</span></p></td>
+<td>a string representing the video context</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-video-context-set-context-pointer"></a><h3>gst_video_context_set_context_pointer ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_video_context_set_context_pointer
+                                                        (<em class="parameter"><code><a class="link" href="gst-plugins-bad-libs-GstVideoContextInterface.html#GstVideoContext" title="GstVideoContext"><span class="type">GstVideoContext</span></a> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *type</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> value</code></em>);</pre>
+<p>
+This helper is used for setting video context using a pointer, typically to
+a structure like the X11 Display ("x11-display") or the VADisplay
+("vaapi-display").
+</p>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Note</h3>
+  Users of X11 Display should ensure that <code class="function">XInitThreads()</code> was called before
+  opening the display.
+</div>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>an element implementing <a class="link" href="gst-plugins-bad-libs-GstVideoContextInterface.html#GstVideoContext" title="GstVideoContext"><span class="type">GstVideoContext</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>type</code></em> :</span></p></td>
+<td>the type of display being set</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pointer</code></em> :</span></p></td>
+<td>a pointer to the video context</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-video-context-set-context-object"></a><h3>gst_video_context_set_context_object ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_video_context_set_context_object
+                                                        (<em class="parameter"><code><a class="link" href="gst-plugins-bad-libs-GstVideoContextInterface.html#GstVideoContext" title="GstVideoContext"><span class="type">GstVideoContext</span></a> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *type</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *value</code></em>);</pre>
+<p>
+This is for video context that are <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a>, this helper allow taking
+benifit of the <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> refcounting. It is particularly handy for element
+to have refcounting as the order in which element will stop using the
+display is not defined.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>an element implementing <a class="link" href="gst-plugins-bad-libs-GstVideoContextInterface.html#GstVideoContext" title="GstVideoContext"><span class="type">GstVideoContext</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>type</code></em> :</span></p></td>
+<td>the type of display being set</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> resenting the display</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-video-context-prepare"></a><h3>gst_video_context_prepare ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_video_context_prepare           (<em class="parameter"><code><a class="link" href="gst-plugins-bad-libs-GstVideoContextInterface.html#GstVideoContext" title="GstVideoContext"><span class="type">GstVideoContext</span></a> *context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **types</code></em>);</pre>
+<p>
+This method run "prepare-video-context" custom query dowstream, and
+upstream. If * the query has a reply, it sets the context value using
+<a class="link" href="gst-plugins-bad-libs-GstVideoContextInterface.html#gst-video-context-set-context" title="gst_video_context_set_context ()"><code class="function">gst_video_context_set_context()</code></a>. Otherwise, it sends a
+"prepare-video-context" message to the application. The element can then
+continue video context initialization.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>an element implementing <a class="link" href="gst-plugins-bad-libs-GstVideoContextInterface.html#GstVideoContext" title="GstVideoContext"><span class="type">GstVideoContext</span></a> interface</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>types</code></em> :</span></p></td>
+<td>an array of supported types, prefered first</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-video-context-message-parse-prepare"></a><h3>gst_video_context_message_parse_prepare ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_video_context_message_parse_prepare
+                                                        (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstMessage.html#GstMessage"><span class="type">GstMessage</span></a> *message</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> ***types</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gst-plugins-bad-libs-GstVideoContextInterface.html#GstVideoContext" title="GstVideoContext"><span class="type">GstVideoContext</span></a> **ctx</code></em>);</pre>
+<p>
+This helper shall be used by application to simply handling of the
+"prepare-video-context" message.
+</p>
+<p>
+Rerturns: <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><span class="type">FALSE</span></a> is the message was not valid "prepare-video-context"
+          element message, otherwise <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><span class="type">TRUE</span></a> with <em class="parameter"><code>types</code></em> and <em class="parameter"><code>context</code></em> set.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>message</code></em> :</span></p></td>
+<td>a <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstMessage.html#GstMessage"><span class="type">GstMessage</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>types</code></em> :</span></p></td>
+<td>return value for supported types</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>return value for the element the implements <a class="link" href="gst-plugins-bad-libs-GstVideoContextInterface.html#GstVideoContext" title="GstVideoContext"><span class="type">GstVideoContext</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-video-context-query-new"></a><h3>gst_video_context_query_new ()</h3>
+<pre class="programlisting"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstQuery.html#GstQuery"><span class="returnvalue">GstQuery</span></a> *          gst_video_context_query_new         (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **types</code></em>);</pre>
+<p>
+Create a new custom <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstQuery.html#GstQuery"><span class="type">GstQuery</span></a> with structure name "prepare-video-context".
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>types</code></em> :</span></p></td>
+<td>a string array of video context types</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-video-context-run-query"></a><h3>gst_video_context_run_query ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_video_context_run_query         (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstQuery.html#GstQuery"><span class="type">GstQuery</span></a> *query</code></em>);</pre>
+<p>
+This helper runs the query on each downstream, then upstream pads in an
+element. This is called by <a class="link" href="gst-plugins-bad-libs-GstVideoContextInterface.html#gst-video-context-prepare" title="gst_video_context_prepare ()"><code class="function">gst_video_context_prepare()</code></a>. This method is only
+used directly within elements that are required to have two neighboors
+elements with appropriate video context. This would be the case of
+specialized filters that only manipulate non-raw buffers (e.g.
+gldeinterlace). Those elements do not have to implement <a class="link" href="gst-plugins-bad-libs-GstVideoContextInterface.html#GstVideoContext" title="GstVideoContext"><span class="type">GstVideoContext</span></a>
+interface.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>element</code></em> :</span></p></td>
+<td>a <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>query</code></em> :</span></p></td>
+<td>a <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstQuery.html#GstQuery"><span class="type">GstQuery</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-video-context-query-get-supported-types"></a><h3>gst_video_context_query_get_supported_types ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> **      gst_video_context_query_get_supported_types
+                                                        (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstQuery.html#GstQuery"><span class="type">GstQuery</span></a> *query</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>query</code></em> :</span></p></td>
+<td>a <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstQuery.html#GstQuery"><span class="type">GstQuery</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>An array of supported video context types</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-video-context-query-parse-value"></a><h3>gst_video_context_query_parse_value ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_video_context_query_parse_value (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstQuery.html#GstQuery"><span class="type">GstQuery</span></a> *query</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **type</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> **value</code></em>);</pre>
+<p>
+Helper to extract the video context type and value from a <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstQuery.html#GstQuery"><span class="type">GstQuery</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>query</code></em> :</span></p></td>
+<td>a <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstQuery.html#GstQuery"><span class="type">GstQuery</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>type</code></em> :</span></p></td>
+<td>return video context type</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>return video context <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-video-context-query-set-value"></a><h3>gst_video_context_query_set_value ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_video_context_query_set_value   (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstQuery.html#GstQuery"><span class="type">GstQuery</span></a> *query</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *type</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *value</code></em>);</pre>
+<p>
+Helper to set the video context as a <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> inside the <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstQuery.html#GstQuery"><span class="type">GstQuery</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>query</code></em> :</span></p></td>
+<td>a <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstQuery.html#GstQuery"><span class="type">GstQuery</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>type</code></em> :</span></p></td>
+<td>the video context type</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> set with video context</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-video-context-query-set-string"></a><h3>gst_video_context_query_set_string ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_video_context_query_set_string  (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstQuery.html#GstQuery"><span class="type">GstQuery</span></a> *query</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *type</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>);</pre>
+<p>
+Helper to set the video context as a string inside the <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstQuery.html#GstQuery"><span class="type">GstQuery</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>query</code></em> :</span></p></td>
+<td>a <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstQuery.html#GstQuery"><span class="type">GstQuery</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>type</code></em> :</span></p></td>
+<td>the video context type</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>a string representing the video context</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-video-context-query-set-pointer"></a><h3>gst_video_context_query_set_pointer ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_video_context_query_set_pointer (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstQuery.html#GstQuery"><span class="type">GstQuery</span></a> *query</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *type</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> value</code></em>);</pre>
+<p>
+Helper to set the video context as a <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> inside the <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstQuery.html#GstQuery"><span class="type">GstQuery</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>query</code></em> :</span></p></td>
+<td>a <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstQuery.html#GstQuery"><span class="type">GstQuery</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>type</code></em> :</span></p></td>
+<td>the video context type</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> representing the video context</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-video-context-query-set-object"></a><h3>gst_video_context_query_set_object ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_video_context_query_set_object  (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstQuery.html#GstQuery"><span class="type">GstQuery</span></a> *query</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *type</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *value</code></em>);</pre>
+<p>
+Helper to set the video context as a <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> inside the <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstQuery.html#GstQuery"><span class="type">GstQuery</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>query</code></em> :</span></p></td>
+<td>a <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstQuery.html#GstQuery"><span class="type">GstQuery</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>type</code></em> :</span></p></td>
+<td>the video context type</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> representing the video context</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

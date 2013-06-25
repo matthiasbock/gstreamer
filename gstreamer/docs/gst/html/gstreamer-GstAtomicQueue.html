@@ -1,0 +1,227 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GstAtomicQueue</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer 1.0 Core Reference Manual">
+<link rel="up" href="libgstreamer.html" title="GStreamer Core Library">
+<link rel="prev" href="GstAllocator.html" title="GstAllocator">
+<link rel="next" href="GstBin.html" title="GstBin">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="GstAllocator.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="libgstreamer.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer 1.0 Core Reference Manual</th>
+<td><a accesskey="n" href="GstBin.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gstreamer-GstAtomicQueue.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gstreamer-GstAtomicQueue.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gstreamer-GstAtomicQueue"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gstreamer-GstAtomicQueue.top_of_page"></a>GstAtomicQueue</span></h2>
+<p>GstAtomicQueue — An atomic queue implementation</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gstreamer-GstAtomicQueue.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;gst/gst.h&gt;
+
+                    <a class="link" href="gstreamer-GstAtomicQueue.html#GstAtomicQueue" title="GstAtomicQueue">GstAtomicQueue</a>;
+<a class="link" href="gstreamer-GstAtomicQueue.html#GstAtomicQueue" title="GstAtomicQueue"><span class="returnvalue">GstAtomicQueue</span></a> *    <a class="link" href="gstreamer-GstAtomicQueue.html#gst-atomic-queue-new" title="gst_atomic_queue_new ()">gst_atomic_queue_new</a>                (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> initial_size</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gstreamer-GstAtomicQueue.html#gst-atomic-queue-ref" title="gst_atomic_queue_ref ()">gst_atomic_queue_ref</a>                (<em class="parameter"><code><a class="link" href="gstreamer-GstAtomicQueue.html#GstAtomicQueue" title="GstAtomicQueue"><span class="type">GstAtomicQueue</span></a> *queue</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gstreamer-GstAtomicQueue.html#gst-atomic-queue-unref" title="gst_atomic_queue_unref ()">gst_atomic_queue_unref</a>              (<em class="parameter"><code><a class="link" href="gstreamer-GstAtomicQueue.html#GstAtomicQueue" title="GstAtomicQueue"><span class="type">GstAtomicQueue</span></a> *queue</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gstreamer-GstAtomicQueue.html#gst-atomic-queue-push" title="gst_atomic_queue_push ()">gst_atomic_queue_push</a>               (<em class="parameter"><code><a class="link" href="gstreamer-GstAtomicQueue.html#GstAtomicQueue" title="GstAtomicQueue"><span class="type">GstAtomicQueue</span></a> *queue</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            <a class="link" href="gstreamer-GstAtomicQueue.html#gst-atomic-queue-peek" title="gst_atomic_queue_peek ()">gst_atomic_queue_peek</a>               (<em class="parameter"><code><a class="link" href="gstreamer-GstAtomicQueue.html#GstAtomicQueue" title="GstAtomicQueue"><span class="type">GstAtomicQueue</span></a> *queue</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            <a class="link" href="gstreamer-GstAtomicQueue.html#gst-atomic-queue-pop" title="gst_atomic_queue_pop ()">gst_atomic_queue_pop</a>                (<em class="parameter"><code><a class="link" href="gstreamer-GstAtomicQueue.html#GstAtomicQueue" title="GstAtomicQueue"><span class="type">GstAtomicQueue</span></a> *queue</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               <a class="link" href="gstreamer-GstAtomicQueue.html#gst-atomic-queue-length" title="gst_atomic_queue_length ()">gst_atomic_queue_length</a>             (<em class="parameter"><code><a class="link" href="gstreamer-GstAtomicQueue.html#GstAtomicQueue" title="GstAtomicQueue"><span class="type">GstAtomicQueue</span></a> *queue</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="gstreamer-GstAtomicQueue.description"></a><h2>Description</h2>
+<p>
+The <a class="link" href="gstreamer-GstAtomicQueue.html#GstAtomicQueue" title="GstAtomicQueue"><span class="type">GstAtomicQueue</span></a> object implements a queue that can be used from multiple
+threads without performing any blocking operations.
+</p>
+</div>
+<div class="refsect1">
+<a name="gstreamer-GstAtomicQueue.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstAtomicQueue"></a><h3>GstAtomicQueue</h3>
+<pre class="programlisting">typedef struct _GstAtomicQueue GstAtomicQueue;</pre>
+<p>
+Opaque atomic data queue.
+</p>
+<p>
+Use the acessor functions to get the stored values.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-atomic-queue-new"></a><h3>gst_atomic_queue_new ()</h3>
+<pre class="programlisting"><a class="link" href="gstreamer-GstAtomicQueue.html#GstAtomicQueue" title="GstAtomicQueue"><span class="returnvalue">GstAtomicQueue</span></a> *    gst_atomic_queue_new                (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> initial_size</code></em>);</pre>
+<p>
+Create a new atomic queue instance. <em class="parameter"><code>initial_size</code></em> will be rounded up to the
+nearest power of 2 and used as the initial size of the queue.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>initial_size</code></em> :</span></p></td>
+<td>initial queue size</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="gstreamer-GstAtomicQueue.html#GstAtomicQueue" title="GstAtomicQueue"><span class="type">GstAtomicQueue</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-atomic-queue-ref"></a><h3>gst_atomic_queue_ref ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_atomic_queue_ref                (<em class="parameter"><code><a class="link" href="gstreamer-GstAtomicQueue.html#GstAtomicQueue" title="GstAtomicQueue"><span class="type">GstAtomicQueue</span></a> *queue</code></em>);</pre>
+<p>
+Increase the refcount of <em class="parameter"><code>queue</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>queue</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstAtomicQueue.html#GstAtomicQueue" title="GstAtomicQueue"><span class="type">GstAtomicQueue</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-atomic-queue-unref"></a><h3>gst_atomic_queue_unref ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_atomic_queue_unref              (<em class="parameter"><code><a class="link" href="gstreamer-GstAtomicQueue.html#GstAtomicQueue" title="GstAtomicQueue"><span class="type">GstAtomicQueue</span></a> *queue</code></em>);</pre>
+<p>
+Unref <em class="parameter"><code>queue</code></em> and free the memory when the refcount reaches 0.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>queue</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstAtomicQueue.html#GstAtomicQueue" title="GstAtomicQueue"><span class="type">GstAtomicQueue</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-atomic-queue-push"></a><h3>gst_atomic_queue_push ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_atomic_queue_push               (<em class="parameter"><code><a class="link" href="gstreamer-GstAtomicQueue.html#GstAtomicQueue" title="GstAtomicQueue"><span class="type">GstAtomicQueue</span></a> *queue</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);</pre>
+<p>
+Append <em class="parameter"><code>data</code></em> to the tail of the queue.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>queue</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstAtomicQueue.html#GstAtomicQueue" title="GstAtomicQueue"><span class="type">GstAtomicQueue</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>the data</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-atomic-queue-peek"></a><h3>gst_atomic_queue_peek ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            gst_atomic_queue_peek               (<em class="parameter"><code><a class="link" href="gstreamer-GstAtomicQueue.html#GstAtomicQueue" title="GstAtomicQueue"><span class="type">GstAtomicQueue</span></a> *queue</code></em>);</pre>
+<p>
+Peek the head element of the queue without removing it from the queue.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>queue</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstAtomicQueue.html#GstAtomicQueue" title="GstAtomicQueue"><span class="type">GstAtomicQueue</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the head element of <em class="parameter"><code>queue</code></em> or NULL when
+the queue is empty. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-atomic-queue-pop"></a><h3>gst_atomic_queue_pop ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            gst_atomic_queue_pop                (<em class="parameter"><code><a class="link" href="gstreamer-GstAtomicQueue.html#GstAtomicQueue" title="GstAtomicQueue"><span class="type">GstAtomicQueue</span></a> *queue</code></em>);</pre>
+<p>
+Get the head element of the queue.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>queue</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstAtomicQueue.html#GstAtomicQueue" title="GstAtomicQueue"><span class="type">GstAtomicQueue</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the head element of <em class="parameter"><code>queue</code></em> or NULL when
+the queue is empty. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-atomic-queue-length"></a><h3>gst_atomic_queue_length ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               gst_atomic_queue_length             (<em class="parameter"><code><a class="link" href="gstreamer-GstAtomicQueue.html#GstAtomicQueue" title="GstAtomicQueue"><span class="type">GstAtomicQueue</span></a> *queue</code></em>);</pre>
+<p>
+Get the amount of items in the queue.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>queue</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstAtomicQueue.html#GstAtomicQueue" title="GstAtomicQueue"><span class="type">GstAtomicQueue</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the number of elements in the queue.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

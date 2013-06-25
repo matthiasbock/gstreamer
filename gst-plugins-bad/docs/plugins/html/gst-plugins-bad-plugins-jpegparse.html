@@ -1,0 +1,231 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>jpegparse</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer Bad Plugins 1.0 Plugins Reference Manual">
+<link rel="up" href="ch01.html" title="gst-plugins-bad Elements">
+<link rel="prev" href="gst-plugins-bad-plugins-gaussianblur.html" title="gaussianblur">
+<link rel="next" href="gst-plugins-bad-plugins-kaleidoscope.html" title="kaleidoscope">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gst-plugins-bad-plugins-gaussianblur.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer Bad Plugins 1.0 Plugins Reference Manual</th>
+<td><a accesskey="n" href="gst-plugins-bad-plugins-kaleidoscope.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gst-plugins-bad-plugins-jpegparse.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gst-plugins-bad-plugins-jpegparse.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#gst-plugins-bad-plugins-jpegparse.object-hierarchy" class="shortcut">Object Hierarchy</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gst-plugins-bad-plugins-jpegparse"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gst-plugins-bad-plugins-jpegparse.top_of_page"></a>jpegparse</span></h2>
+<p>jpegparse — JPEG parser</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gst-plugins-bad-plugins-jpegparse.synopsis"></a><h2>Synopsis</h2>
+<a name="GstJpegParse"></a><pre class="synopsis">struct              <a class="link" href="gst-plugins-bad-plugins-jpegparse.html#GstJpegParse-struct" title="struct GstJpegParse">GstJpegParse</a>;
+
+struct              <a class="link" href="gst-plugins-bad-plugins-jpegparse.html#GstJpegParseClass" title="struct GstJpegParseClass">GstJpegParseClass</a>;
+#define             <a class="link" href="gst-plugins-bad-plugins-jpegparse.html#GST-JPEG-PARSE:CAPS" title="GST_JPEG_PARSE()">GST_JPEG_PARSE</a>                      (obj)
+#define             <a class="link" href="gst-plugins-bad-plugins-jpegparse.html#GST-JPEG-PARSE-CLASS:CAPS" title="GST_JPEG_PARSE_CLASS()">GST_JPEG_PARSE_CLASS</a>                (klass)
+#define             <a class="link" href="gst-plugins-bad-plugins-jpegparse.html#GST-IS-JPEG-PARSE:CAPS" title="GST_IS_JPEG_PARSE()">GST_IS_JPEG_PARSE</a>                   (obj)
+#define             <a class="link" href="gst-plugins-bad-plugins-jpegparse.html#GST-IS-JPEG-PARSE-CLASS:CAPS" title="GST_IS_JPEG_PARSE_CLASS()">GST_IS_JPEG_PARSE_CLASS</a>             (klass)
+#define             <a class="link" href="gst-plugins-bad-plugins-jpegparse.html#GST-TYPE-JPEG-PARSE:CAPS" title="GST_TYPE_JPEG_PARSE">GST_TYPE_JPEG_PARSE</a>
+<a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GType"><span class="returnvalue">GType</span></a>               <a class="link" href="gst-plugins-bad-plugins-jpegparse.html#gst-jpeg-parse-get-type" title="gst_jpeg_parse_get_type ()">gst_jpeg_parse_get_type</a>             (<em class="parameter"><code><span class="type">void</span></code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-bad-plugins-jpegparse.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstObject.html">GstObject</a>
+               +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html">GstElement</a>
+                     +----GstJpegParse
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-bad-plugins-jpegparse.description"></a><h2>Description</h2>
+<p>
+Parses a JPEG stream into JPEG images.  It looks for EOI boundaries to
+split a continuous stream into single-frame buffers. Also reads the
+image header searching for image properties such as width and height
+among others. Jpegparse can also extract metadata (e.g. xmp).
+</p>
+<p>
+</p>
+<div class="refsect2">
+<a name="idp7971936"></a><h3>Example launch line</h3>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1</pre></td>
+        <td class="listing_code"><pre class="programlisting">gst<span class="gtkdoc opt">-</span>launch <span class="gtkdoc opt">-</span>v souphttpsrc location<span class="gtkdoc opt">=... !</span> jpegparse <span class="gtkdoc opt">!</span> matroskamux <span class="gtkdoc opt">!</span> filesink location<span class="gtkdoc opt">=...</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+The above pipeline fetches a motion JPEG stream from an IP camera over
+HTTP and stores it in a matroska file.
+</div>
+<p>
+</p>
+<div class="refsynopsisdiv">
+<h2>Synopsis</h2>
+<div class="refsect2">
+<a name="idp7207056"></a><h3>Element Information</h3>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">plugin</span></p></td>
+<td>
+            <a class="link" href="gst-plugins-bad-plugins-plugin-jpegformat.html#plugin-jpegformat">jpegformat</a>
+          </td>
+</tr>
+<tr>
+<td><p><span class="term">author</span></p></td>
+<td>Arnout Vandecappelle (Essensium/Mind) &lt;arnout@mind.be&gt;</td>
+</tr>
+<tr>
+<td><p><span class="term">class</span></p></td>
+<td>Video/Parser</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="idp11845568"></a><h3>Element Pads</h3>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">name</span></p></td>
+<td>sink</td>
+</tr>
+<tr>
+<td><p><span class="term">direction</span></p></td>
+<td>sink</td>
+</tr>
+<tr>
+<td><p><span class="term">presence</span></p></td>
+<td>always</td>
+</tr>
+<tr>
+<td><p><span class="term">details</span></p></td>
+<td>image/jpeg, parsed=(boolean)false</td>
+</tr>
+</tbody>
+</table></div>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">name</span></p></td>
+<td>src</td>
+</tr>
+<tr>
+<td><p><span class="term">direction</span></p></td>
+<td>source</td>
+</tr>
+<tr>
+<td><p><span class="term">presence</span></p></td>
+<td>always</td>
+</tr>
+<tr>
+<td><p><span class="term">details</span></p></td>
+<td>image/jpeg, format=(string){ I420, Y41B, UYVY, YV12 }, width=(int)[ 0, 2147483647 ], height=(int)[ 0, 2147483647 ], interlaced=(boolean){ true, false }, framerate=(fraction)[ 0/1, 2147483647/1 ], parsed=(boolean)true</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<p>
+</p>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-bad-plugins-jpegparse.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstJpegParse-struct"></a><h3>struct GstJpegParse</h3>
+<pre class="programlisting">struct GstJpegParse;</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstJpegParseClass"></a><h3>struct GstJpegParseClass</h3>
+<pre class="programlisting">struct GstJpegParseClass {
+  GstElementClass  parent_class;
+};
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-JPEG-PARSE:CAPS"></a><h3>GST_JPEG_PARSE()</h3>
+<pre class="programlisting">#define             GST_JPEG_PARSE(obj)</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-JPEG-PARSE-CLASS:CAPS"></a><h3>GST_JPEG_PARSE_CLASS()</h3>
+<pre class="programlisting">#define             GST_JPEG_PARSE_CLASS(klass)</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-IS-JPEG-PARSE:CAPS"></a><h3>GST_IS_JPEG_PARSE()</h3>
+<pre class="programlisting">#define             GST_IS_JPEG_PARSE(obj)</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-IS-JPEG-PARSE-CLASS:CAPS"></a><h3>GST_IS_JPEG_PARSE_CLASS()</h3>
+<pre class="programlisting">#define             GST_IS_JPEG_PARSE_CLASS(klass)</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-TYPE-JPEG-PARSE:CAPS"></a><h3>GST_TYPE_JPEG_PARSE</h3>
+<pre class="programlisting">#define             GST_TYPE_JPEG_PARSE</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-jpeg-parse-get-type"></a><h3>gst_jpeg_parse_get_type ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GType"><span class="returnvalue">GType</span></a>               gst_jpeg_parse_get_type             (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

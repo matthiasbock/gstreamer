@@ -1,0 +1,404 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GstControlBinding</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer 1.0 Core Reference Manual">
+<link rel="up" href="libgstreamer.html" title="GStreamer Core Library">
+<link rel="prev" href="gstreamer-gstconfig.html" title="gstconfig">
+<link rel="next" href="GstControlSource.html" title="GstControlSource">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gstreamer-gstconfig.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="libgstreamer.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer 1.0 Core Reference Manual</th>
+<td><a accesskey="n" href="GstControlSource.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#GstControlBinding.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#GstControlBinding.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#GstControlBinding.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#GstControlBinding.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="GstControlBinding"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GstControlBinding.top_of_page"></a>GstControlBinding</span></h2>
+<p>GstControlBinding — attachment for control source sources</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="GstControlBinding.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;gst/gst.h&gt;
+
+struct              <a class="link" href="GstControlBinding.html#GstControlBinding-struct" title="struct GstControlBinding">GstControlBinding</a>;
+struct              <a class="link" href="GstControlBinding.html#GstControlBindingClass" title="struct GstControlBindingClass">GstControlBindingClass</a>;
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="GstControlBinding.html#gst-control-binding-sync-values" title="gst_control_binding_sync_values ()">gst_control_binding_sync_values</a>     (<em class="parameter"><code><a class="link" href="GstControlBinding.html" title="GstControlBinding"><span class="type">GstControlBinding</span></a> *binding</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="type">GstClockTime</span></a> timestamp</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="type">GstClockTime</span></a> last_sync</code></em>);
+<a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="returnvalue">GValue</span></a> *            <a class="link" href="GstControlBinding.html#gst-control-binding-get-value" title="gst_control_binding_get_value ()">gst_control_binding_get_value</a>       (<em class="parameter"><code><a class="link" href="GstControlBinding.html" title="GstControlBinding"><span class="type">GstControlBinding</span></a> *binding</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="type">GstClockTime</span></a> timestamp</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="GstControlBinding.html#gst-control-binding-get-value-array" title="gst_control_binding_get_value_array ()">gst_control_binding_get_value_array</a> (<em class="parameter"><code><a class="link" href="GstControlBinding.html" title="GstControlBinding"><span class="type">GstControlBinding</span></a> *binding</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="type">GstClockTime</span></a> timestamp</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="type">GstClockTime</span></a> interval</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> n_values</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> values</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="GstControlBinding.html#gst-control-binding-get-g-value-array" title="gst_control_binding_get_g_value_array ()">gst_control_binding_get_g_value_array</a>
+                                                        (<em class="parameter"><code><a class="link" href="GstControlBinding.html" title="GstControlBinding"><span class="type">GstControlBinding</span></a> *binding</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="type">GstClockTime</span></a> timestamp</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="type">GstClockTime</span></a> interval</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> n_values</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *values</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="GstControlBinding.html#gst-control-binding-set-disabled" title="gst_control_binding_set_disabled ()">gst_control_binding_set_disabled</a>    (<em class="parameter"><code><a class="link" href="GstControlBinding.html" title="GstControlBinding"><span class="type">GstControlBinding</span></a> *binding</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> disabled</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="GstControlBinding.html#gst-control-binding-is-disabled" title="gst_control_binding_is_disabled ()">gst_control_binding_is_disabled</a>     (<em class="parameter"><code><a class="link" href="GstControlBinding.html" title="GstControlBinding"><span class="type">GstControlBinding</span></a> *binding</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="GstControlBinding.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a class="link" href="GstObject.html" title="GstObject">GstObject</a>
+               +----GstControlBinding
+</pre>
+</div>
+<div class="refsect1">
+<a name="GstControlBinding.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="GstControlBinding.html#GstControlBinding--name" title='The "name" property'>name</a>"                     <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct Only
+  "<a class="link" href="GstControlBinding.html#GstControlBinding--object" title='The "object" property'>object</a>"                   <a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a>*            : Read / Write / Construct Only
+</pre>
+</div>
+<div class="refsect1">
+<a name="GstControlBinding.description"></a><h2>Description</h2>
+<p>
+A base class for value mapping objects that attaches control sources to gobject
+properties. Such an object is taking one or more <a class="link" href="GstControlSource.html" title="GstControlSource"><span class="type">GstControlSource</span></a> instances,
+combines them and maps the resulting value to the type and value range of the
+bound property.
+</p>
+</div>
+<div class="refsect1">
+<a name="GstControlBinding.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstControlBinding-struct"></a><h3>struct GstControlBinding</h3>
+<pre class="programlisting">struct GstControlBinding {
+  gchar *name;
+  GParamSpec *pspec;
+};
+</pre>
+<p>
+The instance structure of <a class="link" href="GstControlBinding.html" title="GstControlBinding"><span class="type">GstControlBinding</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *<em class="structfield"><code><a name="GstControlBinding-struct.name"></a>name</code></em>;</span></p></td>
+<td>name of the property of this binding</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-GParamSpec.html#GParamSpec"><span class="type">GParamSpec</span></a> *<em class="structfield"><code><a name="GstControlBinding-struct.pspec"></a>pspec</code></em>;</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/gobject/unstable/gobject-GParamSpec.html#GParamSpec"><span class="type">GParamSpec</span></a> for this property</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstControlBindingClass"></a><h3>struct GstControlBindingClass</h3>
+<pre class="programlisting">struct GstControlBindingClass {
+  GstObjectClass parent_class;
+
+  /* virtual methods */
+  gboolean (* sync_values) (GstControlBinding *binding, GstObject *object, GstClockTime timestamp, GstClockTime last_sync);
+  GValue * (* get_value) (GstControlBinding *binding, GstClockTime timestamp);
+  gboolean (* get_value_array) (GstControlBinding *binding, GstClockTime timestamp,GstClockTime interval, guint n_values, gpointer values);
+  gboolean (* get_g_value_array) (GstControlBinding *binding, GstClockTime timestamp,GstClockTime interval, guint n_values, GValue *values);
+};
+</pre>
+<p>
+The class structure of <a class="link" href="GstControlBinding.html" title="GstControlBinding"><span class="type">GstControlBinding</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a class="link" href="GstObject.html#GstObjectClass" title="struct GstObjectClass"><span class="type">GstObjectClass</span></a> <em class="structfield"><code><a name="GstControlBindingClass.parent-class"></a>parent_class</code></em>;</span></p></td>
+<td>Parent class</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GstControlBindingClass.sync-values"></a>sync_values</code></em> ()</span></p></td>
+<td></td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GstControlBindingClass.get-value"></a>get_value</code></em> ()</span></p></td>
+<td></td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GstControlBindingClass.get-value-array"></a>get_value_array</code></em> ()</span></p></td>
+<td></td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GstControlBindingClass.get-g-value-array"></a>get_g_value_array</code></em> ()</span></p></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-control-binding-sync-values"></a><h3>gst_control_binding_sync_values ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_control_binding_sync_values     (<em class="parameter"><code><a class="link" href="GstControlBinding.html" title="GstControlBinding"><span class="type">GstControlBinding</span></a> *binding</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="type">GstClockTime</span></a> timestamp</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="type">GstClockTime</span></a> last_sync</code></em>);</pre>
+<p>
+Sets the property of the <em class="parameter"><code>object</code></em>, according to the <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstControlSource.html"><span class="type">GstControlSources</span></a> that
+handle them and for the given timestamp.
+</p>
+<p>
+If this function fails, it is most likely the application developers fault.
+Most probably the control sources are not setup correctly.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>binding</code></em> :</span></p></td>
+<td>the control binding</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>the object that has controlled properties</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>timestamp</code></em> :</span></p></td>
+<td>the time that should be processed</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>last_sync</code></em> :</span></p></td>
+<td>the last time this was called</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the controller value could be applied to the object
+property, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-control-binding-get-value"></a><h3>gst_control_binding_get_value ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="returnvalue">GValue</span></a> *            gst_control_binding_get_value       (<em class="parameter"><code><a class="link" href="GstControlBinding.html" title="GstControlBinding"><span class="type">GstControlBinding</span></a> *binding</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="type">GstClockTime</span></a> timestamp</code></em>);</pre>
+<p>
+Gets the value for the given controlled property at the requested time.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>binding</code></em> :</span></p></td>
+<td>the control binding</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>timestamp</code></em> :</span></p></td>
+<td>the time the control-change should be read from</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the GValue of the property at the given time, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if the
+property isn't controlled.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-control-binding-get-value-array"></a><h3>gst_control_binding_get_value_array ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_control_binding_get_value_array (<em class="parameter"><code><a class="link" href="GstControlBinding.html" title="GstControlBinding"><span class="type">GstControlBinding</span></a> *binding</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="type">GstClockTime</span></a> timestamp</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="type">GstClockTime</span></a> interval</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> n_values</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> values</code></em>);</pre>
+<p>
+Gets a number of values for the given controlled property starting at the
+requested time. The array <em class="parameter"><code>values</code></em> need to hold enough space for <em class="parameter"><code>n_values</code></em> of
+the same type as the objects property's type.
+</p>
+<p>
+This function is useful if one wants to e.g. draw a graph of the control
+curve or apply a control curve sample by sample.
+</p>
+<p>
+The values are unboxed and ready to be used. The similar function 
+<a class="link" href="GstControlBinding.html#gst-control-binding-get-g-value-array" title="gst_control_binding_get_g_value_array ()"><code class="function">gst_control_binding_get_g_value_array()</code></a> returns the array as <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValues</span></a> and is
+more suitable for bindings.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>binding</code></em> :</span></p></td>
+<td>the control binding</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>timestamp</code></em> :</span></p></td>
+<td>the time that should be processed</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>interval</code></em> :</span></p></td>
+<td>the time spacing between subsequent values</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>n_values</code></em> :</span></p></td>
+<td>the number of values</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>values</code></em> :</span></p></td>
+<td>array to put control-values in</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the given array could be filled, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-control-binding-get-g-value-array"></a><h3>gst_control_binding_get_g_value_array ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_control_binding_get_g_value_array
+                                                        (<em class="parameter"><code><a class="link" href="GstControlBinding.html" title="GstControlBinding"><span class="type">GstControlBinding</span></a> *binding</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="type">GstClockTime</span></a> timestamp</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="type">GstClockTime</span></a> interval</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> n_values</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *values</code></em>);</pre>
+<p>
+Gets a number of <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValues</span></a> for the given controlled property starting at the
+requested time. The array <em class="parameter"><code>values</code></em> need to hold enough space for <em class="parameter"><code>n_values</code></em> of
+<a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a>.
+</p>
+<p>
+This function is useful if one wants to e.g. draw a graph of the control
+curve or apply a control curve sample by sample.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>binding</code></em> :</span></p></td>
+<td>the control binding</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>timestamp</code></em> :</span></p></td>
+<td>the time that should be processed</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>interval</code></em> :</span></p></td>
+<td>the time spacing between subsequent values</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>n_values</code></em> :</span></p></td>
+<td>the number of values</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>values</code></em> :</span></p></td>
+<td>array to put control-values in</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the given array could be filled, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-control-binding-set-disabled"></a><h3>gst_control_binding_set_disabled ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_control_binding_set_disabled    (<em class="parameter"><code><a class="link" href="GstControlBinding.html" title="GstControlBinding"><span class="type">GstControlBinding</span></a> *binding</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> disabled</code></em>);</pre>
+<p>
+This function is used to disable a control binding for some time, i.e.
+<a class="link" href="GstObject.html#gst-object-sync-values" title="gst_object_sync_values ()"><code class="function">gst_object_sync_values()</code></a> will do nothing.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>binding</code></em> :</span></p></td>
+<td>the control binding</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>disabled</code></em> :</span></p></td>
+<td>boolean that specifies whether to disable the controller
+or not.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-control-binding-is-disabled"></a><h3>gst_control_binding_is_disabled ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_control_binding_is_disabled     (<em class="parameter"><code><a class="link" href="GstControlBinding.html" title="GstControlBinding"><span class="type">GstControlBinding</span></a> *binding</code></em>);</pre>
+<p>
+Check if the control binding is disabled.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>binding</code></em> :</span></p></td>
+<td>the control binding</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the binding is inactive</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="GstControlBinding.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GstControlBinding--name"></a><h3>The <code class="literal">"name"</code> property</h3>
+<pre class="programlisting">  "name"                     <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct Only</pre>
+<p>The name of the property.</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstControlBinding--object"></a><h3>The <code class="literal">"object"</code> property</h3>
+<pre class="programlisting">  "object"                   <a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a>*            : Read / Write / Construct Only</pre>
+<p>The object of the property.</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

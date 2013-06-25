@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>flacparse</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer Good Plugins 1.0 Plugins Reference Manual">
+<link rel="up" href="ch01.html" title="gst-plugins-good Elements">
+<link rel="prev" href="gst-plugins-good-plugins-flacenc.html" title="flacenc">
+<link rel="next" href="gst-plugins-good-plugins-flactag.html" title="flactag">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gst-plugins-good-plugins-flacenc.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer Good Plugins 1.0 Plugins Reference Manual</th>
+<td><a accesskey="n" href="gst-plugins-good-plugins-flactag.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gst-plugins-good-plugins-flacparse.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gst-plugins-good-plugins-flacparse.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#gst-plugins-good-plugins-flacparse.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#gst-plugins-good-plugins-flacparse.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gst-plugins-good-plugins-flacparse"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gst-plugins-good-plugins-flacparse.top_of_page"></a>flacparse</span></h2>
+<p>flacparse — Parses audio with the FLAC lossless audio codec</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gst-plugins-good-plugins-flacparse.synopsis"></a><h2>Synopsis</h2>
+<a name="GstFlacParse"></a><pre class="synopsis">struct              <a class="link" href="gst-plugins-good-plugins-flacparse.html#GstFlacParse-struct" title="struct GstFlacParse">GstFlacParse</a>;
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-good-plugins-flacparse.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstObject.html">GstObject</a>
+               +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html">GstElement</a>
+                     +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer-libs/html/gstreamer-libs-GstBaseParse.html#GstBaseParse">GstBaseParse</a>
+                           +----GstFlacParse
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-good-plugins-flacparse.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="gst-plugins-good-plugins-flacparse.html#GstFlacParse--check-frame-checksums" title='The "check-frame-checksums" property'>check-frame-checksums</a>"    <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-good-plugins-flacparse.description"></a><h2>Description</h2>
+<p>
+The flacparse element will parse the header packets of the FLAC
+stream and put them as the streamheader in the caps. This is used in the
+multifdsink case where you want to stream live FLAC streams to multiple
+clients, each client has to receive the streamheaders first before they can
+consume the FLAC packets.
+</p>
+<p>
+This element also makes sure that the buffers that it pushes out are properly
+timestamped and that their offset and offset_end are set. The buffers that
+flacparse outputs have all of the metadata that oggmux expects to receive,
+which allows you to (for example) remux an ogg/flac or convert a native FLAC
+format file to an ogg bitstream.
+</p>
+<p>
+</p>
+<div class="refsect2">
+<a name="idp6256816"></a><h3>Example pipelines</h3>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2</pre></td>
+        <td class="listing_code"><pre class="programlisting">gst<span class="gtkdoc opt">-</span>launch<span class="gtkdoc opt">-</span><span class="number">1.0</span> <span class="gtkdoc opt">-</span>v filesrc location<span class="gtkdoc opt">=</span>sine<span class="gtkdoc opt">.</span>flac <span class="gtkdoc opt">!</span> flacparse <span class="gtkdoc opt">!</span> identity \
+           <span class="gtkdoc opt">!</span> oggmux <span class="gtkdoc opt">!</span> filesink location<span class="gtkdoc opt">=</span>sine<span class="gtkdoc opt">-</span>remuxed<span class="gtkdoc opt">.</span>ogg</pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+ This pipeline converts a native FLAC format file to an ogg bitstream.
+It also illustrates that the streamheader is set in the caps, and that each
+buffer has the timestamp, duration, offset, and offset_end set.
+</div>
+<p>
+</p>
+<div class="refsynopsisdiv">
+<h2>Synopsis</h2>
+<div class="refsect2">
+<a name="idp2279584"></a><h3>Element Information</h3>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">plugin</span></p></td>
+<td>
+            audioparsers
+          </td>
+</tr>
+<tr>
+<td><p><span class="term">author</span></p></td>
+<td>Sebastian Dröge &lt;sebastian.droege@collabora.co.uk&gt;</td>
+</tr>
+<tr>
+<td><p><span class="term">class</span></p></td>
+<td>Codec/Parser/Audio</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="idp6525408"></a><h3>Element Pads</h3>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">name</span></p></td>
+<td>sink</td>
+</tr>
+<tr>
+<td><p><span class="term">direction</span></p></td>
+<td>sink</td>
+</tr>
+<tr>
+<td><p><span class="term">presence</span></p></td>
+<td>always</td>
+</tr>
+<tr>
+<td><p><span class="term">details</span></p></td>
+<td>audio/x-flac</td>
+</tr>
+</tbody>
+</table></div>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">name</span></p></td>
+<td>src</td>
+</tr>
+<tr>
+<td><p><span class="term">direction</span></p></td>
+<td>source</td>
+</tr>
+<tr>
+<td><p><span class="term">presence</span></p></td>
+<td>always</td>
+</tr>
+<tr>
+<td><p><span class="term">details</span></p></td>
+<td>audio/x-flac, framed=(boolean)true, channels=(int)[ 1, 8 ], rate=(int)[ 1, 655350 ]</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<p>
+</p>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-good-plugins-flacparse.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstFlacParse-struct"></a><h3>struct GstFlacParse</h3>
+<pre class="programlisting">struct GstFlacParse;</pre>
+<p>
+</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-good-plugins-flacparse.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GstFlacParse--check-frame-checksums"></a><h3>The <code class="literal">"check-frame-checksums"</code> property</h3>
+<pre class="programlisting">  "check-frame-checksums"    <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write</pre>
+<p>Check the overall checksums of every frame.</p>
+<p>Default value: FALSE</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-good-plugins-flacparse.see-also"></a><h2>See Also</h2>
+flacdec, oggdemux, vorbisparse
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>3gppmux</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer Good Plugins 1.0 Plugins Reference Manual">
+<link rel="up" href="ch01.html" title="gst-plugins-good Elements">
+<link rel="prev" href="ch01.html" title="gst-plugins-good Elements">
+<link rel="next" href="gst-plugins-good-plugins-aacparse.html" title="aacparse">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="ch01.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer Good Plugins 1.0 Plugins Reference Manual</th>
+<td><a accesskey="n" href="gst-plugins-good-plugins-aacparse.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gst-plugins-good-plugins-3gppmux.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gst-plugins-good-plugins-3gppmux.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gst-plugins-good-plugins-3gppmux"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gst-plugins-good-plugins-3gppmux.top_of_page"></a>3gppmux</span></h2>
+<p>3gppmux — Muxer for 3GPP (.3gp) files</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gst-plugins-good-plugins-3gppmux.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis"></pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-good-plugins-3gppmux.description"></a><h2>Description</h2>
+<p>
+This element merges streams (audio and video) into 3GPP (.3gp) files.
+</p>
+<p>
+The following background intends to explain why various similar muxers
+are present in this plugin.
+</p>
+<p>
+The <a class="ulink" href="http://www.apple.com/quicktime/resources/qtfileformat.pdf" target="_top">
+QuickTime file format specification</a> served as basis for the MP4 file
+format specification (mp4mux), and as such the QuickTime file structure is
+nearly identical to the so-called ISO Base Media file format defined in
+ISO 14496-12 (except for some media specific parts).
+In turn, the latter ISO Base Media format was further specialized as a
+Motion JPEG-2000 file format in ISO 15444-3 (mj2mux)
+and in various 3GPP(2) specs (3gppmux).
+The fragmented file features defined (only) in ISO Base Media are used by
+ISMV files making up (a.o.) Smooth Streaming (ismlmux).
+</p>
+<p>
+A few properties (movie-timescale,
+trak-timescale) allow adjusting
+some technical parameters, which might be useful in (rare) cases to resolve
+compatibility issues in some situations.
+</p>
+<p>
+Some other properties influence the result more fundamentally.
+A typical mov/mp4 file's metadata (aka moov) is located at the end of the file,
+somewhat contrary to this usually being called "the header".
+However, a faststart file will
+(with some effort) arrange this to be located near start of the file,
+which then allows it e.g. to be played while downloading.
+Alternatively, rather than having one chunk of metadata at start (or end),
+there can be some metadata at start and most of the other data can be spread
+out into fragments of fragment-duration.
+If such fragmented layout is intended for streaming purposes, then
+streamable allows foregoing to add
+index metadata (at the end of file).
+</p>
+<p>
+dts-method allows selecting a
+method for managing input timestamps (stay tuned for 0.11 to have this
+automagically settled).  The default delta/duration method should handle nice
+(aka perfect streams) just fine, but may experience problems otherwise
+(e.g. input stream with re-ordered B-frames and/or with frame dropping).
+The re-ordering approach re-assigns incoming timestamps in ascending order
+to incoming buffers and offers an alternative in such cases.  In cases where
+that might fail, the remaining method can be tried, which is exact and
+according to specs, but might experience playback on not so spec-wise players.
+Note that this latter approach also requires one to enable
+presentation-timestamp.
+</p>
+<p>
+</p>
+<div class="refsect2">
+<a name="idp7519248"></a><h3>Example pipelines</h3>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1</pre></td>
+        <td class="listing_code"><pre class="programlisting">gst<span class="gtkdoc opt">-</span>launch<span class="gtkdoc opt">-</span><span class="number">1.0</span> v4l2src num<span class="gtkdoc opt">-</span>buffers<span class="gtkdoc opt">=</span><span class="number">50</span> <span class="gtkdoc opt">!</span> queue <span class="gtkdoc opt">!</span> ffenc_h263 <span class="gtkdoc opt">!</span> <span class="number">3</span>gppmux <span class="gtkdoc opt">!</span> filesink location<span class="gtkdoc opt">=</span>video<span class="number">.3</span>gp</pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+Records a video stream captured from a v4l2 device, encodes it into H.263
+and muxes it into an 3gp file.
+</div>
+<p>
+</p>
+<p>
+Documentation last reviewed on 2011-04-21
+</p>
+<div class="refsynopsisdiv">
+<h2>Synopsis</h2>
+<div class="refsect2">
+<a name="idp6449808"></a><h3>Element Information</h3>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">plugin</span></p></td>
+<td>
+            <a class="link" href="gst-plugins-good-plugins-plugin-isomp4.html#plugin-isomp4">isomp4</a>
+          </td>
+</tr>
+<tr>
+<td><p><span class="term">author</span></p></td>
+<td>Thiago Sousa Santos &lt;thiagoss@embedded.ufcg.edu.br&gt;</td>
+</tr>
+<tr>
+<td><p><span class="term">class</span></p></td>
+<td>Codec/Muxer</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="idp8548096"></a><h3>Element Pads</h3>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">name</span></p></td>
+<td>audio_%u</td>
+</tr>
+<tr>
+<td><p><span class="term">direction</span></p></td>
+<td>sink</td>
+</tr>
+<tr>
+<td><p><span class="term">presence</span></p></td>
+<td>request</td>
+</tr>
+<tr>
+<td><p><span class="term">details</span></p></td>
+<td>audio/AMR, rate=(int)8000, channels=(int)[ 1, 2 ]</td>
+</tr>
+<tr>
+<td><p><span class="term"></span></p></td>
+<td> audio/AMR-WB, rate=(int)16000, channels=(int)[ 1, 2 ]</td>
+</tr>
+<tr>
+<td><p><span class="term"></span></p></td>
+<td> audio/mpeg, mpegversion=(int)1, layer=(int)3, channels=(int)[ 1, 2 ], rate=(int)[ 1, 2147483647 ]</td>
+</tr>
+<tr>
+<td><p><span class="term"></span></p></td>
+<td> audio/mpeg, mpegversion=(int)4, stream-format=(string)raw, channels=(int)[ 1, 8 ], rate=(int)[ 1, 2147483647 ]</td>
+</tr>
+</tbody>
+</table></div>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">name</span></p></td>
+<td>video_%u</td>
+</tr>
+<tr>
+<td><p><span class="term">direction</span></p></td>
+<td>sink</td>
+</tr>
+<tr>
+<td><p><span class="term">presence</span></p></td>
+<td>request</td>
+</tr>
+<tr>
+<td><p><span class="term">details</span></p></td>
+<td>video/x-h263, width=(int)[ 16, 4096 ], height=(int)[ 16, 4096 ], framerate=(fraction)[ 0/1, 2147483647/1 ]</td>
+</tr>
+<tr>
+<td><p><span class="term"></span></p></td>
+<td> video/mpeg, mpegversion=(int)4, systemstream=(boolean)false, width=(int)[ 16, 4096 ], height=(int)[ 16, 4096 ], framerate=(fraction)[ 0/1, 2147483647/1 ]</td>
+</tr>
+<tr>
+<td><p><span class="term"></span></p></td>
+<td> video/x-divx, divxversion=(int)5, width=(int)[ 16, 4096 ], height=(int)[ 16, 4096 ], framerate=(fraction)[ 0/1, 2147483647/1 ]</td>
+</tr>
+<tr>
+<td><p><span class="term"></span></p></td>
+<td> video/x-h264, stream-format=(string)avc, alignment=(string)au, width=(int)[ 16, 4096 ], height=(int)[ 16, 4096 ], framerate=(fraction)[ 0/1, 2147483647/1 ]</td>
+</tr>
+</tbody>
+</table></div>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">name</span></p></td>
+<td>src</td>
+</tr>
+<tr>
+<td><p><span class="term">direction</span></p></td>
+<td>source</td>
+</tr>
+<tr>
+<td><p><span class="term">presence</span></p></td>
+<td>always</td>
+</tr>
+<tr>
+<td><p><span class="term">details</span></p></td>
+<td>video/quicktime, variant=(string)3gpp</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<p>
+</p>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-good-plugins-3gppmux.details"></a><h2>Details</h2>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

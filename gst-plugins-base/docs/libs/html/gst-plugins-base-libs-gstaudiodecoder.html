@@ -1,0 +1,1259 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>gstaudiodecoder</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer Base Plugins 1.0 Library Reference Manual">
+<link rel="up" href="gstreamer-audio.html" title="Audio Library">
+<link rel="prev" href="gst-plugins-base-libs-gstaudioclock.html" title="gstaudioclock">
+<link rel="next" href="gst-plugins-base-libs-gstaudioencoder.html" title="gstaudioencoder">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gst-plugins-base-libs-gstaudioclock.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="gstreamer-audio.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer Base Plugins 1.0 Library Reference Manual</th>
+<td><a accesskey="n" href="gst-plugins-base-libs-gstaudioencoder.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gst-plugins-base-libs-gstaudiodecoder.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gst-plugins-base-libs-gstaudiodecoder.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#gst-plugins-base-libs-gstaudiodecoder.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#gst-plugins-base-libs-gstaudiodecoder.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gst-plugins-base-libs-gstaudiodecoder"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gst-plugins-base-libs-gstaudiodecoder.top_of_page"></a>gstaudiodecoder</span></h2>
+<p>gstaudiodecoder — Base class for audio decoders</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gst-plugins-base-libs-gstaudiodecoder.synopsis"></a><h2>Synopsis</h2>
+<a name="GstAudioDecoder"></a><pre class="synopsis">
+#include &lt;gst/audio/gstaudiodecoder.h&gt;
+
+struct              <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder-struct" title="struct GstAudioDecoder">GstAudioDecoder</a>;
+struct              <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoderClass" title="struct GstAudioDecoderClass">GstAudioDecoderClass</a>;
+#define             <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GST-AUDIO-DECODER-ERROR:CAPS" title="GST_AUDIO_DECODER_ERROR()">GST_AUDIO_DECODER_ERROR</a>             (el,
+                                                         weight,
+                                                         domain,
+                                                         code,
+                                                         text,
+                                                         debug,
+                                                         ret)
+#define             <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GST-AUDIO-DECODER-SINK-NAME:CAPS" title="GST_AUDIO_DECODER_SINK_NAME">GST_AUDIO_DECODER_SINK_NAME</a>
+#define             <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GST-AUDIO-DECODER-SINK-PAD:CAPS" title="GST_AUDIO_DECODER_SINK_PAD()">GST_AUDIO_DECODER_SINK_PAD</a>          (obj)
+#define             <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GST-AUDIO-DECODER-SRC-NAME:CAPS" title="GST_AUDIO_DECODER_SRC_NAME">GST_AUDIO_DECODER_SRC_NAME</a>
+#define             <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GST-AUDIO-DECODER-SRC-PAD:CAPS" title="GST_AUDIO_DECODER_SRC_PAD()">GST_AUDIO_DECODER_SRC_PAD</a>           (obj)
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPad.html#GstFlowReturn"><span class="returnvalue">GstFlowReturn</span></a>       <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#gst-audio-decoder-finish-frame" title="gst_audio_decoder_finish_frame ()">gst_audio_decoder_finish_frame</a>      (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *buf</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> frames</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#gst-audio-decoder-set-output-format" title="gst_audio_decoder_set_output_format ()">gst_audio_decoder_set_output_format</a> (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioInfo" title="struct GstAudioInfo"><span class="type">GstAudioInfo</span></a> *info</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#gst-audio-decoder-negotiate" title="gst_audio_decoder_negotiate ()">gst_audio_decoder_negotiate</a>         (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>);
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="returnvalue">GstBuffer</span></a> *         <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#gst-audio-decoder-allocate-output-buffer" title="gst_audio_decoder_allocate_output_buffer ()">gst_audio_decoder_allocate_output_buffer</a>
+                                                        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>,
+                                                         <em class="parameter"><code><span class="type">gsize</span> size</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#gst-audio-decoder-get-allocator" title="gst_audio_decoder_get_allocator ()">gst_audio_decoder_get_allocator</a>     (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstAllocator.html"><span class="type">GstAllocator</span></a> **allocator</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstAllocator.html#GstAllocationParams"><span class="type">GstAllocationParams</span></a> *params</code></em>);
+<a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioInfo" title="struct GstAudioInfo"><span class="returnvalue">GstAudioInfo</span></a> *      <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#gst-audio-decoder-get-audio-info" title="gst_audio_decoder_get_audio_info ()">gst_audio_decoder_get_audio_info</a>    (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>                <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#gst-audio-decoder-get-estimate-rate" title="gst_audio_decoder_get_estimate_rate ()">gst_audio_decoder_get_estimate_rate</a> (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>                <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#gst-audio-decoder-get-delay" title="gst_audio_decoder_get_delay ()">gst_audio_decoder_get_delay</a>         (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#gst-audio-decoder-get-drainable" title="gst_audio_decoder_get_drainable ()">gst_audio_decoder_get_drainable</a>     (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#gst-audio-decoder-get-latency" title="gst_audio_decoder_get_latency ()">gst_audio_decoder_get_latency</a>       (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockTime"><span class="type">GstClockTime</span></a> *min</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockTime"><span class="type">GstClockTime</span></a> *max</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>                <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#gst-audio-decoder-get-max-errors" title="gst_audio_decoder_get_max_errors ()">gst_audio_decoder_get_max_errors</a>    (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>);
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockTime"><span class="returnvalue">GstClockTime</span></a>        <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#gst-audio-decoder-get-min-latency" title="gst_audio_decoder_get_min_latency ()">gst_audio_decoder_get_min_latency</a>   (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#gst-audio-decoder-get-needs-format" title="gst_audio_decoder_get_needs_format ()">gst_audio_decoder_get_needs_format</a>  (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#gst-audio-decoder-get-parse-state" title="gst_audio_decoder_get_parse_state ()">gst_audio_decoder_get_parse_state</a>   (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> *sync</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> *eos</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#gst-audio-decoder-get-plc" title="gst_audio_decoder_get_plc ()">gst_audio_decoder_get_plc</a>           (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>                <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#gst-audio-decoder-get-plc-aware" title="gst_audio_decoder_get_plc_aware ()">gst_audio_decoder_get_plc_aware</a>     (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>);
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockTime"><span class="returnvalue">GstClockTime</span></a>        <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#gst-audio-decoder-get-tolerance" title="gst_audio_decoder_get_tolerance ()">gst_audio_decoder_get_tolerance</a>     (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#gst-audio-decoder-set-estimate-rate" title="gst_audio_decoder_set_estimate_rate ()">gst_audio_decoder_set_estimate_rate</a> (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> enabled</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#gst-audio-decoder-set-drainable" title="gst_audio_decoder_set_drainable ()">gst_audio_decoder_set_drainable</a>     (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> enabled</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#gst-audio-decoder-set-latency" title="gst_audio_decoder_set_latency ()">gst_audio_decoder_set_latency</a>       (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockTime"><span class="type">GstClockTime</span></a> min</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockTime"><span class="type">GstClockTime</span></a> max</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#gst-audio-decoder-set-max-errors" title="gst_audio_decoder_set_max_errors ()">gst_audio_decoder_set_max_errors</a>    (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> num</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#gst-audio-decoder-set-min-latency" title="gst_audio_decoder_set_min_latency ()">gst_audio_decoder_set_min_latency</a>   (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockTime"><span class="type">GstClockTime</span></a> num</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#gst-audio-decoder-set-needs-format" title="gst_audio_decoder_set_needs_format ()">gst_audio_decoder_set_needs_format</a>  (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> enabled</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#gst-audio-decoder-set-plc" title="gst_audio_decoder_set_plc ()">gst_audio_decoder_set_plc</a>           (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> enabled</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#gst-audio-decoder-set-plc-aware" title="gst_audio_decoder_set_plc_aware ()">gst_audio_decoder_set_plc_aware</a>     (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> plc</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#gst-audio-decoder-set-tolerance" title="gst_audio_decoder_set_tolerance ()">gst_audio_decoder_set_tolerance</a>     (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockTime"><span class="type">GstClockTime</span></a> tolerance</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#gst-audio-decoder-merge-tags" title="gst_audio_decoder_merge_tags ()">gst_audio_decoder_merge_tags</a>        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstTagList.html#GstTagList"><span class="type">GstTagList</span></a> *tags</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstTagList.html#GstTagMergeMode"><span class="type">GstTagMergeMode</span></a> mode</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-libs-gstaudiodecoder.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstObject.html">GstObject</a>
+               +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html">GstElement</a>
+                     +----GstAudioDecoder
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-libs-gstaudiodecoder.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder--min-latency" title='The "min-latency" property'>min-latency</a>"              <span class="type">gint64</span>                : Read / Write
+  "<a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder--plc" title='The "plc" property'>plc</a>"                      <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write
+  "<a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder--tolerance" title='The "tolerance" property'>tolerance</a>"                <span class="type">gint64</span>                : Read / Write
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-libs-gstaudiodecoder.description"></a><h2>Description</h2>
+<p>
+This base class is for audio decoders turning encoded data into
+raw audio samples.
+</p>
+<p>
+GstAudioDecoder and subclass should cooperate as follows.
+</p>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem"><div class="itemizedlist">
+<p class="title"><b>Configuration</b></p>
+<ul class="itemizedlist" type="disc">
+<li class="listitem"><p>
+    Initially, GstAudioDecoder calls <em class="parameter"><code>start</code></em> when the decoder element
+    is activated, which allows subclass to perform any global setup.
+    Base class (context) parameters can already be set according to subclass
+    capabilities (or possibly upon receive more information in subsequent
+    <em class="parameter"><code>set_format</code></em>).
+  </p></li>
+<li class="listitem"><p>
+    GstAudioDecoder calls <em class="parameter"><code>set_format</code></em> to inform subclass of the format
+    of input audio data that it is about to receive.
+    While unlikely, it might be called more than once, if changing input
+    parameters require reconfiguration.
+  </p></li>
+<li class="listitem"><p>
+    GstAudioDecoder calls <em class="parameter"><code>stop</code></em> at end of all processing.
+  </p></li>
+</ul>
+</div></li>
+<li class="listitem"><div class="itemizedlist">
+<p class="title"><b>Data processing</b></p>
+<ul class="itemizedlist" type="disc">
+<li class="listitem"><p>
+      Base class gathers input data, and optionally allows subclass
+      to parse this into subsequently manageable (as defined by subclass)
+      chunks.  Such chunks are subsequently referred to as 'frames',
+      though they may or may not correspond to 1 (or more) audio format frame.
+    </p></li>
+<li class="listitem"><p>
+      Input frame is provided to subclass' <em class="parameter"><code>handle_frame</code></em>.
+    </p></li>
+<li class="listitem"><p>
+      If codec processing results in decoded data, subclass should call
+      <em class="parameter"><code>gst_audio_decoder_finish_frame</code></em> to have decoded data pushed
+      downstream.
+    </p></li>
+<li class="listitem"><p>
+      Just prior to actually pushing a buffer downstream,
+      it is passed to <em class="parameter"><code>pre_push</code></em>.  Subclass should either use this callback
+      to arrange for additional downstream pushing or otherwise ensure such
+      custom pushing occurs after at least a method call has finished since
+      setting src pad caps.
+    </p></li>
+<li class="listitem"><p>
+      During the parsing process GstAudioDecoderClass will handle both
+      srcpad and sinkpad events. Sink events will be passed to subclass
+      if <em class="parameter"><code>event</code></em> callback has been provided.
+    </p></li>
+</ul>
+</div></li>
+<li class="listitem"><div class="itemizedlist">
+<p class="title"><b>Shutdown phase</b></p>
+<ul class="itemizedlist" type="disc"><li class="listitem"><p>
+    GstAudioDecoder class calls <em class="parameter"><code>stop</code></em> to inform the subclass that data
+    parsing will be stopped.
+  </p></li></ul>
+</div></li>
+</ol></div>
+<p>
+</p>
+<p>
+Subclass is responsible for providing pad template caps for
+source and sink pads. The pads need to be named "sink" and "src". It also
+needs to set the fixed caps on srcpad, when the format is ensured.  This
+is typically when base class calls subclass' <em class="parameter"><code>set_format</code></em> function, though
+it might be delayed until calling <em class="parameter"><code>gst_audio_decoder_finish_frame</code></em>.
+</p>
+<p>
+In summary, above process should have subclass concentrating on
+codec data processing while leaving other matters to base class,
+such as most notably timestamp handling.  While it may exert more control
+in this area (see e.g. <em class="parameter"><code>pre_push</code></em>), it is very much not recommended.
+</p>
+<p>
+In particular, base class will try to arrange for perfect output timestamps
+as much as possible while tracking upstream timestamps.
+To this end, if deviation between the next ideal expected perfect timestamp
+and upstream exceeds <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder--tolerance" title='The "tolerance" property'><span class="type">"tolerance"</span></a>, then resync to upstream
+occurs (which would happen always if the tolerance mechanism is disabled).
+</p>
+<p>
+In non-live pipelines, baseclass can also (configurably) arrange for
+output buffer aggregation which may help to redue large(r) numbers of
+small(er) buffers being pushed and processed downstream.
+</p>
+<p>
+On the other hand, it should be noted that baseclass only provides limited
+seeking support (upon explicit subclass request), as full-fledged support
+should rather be left to upstream demuxer, parser or alike.  This simple
+approach caters for seeking and duration reporting using estimated input
+bitrates.
+</p>
+<p>
+Things that subclass need to take care of:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem"><p>Provide pad templates</p></li>
+<li class="listitem"><p>
+     Set source pad caps when appropriate
+  </p></li>
+<li class="listitem"><p>
+     Set user-configurable properties to sane defaults for format and
+     implementing codec at hand, and convey some subclass capabilities and
+     expectations in context.
+  </p></li>
+<li class="listitem"><p>
+     Accept data in <em class="parameter"><code>handle_frame</code></em> and provide encoded results to
+     <em class="parameter"><code>gst_audio_decoder_finish_frame</code></em>.  If it is prepared to perform
+     PLC, it should also accept NULL data in <em class="parameter"><code>handle_frame</code></em> and provide for
+     data for indicated duration.
+  </p></li>
+</ul></div>
+<p>
+</p>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-libs-gstaudiodecoder.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstAudioDecoder-struct"></a><h3>struct GstAudioDecoder</h3>
+<pre class="programlisting">struct GstAudioDecoder;</pre>
+<p>
+The opaque <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> data structure.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstAudioDecoderClass"></a><h3>struct GstAudioDecoderClass</h3>
+<pre class="programlisting">struct GstAudioDecoderClass {
+  GstElementClass element_class;
+
+  /* virtual methods for subclasses */
+
+  gboolean      (*start)              (GstAudioDecoder *dec);
+
+  gboolean      (*stop)               (GstAudioDecoder *dec);
+
+  gboolean      (*set_format)         (GstAudioDecoder *dec,
+                                       GstCaps *caps);
+
+  GstFlowReturn (*parse)              (GstAudioDecoder *dec,
+                                       GstAdapter *adapter,
+                                       gint *offset, gint *length);
+
+  GstFlowReturn (*handle_frame)       (GstAudioDecoder *dec,
+                                       GstBuffer *buffer);
+
+  void          (*flush)              (GstAudioDecoder *dec, gboolean hard);
+
+  GstFlowReturn (*pre_push)           (GstAudioDecoder *dec,
+                                       GstBuffer **buffer);
+
+  gboolean      (*sink_event)         (GstAudioDecoder *dec,
+                                       GstEvent *event);
+  gboolean      (*src_event)          (GstAudioDecoder *dec,
+                                       GstEvent *event);
+
+  gboolean      (*open)               (GstAudioDecoder *dec);
+  
+  gboolean      (*close)              (GstAudioDecoder *dec);
+
+  gboolean      (*negotiate)          (GstAudioDecoder *dec);
+
+  gboolean      (*decide_allocation)  (GstAudioDecoder *dec, GstQuery *query);
+
+  gboolean      (*propose_allocation) (GstAudioDecoder *dec,
+                                       GstQuery * query);
+};
+</pre>
+<p>
+Subclasses can override any of the available virtual methods or not, as
+needed. At minimum <em class="parameter"><code>handle_frame</code></em> (and likely <em class="parameter"><code>set_format</code></em>) needs to be
+overridden.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html#GstElementClass"><span class="type">GstElementClass</span></a> <em class="structfield"><code><a name="GstAudioDecoderClass.element-class"></a>element_class</code></em>;</span></p></td>
+<td>The parent class structure</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GstAudioDecoderClass.start"></a>start</code></em> ()</span></p></td>
+<td>Optional.
+Called when the element starts processing.
+Allows opening external resources.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GstAudioDecoderClass.stop"></a>stop</code></em> ()</span></p></td>
+<td>Optional.
+Called when the element stops processing.
+Allows closing external resources.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GstAudioDecoderClass.set-format"></a>set_format</code></em> ()</span></p></td>
+<td>Notifies subclass of incoming data format (caps).</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GstAudioDecoderClass.parse"></a>parse</code></em> ()</span></p></td>
+<td>Optional.
+Allows chopping incoming data into manageable units (frames)
+for subsequent decoding.  This division is at subclass
+discretion and may or may not correspond to 1 (or more)
+frames as defined by audio format.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GstAudioDecoderClass.handle-frame"></a>handle_frame</code></em> ()</span></p></td>
+<td>Provides input data (or NULL to clear any remaining data)
+to subclass.  Input data ref management is performed by
+base class, subclass should not care or intervene,
+and input data is only valid until next call to base class,
+most notably a call to <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#gst-audio-decoder-finish-frame" title="gst_audio_decoder_finish_frame ()"><code class="function">gst_audio_decoder_finish_frame()</code></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GstAudioDecoderClass.flush"></a>flush</code></em> ()</span></p></td>
+<td>Optional.
+Instructs subclass to clear any codec caches and discard
+any pending samples and not yet returned decoded data.
+<em class="parameter"><code>hard</code></em> indicates whether a FLUSH is being processed,
+or otherwise a DISCONT (or conceptually similar).</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GstAudioDecoderClass.pre-push"></a>pre_push</code></em> ()</span></p></td>
+<td>Optional.
+Called just prior to pushing (encoded data) buffer downstream.
+Subclass has full discretionary access to buffer,
+and a not OK flow return will abort downstream pushing.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GstAudioDecoderClass.sink-event"></a>sink_event</code></em> ()</span></p></td>
+<td>Optional.
+Event handler on the sink pad. Subclasses should chain up to
+the parent implementation to invoke the default handler.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GstAudioDecoderClass.src-event"></a>src_event</code></em> ()</span></p></td>
+<td>Optional.
+Event handler on the src pad. Subclasses should chain up to
+the parent implementation to invoke the default handler.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GstAudioDecoderClass.open"></a>open</code></em> ()</span></p></td>
+<td>Optional.
+Called when the element changes to GST_STATE_READY.
+Allows opening external resources.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GstAudioDecoderClass.close"></a>close</code></em> ()</span></p></td>
+<td>Optional.
+Called when the element changes to GST_STATE_NULL.
+Allows closing external resources.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GstAudioDecoderClass.negotiate"></a>negotiate</code></em> ()</span></p></td>
+<td>Optional.
+Negotiate with downstream and configure buffer pools, etc.
+Subclasses should chain up to the parent implementation to
+invoke the default handler.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GstAudioDecoderClass.decide-allocation"></a>decide_allocation</code></em> ()</span></p></td>
+<td>Optional.
+Setup the allocation parameters for allocating output
+buffers. The passed in query contains the result of the
+downstream allocation query.
+Subclasses should chain up to the parent implementation to
+invoke the default handler.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GstAudioDecoderClass.propose-allocation"></a>propose_allocation</code></em> ()</span></p></td>
+<td>Optional.
+Propose buffer allocation parameters for upstream elements.
+Subclasses should chain up to the parent implementation to
+invoke the default handler.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-AUDIO-DECODER-ERROR:CAPS"></a><h3>GST_AUDIO_DECODER_ERROR()</h3>
+<pre class="programlisting">#define             GST_AUDIO_DECODER_ERROR(el, weight, domain, code, text, debug, ret)</pre>
+<p>
+Utility function that audio decoder elements can use in case they encountered
+a data processing error that may be fatal for the current "data unit" but
+need not prevent subsequent decoding.  Such errors are counted and if there
+are too many, as configured in the context's max_errors, the pipeline will
+post an error message and the application will be requested to stop further
+media processing.  Otherwise, it is considered a "glitch" and only a warning
+is logged. In either case, <em class="parameter"><code>ret</code></em> is set to the proper value to
+return to upstream/caller (indicating either GST_FLOW_ERROR or GST_FLOW_OK).
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>el</code></em> :</span></p></td>
+<td>the base audio decoder element that generates the error</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>weight</code></em> :</span></p></td>
+<td>element defined weight of the error, added to error count</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>domain</code></em> :</span></p></td>
+<td>like CORE, LIBRARY, RESOURCE or STREAM (see <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstGError.html"><span class="type">gstreamer-GstGError</span></a>)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>code</code></em> :</span></p></td>
+<td>error code defined for that domain (see <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstGError.html"><span class="type">gstreamer-GstGError</span></a>)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>text</code></em> :</span></p></td>
+<td>the message to display (format string and args enclosed in
+parentheses)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>debug</code></em> :</span></p></td>
+<td>debugging information for the message (format string and args
+enclosed in parentheses)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ret</code></em> :</span></p></td>
+<td>variable to receive return value</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-AUDIO-DECODER-SINK-NAME:CAPS"></a><h3>GST_AUDIO_DECODER_SINK_NAME</h3>
+<pre class="programlisting">#define GST_AUDIO_DECODER_SINK_NAME    "sink"
+</pre>
+<p>
+The name of the templates for the sink pad.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-AUDIO-DECODER-SINK-PAD:CAPS"></a><h3>GST_AUDIO_DECODER_SINK_PAD()</h3>
+<pre class="programlisting">#define GST_AUDIO_DECODER_SINK_PAD(obj)        (((GstAudioDecoder *) (obj))-&gt;sinkpad)
+</pre>
+<p>
+Gives the pointer to the sink <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPad.html"><span class="type">GstPad</span></a> object of the element.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>base audio codec instance</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-AUDIO-DECODER-SRC-NAME:CAPS"></a><h3>GST_AUDIO_DECODER_SRC_NAME</h3>
+<pre class="programlisting">#define GST_AUDIO_DECODER_SRC_NAME     "src"
+</pre>
+<p>
+The name of the templates for the source pad.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-AUDIO-DECODER-SRC-PAD:CAPS"></a><h3>GST_AUDIO_DECODER_SRC_PAD()</h3>
+<pre class="programlisting">#define GST_AUDIO_DECODER_SRC_PAD(obj)         (((GstAudioDecoder *) (obj))-&gt;srcpad)
+</pre>
+<p>
+Gives the pointer to the source <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPad.html"><span class="type">GstPad</span></a> object of the element.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>base audio codec instance</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-decoder-finish-frame"></a><h3>gst_audio_decoder_finish_frame ()</h3>
+<pre class="programlisting"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPad.html#GstFlowReturn"><span class="returnvalue">GstFlowReturn</span></a>       gst_audio_decoder_finish_frame      (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *buf</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> frames</code></em>);</pre>
+<p>
+Collects decoded data and pushes it downstream.
+</p>
+<p>
+<em class="parameter"><code>buf</code></em> may be NULL in which case the indicated number of frames
+are discarded and considered to have produced no output
+(e.g. lead-in or setup frames).
+Otherwise, source pad caps must be set when it is called with valid
+data in <em class="parameter"><code>buf</code></em>.
+</p>
+<p>
+Note that a frame received in <code class="function">gst_audio_decoder_handle_frame()</code> may be
+invalidated by a call to this function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dec</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>buf</code></em> :</span></p></td>
+<td>decoded data</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>frames</code></em> :</span></p></td>
+<td>number of decoded frames represented by decoded data</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPad.html#GstFlowReturn"><span class="type">GstFlowReturn</span></a> that should be escalated to caller (of caller)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-decoder-set-output-format"></a><h3>gst_audio_decoder_set_output_format ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_audio_decoder_set_output_format (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioInfo" title="struct GstAudioInfo"><span class="type">GstAudioInfo</span></a> *info</code></em>);</pre>
+<p>
+Configure output info on the srcpad of <em class="parameter"><code>dec</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dec</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>info</code></em> :</span></p></td>
+<td><a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioInfo" title="struct GstAudioInfo"><span class="type">GstAudioInfo</span></a></td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-decoder-negotiate"></a><h3>gst_audio_decoder_negotiate ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_audio_decoder_negotiate         (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>);</pre>
+<p>
+Negotiate with downstreame elements to currently configured <a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioInfo" title="struct GstAudioInfo"><span class="type">GstAudioInfo</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dec</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><span class="type">TRUE</span></a> if the negotiation succeeded, else <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><span class="type">FALSE</span></a>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-decoder-allocate-output-buffer"></a><h3>gst_audio_decoder_allocate_output_buffer ()</h3>
+<pre class="programlisting"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="returnvalue">GstBuffer</span></a> *         gst_audio_decoder_allocate_output_buffer
+                                                        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>,
+                                                         <em class="parameter"><code><span class="type">gsize</span> size</code></em>);</pre>
+<p>
+Helper function that allocates a buffer to hold an audio frame
+for <em class="parameter"><code>dec</code></em>'s current output format.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dec</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>size</code></em> :</span></p></td>
+<td>size of the buffer</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>allocated buffer. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-decoder-get-allocator"></a><h3>gst_audio_decoder_get_allocator ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_audio_decoder_get_allocator     (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstAllocator.html"><span class="type">GstAllocator</span></a> **allocator</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstAllocator.html#GstAllocationParams"><span class="type">GstAllocationParams</span></a> *params</code></em>);</pre>
+<p>
+Lets <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> sub-classes to know the memory <em class="parameter"><code>allocator</code></em>
+used by the base class and its <em class="parameter"><code>params</code></em>.
+</p>
+<p>
+Unref the <em class="parameter"><code>allocator</code></em> after use it.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dec</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>allocator</code></em> :</span></p></td>
+<td>the <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstAllocator.html"><span class="type">GstAllocator</span></a>
+used. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>params</code></em> :</span></p></td>
+<td>the
+<span class="type">GstAllocatorParams</span> of <em class="parameter"><code>allocator</code></em>. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-decoder-get-audio-info"></a><h3>gst_audio_decoder_get_audio_info ()</h3>
+<pre class="programlisting"><a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioInfo" title="struct GstAudioInfo"><span class="returnvalue">GstAudioInfo</span></a> *      gst_audio_decoder_get_audio_info    (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dec</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioInfo" title="struct GstAudioInfo"><span class="type">GstAudioInfo</span></a> describing the input audio format</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-decoder-get-estimate-rate"></a><h3>gst_audio_decoder_get_estimate_rate ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>                gst_audio_decoder_get_estimate_rate (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dec</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>currently configured byte to time conversion setting</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-decoder-get-delay"></a><h3>gst_audio_decoder_get_delay ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>                gst_audio_decoder_get_delay         (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dec</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>currently configured decoder delay</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-decoder-get-drainable"></a><h3>gst_audio_decoder_get_drainable ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_audio_decoder_get_drainable     (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>);</pre>
+<p>
+Queries decoder drain handling.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dec</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE if drainable handling is enabled.
+MT safe.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-decoder-get-latency"></a><h3>gst_audio_decoder_get_latency ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_audio_decoder_get_latency       (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockTime"><span class="type">GstClockTime</span></a> *min</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockTime"><span class="type">GstClockTime</span></a> *max</code></em>);</pre>
+<p>
+Sets the variables pointed to by <em class="parameter"><code>min</code></em> and <em class="parameter"><code>max</code></em> to the currently configured
+latency.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dec</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>min</code></em> :</span></p></td>
+<td>a pointer to storage to hold minimum latency. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>max</code></em> :</span></p></td>
+<td>a pointer to storage to hold maximum latency. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-decoder-get-max-errors"></a><h3>gst_audio_decoder_get_max_errors ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>                gst_audio_decoder_get_max_errors    (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dec</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>currently configured decoder tolerated error count.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-decoder-get-min-latency"></a><h3>gst_audio_decoder_get_min_latency ()</h3>
+<pre class="programlisting"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockTime"><span class="returnvalue">GstClockTime</span></a>        gst_audio_decoder_get_min_latency   (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>);</pre>
+<p>
+Queries decoder's latency aggregation.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dec</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>aggregation latency.
+MT safe.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-decoder-get-needs-format"></a><h3>gst_audio_decoder_get_needs_format ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_audio_decoder_get_needs_format  (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>);</pre>
+<p>
+Queries decoder required format handling.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dec</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE if required format handling is enabled.
+MT safe.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-decoder-get-parse-state"></a><h3>gst_audio_decoder_get_parse_state ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_audio_decoder_get_parse_state   (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> *sync</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> *eos</code></em>);</pre>
+<p>
+Return current parsing (sync and eos) state.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dec</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sync</code></em> :</span></p></td>
+<td>a pointer to a variable to hold the current sync state</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>eos</code></em> :</span></p></td>
+<td>a pointer to a variable to hold the current eos state</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-decoder-get-plc"></a><h3>gst_audio_decoder_get_plc ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_audio_decoder_get_plc           (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>);</pre>
+<p>
+Queries decoder packet loss concealment handling.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dec</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE if packet loss concealment is enabled.
+MT safe.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-decoder-get-plc-aware"></a><h3>gst_audio_decoder_get_plc_aware ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>                gst_audio_decoder_get_plc_aware     (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dec</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>currently configured plc handling</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-decoder-get-tolerance"></a><h3>gst_audio_decoder_get_tolerance ()</h3>
+<pre class="programlisting"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockTime"><span class="returnvalue">GstClockTime</span></a>        gst_audio_decoder_get_tolerance     (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>);</pre>
+<p>
+Queries current audio jitter tolerance threshold.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dec</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>decoder audio jitter tolerance threshold.
+MT safe.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-decoder-set-estimate-rate"></a><h3>gst_audio_decoder_set_estimate_rate ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_audio_decoder_set_estimate_rate (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> enabled</code></em>);</pre>
+<p>
+Allows baseclass to perform byte to time estimated conversion.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dec</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>enabled</code></em> :</span></p></td>
+<td>whether to enable byte to time conversion</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-decoder-set-drainable"></a><h3>gst_audio_decoder_set_drainable ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_audio_decoder_set_drainable     (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> enabled</code></em>);</pre>
+<p>
+Configures decoder drain handling.  If drainable, subclass might
+be handed a NULL buffer to have it return any leftover decoded data.
+Otherwise, it is not considered so capable and will only ever be passed
+real data.
+</p>
+<p>
+MT safe.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dec</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>enabled</code></em> :</span></p></td>
+<td>new state</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-decoder-set-latency"></a><h3>gst_audio_decoder_set_latency ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_audio_decoder_set_latency       (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockTime"><span class="type">GstClockTime</span></a> min</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockTime"><span class="type">GstClockTime</span></a> max</code></em>);</pre>
+<p>
+Sets decoder latency.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dec</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>min</code></em> :</span></p></td>
+<td>minimum latency</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>max</code></em> :</span></p></td>
+<td>maximum latency</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-decoder-set-max-errors"></a><h3>gst_audio_decoder_set_max_errors ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_audio_decoder_set_max_errors    (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> num</code></em>);</pre>
+<p>
+Sets numbers of tolerated decoder errors, where a tolerated one is then only
+warned about, but more than tolerated will lead to fatal error.  Default
+is set to GST_AUDIO_DECODER_MAX_ERRORS.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dec</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>num</code></em> :</span></p></td>
+<td>max tolerated errors</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-decoder-set-min-latency"></a><h3>gst_audio_decoder_set_min_latency ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_audio_decoder_set_min_latency   (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockTime"><span class="type">GstClockTime</span></a> num</code></em>);</pre>
+<p>
+Sets decoder minimum aggregation latency.
+</p>
+<p>
+MT safe.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dec</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>num</code></em> :</span></p></td>
+<td>new minimum latency</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-decoder-set-needs-format"></a><h3>gst_audio_decoder_set_needs_format ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_audio_decoder_set_needs_format  (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> enabled</code></em>);</pre>
+<p>
+Configures decoder format needs.  If enabled, subclass needs to be
+negotiated with format caps before it can process any data.  It will then
+never be handed any data before it has been configured.
+Otherwise, it might be handed data without having been configured and
+is then expected being able to do so either by default
+or based on the input data.
+</p>
+<p>
+MT safe.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dec</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>enabled</code></em> :</span></p></td>
+<td>new state</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-decoder-set-plc"></a><h3>gst_audio_decoder_set_plc ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_audio_decoder_set_plc           (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> enabled</code></em>);</pre>
+<p>
+Enable or disable decoder packet loss concealment, provided subclass
+and codec are capable and allow handling plc.
+</p>
+<p>
+MT safe.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dec</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>enabled</code></em> :</span></p></td>
+<td>new state</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-decoder-set-plc-aware"></a><h3>gst_audio_decoder_set_plc_aware ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_audio_decoder_set_plc_aware     (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> plc</code></em>);</pre>
+<p>
+Indicates whether or not subclass handles packet loss concealment (plc).
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dec</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>plc</code></em> :</span></p></td>
+<td>new plc state</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-decoder-set-tolerance"></a><h3>gst_audio_decoder_set_tolerance ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_audio_decoder_set_tolerance     (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockTime"><span class="type">GstClockTime</span></a> tolerance</code></em>);</pre>
+<p>
+Configures decoder audio jitter tolerance threshold.
+</p>
+<p>
+MT safe.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dec</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>tolerance</code></em> :</span></p></td>
+<td>new tolerance</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-decoder-merge-tags"></a><h3>gst_audio_decoder_merge_tags ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_audio_decoder_merge_tags        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a> *dec</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstTagList.html#GstTagList"><span class="type">GstTagList</span></a> *tags</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstTagList.html#GstTagMergeMode"><span class="type">GstTagMergeMode</span></a> mode</code></em>);</pre>
+<p>
+Adds tags to so-called pending tags, which will be processed
+before pushing out data downstream.
+</p>
+<p>
+Note that this is provided for convenience, and the subclass is
+not required to use this and can still do tag handling on its own,
+although it should be aware that baseclass already takes care
+of the usual CODEC/AUDIO_CODEC tags.
+</p>
+<p>
+MT safe.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dec</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudiodecoder.html#GstAudioDecoder"><span class="type">GstAudioDecoder</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>tags</code></em> :</span></p></td>
+<td>a <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstTagList.html#GstTagList"><span class="type">GstTagList</span></a> to merge</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mode</code></em> :</span></p></td>
+<td>the <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstTagList.html#GstTagMergeMode"><span class="type">GstTagMergeMode</span></a> to use</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-libs-gstaudiodecoder.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GstAudioDecoder--min-latency"></a><h3>The <code class="literal">"min-latency"</code> property</h3>
+<pre class="programlisting">  "min-latency"              <span class="type">gint64</span>                : Read / Write</pre>
+<p>Aggregate output data to a minimum of latency time (ns).</p>
+<p>Allowed values: &gt;= 0</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstAudioDecoder--plc"></a><h3>The <code class="literal">"plc"</code> property</h3>
+<pre class="programlisting">  "plc"                      <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write</pre>
+<p>Perform packet loss concealment (if supported).</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstAudioDecoder--tolerance"></a><h3>The <code class="literal">"tolerance"</code> property</h3>
+<pre class="programlisting">  "tolerance"                <span class="type">gint64</span>                : Read / Write</pre>
+<p>Perfect ts while timestamp jitter/imperfection within tolerance (ns).</p>
+<p>Allowed values: &gt;= 0</p>
+<p>Default value: 0</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-libs-gstaudiodecoder.see-also"></a><h2>See Also</h2>
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer-libs/html/GstBaseTransform.html"><span class="type">GstBaseTransform</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

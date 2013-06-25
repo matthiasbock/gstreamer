@@ -1,0 +1,452 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GstAllocator</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer 1.0 Core Reference Manual">
+<link rel="up" href="libgstreamer.html" title="GStreamer Core Library">
+<link rel="prev" href="gstreamer-Gst.html" title="Gst">
+<link rel="next" href="gstreamer-GstAtomicQueue.html" title="GstAtomicQueue">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gstreamer-Gst.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="libgstreamer.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer 1.0 Core Reference Manual</th>
+<td><a accesskey="n" href="gstreamer-GstAtomicQueue.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#GstAllocator.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#GstAllocator.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#GstAllocator.object-hierarchy" class="shortcut">Object Hierarchy</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="GstAllocator"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GstAllocator.top_of_page"></a>GstAllocator</span></h2>
+<p>GstAllocator — allocate memory blocks</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="GstAllocator.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;gst/gst.h&gt;
+
+                    <a class="link" href="GstAllocator.html#GstAllocator-struct" title="GstAllocator">GstAllocator</a>;
+enum                <a class="link" href="GstAllocator.html#GstAllocatorFlags" title="enum GstAllocatorFlags">GstAllocatorFlags</a>;
+struct              <a class="link" href="GstAllocator.html#GstAllocationParams" title="struct GstAllocationParams">GstAllocationParams</a>;
+#define             <a class="link" href="GstAllocator.html#GST-ALLOCATOR-SYSMEM:CAPS" title="GST_ALLOCATOR_SYSMEM">GST_ALLOCATOR_SYSMEM</a>
+<a class="link" href="GstAllocator.html" title="GstAllocator"><span class="returnvalue">GstAllocator</span></a> *      <a class="link" href="GstAllocator.html#gst-allocator-find" title="gst_allocator_find ()">gst_allocator_find</a>                  (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="GstAllocator.html#gst-allocator-register" title="gst_allocator_register ()">gst_allocator_register</a>              (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstAllocator.html" title="GstAllocator"><span class="type">GstAllocator</span></a> *allocator</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="GstAllocator.html#gst-allocator-set-default" title="gst_allocator_set_default ()">gst_allocator_set_default</a>           (<em class="parameter"><code><a class="link" href="GstAllocator.html" title="GstAllocator"><span class="type">GstAllocator</span></a> *allocator</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="GstAllocator.html#gst-allocation-params-init" title="gst_allocation_params_init ()">gst_allocation_params_init</a>          (<em class="parameter"><code><a class="link" href="GstAllocator.html#GstAllocationParams" title="struct GstAllocationParams"><span class="type">GstAllocationParams</span></a> *params</code></em>);
+<a class="link" href="GstAllocator.html#GstAllocationParams" title="struct GstAllocationParams"><span class="returnvalue">GstAllocationParams</span></a> * <a class="link" href="GstAllocator.html#gst-allocation-params-copy" title="gst_allocation_params_copy ()">gst_allocation_params_copy</a>        (<em class="parameter"><code>const <a class="link" href="GstAllocator.html#GstAllocationParams" title="struct GstAllocationParams"><span class="type">GstAllocationParams</span></a> *params</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="GstAllocator.html#gst-allocation-params-free" title="gst_allocation_params_free ()">gst_allocation_params_free</a>          (<em class="parameter"><code><a class="link" href="GstAllocator.html#GstAllocationParams" title="struct GstAllocationParams"><span class="type">GstAllocationParams</span></a> *params</code></em>);
+<a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="returnvalue">GstMemory</span></a> *         <a class="link" href="GstAllocator.html#gst-allocator-alloc" title="gst_allocator_alloc ()">gst_allocator_alloc</a>                 (<em class="parameter"><code><a class="link" href="GstAllocator.html" title="GstAllocator"><span class="type">GstAllocator</span></a> *allocator</code></em>,
+                                                         <em class="parameter"><code><span class="type">gsize</span> size</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstAllocator.html#GstAllocationParams" title="struct GstAllocationParams"><span class="type">GstAllocationParams</span></a> *params</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="GstAllocator.html#gst-allocator-free" title="gst_allocator_free ()">gst_allocator_free</a>                  (<em class="parameter"><code><a class="link" href="GstAllocator.html" title="GstAllocator"><span class="type">GstAllocator</span></a> *allocator</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a> *memory</code></em>);
+<a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="returnvalue">GstMemory</span></a> *         <a class="link" href="GstAllocator.html#gst-memory-new-wrapped" title="gst_memory_new_wrapped ()">gst_memory_new_wrapped</a>              (<em class="parameter"><code><a class="link" href="gstreamer-GstMemory.html#GstMemoryFlags" title="enum GstMemoryFlags"><span class="type">GstMemoryFlags</span></a> flags</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>,
+                                                         <em class="parameter"><code><span class="type">gsize</span> maxsize</code></em>,
+                                                         <em class="parameter"><code><span class="type">gsize</span> offset</code></em>,
+                                                         <em class="parameter"><code><span class="type">gsize</span> size</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> notify</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="GstAllocator.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a class="link" href="GstObject.html" title="GstObject">GstObject</a>
+               +----GstAllocator
+</pre>
+</div>
+<div class="refsect1">
+<a name="GstAllocator.description"></a><h2>Description</h2>
+<p>
+Memory is usually created by allocators with a <a class="link" href="GstAllocator.html#gst-allocator-alloc" title="gst_allocator_alloc ()"><code class="function">gst_allocator_alloc()</code></a>
+method call. When NULL is used as the allocator, the default allocator will
+be used.
+</p>
+<p>
+New allocators can be registered with <a class="link" href="GstAllocator.html#gst-allocator-register" title="gst_allocator_register ()"><code class="function">gst_allocator_register()</code></a>.
+Allocators are identified by name and can be retrieved with
+<a class="link" href="GstAllocator.html#gst-allocator-find" title="gst_allocator_find ()"><code class="function">gst_allocator_find()</code></a>. <a class="link" href="GstAllocator.html#gst-allocator-set-default" title="gst_allocator_set_default ()"><code class="function">gst_allocator_set_default()</code></a> can be used to change the
+default allocator.
+</p>
+<p>
+New memory can be created with <a class="link" href="GstAllocator.html#gst-memory-new-wrapped" title="gst_memory_new_wrapped ()"><code class="function">gst_memory_new_wrapped()</code></a> that wraps the memory
+allocated elsewhere.
+</p>
+<p>
+Last reviewed on 2012-07-09 (0.11.3)
+</p>
+</div>
+<div class="refsect1">
+<a name="GstAllocator.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstAllocator-struct"></a><h3>GstAllocator</h3>
+<pre class="programlisting">typedef struct _GstAllocator GstAllocator;</pre>
+<p>
+The <a class="link" href="GstAllocator.html" title="GstAllocator"><span class="type">GstAllocator</span></a> is used to create new memory.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstAllocatorFlags"></a><h3>enum GstAllocatorFlags</h3>
+<pre class="programlisting">typedef enum {
+  GST_ALLOCATOR_FLAG_CUSTOM_ALLOC  = (GST_OBJECT_FLAG_LAST &lt;&lt; 0),
+
+  GST_ALLOCATOR_FLAG_LAST          = (GST_OBJECT_FLAG_LAST &lt;&lt; 16)
+} GstAllocatorFlags;
+</pre>
+<p>
+Flags for allocators.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="GST-ALLOCATOR-FLAG-CUSTOM-ALLOC:CAPS"></a><span class="term"><code class="literal">GST_ALLOCATOR_FLAG_CUSTOM_ALLOC</code></span></p></td>
+<td>The allocator has a custom alloc function.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-ALLOCATOR-FLAG-LAST:CAPS"></a><span class="term"><code class="literal">GST_ALLOCATOR_FLAG_LAST</code></span></p></td>
+<td>first flag that can be used for custom purposes
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstAllocationParams"></a><h3>struct GstAllocationParams</h3>
+<pre class="programlisting">struct GstAllocationParams {
+  GstMemoryFlags flags;
+  gsize          align;
+  gsize          prefix;
+  gsize          padding;
+};
+</pre>
+<p>
+Parameters to control the allocation of memory
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a class="link" href="gstreamer-GstMemory.html#GstMemoryFlags" title="enum GstMemoryFlags"><span class="type">GstMemoryFlags</span></a> <em class="structfield"><code><a name="GstAllocationParams.flags"></a>flags</code></em>;</span></p></td>
+<td>flags to control allocation</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">gsize</span> <em class="structfield"><code><a name="GstAllocationParams.align"></a>align</code></em>;</span></p></td>
+<td>the desired alignment of the memory</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">gsize</span> <em class="structfield"><code><a name="GstAllocationParams.prefix"></a>prefix</code></em>;</span></p></td>
+<td>the desired prefix</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">gsize</span> <em class="structfield"><code><a name="GstAllocationParams.padding"></a>padding</code></em>;</span></p></td>
+<td>the desired padding</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-ALLOCATOR-SYSMEM:CAPS"></a><h3>GST_ALLOCATOR_SYSMEM</h3>
+<pre class="programlisting">#define GST_ALLOCATOR_SYSMEM   "SystemMemory"
+</pre>
+<p>
+The allocator name for the default system memory allocator
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-allocator-find"></a><h3>gst_allocator_find ()</h3>
+<pre class="programlisting"><a class="link" href="GstAllocator.html" title="GstAllocator"><span class="returnvalue">GstAllocator</span></a> *      gst_allocator_find                  (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);</pre>
+<p>
+Find a previously registered allocator with <em class="parameter"><code>name</code></em>. When <em class="parameter"><code>name</code></em> is NULL, the
+default allocator will be returned.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>the name of the allocator</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a class="link" href="GstAllocator.html" title="GstAllocator"><span class="type">GstAllocator</span></a> or NULL when the allocator with <em class="parameter"><code>name</code></em> was not
+registered. Use <a class="link" href="GstObject.html#gst-object-unref" title="gst_object_unref ()"><code class="function">gst_object_unref()</code></a> to release the allocator after usage. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-allocator-register"></a><h3>gst_allocator_register ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_allocator_register              (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstAllocator.html" title="GstAllocator"><span class="type">GstAllocator</span></a> *allocator</code></em>);</pre>
+<p>
+Registers the memory <em class="parameter"><code>allocator</code></em> with <em class="parameter"><code>name</code></em>. This function takes ownership of
+<em class="parameter"><code>allocator</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>the name of the allocator</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>allocator</code></em> :</span></p></td>
+<td>
+<a class="link" href="GstAllocator.html" title="GstAllocator"><span class="type">GstAllocator</span></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-allocator-set-default"></a><h3>gst_allocator_set_default ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_allocator_set_default           (<em class="parameter"><code><a class="link" href="GstAllocator.html" title="GstAllocator"><span class="type">GstAllocator</span></a> *allocator</code></em>);</pre>
+<p>
+Set the default allocator. This function takes ownership of <em class="parameter"><code>allocator</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>allocator</code></em> :</span></p></td>
+<td>a <a class="link" href="GstAllocator.html" title="GstAllocator"><span class="type">GstAllocator</span></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-allocation-params-init"></a><h3>gst_allocation_params_init ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_allocation_params_init          (<em class="parameter"><code><a class="link" href="GstAllocator.html#GstAllocationParams" title="struct GstAllocationParams"><span class="type">GstAllocationParams</span></a> *params</code></em>);</pre>
+<p>
+Initialize <em class="parameter"><code>params</code></em> to its default values
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>params</code></em> :</span></p></td>
+<td>a <a class="link" href="GstAllocator.html#GstAllocationParams" title="struct GstAllocationParams"><span class="type">GstAllocationParams</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-allocation-params-copy"></a><h3>gst_allocation_params_copy ()</h3>
+<pre class="programlisting"><a class="link" href="GstAllocator.html#GstAllocationParams" title="struct GstAllocationParams"><span class="returnvalue">GstAllocationParams</span></a> * gst_allocation_params_copy        (<em class="parameter"><code>const <a class="link" href="GstAllocator.html#GstAllocationParams" title="struct GstAllocationParams"><span class="type">GstAllocationParams</span></a> *params</code></em>);</pre>
+<p>
+Create a copy of <em class="parameter"><code>params</code></em>.
+</p>
+<p>
+Free-function: gst_allocation_params_free
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>params</code></em> :</span></p></td>
+<td>a <a class="link" href="GstAllocator.html#GstAllocationParams" title="struct GstAllocationParams"><span class="type">GstAllocationParams</span></a>. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new #<a class="link" href="GstAllocator.html#GstAllocationParams" title="struct GstAllocationParams"><span class="type">GstAllocationParams</span></a>, free with
+<a class="link" href="GstAllocator.html#gst-allocation-params-free" title="gst_allocation_params_free ()"><code class="function">gst_allocation_params_free()</code></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-allocation-params-free"></a><h3>gst_allocation_params_free ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_allocation_params_free          (<em class="parameter"><code><a class="link" href="GstAllocator.html#GstAllocationParams" title="struct GstAllocationParams"><span class="type">GstAllocationParams</span></a> *params</code></em>);</pre>
+<p>
+Free <em class="parameter"><code>params</code></em>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>params</code></em> :</span></p></td>
+<td>a <a class="link" href="GstAllocator.html#GstAllocationParams" title="struct GstAllocationParams"><span class="type">GstAllocationParams</span></a>. <span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-allocator-alloc"></a><h3>gst_allocator_alloc ()</h3>
+<pre class="programlisting"><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="returnvalue">GstMemory</span></a> *         gst_allocator_alloc                 (<em class="parameter"><code><a class="link" href="GstAllocator.html" title="GstAllocator"><span class="type">GstAllocator</span></a> *allocator</code></em>,
+                                                         <em class="parameter"><code><span class="type">gsize</span> size</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstAllocator.html#GstAllocationParams" title="struct GstAllocationParams"><span class="type">GstAllocationParams</span></a> *params</code></em>);</pre>
+<p>
+Use <em class="parameter"><code>allocator</code></em> to allocate a new memory block with memory that is at least
+<em class="parameter"><code>size</code></em> big.
+</p>
+<p>
+The optional <em class="parameter"><code>params</code></em> can specify the prefix and padding for the memory. If
+NULL is passed, no flags, no extra prefix/padding and a default alignment is
+used.
+</p>
+<p>
+The prefix/padding will be filled with 0 if flags contains
+<a class="link" href="gstreamer-GstMemory.html#GST-MEMORY-FLAG-ZERO-PREFIXED:CAPS"><span class="type">GST_MEMORY_FLAG_ZERO_PREFIXED</span></a> and <a class="link" href="gstreamer-GstMemory.html#GST-MEMORY-FLAG-ZERO-PADDED:CAPS"><span class="type">GST_MEMORY_FLAG_ZERO_PADDED</span></a> respectively.
+</p>
+<p>
+When <em class="parameter"><code>allocator</code></em> is NULL, the default allocator will be used.
+</p>
+<p>
+The alignment in <em class="parameter"><code>params</code></em> is given as a bitmask so that <em class="parameter"><code>align</code></em> + 1 equals
+the amount of bytes to align to. For example, to align to 8 bytes,
+use an alignment of 7.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>allocator</code></em> :</span></p></td>
+<td>a <a class="link" href="GstAllocator.html" title="GstAllocator"><span class="type">GstAllocator</span></a> to use. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>size</code></em> :</span></p></td>
+<td>size of the visible memory area</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>params</code></em> :</span></p></td>
+<td>optional parameters. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-allocator-free"></a><h3>gst_allocator_free ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_allocator_free                  (<em class="parameter"><code><a class="link" href="GstAllocator.html" title="GstAllocator"><span class="type">GstAllocator</span></a> *allocator</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a> *memory</code></em>);</pre>
+<p>
+Free <em class="parameter"><code>memory</code></em> that was previously allocated with <a class="link" href="GstAllocator.html#gst-allocator-alloc" title="gst_allocator_alloc ()"><code class="function">gst_allocator_alloc()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>allocator</code></em> :</span></p></td>
+<td>a <a class="link" href="GstAllocator.html" title="GstAllocator"><span class="type">GstAllocator</span></a> to use. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>memory</code></em> :</span></p></td>
+<td>the memory to free. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-memory-new-wrapped"></a><h3>gst_memory_new_wrapped ()</h3>
+<pre class="programlisting"><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="returnvalue">GstMemory</span></a> *         gst_memory_new_wrapped              (<em class="parameter"><code><a class="link" href="gstreamer-GstMemory.html#GstMemoryFlags" title="enum GstMemoryFlags"><span class="type">GstMemoryFlags</span></a> flags</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>,
+                                                         <em class="parameter"><code><span class="type">gsize</span> maxsize</code></em>,
+                                                         <em class="parameter"><code><span class="type">gsize</span> offset</code></em>,
+                                                         <em class="parameter"><code><span class="type">gsize</span> size</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> notify</code></em>);</pre>
+<p>
+Allocate a new memory block that wraps the given <em class="parameter"><code>data</code></em>.
+</p>
+<p>
+The prefix/padding must be filled with 0 if <em class="parameter"><code>flags</code></em> contains
+<a class="link" href="gstreamer-GstMemory.html#GST-MEMORY-FLAG-ZERO-PREFIXED:CAPS"><span class="type">GST_MEMORY_FLAG_ZERO_PREFIXED</span></a> and <a class="link" href="gstreamer-GstMemory.html#GST-MEMORY-FLAG-ZERO-PADDED:CAPS"><span class="type">GST_MEMORY_FLAG_ZERO_PADDED</span></a> respectively.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>flags</code></em> :</span></p></td>
+<td><a class="link" href="gstreamer-GstMemory.html#GstMemoryFlags" title="enum GstMemoryFlags"><span class="type">GstMemoryFlags</span></a></td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>data to wrap</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>maxsize</code></em> :</span></p></td>
+<td>allocated size of <em class="parameter"><code>data</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>offset</code></em> :</span></p></td>
+<td>offset in <em class="parameter"><code>data</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>size</code></em> :</span></p></td>
+<td>size of valid data</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user_data</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>notify</code></em> :</span></p></td>
+<td>called with <em class="parameter"><code>user_data</code></em> when the memory is freed</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="GstAllocator.see-also"></a><h2>See Also</h2>
+<a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

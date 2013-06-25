@@ -1,0 +1,538 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>level</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer Good Plugins 1.0 Plugins Reference Manual">
+<link rel="up" href="ch01.html" title="gst-plugins-good Elements">
+<link rel="prev" href="gst-plugins-good-plugins-jpegenc.html" title="jpegenc">
+<link rel="next" href="gst-plugins-good-plugins-matroskamux.html" title="matroskamux">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gst-plugins-good-plugins-jpegenc.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer Good Plugins 1.0 Plugins Reference Manual</th>
+<td><a accesskey="n" href="gst-plugins-good-plugins-matroskamux.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gst-plugins-good-plugins-level.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gst-plugins-good-plugins-level.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#gst-plugins-good-plugins-level.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#gst-plugins-good-plugins-level.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gst-plugins-good-plugins-level"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gst-plugins-good-plugins-level.top_of_page"></a>level</span></h2>
+<p>level — RMS/Peak/Decaying Peak Level messager for audio/raw</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gst-plugins-good-plugins-level.synopsis"></a><h2>Synopsis</h2>
+<a name="GstLevel"></a><pre class="synopsis">struct              <a class="link" href="gst-plugins-good-plugins-level.html#GstLevel-struct" title="struct GstLevel">GstLevel</a>;
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-good-plugins-level.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstObject.html">GstObject</a>
+               +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html">GstElement</a>
+                     +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer-libs/html/GstBaseTransform.html">GstBaseTransform</a>
+                           +----GstLevel
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-good-plugins-level.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="gst-plugins-good-plugins-level.html#GstLevel--interval" title='The "interval" property'>interval</a>"                 <span class="type">guint64</span>               : Read / Write
+  "<a class="link" href="gst-plugins-good-plugins-level.html#GstLevel--message" title='The "message" property'>message</a>"                  <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write
+  "<a class="link" href="gst-plugins-good-plugins-level.html#GstLevel--peak-falloff" title='The "peak-falloff" property'>peak-falloff</a>"             <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a>               : Read / Write
+  "<a class="link" href="gst-plugins-good-plugins-level.html#GstLevel--peak-ttl" title='The "peak-ttl" property'>peak-ttl</a>"                 <span class="type">guint64</span>               : Read / Write
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-good-plugins-level.description"></a><h2>Description</h2>
+<p>
+Level analyses incoming audio buffers and, if the <a class="link" href="gst-plugins-good-plugins-level.html#GstLevel--message" title='The "message" property'><span class="type">"message"</span></a> property
+is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><span class="type">TRUE</span></a>, generates an element message named
+<code class="classname">"level"</code>:
+after each interval of time given by the <a class="link" href="gst-plugins-good-plugins-level.html#GstLevel--interval" title='The "interval" property'><span class="type">"interval"</span></a> property.
+The message's structure contains these fields:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem"><p>
+  <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockTime"><span class="type">GstClockTime</span></a>
+  <code class="classname">"timestamp"</code>:
+  the timestamp of the buffer that triggered the message.
+  </p></li>
+<li class="listitem"><p>
+  <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockTime"><span class="type">GstClockTime</span></a>
+  <code class="classname">"stream-time"</code>:
+  the stream time of the buffer.
+  </p></li>
+<li class="listitem"><p>
+  <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockTime"><span class="type">GstClockTime</span></a>
+  <code class="classname">"running-time"</code>:
+  the running_time of the buffer.
+  </p></li>
+<li class="listitem"><p>
+  <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockTime"><span class="type">GstClockTime</span></a>
+  <code class="classname">"duration"</code>:
+  the duration of the buffer.
+  </p></li>
+<li class="listitem"><p>
+  <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockTime"><span class="type">GstClockTime</span></a>
+  <code class="classname">"endtime"</code>:
+  the end time of the buffer that triggered the message as stream time (this
+  is deprecated, as it can be calculated from stream-time + duration)
+  </p></li>
+<li class="listitem"><p>
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Value-arrays.html#GValueArray"><span class="type">GValueArray</span></a> of <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a>
+  <code class="classname">"peak"</code>:
+  the peak power level in dB for each channel
+  </p></li>
+<li class="listitem"><p>
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Value-arrays.html#GValueArray"><span class="type">GValueArray</span></a> of <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a>
+  <code class="classname">"decay"</code>:
+  the decaying peak power level in dB for each channel
+  the decaying peak level follows the peak level, but starts dropping
+  if no new peak is reached after the time given by
+  the <a class="link" href="gst-plugins-good-plugins-level.html#GstLevel--peak-ttl" title='The "peak-ttl" property'>the time to live</a>.
+  When the decaying peak level drops, it does so at the decay rate
+  as specified by the
+  <a class="link" href="gst-plugins-good-plugins-level.html#GstLevel--peak-falloff" title='The "peak-falloff" property'>the peak falloff rate</a>.
+  </p></li>
+<li class="listitem"><p>
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Value-arrays.html#GValueArray"><span class="type">GValueArray</span></a> of <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a>
+  <code class="classname">"rms"</code>:
+  the Root Mean Square (or average power) level in dB for each channel
+  </p></li>
+</ul></div>
+<p>
+</p>
+<p>
+</p>
+<div class="refsect2">
+<a name="idp7410512"></a><h3>Example application</h3>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="comment">/* GStreamer</span>
+<span class="comment"> * Copyright (C) 2000,2001,2002,2003,2005</span>
+<span class="comment"> *           Thomas Vander Stichele &lt;thomas at apestaart dot org&gt;</span>
+<span class="comment"> *</span>
+<span class="comment"> * This library is free software; you can redistribute it and/or</span>
+<span class="comment"> * modify it under the terms of the GNU Library General Public</span>
+<span class="comment"> * License as published by the Free Software Foundation; either</span>
+<span class="comment"> * version 2 of the License, or (at your option) any later version.</span>
+<span class="comment"> *</span>
+<span class="comment"> * This library is distributed in the hope that it will be useful,</span>
+<span class="comment"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="comment"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU</span>
+<span class="comment"> * Library General Public License for more details.</span>
+<span class="comment"> *</span>
+<span class="comment"> * You should have received a copy of the GNU Library General Public</span>
+<span class="comment"> * License along with this library; if not, write to the</span>
+<span class="comment"> * Free Software Foundation, Inc., 59 Temple Place - Suite 330,</span>
+<span class="comment"> * Boston, MA 02111-1307, USA.</span>
+<span class="comment"> */</span>
+
+<span class="gtkdoc ppc">#include &lt;string.h&gt;</span>
+<span class="gtkdoc ppc">#include &lt;math.h&gt;</span>
+
+<span class="gtkdoc ppc">#define GLIB_DISABLE_DEPRECATION_WARNINGS</span>
+
+<span class="gtkdoc ppc">#include &lt;gst/gst.h&gt;</span>
+
+<span class="gtkdoc kwb">static</span> gboolean
+<span class="function">message_handler</span> <span class="gtkdoc opt">(</span>GstBus <span class="gtkdoc opt">*</span> bus<span class="gtkdoc opt">,</span> GstMessage <span class="gtkdoc opt">*</span> message<span class="gtkdoc opt">,</span> gpointer data<span class="gtkdoc opt">)</span>
+<span class="gtkdoc opt">{</span>
+
+  <span class="keyword">if</span> <span class="gtkdoc opt">(</span>message<span class="gtkdoc opt">-&gt;</span>type <span class="gtkdoc opt">==</span> GST_MESSAGE_ELEMENT<span class="gtkdoc opt">) {</span>
+    <span class="gtkdoc kwb">const</span> GstStructure <span class="gtkdoc opt">*</span>s <span class="gtkdoc opt">=</span> <span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstMessage.html#gst-message-get-structure">gst_message_get_structure</a></span> <span class="gtkdoc opt">(</span>message<span class="gtkdoc opt">);</span>
+    <span class="gtkdoc kwb">const</span> gchar <span class="gtkdoc opt">*</span>name <span class="gtkdoc opt">=</span> <span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstStructure.html#gst-structure-get-name">gst_structure_get_name</a></span> <span class="gtkdoc opt">(</span>s<span class="gtkdoc opt">);</span>
+
+    <span class="keyword">if</span> <span class="gtkdoc opt">(</span><span class="function">strcmp</span> <span class="gtkdoc opt">(</span>name<span class="gtkdoc opt">,</span> <span class="string">&quot;level&quot;</span><span class="gtkdoc opt">) ==</span> <span class="number">0</span><span class="gtkdoc opt">) {</span>
+      gint channels<span class="gtkdoc opt">;</span>
+      GstClockTime endtime<span class="gtkdoc opt">;</span>
+      gdouble rms_dB<span class="gtkdoc opt">,</span> peak_dB<span class="gtkdoc opt">,</span> decay_dB<span class="gtkdoc opt">;</span>
+      gdouble rms<span class="gtkdoc opt">;</span>
+      <span class="gtkdoc kwb">const</span> GValue <span class="gtkdoc opt">*</span>array_val<span class="gtkdoc opt">;</span>
+      <span class="gtkdoc kwb">const</span> GValue <span class="gtkdoc opt">*</span>value<span class="gtkdoc opt">;</span>
+      GValueArray <span class="gtkdoc opt">*</span>arr<span class="gtkdoc opt">;</span>
+
+      gint i<span class="gtkdoc opt">;</span>
+
+      <span class="keyword">if</span> <span class="gtkdoc opt">(!</span><span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstStructure.html#gst-structure-get-clock-time">gst_structure_get_clock_time</a></span> <span class="gtkdoc opt">(</span>s<span class="gtkdoc opt">,</span> <span class="string">&quot;endtime&quot;</span><span class="gtkdoc opt">, &amp;</span>endtime<span class="gtkdoc opt">))</span>
+        <span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-Message-Logging.html#g-warning">g_warning</a></span> <span class="gtkdoc opt">(</span><span class="string">&quot;Could not parse endtime&quot;</span><span class="gtkdoc opt">);</span>
+      <span class="comment">/* we can get the number of channels as the length of any of the value</span>
+<span class="comment">       * lists */</span>
+      array_val <span class="gtkdoc opt">=</span> <span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstStructure.html#gst-structure-get-value">gst_structure_get_value</a></span> <span class="gtkdoc opt">(</span>s<span class="gtkdoc opt">,</span> <span class="string">&quot;rms&quot;</span><span class="gtkdoc opt">);</span>
+      arr <span class="gtkdoc opt">= (</span>GValueArray <span class="gtkdoc opt">*)</span> <span class="function"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Standard-Parameter-and-Value-Types.html#g-value-get-boxed">g_value_get_boxed</a></span> <span class="gtkdoc opt">(</span>array_val<span class="gtkdoc opt">);</span>
+      channels <span class="gtkdoc opt">=</span> arr<span class="gtkdoc opt">-&gt;</span>n_values<span class="gtkdoc opt">;</span>
+
+      <span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-Warnings-and-Assertions.html#g-print">g_print</a></span> <span class="gtkdoc opt">(</span><span class="string">&quot;endtime: %&quot;</span> GST_TIME_FORMAT <span class="string">&quot;, channels: %d</span><span class="gtkdoc esc">\n</span><span class="string">&quot;</span><span class="gtkdoc opt">,</span>
+          <span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstInfo.html#GST-TIME-ARGS:CAPS">GST_TIME_ARGS</a></span> <span class="gtkdoc opt">(</span>endtime<span class="gtkdoc opt">),</span> channels<span class="gtkdoc opt">);</span>
+      <span class="keyword">for</span> <span class="gtkdoc opt">(</span>i <span class="gtkdoc opt">=</span> <span class="number">0</span><span class="gtkdoc opt">;</span> i <span class="gtkdoc opt">&lt;</span> channels<span class="gtkdoc opt">; ++</span>i<span class="gtkdoc opt">) {</span>
+
+        <span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-Warnings-and-Assertions.html#g-print">g_print</a></span> <span class="gtkdoc opt">(</span><span class="string">&quot;channel %d</span><span class="gtkdoc esc">\n</span><span class="string">&quot;</span><span class="gtkdoc opt">,</span> i<span class="gtkdoc opt">);</span>
+        array_val <span class="gtkdoc opt">=</span> <span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstStructure.html#gst-structure-get-value">gst_structure_get_value</a></span> <span class="gtkdoc opt">(</span>s<span class="gtkdoc opt">,</span> <span class="string">&quot;rms&quot;</span><span class="gtkdoc opt">);</span>
+        arr <span class="gtkdoc opt">= (</span>GValueArray <span class="gtkdoc opt">*)</span> <span class="function"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Standard-Parameter-and-Value-Types.html#g-value-get-boxed">g_value_get_boxed</a></span> <span class="gtkdoc opt">(</span>array_val<span class="gtkdoc opt">);</span>
+        value <span class="gtkdoc opt">=</span> <span class="function"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Value-arrays.html#g-value-array-get-nth">g_value_array_get_nth</a></span> <span class="gtkdoc opt">(</span>arr<span class="gtkdoc opt">,</span> i<span class="gtkdoc opt">);</span>
+        rms_dB <span class="gtkdoc opt">=</span> <span class="function"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Standard-Parameter-and-Value-Types.html#g-value-get-double">g_value_get_double</a></span> <span class="gtkdoc opt">(</span>value<span class="gtkdoc opt">);</span>
+        array_val <span class="gtkdoc opt">=</span> <span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstStructure.html#gst-structure-get-value">gst_structure_get_value</a></span> <span class="gtkdoc opt">(</span>s<span class="gtkdoc opt">,</span> <span class="string">&quot;peak&quot;</span><span class="gtkdoc opt">);</span>
+        arr <span class="gtkdoc opt">= (</span>GValueArray <span class="gtkdoc opt">*)</span> <span class="function"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Standard-Parameter-and-Value-Types.html#g-value-get-boxed">g_value_get_boxed</a></span> <span class="gtkdoc opt">(</span>array_val<span class="gtkdoc opt">);</span>
+        value <span class="gtkdoc opt">=</span> <span class="function"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Value-arrays.html#g-value-array-get-nth">g_value_array_get_nth</a></span> <span class="gtkdoc opt">(</span>arr<span class="gtkdoc opt">,</span> i<span class="gtkdoc opt">);</span>
+        peak_dB <span class="gtkdoc opt">=</span> <span class="function"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Standard-Parameter-and-Value-Types.html#g-value-get-double">g_value_get_double</a></span> <span class="gtkdoc opt">(</span>value<span class="gtkdoc opt">);</span>
+        array_val <span class="gtkdoc opt">=</span> <span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstStructure.html#gst-structure-get-value">gst_structure_get_value</a></span> <span class="gtkdoc opt">(</span>s<span class="gtkdoc opt">,</span> <span class="string">&quot;decay&quot;</span><span class="gtkdoc opt">);</span>
+        arr <span class="gtkdoc opt">= (</span>GValueArray <span class="gtkdoc opt">*)</span> <span class="function"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Standard-Parameter-and-Value-Types.html#g-value-get-boxed">g_value_get_boxed</a></span> <span class="gtkdoc opt">(</span>array_val<span class="gtkdoc opt">);</span>
+        value <span class="gtkdoc opt">=</span> <span class="function"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Value-arrays.html#g-value-array-get-nth">g_value_array_get_nth</a></span> <span class="gtkdoc opt">(</span>arr<span class="gtkdoc opt">,</span> i<span class="gtkdoc opt">);</span>
+        decay_dB <span class="gtkdoc opt">=</span> <span class="function"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Standard-Parameter-and-Value-Types.html#g-value-get-double">g_value_get_double</a></span> <span class="gtkdoc opt">(</span>value<span class="gtkdoc opt">);</span>
+        <span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-Warnings-and-Assertions.html#g-print">g_print</a></span> <span class="gtkdoc opt">(</span><span class="string">&quot;    RMS: %f dB, peak: %f dB, decay: %f dB</span><span class="gtkdoc esc">\n</span><span class="string">&quot;</span><span class="gtkdoc opt">,</span>
+            rms_dB<span class="gtkdoc opt">,</span> peak_dB<span class="gtkdoc opt">,</span> decay_dB<span class="gtkdoc opt">);</span>
+
+        <span class="comment">/* converting from dB to normal gives us a value between 0.0 and 1.0 */</span>
+        rms <span class="gtkdoc opt">=</span> <span class="function">pow</span> <span class="gtkdoc opt">(</span><span class="number">10</span><span class="gtkdoc opt">,</span> rms_dB <span class="gtkdoc opt">/</span> <span class="number">20</span><span class="gtkdoc opt">);</span>
+        <span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-Warnings-and-Assertions.html#g-print">g_print</a></span> <span class="gtkdoc opt">(</span><span class="string">&quot;    normalized rms value: %f</span><span class="gtkdoc esc">\n</span><span class="string">&quot;</span><span class="gtkdoc opt">,</span> rms<span class="gtkdoc opt">);</span>
+      <span class="gtkdoc opt">}</span>
+    <span class="gtkdoc opt">}</span>
+  <span class="gtkdoc opt">}</span>
+  <span class="comment">/* we handled the message we want, and ignored the ones we didn't want.</span>
+<span class="comment">   * so the core can unref the message for us */</span>
+  <span class="keyword">return</span> TRUE<span class="gtkdoc opt">;</span>
+<span class="gtkdoc opt">}</span>
+
+<span class="gtkdoc kwb">int</span>
+<span class="function">main</span> <span class="gtkdoc opt">(</span><span class="gtkdoc kwb">int</span> argc<span class="gtkdoc opt">,</span> <span class="gtkdoc kwb">char</span> <span class="gtkdoc opt">*</span>argv<span class="gtkdoc opt">[])</span>
+<span class="gtkdoc opt">{</span>
+  GstElement <span class="gtkdoc opt">*</span>audiotestsrc<span class="gtkdoc opt">, *</span>audioconvert<span class="gtkdoc opt">, *</span>level<span class="gtkdoc opt">, *</span>fakesink<span class="gtkdoc opt">;</span>
+  GstElement <span class="gtkdoc opt">*</span>pipeline<span class="gtkdoc opt">;</span>
+  GstCaps <span class="gtkdoc opt">*</span>caps<span class="gtkdoc opt">;</span>
+  GstBus <span class="gtkdoc opt">*</span>bus<span class="gtkdoc opt">;</span>
+  guint watch_id<span class="gtkdoc opt">;</span>
+  GMainLoop <span class="gtkdoc opt">*</span>loop<span class="gtkdoc opt">;</span>
+
+  <span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-Gst.html#gst-init">gst_init</a></span> <span class="gtkdoc opt">(&amp;</span>argc<span class="gtkdoc opt">, &amp;</span>argv<span class="gtkdoc opt">);</span>
+
+  caps <span class="gtkdoc opt">=</span> <span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#gst-caps-from-string">gst_caps_from_string</a></span> <span class="gtkdoc opt">(</span><span class="string">&quot;audio/x-raw,channels=2&quot;</span><span class="gtkdoc opt">);</span>
+
+  pipeline <span class="gtkdoc opt">=</span> <span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPipeline.html#gst-pipeline-new">gst_pipeline_new</a></span> <span class="gtkdoc opt">(</span>NULL<span class="gtkdoc opt">);</span>
+  <span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-Testing.html#g-assert">g_assert</a></span> <span class="gtkdoc opt">(</span>pipeline<span class="gtkdoc opt">);</span>
+  audiotestsrc <span class="gtkdoc opt">=</span> <span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElementFactory.html#gst-element-factory-make">gst_element_factory_make</a></span> <span class="gtkdoc opt">(</span><span class="string">&quot;audiotestsrc&quot;</span><span class="gtkdoc opt">,</span> NULL<span class="gtkdoc opt">);</span>
+  <span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-Testing.html#g-assert">g_assert</a></span> <span class="gtkdoc opt">(</span>audiotestsrc<span class="gtkdoc opt">);</span>
+  audioconvert <span class="gtkdoc opt">=</span> <span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElementFactory.html#gst-element-factory-make">gst_element_factory_make</a></span> <span class="gtkdoc opt">(</span><span class="string">&quot;audioconvert&quot;</span><span class="gtkdoc opt">,</span> NULL<span class="gtkdoc opt">);</span>
+  <span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-Testing.html#g-assert">g_assert</a></span> <span class="gtkdoc opt">(</span>audioconvert<span class="gtkdoc opt">);</span>
+  level <span class="gtkdoc opt">=</span> <span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElementFactory.html#gst-element-factory-make">gst_element_factory_make</a></span> <span class="gtkdoc opt">(</span><span class="string">&quot;level&quot;</span><span class="gtkdoc opt">,</span> NULL<span class="gtkdoc opt">);</span>
+  <span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-Testing.html#g-assert">g_assert</a></span> <span class="gtkdoc opt">(</span>level<span class="gtkdoc opt">);</span>
+  fakesink <span class="gtkdoc opt">=</span> <span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElementFactory.html#gst-element-factory-make">gst_element_factory_make</a></span> <span class="gtkdoc opt">(</span><span class="string">&quot;fakesink&quot;</span><span class="gtkdoc opt">,</span> NULL<span class="gtkdoc opt">);</span>
+  <span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-Testing.html#g-assert">g_assert</a></span> <span class="gtkdoc opt">(</span>fakesink<span class="gtkdoc opt">);</span>
+
+  <span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstBin.html#gst-bin-add-many">gst_bin_add_many</a></span> <span class="gtkdoc opt">(</span><span class="function">GST_BIN</span> <span class="gtkdoc opt">(</span>pipeline<span class="gtkdoc opt">),</span> audiotestsrc<span class="gtkdoc opt">,</span> audioconvert<span class="gtkdoc opt">,</span> level<span class="gtkdoc opt">,</span>
+      fakesink<span class="gtkdoc opt">,</span> NULL<span class="gtkdoc opt">);</span>
+  <span class="keyword">if</span> <span class="gtkdoc opt">(!</span><span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html#gst-element-link">gst_element_link</a></span> <span class="gtkdoc opt">(</span>audiotestsrc<span class="gtkdoc opt">,</span> audioconvert<span class="gtkdoc opt">))</span>
+    <span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-Message-Logging.html#g-error">g_error</a></span> <span class="gtkdoc opt">(</span><span class="string">&quot;Failed to link audiotestsrc and audioconvert&quot;</span><span class="gtkdoc opt">);</span>
+  <span class="keyword">if</span> <span class="gtkdoc opt">(!</span><span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html#gst-element-link-filtered">gst_element_link_filtered</a></span> <span class="gtkdoc opt">(</span>audioconvert<span class="gtkdoc opt">,</span> level<span class="gtkdoc opt">,</span> caps<span class="gtkdoc opt">))</span>
+    <span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-Message-Logging.html#g-error">g_error</a></span> <span class="gtkdoc opt">(</span><span class="string">&quot;Failed to link audioconvert and level&quot;</span><span class="gtkdoc opt">);</span>
+  <span class="keyword">if</span> <span class="gtkdoc opt">(!</span><span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html#gst-element-link">gst_element_link</a></span> <span class="gtkdoc opt">(</span>level<span class="gtkdoc opt">,</span> fakesink<span class="gtkdoc opt">))</span>
+    <span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-Message-Logging.html#g-error">g_error</a></span> <span class="gtkdoc opt">(</span><span class="string">&quot;Failed to link level and fakesink&quot;</span><span class="gtkdoc opt">);</span>
+
+  <span class="comment">/* make sure we'll get messages */</span>
+  <span class="function"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-set">g_object_set</a></span> <span class="gtkdoc opt">(</span><span class="function"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#G-OBJECT:CAPS">G_OBJECT</a></span> <span class="gtkdoc opt">(</span>level<span class="gtkdoc opt">),</span> <span class="string">&quot;message&quot;</span><span class="gtkdoc opt">,</span> TRUE<span class="gtkdoc opt">,</span> NULL<span class="gtkdoc opt">);</span>
+  <span class="comment">/* run synced and not as fast as we can */</span>
+  <span class="function"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-set">g_object_set</a></span> <span class="gtkdoc opt">(</span><span class="function"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#G-OBJECT:CAPS">G_OBJECT</a></span> <span class="gtkdoc opt">(</span>fakesink<span class="gtkdoc opt">),</span> <span class="string">&quot;sync&quot;</span><span class="gtkdoc opt">,</span> TRUE<span class="gtkdoc opt">,</span> NULL<span class="gtkdoc opt">);</span>
+
+  bus <span class="gtkdoc opt">=</span> <span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html#gst-element-get-bus">gst_element_get_bus</a></span> <span class="gtkdoc opt">(</span>pipeline<span class="gtkdoc opt">);</span>
+  watch_id <span class="gtkdoc opt">=</span> <span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstBus.html#gst-bus-add-watch">gst_bus_add_watch</a></span> <span class="gtkdoc opt">(</span>bus<span class="gtkdoc opt">,</span> message_handler<span class="gtkdoc opt">,</span> NULL<span class="gtkdoc opt">);</span>
+
+  <span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html#gst-element-set-state">gst_element_set_state</a></span> <span class="gtkdoc opt">(</span>pipeline<span class="gtkdoc opt">,</span> GST_STATE_PLAYING<span class="gtkdoc opt">);</span>
+
+  <span class="comment">/* we need to run a GLib main loop to get the messages */</span>
+  loop <span class="gtkdoc opt">=</span> <span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-The-Main-Event-Loop.html#g-main-loop-new">g_main_loop_new</a></span> <span class="gtkdoc opt">(</span>NULL<span class="gtkdoc opt">,</span> FALSE<span class="gtkdoc opt">);</span>
+  <span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-The-Main-Event-Loop.html#g-main-loop-run">g_main_loop_run</a></span> <span class="gtkdoc opt">(</span>loop<span class="gtkdoc opt">);</span>
+
+  <span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-The-Main-Event-Loop.html#g-source-remove">g_source_remove</a></span> <span class="gtkdoc opt">(</span>watch_id<span class="gtkdoc opt">);</span>
+  <span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-The-Main-Event-Loop.html#g-main-loop-unref">g_main_loop_unref</a></span> <span class="gtkdoc opt">(</span>loop<span class="gtkdoc opt">);</span>
+  <span class="keyword">return</span> <span class="number">0</span><span class="gtkdoc opt">;</span>
+<span class="gtkdoc opt">}</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</div>
+<p>
+</p>
+<div class="refsynopsisdiv">
+<h2>Synopsis</h2>
+<div class="refsect2">
+<a name="idp5665568"></a><h3>Element Information</h3>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">plugin</span></p></td>
+<td>
+            <a class="link" href="gst-plugins-good-plugins-plugin-level.html#plugin-level">level</a>
+          </td>
+</tr>
+<tr>
+<td><p><span class="term">author</span></p></td>
+<td>Thomas Vander Stichele &lt;thomas at apestaart dot org&gt;</td>
+</tr>
+<tr>
+<td><p><span class="term">class</span></p></td>
+<td>Filter/Analyzer/Audio</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="idp14504544"></a><h3>Element Pads</h3>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">name</span></p></td>
+<td>sink</td>
+</tr>
+<tr>
+<td><p><span class="term">direction</span></p></td>
+<td>sink</td>
+</tr>
+<tr>
+<td><p><span class="term">presence</span></p></td>
+<td>always</td>
+</tr>
+<tr>
+<td><p><span class="term">details</span></p></td>
+<td>audio/x-raw, format=(string){ S8, S16LE, S32LE, F32LE, F64LE }, layout=(string)interleaved, rate=(int)[ 1, 2147483647 ], channels=(int)[ 1, 2147483647 ]</td>
+</tr>
+</tbody>
+</table></div>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">name</span></p></td>
+<td>src</td>
+</tr>
+<tr>
+<td><p><span class="term">direction</span></p></td>
+<td>source</td>
+</tr>
+<tr>
+<td><p><span class="term">presence</span></p></td>
+<td>always</td>
+</tr>
+<tr>
+<td><p><span class="term">details</span></p></td>
+<td>audio/x-raw, format=(string){ S8, S16LE, S32LE, F32LE, F64LE }, layout=(string)interleaved, rate=(int)[ 1, 2147483647 ], channels=(int)[ 1, 2147483647 ]</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<p>
+</p>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-good-plugins-level.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstLevel-struct"></a><h3>struct GstLevel</h3>
+<pre class="programlisting">struct GstLevel;</pre>
+<p>
+Opaque data structure.
+</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-good-plugins-level.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GstLevel--interval"></a><h3>The <code class="literal">"interval"</code> property</h3>
+<pre class="programlisting">  "interval"                 <span class="type">guint64</span>               : Read / Write</pre>
+<p>Interval of time between message posts (in nanoseconds).</p>
+<p>Allowed values: &gt;= 1</p>
+<p>Default value: 100000000</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstLevel--message"></a><h3>The <code class="literal">"message"</code> property</h3>
+<pre class="programlisting">  "message"                  <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write</pre>
+<p>Post a level message for each passed interval.</p>
+<p>Default value: TRUE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstLevel--peak-falloff"></a><h3>The <code class="literal">"peak-falloff"</code> property</h3>
+<pre class="programlisting">  "peak-falloff"             <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a>               : Read / Write</pre>
+<p>Decay rate of decay peak after TTL (in dB/sec).</p>
+<p>Allowed values: &gt;= 0</p>
+<p>Default value: 10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstLevel--peak-ttl"></a><h3>The <code class="literal">"peak-ttl"</code> property</h3>
+<pre class="programlisting">  "peak-ttl"                 <span class="type">guint64</span>               : Read / Write</pre>
+<p>Time To Live of decay peak before it falls back (in nanoseconds).</p>
+<p>Default value: 300000000</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

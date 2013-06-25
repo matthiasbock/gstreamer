@@ -1,0 +1,528 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GstParse</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer 1.0 Core Reference Manual">
+<link rel="up" href="libgstreamer.html" title="GStreamer Core Library">
+<link rel="prev" href="gstreamer-GstParamSpec.html" title="GstParamSpec">
+<link rel="next" href="GstPipeline.html" title="GstPipeline">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gstreamer-GstParamSpec.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="libgstreamer.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer 1.0 Core Reference Manual</th>
+<td><a accesskey="n" href="GstPipeline.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gstreamer-GstParse.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gstreamer-GstParse.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gstreamer-GstParse"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gstreamer-GstParse.top_of_page"></a>GstParse</span></h2>
+<p>GstParse — Get a pipeline from a text pipeline description</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gstreamer-GstParse.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;gst/gst.h&gt;
+
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="returnvalue">GQuark</span></a>              <a class="link" href="gstreamer-GstParse.html#gst-parse-error-quark" title="gst_parse_error_quark ()">gst_parse_error_quark</a>               (<em class="parameter"><code><span class="type">void</span></code></em>);
+#define             <a class="link" href="gstreamer-GstParse.html#GST-PARSE-ERROR:CAPS" title="GST_PARSE_ERROR">GST_PARSE_ERROR</a>
+enum                <a class="link" href="gstreamer-GstParse.html#GstParseError" title="enum GstParseError">GstParseError</a>;
+                    <a class="link" href="gstreamer-GstParse.html#GstParseContext" title="GstParseContext">GstParseContext</a>;
+enum                <a class="link" href="gstreamer-GstParse.html#GstParseFlags" title="enum GstParseFlags">GstParseFlags</a>;
+<a class="link" href="GstElement.html" title="GstElement"><span class="returnvalue">GstElement</span></a> *        <a class="link" href="gstreamer-GstParse.html#gst-parse-launch" title="gst_parse_launch ()">gst_parse_launch</a>                    (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *pipeline_description</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a class="link" href="GstElement.html" title="GstElement"><span class="returnvalue">GstElement</span></a> *        <a class="link" href="gstreamer-GstParse.html#gst-parse-launch-full" title="gst_parse_launch_full ()">gst_parse_launch_full</a>               (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *pipeline_description</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstParse.html#GstParseContext" title="GstParseContext"><span class="type">GstParseContext</span></a> *context</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstParse.html#GstParseFlags" title="enum GstParseFlags"><span class="type">GstParseFlags</span></a> flags</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a class="link" href="GstElement.html" title="GstElement"><span class="returnvalue">GstElement</span></a> *        <a class="link" href="gstreamer-GstParse.html#gst-parse-launchv" title="gst_parse_launchv ()">gst_parse_launchv</a>                   (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **argv</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a class="link" href="GstElement.html" title="GstElement"><span class="returnvalue">GstElement</span></a> *        <a class="link" href="gstreamer-GstParse.html#gst-parse-launchv-full" title="gst_parse_launchv_full ()">gst_parse_launchv_full</a>              (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **argv</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstParse.html#GstParseContext" title="GstParseContext"><span class="type">GstParseContext</span></a> *context</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstParse.html#GstParseFlags" title="enum GstParseFlags"><span class="type">GstParseFlags</span></a> flags</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a class="link" href="GstElement.html" title="GstElement"><span class="returnvalue">GstElement</span></a> *        <a class="link" href="gstreamer-GstParse.html#gst-parse-bin-from-description" title="gst_parse_bin_from_description ()">gst_parse_bin_from_description</a>      (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *bin_description</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> ghost_unlinked_pads</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **err</code></em>);
+<a class="link" href="GstElement.html" title="GstElement"><span class="returnvalue">GstElement</span></a> *        <a class="link" href="gstreamer-GstParse.html#gst-parse-bin-from-description-full" title="gst_parse_bin_from_description_full ()">gst_parse_bin_from_description_full</a> (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *bin_description</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> ghost_unlinked_pads</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstParse.html#GstParseContext" title="GstParseContext"><span class="type">GstParseContext</span></a> *context</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstParse.html#GstParseFlags" title="enum GstParseFlags"><span class="type">GstParseFlags</span></a> flags</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **err</code></em>);
+
+<a class="link" href="gstreamer-GstParse.html#GstParseContext" title="GstParseContext"><span class="returnvalue">GstParseContext</span></a> *   <a class="link" href="gstreamer-GstParse.html#gst-parse-context-new" title="gst_parse_context_new ()">gst_parse_context_new</a>               (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gstreamer-GstParse.html#gst-parse-context-free" title="gst_parse_context_free ()">gst_parse_context_free</a>              (<em class="parameter"><code><a class="link" href="gstreamer-GstParse.html#GstParseContext" title="GstParseContext"><span class="type">GstParseContext</span></a> *context</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> **            <a class="link" href="gstreamer-GstParse.html#gst-parse-context-get-missing-elements" title="gst_parse_context_get_missing_elements ()">gst_parse_context_get_missing_elements</a>
+                                                        (<em class="parameter"><code><a class="link" href="gstreamer-GstParse.html#GstParseContext" title="GstParseContext"><span class="type">GstParseContext</span></a> *context</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="gstreamer-GstParse.description"></a><h2>Description</h2>
+<p>
+These function allow to create a pipeline based on the syntax used in the
+gst-launch utility (see man-page for syntax documentation).
+</p>
+<p>
+Please note that these functions take several measures to create
+somewhat dynamic pipelines. Due to that such pipelines are not always
+reusable (set the state to NULL and back to PLAYING).
+</p>
+</div>
+<div class="refsect1">
+<a name="gstreamer-GstParse.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="gst-parse-error-quark"></a><h3>gst_parse_error_quark ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="returnvalue">GQuark</span></a>              gst_parse_error_quark               (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Get the error quark used by the parsing subsystem.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the quark of the parse errors.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-PARSE-ERROR:CAPS"></a><h3>GST_PARSE_ERROR</h3>
+<pre class="programlisting">#define GST_PARSE_ERROR gst_parse_error_quark ()
+</pre>
+<p>
+Get access to the error quark of the parse subsystem.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstParseError"></a><h3>enum GstParseError</h3>
+<pre class="programlisting">typedef enum {
+  GST_PARSE_ERROR_SYNTAX,
+  GST_PARSE_ERROR_NO_SUCH_ELEMENT,
+  GST_PARSE_ERROR_NO_SUCH_PROPERTY,
+  GST_PARSE_ERROR_LINK,
+  GST_PARSE_ERROR_COULD_NOT_SET_PROPERTY,
+  GST_PARSE_ERROR_EMPTY_BIN,
+  GST_PARSE_ERROR_EMPTY
+} GstParseError;
+</pre>
+<p>
+The different parsing errors that can occur.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="GST-PARSE-ERROR-SYNTAX:CAPS"></a><span class="term"><code class="literal">GST_PARSE_ERROR_SYNTAX</code></span></p></td>
+<td>A syntax error occured.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-PARSE-ERROR-NO-SUCH-ELEMENT:CAPS"></a><span class="term"><code class="literal">GST_PARSE_ERROR_NO_SUCH_ELEMENT</code></span></p></td>
+<td>The description contained an unknown element
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-PARSE-ERROR-NO-SUCH-PROPERTY:CAPS"></a><span class="term"><code class="literal">GST_PARSE_ERROR_NO_SUCH_PROPERTY</code></span></p></td>
+<td>An element did not have a specified property
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-PARSE-ERROR-LINK:CAPS"></a><span class="term"><code class="literal">GST_PARSE_ERROR_LINK</code></span></p></td>
+<td>There was an error linking two pads.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-PARSE-ERROR-COULD-NOT-SET-PROPERTY:CAPS"></a><span class="term"><code class="literal">GST_PARSE_ERROR_COULD_NOT_SET_PROPERTY</code></span></p></td>
+<td>There was an error setting a property
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-PARSE-ERROR-EMPTY-BIN:CAPS"></a><span class="term"><code class="literal">GST_PARSE_ERROR_EMPTY_BIN</code></span></p></td>
+<td>An empty bin was specified.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-PARSE-ERROR-EMPTY:CAPS"></a><span class="term"><code class="literal">GST_PARSE_ERROR_EMPTY</code></span></p></td>
+<td>An empty description was specified
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstParseContext"></a><h3>GstParseContext</h3>
+<pre class="programlisting">typedef struct _GstParseContext GstParseContext;</pre>
+<p>
+Opaque structure.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstParseFlags"></a><h3>enum GstParseFlags</h3>
+<pre class="programlisting">typedef enum {
+  GST_PARSE_FLAG_NONE = 0,
+  GST_PARSE_FLAG_FATAL_ERRORS = (1 &lt;&lt; 0)
+} GstParseFlags;
+</pre>
+<p>
+Parsing options.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="GST-PARSE-FLAG-NONE:CAPS"></a><span class="term"><code class="literal">GST_PARSE_FLAG_NONE</code></span></p></td>
+<td>Do not use any special parsing options.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-PARSE-FLAG-FATAL-ERRORS:CAPS"></a><span class="term"><code class="literal">GST_PARSE_FLAG_FATAL_ERRORS</code></span></p></td>
+<td>Always return NULL when an error occurs
+    (default behaviour is to return partially constructed bins or elements
+     in some cases)
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-parse-launch"></a><h3>gst_parse_launch ()</h3>
+<pre class="programlisting"><a class="link" href="GstElement.html" title="GstElement"><span class="returnvalue">GstElement</span></a> *        gst_parse_launch                    (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *pipeline_description</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Create a new pipeline based on command line syntax.
+Please note that you might get a return value that is not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> even though
+the <em class="parameter"><code>error</code></em> is set. In this case there was a recoverable parsing error and you
+can try to play the pipeline.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pipeline_description</code></em> :</span></p></td>
+<td>the command line describing the pipeline</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>the error message in case of an erroneous pipeline.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new element on success, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> on failure. If
+more than one toplevel element is specified by the <em class="parameter"><code>pipeline_description</code></em>,
+all elements are put into a <a class="link" href="GstPipeline.html" title="GstPipeline"><span class="type">GstPipeline</span></a>, which than is returned. <span class="annotation">[transfer floating]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-parse-launch-full"></a><h3>gst_parse_launch_full ()</h3>
+<pre class="programlisting"><a class="link" href="GstElement.html" title="GstElement"><span class="returnvalue">GstElement</span></a> *        gst_parse_launch_full               (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *pipeline_description</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstParse.html#GstParseContext" title="GstParseContext"><span class="type">GstParseContext</span></a> *context</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstParse.html#GstParseFlags" title="enum GstParseFlags"><span class="type">GstParseFlags</span></a> flags</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Create a new pipeline based on command line syntax.
+Please note that you might get a return value that is not <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> even though
+the <em class="parameter"><code>error</code></em> is set. In this case there was a recoverable parsing error and you
+can try to play the pipeline.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pipeline_description</code></em> :</span></p></td>
+<td>the command line describing the pipeline</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>a parse context allocated with
+<a class="link" href="gstreamer-GstParse.html#gst-parse-context-new" title="gst_parse_context_new ()"><code class="function">gst_parse_context_new()</code></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>flags</code></em> :</span></p></td>
+<td>parsing options, or <a class="link" href="gstreamer-GstParse.html#GST-PARSE-FLAG-NONE:CAPS"><span class="type">GST_PARSE_FLAG_NONE</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>the error message in case of an erroneous pipeline.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new element on success, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> on failure. If
+more than one toplevel element is specified by the <em class="parameter"><code>pipeline_description</code></em>,
+all elements are put into a <a class="link" href="GstPipeline.html" title="GstPipeline"><span class="type">GstPipeline</span></a>, which then is returned. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-parse-launchv"></a><h3>gst_parse_launchv ()</h3>
+<pre class="programlisting"><a class="link" href="GstElement.html" title="GstElement"><span class="returnvalue">GstElement</span></a> *        gst_parse_launchv                   (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **argv</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Create a new element based on command line syntax.
+<em class="parameter"><code>error</code></em> will contain an error message if an erroneuos pipeline is specified.
+An error does not mean that the pipeline could not be constructed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>argv</code></em> :</span></p></td>
+<td>null-terminated array of arguments. <span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>][<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> zero-terminated=1]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>pointer to a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new element on success and <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> on failure. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-parse-launchv-full"></a><h3>gst_parse_launchv_full ()</h3>
+<pre class="programlisting"><a class="link" href="GstElement.html" title="GstElement"><span class="returnvalue">GstElement</span></a> *        gst_parse_launchv_full              (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **argv</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstParse.html#GstParseContext" title="GstParseContext"><span class="type">GstParseContext</span></a> *context</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstParse.html#GstParseFlags" title="enum GstParseFlags"><span class="type">GstParseFlags</span></a> flags</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Create a new element based on command line syntax.
+<em class="parameter"><code>error</code></em> will contain an error message if an erroneous pipeline is specified.
+An error does not mean that the pipeline could not be constructed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>argv</code></em> :</span></p></td>
+<td>null-terminated array of arguments. <span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>][<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> zero-terminated=1]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>a parse context allocated with
+<a class="link" href="gstreamer-GstParse.html#gst-parse-context-new" title="gst_parse_context_new ()"><code class="function">gst_parse_context_new()</code></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>flags</code></em> :</span></p></td>
+<td>parsing options, or <a class="link" href="gstreamer-GstParse.html#GST-PARSE-FLAG-NONE:CAPS"><span class="type">GST_PARSE_FLAG_NONE</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>pointer to a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> (which must be initialised to <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>)</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new element on success; on failure, either <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+or a partially-constructed bin or element will be returned and <em class="parameter"><code>error</code></em> will
+be set (unless you passed <a class="link" href="gstreamer-GstParse.html#GST-PARSE-FLAG-FATAL-ERRORS:CAPS"><span class="type">GST_PARSE_FLAG_FATAL_ERRORS</span></a> in <em class="parameter"><code>flags</code></em>, then
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> will always be returned on failure). <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-parse-bin-from-description"></a><h3>gst_parse_bin_from_description ()</h3>
+<pre class="programlisting"><a class="link" href="GstElement.html" title="GstElement"><span class="returnvalue">GstElement</span></a> *        gst_parse_bin_from_description      (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *bin_description</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> ghost_unlinked_pads</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **err</code></em>);</pre>
+<p>
+This is a convenience wrapper around <a class="link" href="gstreamer-GstParse.html#gst-parse-launch" title="gst_parse_launch ()"><code class="function">gst_parse_launch()</code></a> to create a
+<a class="link" href="GstBin.html" title="GstBin"><span class="type">GstBin</span></a> from a gst-launch-style pipeline description. See
+<a class="link" href="gstreamer-GstParse.html#gst-parse-launch" title="gst_parse_launch ()"><code class="function">gst_parse_launch()</code></a> and the gst-launch man page for details about the
+syntax. Ghost pads on the bin for unlinked source or sink pads
+within the bin can automatically be created (but only a maximum of
+one ghost pad for each direction will be created; if you expect
+multiple unlinked source pads or multiple unlinked sink pads
+and want them all ghosted, you will have to create the ghost pads
+yourself).
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>bin_description</code></em> :</span></p></td>
+<td>command line describing the bin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ghost_unlinked_pads</code></em> :</span></p></td>
+<td>whether to automatically create ghost pads
+for unlinked source or sink pads within the bin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>err</code></em> :</span></p></td>
+<td>where to store the error message in case of an error, or NULL</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a newly-created bin,
+or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if an error occurred. <span class="annotation">[transfer floating][<acronym title="Override the parsed C type with given type"><span class="acronym">type</span></acronym> Gst.Bin]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-parse-bin-from-description-full"></a><h3>gst_parse_bin_from_description_full ()</h3>
+<pre class="programlisting"><a class="link" href="GstElement.html" title="GstElement"><span class="returnvalue">GstElement</span></a> *        gst_parse_bin_from_description_full (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *bin_description</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> ghost_unlinked_pads</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstParse.html#GstParseContext" title="GstParseContext"><span class="type">GstParseContext</span></a> *context</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstParse.html#GstParseFlags" title="enum GstParseFlags"><span class="type">GstParseFlags</span></a> flags</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **err</code></em>);</pre>
+<p>
+This is a convenience wrapper around <a class="link" href="gstreamer-GstParse.html#gst-parse-launch" title="gst_parse_launch ()"><code class="function">gst_parse_launch()</code></a> to create a
+<a class="link" href="GstBin.html" title="GstBin"><span class="type">GstBin</span></a> from a gst-launch-style pipeline description. See
+<a class="link" href="gstreamer-GstParse.html#gst-parse-launch" title="gst_parse_launch ()"><code class="function">gst_parse_launch()</code></a> and the gst-launch man page for details about the
+syntax. Ghost pads on the bin for unlinked source or sink pads
+within the bin can automatically be created (but only a maximum of
+one ghost pad for each direction will be created; if you expect
+multiple unlinked source pads or multiple unlinked sink pads
+and want them all ghosted, you will have to create the ghost pads
+yourself).
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>bin_description</code></em> :</span></p></td>
+<td>command line describing the bin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ghost_unlinked_pads</code></em> :</span></p></td>
+<td>whether to automatically create ghost pads
+for unlinked source or sink pads within the bin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>a parse context allocated with
+<a class="link" href="gstreamer-GstParse.html#gst-parse-context-new" title="gst_parse_context_new ()"><code class="function">gst_parse_context_new()</code></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>flags</code></em> :</span></p></td>
+<td>parsing options, or <a class="link" href="gstreamer-GstParse.html#GST-PARSE-FLAG-NONE:CAPS"><span class="type">GST_PARSE_FLAG_NONE</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>err</code></em> :</span></p></td>
+<td>where to store the error message in case of an error, or NULL</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a newly-created bin, or
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if an error occurred. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="Override the parsed C type with given type"><span class="acronym">type</span></acronym> Gst.Bin]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-parse-context-new"></a><h3>gst_parse_context_new ()</h3>
+<pre class="programlisting"><a class="link" href="gstreamer-GstParse.html#GstParseContext" title="GstParseContext"><span class="returnvalue">GstParseContext</span></a> *   gst_parse_context_new               (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Allocates a parse context for use with <a class="link" href="gstreamer-GstParse.html#gst-parse-launch-full" title="gst_parse_launch_full ()"><code class="function">gst_parse_launch_full()</code></a> or
+<a class="link" href="gstreamer-GstParse.html#gst-parse-launchv-full" title="gst_parse_launchv_full ()"><code class="function">gst_parse_launchv_full()</code></a>.
+</p>
+<p>
+Free-function: gst_parse_context_free
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a newly-allocated parse context. Free with
+<a class="link" href="gstreamer-GstParse.html#gst-parse-context-free" title="gst_parse_context_free ()"><code class="function">gst_parse_context_free()</code></a> when no longer needed. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-parse-context-free"></a><h3>gst_parse_context_free ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_parse_context_free              (<em class="parameter"><code><a class="link" href="gstreamer-GstParse.html#GstParseContext" title="GstParseContext"><span class="type">GstParseContext</span></a> *context</code></em>);</pre>
+<p>
+Frees a parse context previously allocated with <a class="link" href="gstreamer-GstParse.html#gst-parse-context-new" title="gst_parse_context_new ()"><code class="function">gst_parse_context_new()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstParse.html#GstParseContext" title="GstParseContext"><span class="type">GstParseContext</span></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-parse-context-get-missing-elements"></a><h3>gst_parse_context_get_missing_elements ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> **            gst_parse_context_get_missing_elements
+                                                        (<em class="parameter"><code><a class="link" href="gstreamer-GstParse.html#GstParseContext" title="GstParseContext"><span class="type">GstParseContext</span></a> *context</code></em>);</pre>
+<p>
+Retrieve missing elements from a previous run of <a class="link" href="gstreamer-GstParse.html#gst-parse-launch-full" title="gst_parse_launch_full ()"><code class="function">gst_parse_launch_full()</code></a>
+or <a class="link" href="gstreamer-GstParse.html#gst-parse-launchv-full" title="gst_parse_launchv_full ()"><code class="function">gst_parse_launchv_full()</code></a>. Will only return results if an error code
+of <a class="link" href="gstreamer-GstParse.html#GST-PARSE-ERROR-NO-SUCH-ELEMENT:CAPS"><code class="literal">GST_PARSE_ERROR_NO_SUCH_ELEMENT</code></a> was returned.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstParse.html#GstParseContext" title="GstParseContext"><span class="type">GstParseContext</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a
+NULL-terminated array of element factory name strings of missing
+elements. Free with <a href="http://library.gnome.org/devel/glib/unstable/glib-String-Utility-Functions.html#g-strfreev"><code class="function">g_strfreev()</code></a> when no longer needed. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> zero-terminated=1][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> gchar*]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

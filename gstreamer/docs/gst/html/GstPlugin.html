@@ -1,0 +1,1183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GstPlugin</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer 1.0 Core Reference Manual">
+<link rel="up" href="libgstreamer.html" title="GStreamer Core Library">
+<link rel="prev" href="GstPipeline.html" title="GstPipeline">
+<link rel="next" href="GstPluginFeature.html" title="GstPluginFeature">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="GstPipeline.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="libgstreamer.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer 1.0 Core Reference Manual</th>
+<td><a accesskey="n" href="GstPluginFeature.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#GstPlugin.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#GstPlugin.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#GstPlugin.object-hierarchy" class="shortcut">Object Hierarchy</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="GstPlugin"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GstPlugin.top_of_page"></a>GstPlugin</span></h2>
+<p>GstPlugin — Container for features loaded from a shared object module</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="GstPlugin.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;gst/gst.h&gt;
+
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="returnvalue">GQuark</span></a>              <a class="link" href="GstPlugin.html#gst-plugin-error-quark" title="gst_plugin_error_quark ()">gst_plugin_error_quark</a>              (<em class="parameter"><code><span class="type">void</span></code></em>);
+#define             <a class="link" href="GstPlugin.html#GST-PLUGIN-ERROR:CAPS" title="GST_PLUGIN_ERROR">GST_PLUGIN_ERROR</a>
+enum                <a class="link" href="GstPlugin.html#GstPluginError" title="enum GstPluginError">GstPluginError</a>;
+                    <a class="link" href="GstPlugin.html#GstPlugin-struct" title="GstPlugin">GstPlugin</a>;
+struct              <a class="link" href="GstPlugin.html#GstPluginDesc" title="struct GstPluginDesc">GstPluginDesc</a>;
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (<a class="link" href="GstPlugin.html#GstPluginInitFunc" title="GstPluginInitFunc ()">*GstPluginInitFunc</a>)                (<em class="parameter"><code><a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a> *plugin</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (<a class="link" href="GstPlugin.html#GstPluginInitFullFunc" title="GstPluginInitFullFunc ()">*GstPluginInitFullFunc</a>)            (<em class="parameter"><code><a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a> *plugin</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+#define             <a class="link" href="GstPlugin.html#GST-PLUGIN-DEFINE:CAPS" title="GST_PLUGIN_DEFINE()">GST_PLUGIN_DEFINE</a>                   (major,
+                                                         minor,
+                                                         name,
+                                                         description,
+                                                         init,
+                                                         version,
+                                                         license,
+                                                         package,
+                                                         origin)
+#define             <a class="link" href="GstPlugin.html#GST-LICENSE-UNKNOWN:CAPS" title="GST_LICENSE_UNKNOWN">GST_LICENSE_UNKNOWN</a>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (<a class="link" href="GstPlugin.html#GstPluginFilter" title="GstPluginFilter ()">*GstPluginFilter</a>)                  (<em class="parameter"><code><a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a> *plugin</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="GstPlugin.html#gst-plugin-get-name" title="gst_plugin_get_name ()">gst_plugin_get_name</a>                 (<em class="parameter"><code><a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a> *plugin</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="GstPlugin.html#gst-plugin-get-description" title="gst_plugin_get_description ()">gst_plugin_get_description</a>          (<em class="parameter"><code><a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a> *plugin</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="GstPlugin.html#gst-plugin-get-filename" title="gst_plugin_get_filename ()">gst_plugin_get_filename</a>             (<em class="parameter"><code><a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a> *plugin</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="GstPlugin.html#gst-plugin-get-license" title="gst_plugin_get_license ()">gst_plugin_get_license</a>              (<em class="parameter"><code><a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a> *plugin</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="GstPlugin.html#gst-plugin-get-package" title="gst_plugin_get_package ()">gst_plugin_get_package</a>              (<em class="parameter"><code><a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a> *plugin</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="GstPlugin.html#gst-plugin-get-origin" title="gst_plugin_get_origin ()">gst_plugin_get_origin</a>               (<em class="parameter"><code><a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a> *plugin</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="GstPlugin.html#gst-plugin-get-source" title="gst_plugin_get_source ()">gst_plugin_get_source</a>               (<em class="parameter"><code><a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a> *plugin</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="GstPlugin.html#gst-plugin-get-version" title="gst_plugin_get_version ()">gst_plugin_get_version</a>              (<em class="parameter"><code><a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a> *plugin</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="GstPlugin.html#gst-plugin-get-release-date-string" title="gst_plugin_get_release_date_string ()">gst_plugin_get_release_date_string</a>  (<em class="parameter"><code><a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a> *plugin</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="GstPlugin.html#gst-plugin-is-loaded" title="gst_plugin_is_loaded ()">gst_plugin_is_loaded</a>                (<em class="parameter"><code><a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a> *plugin</code></em>);
+const <a class="link" href="gstreamer-GstStructure.html#GstStructure" title="struct GstStructure"><span class="returnvalue">GstStructure</span></a> * <a class="link" href="GstPlugin.html#gst-plugin-get-cache-data" title="gst_plugin_get_cache_data ()">gst_plugin_get_cache_data</a>          (<em class="parameter"><code><a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a> *plugin</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="GstPlugin.html#gst-plugin-set-cache-data" title="gst_plugin_set_cache_data ()">gst_plugin_set_cache_data</a>           (<em class="parameter"><code><a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a> *plugin</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstStructure.html#GstStructure" title="struct GstStructure"><span class="type">GstStructure</span></a> *cache_data</code></em>);
+<a class="link" href="GstPlugin.html" title="GstPlugin"><span class="returnvalue">GstPlugin</span></a> *         <a class="link" href="GstPlugin.html#gst-plugin-load-file" title="gst_plugin_load_file ()">gst_plugin_load_file</a>                (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *filename</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a class="link" href="GstPlugin.html" title="GstPlugin"><span class="returnvalue">GstPlugin</span></a> *         <a class="link" href="GstPlugin.html#gst-plugin-load" title="gst_plugin_load ()">gst_plugin_load</a>                     (<em class="parameter"><code><a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a> *plugin</code></em>);
+<a class="link" href="GstPlugin.html" title="GstPlugin"><span class="returnvalue">GstPlugin</span></a> *         <a class="link" href="GstPlugin.html#gst-plugin-load-by-name" title="gst_plugin_load_by_name ()">gst_plugin_load_by_name</a>             (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="GstPlugin.html#gst-plugin-list-free" title="gst_plugin_list_free ()">gst_plugin_list_free</a>                (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *list</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="GstPlugin.html#gst-plugin-register-static" title="gst_plugin_register_static ()">gst_plugin_register_static</a>          (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> major_version</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> minor_version</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *description</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstPlugin.html#GstPluginInitFunc" title="GstPluginInitFunc ()"><span class="type">GstPluginInitFunc</span></a> init_func</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *version</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *license</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *source</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *package</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *origin</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="GstPlugin.html#gst-plugin-register-static-full" title="gst_plugin_register_static_full ()">gst_plugin_register_static_full</a>     (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> major_version</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> minor_version</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *description</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstPlugin.html#GstPluginInitFullFunc" title="GstPluginInitFullFunc ()"><span class="type">GstPluginInitFullFunc</span></a> init_full_func</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *version</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *license</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *source</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *package</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *origin</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+
+enum                <a class="link" href="GstPlugin.html#GstPluginFlags" title="enum GstPluginFlags">GstPluginFlags</a>;
+enum                <a class="link" href="GstPlugin.html#GstPluginDependencyFlags" title="enum GstPluginDependencyFlags">GstPluginDependencyFlags</a>;
+<span class="returnvalue">void</span>                <a class="link" href="GstPlugin.html#gst-plugin-add-dependency" title="gst_plugin_add_dependency ()">gst_plugin_add_dependency</a>           (<em class="parameter"><code><a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a> *plugin</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **env_vars</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **paths</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **names</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstPlugin.html#GstPluginDependencyFlags" title="enum GstPluginDependencyFlags"><span class="type">GstPluginDependencyFlags</span></a> flags</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="GstPlugin.html#gst-plugin-add-dependency-simple" title="gst_plugin_add_dependency_simple ()">gst_plugin_add_dependency_simple</a>    (<em class="parameter"><code><a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a> *plugin</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *env_vars</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *paths</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *names</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstPlugin.html#GstPluginDependencyFlags" title="enum GstPluginDependencyFlags"><span class="type">GstPluginDependencyFlags</span></a> flags</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="GstPlugin.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a class="link" href="GstObject.html" title="GstObject">GstObject</a>
+               +----GstPlugin
+</pre>
+</div>
+<div class="refsect1">
+<a name="GstPlugin.description"></a><h2>Description</h2>
+<p>
+GStreamer is extensible, so <a class="link" href="GstElement.html" title="GstElement"><span class="type">GstElement</span></a> instances can be loaded at runtime.
+A plugin system can provide one or more of the basic
+<span class="application">GStreamer</span> <a class="link" href="GstPluginFeature.html" title="GstPluginFeature"><span class="type">GstPluginFeature</span></a> subclasses.
+</p>
+<p>
+A plugin should export a symbol <span class="symbol">gst_plugin_desc</span> that is a
+struct of type <a class="link" href="GstPlugin.html#GstPluginDesc" title="struct GstPluginDesc"><span class="type">GstPluginDesc</span></a>.
+the plugin loader will check the version of the core library the plugin was
+linked against and will create a new <a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a>. It will then call the
+<a class="link" href="GstPlugin.html#GstPluginInitFunc" title="GstPluginInitFunc ()"><span class="type">GstPluginInitFunc</span></a> function that was provided in the
+<span class="symbol">gst_plugin_desc</span>.
+</p>
+<p>
+Once you have a handle to a <a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a> (e.g. from the <a class="link" href="GstRegistry.html" title="GstRegistry"><span class="type">GstRegistry</span></a>), you
+can add any object that subclasses <a class="link" href="GstPluginFeature.html" title="GstPluginFeature"><span class="type">GstPluginFeature</span></a>.
+</p>
+<p>
+Usually plugins are always automaticlly loaded so you don't need to call
+<a class="link" href="GstPlugin.html#gst-plugin-load" title="gst_plugin_load ()"><code class="function">gst_plugin_load()</code></a> explicitly to bring it into memory. There are options to
+statically link plugins to an app or even use GStreamer without a plugin
+repository in which case <a class="link" href="GstPlugin.html#gst-plugin-load" title="gst_plugin_load ()"><code class="function">gst_plugin_load()</code></a> can be needed to bring the plugin
+into memory.
+</p>
+</div>
+<div class="refsect1">
+<a name="GstPlugin.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="gst-plugin-error-quark"></a><h3>gst_plugin_error_quark ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="returnvalue">GQuark</span></a>              gst_plugin_error_quark              (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Get the error quark.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The error quark used in GError messages</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-PLUGIN-ERROR:CAPS"></a><h3>GST_PLUGIN_ERROR</h3>
+<pre class="programlisting">#define GST_PLUGIN_ERROR gst_plugin_error_quark ()
+</pre>
+<p>
+The error message category quark
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstPluginError"></a><h3>enum GstPluginError</h3>
+<pre class="programlisting">typedef enum {
+  GST_PLUGIN_ERROR_MODULE,
+  GST_PLUGIN_ERROR_DEPENDENCIES,
+  GST_PLUGIN_ERROR_NAME_MISMATCH
+} GstPluginError;
+</pre>
+<p>
+The plugin loading errors
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="GST-PLUGIN-ERROR-MODULE:CAPS"></a><span class="term"><code class="literal">GST_PLUGIN_ERROR_MODULE</code></span></p></td>
+<td>The plugin could not be loaded
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-PLUGIN-ERROR-DEPENDENCIES:CAPS"></a><span class="term"><code class="literal">GST_PLUGIN_ERROR_DEPENDENCIES</code></span></p></td>
+<td>The plugin has unresolved dependencies
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-PLUGIN-ERROR-NAME-MISMATCH:CAPS"></a><span class="term"><code class="literal">GST_PLUGIN_ERROR_NAME_MISMATCH</code></span></p></td>
+<td>The plugin has already be loaded from a different file
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstPlugin-struct"></a><h3>GstPlugin</h3>
+<pre class="programlisting">typedef struct _GstPlugin GstPlugin;</pre>
+<p>
+The opaque plugin object
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstPluginDesc"></a><h3>struct GstPluginDesc</h3>
+<pre class="programlisting">struct GstPluginDesc {
+  gint major_version;
+  gint minor_version;
+  const gchar *name;
+  const gchar *description;
+  GstPluginInitFunc plugin_init;
+  const gchar *version;
+  const gchar *license;
+  const gchar *source;
+  const gchar *package;
+  const gchar *origin;
+  const gchar *release_datetime;
+};
+</pre>
+<p>
+A plugin should export a variable of this type called plugin_desc. The plugin
+loader will use the data provided there to initialize the plugin.
+</p>
+<p>
+The <em class="parameter"><code>licence</code></em> parameter must be one of: LGPL, GPL, QPL, GPL/QPL, MPL,
+BSD, MIT/X11, Proprietary, unknown.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> <em class="structfield"><code><a name="GstPluginDesc.major-version"></a>major_version</code></em>;</span></p></td>
+<td>the major version number of core that plugin was compiled for</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> <em class="structfield"><code><a name="GstPluginDesc.minor-version"></a>minor_version</code></em>;</span></p></td>
+<td>the minor version number of core that plugin was compiled for</td>
+</tr>
+<tr>
+<td><p><span class="term">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *<em class="structfield"><code><a name="GstPluginDesc.name"></a>name</code></em>;</span></p></td>
+<td>a unique name of the plugin</td>
+</tr>
+<tr>
+<td><p><span class="term">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *<em class="structfield"><code><a name="GstPluginDesc.description"></a>description</code></em>;</span></p></td>
+<td>description of plugin</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="GstPlugin.html#GstPluginInitFunc" title="GstPluginInitFunc ()"><span class="type">GstPluginInitFunc</span></a> <em class="structfield"><code><a name="GstPluginDesc.plugin-init"></a>plugin_init</code></em>;</span></p></td>
+<td>pointer to the init function of this plugin.</td>
+</tr>
+<tr>
+<td><p><span class="term">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *<em class="structfield"><code><a name="GstPluginDesc.version"></a>version</code></em>;</span></p></td>
+<td>version of the plugin</td>
+</tr>
+<tr>
+<td><p><span class="term">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *<em class="structfield"><code><a name="GstPluginDesc.license"></a>license</code></em>;</span></p></td>
+<td>effective license of plugin</td>
+</tr>
+<tr>
+<td><p><span class="term">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *<em class="structfield"><code><a name="GstPluginDesc.source"></a>source</code></em>;</span></p></td>
+<td>source module plugin belongs to</td>
+</tr>
+<tr>
+<td><p><span class="term">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *<em class="structfield"><code><a name="GstPluginDesc.package"></a>package</code></em>;</span></p></td>
+<td>shipped package plugin belongs to</td>
+</tr>
+<tr>
+<td><p><span class="term">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *<em class="structfield"><code><a name="GstPluginDesc.origin"></a>origin</code></em>;</span></p></td>
+<td>URL to provider of plugin</td>
+</tr>
+<tr>
+<td><p><span class="term">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *<em class="structfield"><code><a name="GstPluginDesc.release-datetime"></a>release_datetime</code></em>;</span></p></td>
+<td>date time string in ISO 8601 format (or rather, a
+subset thereof), or NULL. Allowed are the following formats:
+"YYYY-MM-DD" and "YYY-MM-DDTHH:MMZ" (with 'T' a separator and 'Z'
+indicating UTC/Zulu time). This field should be set via the
+GST_PACKAGE_RELEASE_DATETIME preprocessor macro.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstPluginInitFunc"></a><h3>GstPluginInitFunc ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (*GstPluginInitFunc)                (<em class="parameter"><code><a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a> *plugin</code></em>);</pre>
+<p>
+A plugin should provide a pointer to a function of this type in the
+plugin_desc struct.
+This function will be called by the loader at startup. One would then
+register each <a class="link" href="GstPluginFeature.html" title="GstPluginFeature"><span class="type">GstPluginFeature</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>plugin</code></em> :</span></p></td>
+<td>The plugin object</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if plugin initialised successfully</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstPluginInitFullFunc"></a><h3>GstPluginInitFullFunc ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (*GstPluginInitFullFunc)            (<em class="parameter"><code><a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a> *plugin</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+A plugin should provide a pointer to a function of either <a class="link" href="GstPlugin.html#GstPluginInitFunc" title="GstPluginInitFunc ()"><span class="type">GstPluginInitFunc</span></a>
+or this type in the plugin_desc struct.
+The function will be called by the loader at startup. One would then
+register each <a class="link" href="GstPluginFeature.html" title="GstPluginFeature"><span class="type">GstPluginFeature</span></a>. This version allows
+user data to be passed to init function (useful for bindings).
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>plugin</code></em> :</span></p></td>
+<td>The plugin object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>extra data</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if plugin initialised successfully</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-PLUGIN-DEFINE:CAPS"></a><h3>GST_PLUGIN_DEFINE()</h3>
+<pre class="programlisting">#define             GST_PLUGIN_DEFINE(major,minor,name,description,init,version,license,package,origin)</pre>
+<p>
+This macro needs to be used to define the entry point and meta data of a
+plugin. One would use this macro to export a plugin, so that it can be used
+by other applications.
+</p>
+<p>
+The macro uses a define named PACKAGE for the <a class="link" href="GstPlugin.html#GstPluginDesc" title="struct GstPluginDesc"><span class="type">GstPluginDesc</span></a>,source field.
+When using autoconf, this is usually set automatically via the AC_INIT
+macro, and set in config.h. If you are not using autoconf, you will need to
+define PACKAGE yourself and set it to a short mnemonic string identifying
+your application/package, e.g. 'someapp' or 'my-plugins-foo.
+</p>
+<p>
+If defined, the GST_PACKAGE_RELEASE_DATETIME will also be used for the
+<a class="link" href="GstPlugin.html#GstPluginDesc" title="struct GstPluginDesc"><span class="type">GstPluginDesc</span></a>,release_datetime field.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>major</code></em> :</span></p></td>
+<td>major version number of the gstreamer-core that plugin was compiled for</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>minor</code></em> :</span></p></td>
+<td>minor version number of the gstreamer-core that plugin was compiled for</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>short, but unique name of the plugin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>description</code></em> :</span></p></td>
+<td>information about the purpose of the plugin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>init</code></em> :</span></p></td>
+<td>function pointer to the plugin_init method with the signature of <code class="code">static gboolean plugin_init (GstPlugin * plugin)</code>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>version</code></em> :</span></p></td>
+<td>full version string (e.g. VERSION from config.h)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>license</code></em> :</span></p></td>
+<td>under which licence the package has been released, e.g. GPL, LGPL.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>package</code></em> :</span></p></td>
+<td>the package-name (e.g. PACKAGE_NAME from config.h)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>origin</code></em> :</span></p></td>
+<td>a description from where the package comes from (e.g. the homepage URL)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-LICENSE-UNKNOWN:CAPS"></a><h3>GST_LICENSE_UNKNOWN</h3>
+<pre class="programlisting">#define GST_LICENSE_UNKNOWN "unknown"
+</pre>
+<p>
+To be used in GST_PLUGIN_DEFINE if usure about the licence.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstPluginFilter"></a><h3>GstPluginFilter ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (*GstPluginFilter)                  (<em class="parameter"><code><a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a> *plugin</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+A function that can be used with e.g. <a class="link" href="GstRegistry.html#gst-registry-plugin-filter" title="gst_registry_plugin_filter ()"><code class="function">gst_registry_plugin_filter()</code></a>
+to get a list of plugins that match certain criteria.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>plugin</code></em> :</span></p></td>
+<td>the plugin to check</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>the user_data that has been passed on e.g. <a class="link" href="GstRegistry.html#gst-registry-plugin-filter" title="gst_registry_plugin_filter ()"><code class="function">gst_registry_plugin_filter()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE for a positive match, FALSE otherwise</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-plugin-get-name"></a><h3>gst_plugin_get_name ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       gst_plugin_get_name                 (<em class="parameter"><code><a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a> *plugin</code></em>);</pre>
+<p>
+Get the short name of the plugin
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>plugin</code></em> :</span></p></td>
+<td>plugin to get the name of</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the name of the plugin</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-plugin-get-description"></a><h3>gst_plugin_get_description ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       gst_plugin_get_description          (<em class="parameter"><code><a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a> *plugin</code></em>);</pre>
+<p>
+Get the long descriptive name of the plugin
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>plugin</code></em> :</span></p></td>
+<td>plugin to get long name of</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the long name of the plugin</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-plugin-get-filename"></a><h3>gst_plugin_get_filename ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       gst_plugin_get_filename             (<em class="parameter"><code><a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a> *plugin</code></em>);</pre>
+<p>
+get the filename of the plugin
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>plugin</code></em> :</span></p></td>
+<td>plugin to get the filename of</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the filename of the plugin</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-plugin-get-license"></a><h3>gst_plugin_get_license ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       gst_plugin_get_license              (<em class="parameter"><code><a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a> *plugin</code></em>);</pre>
+<p>
+get the license of the plugin
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>plugin</code></em> :</span></p></td>
+<td>plugin to get the license of</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the license of the plugin</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-plugin-get-package"></a><h3>gst_plugin_get_package ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       gst_plugin_get_package              (<em class="parameter"><code><a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a> *plugin</code></em>);</pre>
+<p>
+get the package the plugin belongs to.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>plugin</code></em> :</span></p></td>
+<td>plugin to get the package of</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the package of the plugin</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-plugin-get-origin"></a><h3>gst_plugin_get_origin ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       gst_plugin_get_origin               (<em class="parameter"><code><a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a> *plugin</code></em>);</pre>
+<p>
+get the URL where the plugin comes from
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>plugin</code></em> :</span></p></td>
+<td>plugin to get the origin of</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the origin of the plugin</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-plugin-get-source"></a><h3>gst_plugin_get_source ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       gst_plugin_get_source               (<em class="parameter"><code><a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a> *plugin</code></em>);</pre>
+<p>
+get the source module the plugin belongs to.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>plugin</code></em> :</span></p></td>
+<td>plugin to get the source of</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the source of the plugin</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-plugin-get-version"></a><h3>gst_plugin_get_version ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       gst_plugin_get_version              (<em class="parameter"><code><a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a> *plugin</code></em>);</pre>
+<p>
+get the version of the plugin
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>plugin</code></em> :</span></p></td>
+<td>plugin to get the version of</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the version of the plugin</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-plugin-get-release-date-string"></a><h3>gst_plugin_get_release_date_string ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       gst_plugin_get_release_date_string  (<em class="parameter"><code><a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a> *plugin</code></em>);</pre>
+<p>
+Get the release date (and possibly time) in form of a string, if available.
+</p>
+<p>
+For normal GStreamer plugin releases this will usually just be a date in
+the form of "YYYY-MM-DD", while pre-releases and builds from git may contain
+a time component after the date as well, in which case the string will be
+formatted like "YYYY-MM-DDTHH:MMZ" (e.g. "2012-04-30T09:30Z").
+</p>
+<p>
+There may be plugins that do not have a valid release date set on them.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>plugin</code></em> :</span></p></td>
+<td>plugin to get the release date of</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the date string of the plugin, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if not available.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-plugin-is-loaded"></a><h3>gst_plugin_is_loaded ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_plugin_is_loaded                (<em class="parameter"><code><a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a> *plugin</code></em>);</pre>
+<p>
+queries if the plugin is loaded into memory
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>plugin</code></em> :</span></p></td>
+<td>plugin to query</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE is loaded, FALSE otherwise</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-plugin-get-cache-data"></a><h3>gst_plugin_get_cache_data ()</h3>
+<pre class="programlisting">const <a class="link" href="gstreamer-GstStructure.html#GstStructure" title="struct GstStructure"><span class="returnvalue">GstStructure</span></a> * gst_plugin_get_cache_data          (<em class="parameter"><code><a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a> *plugin</code></em>);</pre>
+<p>
+Gets the plugin specific data cache. If it is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> there is no cached data
+stored. This is the case when the registry is getting rebuilt.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>plugin</code></em> :</span></p></td>
+<td>a plugin</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The cached data as a <a class="link" href="gstreamer-GstStructure.html#GstStructure" title="struct GstStructure"><span class="type">GstStructure</span></a> or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-plugin-set-cache-data"></a><h3>gst_plugin_set_cache_data ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_plugin_set_cache_data           (<em class="parameter"><code><a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a> *plugin</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstStructure.html#GstStructure" title="struct GstStructure"><span class="type">GstStructure</span></a> *cache_data</code></em>);</pre>
+<p>
+Adds plugin specific data to cache. Passes the ownership of the structure to
+the <em class="parameter"><code>plugin</code></em>.
+</p>
+<p>
+The cache is flushed every time the registry is rebuilt.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>plugin</code></em> :</span></p></td>
+<td>a plugin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>cache_data</code></em> :</span></p></td>
+<td>a structure containing the data to cache. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-plugin-load-file"></a><h3>gst_plugin_load_file ()</h3>
+<pre class="programlisting"><a class="link" href="GstPlugin.html" title="GstPlugin"><span class="returnvalue">GstPlugin</span></a> *         gst_plugin_load_file                (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *filename</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Loads the given plugin and refs it.  Caller needs to unref after use.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>filename</code></em> :</span></p></td>
+<td>the plugin filename to load</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>pointer to a NULL-valued GError</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a reference to the existing loaded GstPlugin, a
+reference to the newly-loaded GstPlugin, or NULL if an error occurred. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-plugin-load"></a><h3>gst_plugin_load ()</h3>
+<pre class="programlisting"><a class="link" href="GstPlugin.html" title="GstPlugin"><span class="returnvalue">GstPlugin</span></a> *         gst_plugin_load                     (<em class="parameter"><code><a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a> *plugin</code></em>);</pre>
+<p>
+Loads <em class="parameter"><code>plugin</code></em>. Note that the *return value* is the loaded plugin; <em class="parameter"><code>plugin</code></em> is
+untouched. The normal use pattern of this function goes like this:
+</p>
+<p>
+</p>
+<pre class="programlisting">
+GstPlugin *loaded_plugin;
+loaded_plugin = gst_plugin_load (plugin);
+// presumably, we're no longer interested in the potentially-unloaded plugin
+gst_object_unref (plugin);
+plugin = loaded_plugin;
+</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>plugin</code></em> :</span></p></td>
+<td>plugin to load. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a reference to a loaded plugin, or NULL on error. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-plugin-load-by-name"></a><h3>gst_plugin_load_by_name ()</h3>
+<pre class="programlisting"><a class="link" href="GstPlugin.html" title="GstPlugin"><span class="returnvalue">GstPlugin</span></a> *         gst_plugin_load_by_name             (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);</pre>
+<p>
+Load the named plugin. Refs the plugin.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>name of plugin to load</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a reference to a loaded plugin, or NULL on error. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-plugin-list-free"></a><h3>gst_plugin_list_free ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_plugin_list_free                (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *list</code></em>);</pre>
+<p>
+Unrefs each member of <em class="parameter"><code>list</code></em>, then frees the list.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>list</code></em> :</span></p></td>
+<td>list of <a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> Gst.Plugin]</span>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-plugin-register-static"></a><h3>gst_plugin_register_static ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_plugin_register_static          (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> major_version</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> minor_version</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *description</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstPlugin.html#GstPluginInitFunc" title="GstPluginInitFunc ()"><span class="type">GstPluginInitFunc</span></a> init_func</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *version</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *license</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *source</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *package</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *origin</code></em>);</pre>
+<p>
+Registers a static plugin, ie. a plugin which is private to an application
+or library and contained within the application or library (as opposed to
+being shipped as a separate module file).
+</p>
+<p>
+You must make sure that GStreamer has been initialised (with <a class="link" href="gstreamer-Gst.html#gst-init" title="gst_init ()"><code class="function">gst_init()</code></a> or
+via <a class="link" href="gstreamer-Gst.html#gst-init-get-option-group" title="gst_init_get_option_group ()"><code class="function">gst_init_get_option_group()</code></a>) before calling this function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>major_version</code></em> :</span></p></td>
+<td>the major version number of the GStreamer core that the
+plugin was compiled for, you can just use GST_VERSION_MAJOR here</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>minor_version</code></em> :</span></p></td>
+<td>the minor version number of the GStreamer core that the
+plugin was compiled for, you can just use GST_VERSION_MINOR here</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>a unique name of the plugin (ideally prefixed with an application- or
+library-specific namespace prefix in order to avoid name conflicts in
+case a similar plugin with the same name ever gets added to GStreamer)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>description</code></em> :</span></p></td>
+<td>description of the plugin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>init_func</code></em> :</span></p></td>
+<td>pointer to the init function of this plugin. <span class="annotation">[<acronym title="The callback is valid only during the call to the method."><span class="acronym">scope call</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>version</code></em> :</span></p></td>
+<td>version string of the plugin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>license</code></em> :</span></p></td>
+<td>effective license of plugin. Must be one of the approved licenses
+(see <a class="link" href="GstPlugin.html#GstPluginDesc" title="struct GstPluginDesc"><span class="type">GstPluginDesc</span></a> above) or the plugin will not be registered.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td>source module plugin belongs to</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>package</code></em> :</span></p></td>
+<td>shipped package plugin belongs to</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>origin</code></em> :</span></p></td>
+<td>URL to provider of plugin</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE if the plugin was registered correctly, otherwise FALSE.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-plugin-register-static-full"></a><h3>gst_plugin_register_static_full ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_plugin_register_static_full     (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> major_version</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> minor_version</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *description</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstPlugin.html#GstPluginInitFullFunc" title="GstPluginInitFullFunc ()"><span class="type">GstPluginInitFullFunc</span></a> init_full_func</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *version</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *license</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *source</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *package</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *origin</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+Registers a static plugin, ie. a plugin which is private to an application
+or library and contained within the application or library (as opposed to
+being shipped as a separate module file) with a <a class="link" href="GstPlugin.html#GstPluginInitFullFunc" title="GstPluginInitFullFunc ()"><span class="type">GstPluginInitFullFunc</span></a>
+which allows user data to be passed to the callback function (useful
+for bindings).
+</p>
+<p>
+You must make sure that GStreamer has been initialised (with <a class="link" href="gstreamer-Gst.html#gst-init" title="gst_init ()"><code class="function">gst_init()</code></a> or
+via <a class="link" href="gstreamer-Gst.html#gst-init-get-option-group" title="gst_init_get_option_group ()"><code class="function">gst_init_get_option_group()</code></a>) before calling this function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>major_version</code></em> :</span></p></td>
+<td>the major version number of the GStreamer core that the
+plugin was compiled for, you can just use GST_VERSION_MAJOR here</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>minor_version</code></em> :</span></p></td>
+<td>the minor version number of the GStreamer core that the
+plugin was compiled for, you can just use GST_VERSION_MINOR here</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>a unique name of the plugin (ideally prefixed with an application- or
+library-specific namespace prefix in order to avoid name conflicts in
+case a similar plugin with the same name ever gets added to GStreamer)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>description</code></em> :</span></p></td>
+<td>description of the plugin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>init_full_func</code></em> :</span></p></td>
+<td>pointer to the init function with user data
+of this plugin. <span class="annotation">[<acronym title="The callback is valid only during the call to the method."><span class="acronym">scope call</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>version</code></em> :</span></p></td>
+<td>version string of the plugin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>license</code></em> :</span></p></td>
+<td>effective license of plugin. Must be one of the approved licenses
+(see <a class="link" href="GstPlugin.html#GstPluginDesc" title="struct GstPluginDesc"><span class="type">GstPluginDesc</span></a> above) or the plugin will not be registered.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td>source module plugin belongs to</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>package</code></em> :</span></p></td>
+<td>shipped package plugin belongs to</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>origin</code></em> :</span></p></td>
+<td>URL to provider of plugin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>gpointer to user data</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE if the plugin was registered correctly, otherwise FALSE.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstPluginFlags"></a><h3>enum GstPluginFlags</h3>
+<pre class="programlisting">typedef enum {
+  GST_PLUGIN_FLAG_CACHED      = (GST_OBJECT_FLAG_LAST &lt;&lt; 0),
+  GST_PLUGIN_FLAG_BLACKLISTED = (GST_OBJECT_FLAG_LAST &lt;&lt; 1)
+} GstPluginFlags;
+</pre>
+<p>
+The plugin loading state
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="GST-PLUGIN-FLAG-CACHED:CAPS"></a><span class="term"><code class="literal">GST_PLUGIN_FLAG_CACHED</code></span></p></td>
+<td>Temporarily loaded plugins
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-PLUGIN-FLAG-BLACKLISTED:CAPS"></a><span class="term"><code class="literal">GST_PLUGIN_FLAG_BLACKLISTED</code></span></p></td>
+<td>The plugin won't be scanned (again)
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstPluginDependencyFlags"></a><h3>enum GstPluginDependencyFlags</h3>
+<pre class="programlisting">typedef enum {
+  GST_PLUGIN_DEPENDENCY_FLAG_NONE = 0,
+  GST_PLUGIN_DEPENDENCY_FLAG_RECURSE = (1 &lt;&lt; 0),
+  GST_PLUGIN_DEPENDENCY_FLAG_PATHS_ARE_DEFAULT_ONLY = (1 &lt;&lt; 1),
+  GST_PLUGIN_DEPENDENCY_FLAG_FILE_NAME_IS_SUFFIX = (1 &lt;&lt; 2)
+} GstPluginDependencyFlags;
+</pre>
+<p>
+Flags used in connection with <a class="link" href="GstPlugin.html#gst-plugin-add-dependency" title="gst_plugin_add_dependency ()"><code class="function">gst_plugin_add_dependency()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="GST-PLUGIN-DEPENDENCY-FLAG-NONE:CAPS"></a><span class="term"><code class="literal">GST_PLUGIN_DEPENDENCY_FLAG_NONE</code></span></p></td>
+<td>no special flags
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-PLUGIN-DEPENDENCY-FLAG-RECURSE:CAPS"></a><span class="term"><code class="literal">GST_PLUGIN_DEPENDENCY_FLAG_RECURSE</code></span></p></td>
+<td>recurse into subdirectories
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-PLUGIN-DEPENDENCY-FLAG-PATHS-ARE-DEFAULT-ONLY:CAPS"></a><span class="term"><code class="literal">GST_PLUGIN_DEPENDENCY_FLAG_PATHS_ARE_DEFAULT_ONLY</code></span></p></td>
+<td>use paths
+        argument only if none of the environment variables is set
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-PLUGIN-DEPENDENCY-FLAG-FILE-NAME-IS-SUFFIX:CAPS"></a><span class="term"><code class="literal">GST_PLUGIN_DEPENDENCY_FLAG_FILE_NAME_IS_SUFFIX</code></span></p></td>
+<td>interpret
+        filename argument as filter suffix and check all matching files in
+        the directory
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-plugin-add-dependency"></a><h3>gst_plugin_add_dependency ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_plugin_add_dependency           (<em class="parameter"><code><a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a> *plugin</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **env_vars</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **paths</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **names</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstPlugin.html#GstPluginDependencyFlags" title="enum GstPluginDependencyFlags"><span class="type">GstPluginDependencyFlags</span></a> flags</code></em>);</pre>
+<p>
+Make GStreamer aware of external dependencies which affect the feature
+set of this plugin (ie. the elements or typefinders associated with it).
+</p>
+<p>
+GStreamer will re-inspect plugins with external dependencies whenever any
+of the external dependencies change. This is useful for plugins which wrap
+other plugin systems, e.g. a plugin which wraps a plugin-based visualisation
+library and makes visualisations available as GStreamer elements, or a
+codec loader which exposes elements and/or caps dependent on what external
+codec libraries are currently installed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>plugin</code></em> :</span></p></td>
+<td>a <a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>env_vars</code></em> :</span></p></td>
+<td>NULL-terminated array of environment variables affecting the
+feature set of the plugin (e.g. an environment variable containing
+paths where to look for additional modules/plugins of a library),
+or NULL. Environment variable names may be followed by a path component
+which will be added to the content of the environment variable, e.g.
+"HOME/.mystuff/plugins".</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>paths</code></em> :</span></p></td>
+<td>NULL-terminated array of directories/paths where dependent files
+may be.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>names</code></em> :</span></p></td>
+<td>NULL-terminated array of file names (or file name suffixes,
+depending on <em class="parameter"><code>flags</code></em>) to be used in combination with the paths from
+<em class="parameter"><code>paths</code></em> and/or the paths extracted from the environment variables in
+<em class="parameter"><code>env_vars</code></em>, or NULL.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>flags</code></em> :</span></p></td>
+<td>optional flags, or <a class="link" href="GstPlugin.html#GST-PLUGIN-DEPENDENCY-FLAG-NONE:CAPS"><span class="type">GST_PLUGIN_DEPENDENCY_FLAG_NONE</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-plugin-add-dependency-simple"></a><h3>gst_plugin_add_dependency_simple ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_plugin_add_dependency_simple    (<em class="parameter"><code><a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a> *plugin</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *env_vars</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *paths</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *names</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstPlugin.html#GstPluginDependencyFlags" title="enum GstPluginDependencyFlags"><span class="type">GstPluginDependencyFlags</span></a> flags</code></em>);</pre>
+<p>
+Make GStreamer aware of external dependencies which affect the feature
+set of this plugin (ie. the elements or typefinders associated with it).
+</p>
+<p>
+GStreamer will re-inspect plugins with external dependencies whenever any
+of the external dependencies change. This is useful for plugins which wrap
+other plugin systems, e.g. a plugin which wraps a plugin-based visualisation
+library and makes visualisations available as GStreamer elements, or a
+codec loader which exposes elements and/or caps dependent on what external
+codec libraries are currently installed.
+</p>
+<p>
+Convenience wrapper function for <a class="link" href="GstPlugin.html#gst-plugin-add-dependency" title="gst_plugin_add_dependency ()"><code class="function">gst_plugin_add_dependency()</code></a> which
+takes simple strings as arguments instead of string arrays, with multiple
+arguments separated by predefined delimiters (see above).
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>plugin</code></em> :</span></p></td>
+<td>the <a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>env_vars</code></em> :</span></p></td>
+<td>one or more environment variables (separated by ':', ';' or ','),
+or NULL. Environment variable names may be followed by a path component
+which will be added to the content of the environment variable, e.g.
+"HOME/.mystuff/plugins:MYSTUFF_PLUGINS_PATH"</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>paths</code></em> :</span></p></td>
+<td>one ore more directory paths (separated by ':' or ';' or ','),
+or NULL. Example: "/usr/lib/mystuff/plugins"</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>names</code></em> :</span></p></td>
+<td>one or more file names or file name suffixes (separated by commas),
+or NULL</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>flags</code></em> :</span></p></td>
+<td>optional flags, or <a class="link" href="GstPlugin.html#GST-PLUGIN-DEPENDENCY-FLAG-NONE:CAPS"><span class="type">GST_PLUGIN_DEPENDENCY_FLAG_NONE</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="GstPlugin.see-also"></a><h2>See Also</h2>
+<a class="link" href="GstPluginFeature.html" title="GstPluginFeature"><span class="type">GstPluginFeature</span></a>, <a class="link" href="GstElementFactory.html" title="GstElementFactory"><span class="type">GstElementFactory</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

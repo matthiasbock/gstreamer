@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>eglglessink</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer Bad Plugins 1.0 Plugins Reference Manual">
+<link rel="up" href="ch01.html" title="gst-plugins-bad Elements">
+<link rel="prev" href="gst-plugins-bad-plugins-edgedetect.html" title="edgedetect">
+<link rel="next" href="gst-plugins-bad-plugins-faac.html" title="faac">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gst-plugins-bad-plugins-edgedetect.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer Bad Plugins 1.0 Plugins Reference Manual</th>
+<td><a accesskey="n" href="gst-plugins-bad-plugins-faac.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gst-plugins-bad-plugins-eglglessink.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gst-plugins-bad-plugins-eglglessink.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gst-plugins-bad-plugins-eglglessink"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gst-plugins-bad-plugins-eglglessink.top_of_page"></a>eglglessink</span></h2>
+<p>eglglessink — An EGL/GLES Video Output Sink Implementing the VideoOverlay interface</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gst-plugins-bad-plugins-eglglessink.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">struct              <a class="link" href="gst-plugins-bad-plugins-eglglessink.html#GstEglGlesSink" title="struct GstEglGlesSink">GstEglGlesSink</a>;
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-bad-plugins-eglglessink.description"></a><h2>Description</h2>
+<div class="refsynopsisdiv">
+<h2>Synopsis</h2>
+<div class="refsect2">
+<a name="idp10506384"></a><h3>Element Information</h3>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">plugin</span></p></td>
+<td>
+            <a class="link" href="gst-plugins-bad-plugins-plugin-eglglessink.html#plugin-eglglessink">eglglessink</a>
+          </td>
+</tr>
+<tr>
+<td><p><span class="term">author</span></p></td>
+<td>Reynaldo H. Verdejo Pinochet &lt;reynaldo@collabora.com&gt;, Sebastian Dröge &lt;sebastian.droege@collabora.co.uk&gt;</td>
+</tr>
+<tr>
+<td><p><span class="term">class</span></p></td>
+<td>Sink/Video</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="idp7391440"></a><h3>Element Pads</h3>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">name</span></p></td>
+<td>sink</td>
+</tr>
+<tr>
+<td><p><span class="term">direction</span></p></td>
+<td>sink</td>
+</tr>
+<tr>
+<td><p><span class="term">presence</span></p></td>
+<td>always</td>
+</tr>
+<tr>
+<td><p><span class="term">details</span></p></td>
+<td>video/x-raw, format=(string){ RGBA, BGRA, ARGB, ABGR, RGBx, BGRx, xRGB, xBGR, AYUV, Y444, I420, YV12, NV12, NV21, YUY2, YVYU, UYVY, Y42B, Y41B, RGB, BGR, RGB16 }, width=(int)[ 1, 2147483647 ], height=(int)[ 1, 2147483647 ], framerate=(fraction)[ 0/1, 2147483647/1 ]</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<p>
+</p>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-bad-plugins-eglglessink.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstEglGlesSink"></a><h3>struct GstEglGlesSink</h3>
+<pre class="programlisting">struct GstEglGlesSink {
+  GstVideoSink videosink;       /* Element hook */
+
+  /* Region of the surface that should be rendered */
+  GstVideoRectangle render_region;
+  gboolean render_region_changed;
+  gboolean render_region_user;
+
+  /* Region of render_region that should be filled
+   * with the video frames */
+  GstVideoRectangle display_region;
+
+  GstVideoRectangle crop;
+  gboolean crop_changed;
+  GstCaps *sinkcaps;
+  GstCaps *current_caps, *configured_caps;
+  GstVideoInfo configured_info;
+  gfloat stride[3];
+
+  GstEglGlesRenderContext eglglesctx;
+
+  /* Runtime flags */
+  gboolean have_window;
+  gboolean using_own_window;
+  gboolean have_surface;;
+  gboolean have_vbo;
+  gboolean have_texture;
+  gboolean egl_started;
+
+  gpointer own_window_data;
+
+  GThread *thread;
+  gboolean thread_running;
+  EGLGstDataQueue *queue;
+  GCond render_cond;
+  GMutex render_lock;
+  GstFlowReturn last_flow;
+
+  /* Properties */
+  gboolean create_window;
+  gboolean force_aspect_ratio;
+};
+</pre>
+<p>
+</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

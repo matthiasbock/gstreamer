@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GstTocSetter</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer 1.0 Core Reference Manual">
+<link rel="up" href="libgstreamer.html" title="GStreamer Core Library">
+<link rel="prev" href="gstreamer-GstToc.html" title="GstToc">
+<link rel="next" href="gstreamer-GstTypeFind.html" title="GstTypeFind">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gstreamer-GstToc.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="libgstreamer.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer 1.0 Core Reference Manual</th>
+<td><a accesskey="n" href="gstreamer-GstTypeFind.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gstreamer-GstTocSetter.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gstreamer-GstTocSetter.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gstreamer-GstTocSetter"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gstreamer-GstTocSetter.top_of_page"></a>GstTocSetter</span></h2>
+<p>GstTocSetter — Element interface that allows setting and retrieval
+                    of the TOC</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gstreamer-GstTocSetter.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;gst/gst.h&gt;
+
+                    <a class="link" href="gstreamer-GstTocSetter.html#GstTocSetter" title="GstTocSetter">GstTocSetter</a>;
+struct              <a class="link" href="gstreamer-GstTocSetter.html#GstTocSetterInterface" title="struct GstTocSetterInterface">GstTocSetterInterface</a>;
+<span class="returnvalue">void</span>                <a class="link" href="gstreamer-GstTocSetter.html#gst-toc-setter-set-toc" title="gst_toc_setter_set_toc ()">gst_toc_setter_set_toc</a>              (<em class="parameter"><code><a class="link" href="gstreamer-GstTocSetter.html#GstTocSetter" title="GstTocSetter"><span class="type">GstTocSetter</span></a> *setter</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstToc.html#GstToc" title="GstToc"><span class="type">GstToc</span></a> *toc</code></em>);
+<a class="link" href="gstreamer-GstToc.html#GstToc" title="GstToc"><span class="returnvalue">GstToc</span></a> *            <a class="link" href="gstreamer-GstTocSetter.html#gst-toc-setter-get-toc" title="gst_toc_setter_get_toc ()">gst_toc_setter_get_toc</a>              (<em class="parameter"><code><a class="link" href="gstreamer-GstTocSetter.html#GstTocSetter" title="GstTocSetter"><span class="type">GstTocSetter</span></a> *setter</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gstreamer-GstTocSetter.html#gst-toc-setter-reset" title="gst_toc_setter_reset ()">gst_toc_setter_reset</a>                (<em class="parameter"><code><a class="link" href="gstreamer-GstTocSetter.html#GstTocSetter" title="GstTocSetter"><span class="type">GstTocSetter</span></a> *setter</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="gstreamer-GstTocSetter.description"></a><h2>Description</h2>
+<p>
+Element interface that allows setting of the TOC.
+</p>
+<p>
+Elements that support some kind of chapters or editions (or tracks like in
+the FLAC cue sheet) will implement this interface.
+</p>
+<p>
+If you just want to retrieve the TOC in your application then all you
+need to do is watch for TOC messages on your pipeline's bus (or you can
+perform TOC query). This interface is only for setting TOC data, not for
+extracting it. To set TOC from the application, find proper tocsetter element
+and set TOC using <a class="link" href="gstreamer-GstTocSetter.html#gst-toc-setter-set-toc" title="gst_toc_setter_set_toc ()"><code class="function">gst_toc_setter_set_toc()</code></a>.
+</p>
+<p>
+Elements implementing the <a class="link" href="gstreamer-GstTocSetter.html#GstTocSetter" title="GstTocSetter"><span class="type">GstTocSetter</span></a> interface can extend existing TOC
+by getting extend UID for that (you can use <a class="link" href="gstreamer-GstToc.html#gst-toc-find-entry" title="gst_toc_find_entry ()"><code class="function">gst_toc_find_entry()</code></a> to retrieve it)
+with any TOC entries received from downstream.
+</p>
+</div>
+<div class="refsect1">
+<a name="gstreamer-GstTocSetter.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstTocSetter"></a><h3>GstTocSetter</h3>
+<pre class="programlisting">typedef struct _GstTocSetter GstTocSetter;</pre>
+<p>
+Opaque <a class="link" href="gstreamer-GstTocSetter.html#GstTocSetter" title="GstTocSetter"><span class="type">GstTocSetter</span></a> data structure.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstTocSetterInterface"></a><h3>struct GstTocSetterInterface</h3>
+<pre class="programlisting">struct GstTocSetterInterface {
+  GTypeInterface g_iface;
+
+  /* signals */
+
+  /* virtual table */
+};
+</pre>
+<p>
+<a class="link" href="gstreamer-GstTocSetter.html#GstTocSetterInterface" title="struct GstTocSetterInterface"><span class="type">GstTocSetterInterface</span></a> interface.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GTypeInterface"><span class="type">GTypeInterface</span></a> <em class="structfield"><code><a name="GstTocSetterInterface.g-iface"></a>g_iface</code></em>;</span></p></td>
+<td>parent interface type.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-toc-setter-set-toc"></a><h3>gst_toc_setter_set_toc ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_toc_setter_set_toc              (<em class="parameter"><code><a class="link" href="gstreamer-GstTocSetter.html#GstTocSetter" title="GstTocSetter"><span class="type">GstTocSetter</span></a> *setter</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstToc.html#GstToc" title="GstToc"><span class="type">GstToc</span></a> *toc</code></em>);</pre>
+<p>
+Set the given TOC on the setter. Previously setted TOC will be
+unrefed before setting a new one.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>setter</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstTocSetter.html#GstTocSetter" title="GstTocSetter"><span class="type">GstTocSetter</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>toc</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstToc.html#GstToc" title="GstToc"><span class="type">GstToc</span></a> to set. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-toc-setter-get-toc"></a><h3>gst_toc_setter_get_toc ()</h3>
+<pre class="programlisting"><a class="link" href="gstreamer-GstToc.html#GstToc" title="GstToc"><span class="returnvalue">GstToc</span></a> *            gst_toc_setter_get_toc              (<em class="parameter"><code><a class="link" href="gstreamer-GstTocSetter.html#GstTocSetter" title="GstTocSetter"><span class="type">GstTocSetter</span></a> *setter</code></em>);</pre>
+<p>
+Return current TOC the setter uses. The TOC should not be
+modified without making it writable first.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>setter</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstTocSetter.html#GstTocSetter" title="GstTocSetter"><span class="type">GstTocSetter</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TOC set, or NULL. Unref with <a class="link" href="gstreamer-GstToc.html#gst-toc-unref" title="gst_toc_unref()"><code class="function">gst_toc_unref()</code></a>
+when no longer needed. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-toc-setter-reset"></a><h3>gst_toc_setter_reset ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_toc_setter_reset                (<em class="parameter"><code><a class="link" href="gstreamer-GstTocSetter.html#GstTocSetter" title="GstTocSetter"><span class="type">GstTocSetter</span></a> *setter</code></em>);</pre>
+<p>
+Reset the internal TOC. Elements should call this from within the
+state-change handler.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>setter</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstTocSetter.html#GstTocSetter" title="GstTocSetter"><span class="type">GstTocSetter</span></a>.</td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

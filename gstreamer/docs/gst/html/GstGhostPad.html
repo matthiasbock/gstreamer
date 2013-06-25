@@ -1,0 +1,615 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GstGhostPad</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer 1.0 Core Reference Manual">
+<link rel="up" href="libgstreamer.html" title="GStreamer Core Library">
+<link rel="prev" href="gstreamer-GstFormat.html" title="GstFormat">
+<link rel="next" href="gstreamer-GstIterator.html" title="GstIterator">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gstreamer-GstFormat.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="libgstreamer.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer 1.0 Core Reference Manual</th>
+<td><a accesskey="n" href="gstreamer-GstIterator.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#GstGhostPad.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#GstGhostPad.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#GstGhostPad.object-hierarchy" class="shortcut">Object Hierarchy</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="GstGhostPad"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GstGhostPad.top_of_page"></a>GstGhostPad</span></h2>
+<p>GstGhostPad — Pseudo link pads</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="GstGhostPad.synopsis"></a><h2>Synopsis</h2>
+<a name="GstProxyPad"></a><pre class="synopsis">
+#include &lt;gst/gst.h&gt;
+
+struct              <a class="link" href="GstGhostPad.html#GstProxyPad-struct" title="struct GstProxyPad">GstProxyPad</a>;
+struct              <a class="link" href="GstGhostPad.html#GstGhostPad-struct" title="struct GstGhostPad">GstGhostPad</a>;
+<a class="link" href="GstPad.html" title="GstPad"><span class="returnvalue">GstPad</span></a> *            <a class="link" href="GstGhostPad.html#gst-ghost-pad-new" title="gst_ghost_pad_new ()">gst_ghost_pad_new</a>                   (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstPad.html" title="GstPad"><span class="type">GstPad</span></a> *target</code></em>);
+<a class="link" href="GstPad.html" title="GstPad"><span class="returnvalue">GstPad</span></a> *            <a class="link" href="GstGhostPad.html#gst-ghost-pad-new-no-target" title="gst_ghost_pad_new_no_target ()">gst_ghost_pad_new_no_target</a>         (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstPad.html#GstPadDirection" title="enum GstPadDirection"><span class="type">GstPadDirection</span></a> dir</code></em>);
+<a class="link" href="GstPad.html" title="GstPad"><span class="returnvalue">GstPad</span></a> *            <a class="link" href="GstGhostPad.html#gst-ghost-pad-new-from-template" title="gst_ghost_pad_new_from_template ()">gst_ghost_pad_new_from_template</a>     (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstPad.html" title="GstPad"><span class="type">GstPad</span></a> *target</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstPadTemplate.html" title="GstPadTemplate"><span class="type">GstPadTemplate</span></a> *templ</code></em>);
+<a class="link" href="GstPad.html" title="GstPad"><span class="returnvalue">GstPad</span></a> *            <a class="link" href="GstGhostPad.html#gst-ghost-pad-new-no-target-from-template" title="gst_ghost_pad_new_no_target_from_template ()">gst_ghost_pad_new_no_target_from_template</a>
+                                                        (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstPadTemplate.html" title="GstPadTemplate"><span class="type">GstPadTemplate</span></a> *templ</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="GstGhostPad.html#gst-ghost-pad-set-target" title="gst_ghost_pad_set_target ()">gst_ghost_pad_set_target</a>            (<em class="parameter"><code><a class="link" href="GstGhostPad.html" title="GstGhostPad"><span class="type">GstGhostPad</span></a> *gpad</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstPad.html" title="GstPad"><span class="type">GstPad</span></a> *newtarget</code></em>);
+<a class="link" href="GstPad.html" title="GstPad"><span class="returnvalue">GstPad</span></a> *            <a class="link" href="GstGhostPad.html#gst-ghost-pad-get-target" title="gst_ghost_pad_get_target ()">gst_ghost_pad_get_target</a>            (<em class="parameter"><code><a class="link" href="GstGhostPad.html" title="GstGhostPad"><span class="type">GstGhostPad</span></a> *gpad</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="GstGhostPad.html#gst-ghost-pad-construct" title="gst_ghost_pad_construct ()">gst_ghost_pad_construct</a>             (<em class="parameter"><code><a class="link" href="GstGhostPad.html" title="GstGhostPad"><span class="type">GstGhostPad</span></a> *gpad</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="GstGhostPad.html#gst-ghost-pad-activate-mode-default" title="gst_ghost_pad_activate_mode_default ()">gst_ghost_pad_activate_mode_default</a> (<em class="parameter"><code><a class="link" href="GstPad.html" title="GstPad"><span class="type">GstPad</span></a> *pad</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstPad.html#GstPadMode" title="enum GstPadMode"><span class="type">GstPadMode</span></a> mode</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> active</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="GstGhostPad.html#gst-ghost-pad-internal-activate-mode-default" title="gst_ghost_pad_internal_activate_mode_default ()">gst_ghost_pad_internal_activate_mode_default</a>
+                                                        (<em class="parameter"><code><a class="link" href="GstPad.html" title="GstPad"><span class="type">GstPad</span></a> *pad</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstPad.html#GstPadMode" title="enum GstPadMode"><span class="type">GstPadMode</span></a> mode</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> active</code></em>);
+<a class="link" href="GstGhostPad.html#GstProxyPad"><span class="returnvalue">GstProxyPad</span></a> *       <a class="link" href="GstGhostPad.html#gst-proxy-pad-get-internal" title="gst_proxy_pad_get_internal ()">gst_proxy_pad_get_internal</a>          (<em class="parameter"><code><a class="link" href="GstGhostPad.html#GstProxyPad"><span class="type">GstProxyPad</span></a> *pad</code></em>);
+<a class="link" href="gstreamer-GstIterator.html#GstIterator" title="struct GstIterator"><span class="returnvalue">GstIterator</span></a> *       <a class="link" href="GstGhostPad.html#gst-proxy-pad-iterate-internal-links-default" title="gst_proxy_pad_iterate_internal_links_default ()">gst_proxy_pad_iterate_internal_links_default</a>
+                                                        (<em class="parameter"><code><a class="link" href="GstPad.html" title="GstPad"><span class="type">GstPad</span></a> *pad</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *parent</code></em>);
+<a class="link" href="GstPad.html#GstFlowReturn" title="enum GstFlowReturn"><span class="returnvalue">GstFlowReturn</span></a>       <a class="link" href="GstGhostPad.html#gst-proxy-pad-chain-default" title="gst_proxy_pad_chain_default ()">gst_proxy_pad_chain_default</a>         (<em class="parameter"><code><a class="link" href="GstPad.html" title="GstPad"><span class="type">GstPad</span></a> *pad</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstBuffer.html#GstBuffer" title="struct GstBuffer"><span class="type">GstBuffer</span></a> *buffer</code></em>);
+<a class="link" href="GstPad.html#GstFlowReturn" title="enum GstFlowReturn"><span class="returnvalue">GstFlowReturn</span></a>       <a class="link" href="GstGhostPad.html#gst-proxy-pad-chain-list-default" title="gst_proxy_pad_chain_list_default ()">gst_proxy_pad_chain_list_default</a>    (<em class="parameter"><code><a class="link" href="GstPad.html" title="GstPad"><span class="type">GstPad</span></a> *pad</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstBufferList.html#GstBufferList" title="GstBufferList"><span class="type">GstBufferList</span></a> *list</code></em>);
+<a class="link" href="GstPad.html#GstFlowReturn" title="enum GstFlowReturn"><span class="returnvalue">GstFlowReturn</span></a>       <a class="link" href="GstGhostPad.html#gst-proxy-pad-getrange-default" title="gst_proxy_pad_getrange_default ()">gst_proxy_pad_getrange_default</a>      (<em class="parameter"><code><a class="link" href="GstPad.html" title="GstPad"><span class="type">GstPad</span></a> *pad</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint64</span> offset</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> size</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstBuffer.html#GstBuffer" title="struct GstBuffer"><span class="type">GstBuffer</span></a> **buffer</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="GstGhostPad.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a class="link" href="GstObject.html" title="GstObject">GstObject</a>
+               +----<a class="link" href="GstPad.html" title="GstPad">GstPad</a>
+                     +----GstProxyPad
+                           +----<a class="link" href="GstGhostPad.html" title="GstGhostPad">GstGhostPad</a>
+</pre>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a class="link" href="GstObject.html" title="GstObject">GstObject</a>
+               +----<a class="link" href="GstPad.html" title="GstPad">GstPad</a>
+                     +----<a class="link" href="GstGhostPad.html#GstProxyPad">GstProxyPad</a>
+                           +----GstGhostPad
+</pre>
+</div>
+<div class="refsect1">
+<a name="GstGhostPad.description"></a><h2>Description</h2>
+<p>
+GhostPads are useful when organizing pipelines with <a class="link" href="GstBin.html" title="GstBin"><span class="type">GstBin</span></a> like elements.
+The idea here is to create hierarchical element graphs. The bin element
+contains a sub-graph. Now one would like to treat the bin-element like any
+other <a class="link" href="GstElement.html" title="GstElement"><span class="type">GstElement</span></a>. This is where GhostPads come into play. A GhostPad acts as
+a proxy for another pad. Thus the bin can have sink and source ghost-pads
+that are associated with sink and source pads of the child elements.
+</p>
+<p>
+If the target pad is known at creation time, <a class="link" href="GstGhostPad.html#gst-ghost-pad-new" title="gst_ghost_pad_new ()"><code class="function">gst_ghost_pad_new()</code></a> is the
+function to use to get a ghost-pad. Otherwise one can use <a class="link" href="GstGhostPad.html#gst-ghost-pad-new-no-target" title="gst_ghost_pad_new_no_target ()"><code class="function">gst_ghost_pad_new_no_target()</code></a>
+to create the ghost-pad and use <a class="link" href="GstGhostPad.html#gst-ghost-pad-set-target" title="gst_ghost_pad_set_target ()"><code class="function">gst_ghost_pad_set_target()</code></a> to establish the
+association later on.
+</p>
+<p>
+Note that GhostPads add overhead to the data processing of a pipeline.
+</p>
+<p>
+Last reviewed on 2005-11-18 (0.9.5)
+</p>
+</div>
+<div class="refsect1">
+<a name="GstGhostPad.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstProxyPad-struct"></a><h3>struct GstProxyPad</h3>
+<pre class="programlisting">struct GstProxyPad;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstGhostPad-struct"></a><h3>struct GstGhostPad</h3>
+<pre class="programlisting">struct GstGhostPad;</pre>
+<p>
+Opaque <a class="link" href="GstGhostPad.html" title="GstGhostPad"><span class="type">GstGhostPad</span></a> structure.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-ghost-pad-new"></a><h3>gst_ghost_pad_new ()</h3>
+<pre class="programlisting"><a class="link" href="GstPad.html" title="GstPad"><span class="returnvalue">GstPad</span></a> *            gst_ghost_pad_new                   (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstPad.html" title="GstPad"><span class="type">GstPad</span></a> *target</code></em>);</pre>
+<p>
+Create a new ghostpad with <em class="parameter"><code>target</code></em> as the target. The direction will be taken
+from the target pad. <em class="parameter"><code>target</code></em> must be unlinked.
+</p>
+<p>
+Will ref the target.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>the name of the new pad, or NULL to assign a default name. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>target</code></em> :</span></p></td>
+<td>the pad to ghost. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="GstPad.html" title="GstPad"><span class="type">GstPad</span></a>, or NULL in case of an error. <span class="annotation">[transfer floating]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-ghost-pad-new-no-target"></a><h3>gst_ghost_pad_new_no_target ()</h3>
+<pre class="programlisting"><a class="link" href="GstPad.html" title="GstPad"><span class="returnvalue">GstPad</span></a> *            gst_ghost_pad_new_no_target         (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstPad.html#GstPadDirection" title="enum GstPadDirection"><span class="type">GstPadDirection</span></a> dir</code></em>);</pre>
+<p>
+Create a new ghostpad without a target with the given direction.
+A target can be set on the ghostpad later with the
+<a class="link" href="GstGhostPad.html#gst-ghost-pad-set-target" title="gst_ghost_pad_set_target ()"><code class="function">gst_ghost_pad_set_target()</code></a> function.
+</p>
+<p>
+The created ghostpad will not have a padtemplate.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>the name of the new pad, or NULL to assign a default name. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dir</code></em> :</span></p></td>
+<td>the direction of the ghostpad</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="GstPad.html" title="GstPad"><span class="type">GstPad</span></a>, or NULL in case of an error. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-ghost-pad-new-from-template"></a><h3>gst_ghost_pad_new_from_template ()</h3>
+<pre class="programlisting"><a class="link" href="GstPad.html" title="GstPad"><span class="returnvalue">GstPad</span></a> *            gst_ghost_pad_new_from_template     (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstPad.html" title="GstPad"><span class="type">GstPad</span></a> *target</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstPadTemplate.html" title="GstPadTemplate"><span class="type">GstPadTemplate</span></a> *templ</code></em>);</pre>
+<p>
+Create a new ghostpad with <em class="parameter"><code>target</code></em> as the target. The direction will be taken
+from the target pad. The template used on the ghostpad will be <em class="parameter"><code>template</code></em>.
+</p>
+<p>
+Will ref the target.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>the name of the new pad, or NULL to assign a default name. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>target</code></em> :</span></p></td>
+<td>the pad to ghost. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>templ</code></em> :</span></p></td>
+<td>the <a class="link" href="GstPadTemplate.html" title="GstPadTemplate"><span class="type">GstPadTemplate</span></a> to use on the ghostpad. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="GstPad.html" title="GstPad"><span class="type">GstPad</span></a>, or NULL in case of an error. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-ghost-pad-new-no-target-from-template"></a><h3>gst_ghost_pad_new_no_target_from_template ()</h3>
+<pre class="programlisting"><a class="link" href="GstPad.html" title="GstPad"><span class="returnvalue">GstPad</span></a> *            gst_ghost_pad_new_no_target_from_template
+                                                        (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstPadTemplate.html" title="GstPadTemplate"><span class="type">GstPadTemplate</span></a> *templ</code></em>);</pre>
+<p>
+Create a new ghostpad based on <em class="parameter"><code>templ</code></em>, without setting a target. The
+direction will be taken from the <em class="parameter"><code>templ</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>the name of the new pad, or NULL to assign a default name. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>templ</code></em> :</span></p></td>
+<td>the <a class="link" href="GstPadTemplate.html" title="GstPadTemplate"><span class="type">GstPadTemplate</span></a> to create the ghostpad from. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="GstPad.html" title="GstPad"><span class="type">GstPad</span></a>, or NULL in case of an error. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-ghost-pad-set-target"></a><h3>gst_ghost_pad_set_target ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_ghost_pad_set_target            (<em class="parameter"><code><a class="link" href="GstGhostPad.html" title="GstGhostPad"><span class="type">GstGhostPad</span></a> *gpad</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstPad.html" title="GstPad"><span class="type">GstPad</span></a> *newtarget</code></em>);</pre>
+<p>
+Set the new target of the ghostpad <em class="parameter"><code>gpad</code></em>. Any existing target
+is unlinked and links to the new target are established. if <em class="parameter"><code>newtarget</code></em> is
+NULL the target will be cleared.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>gpad</code></em> :</span></p></td>
+<td>the <a class="link" href="GstGhostPad.html" title="GstGhostPad"><span class="type">GstGhostPad</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>newtarget</code></em> :</span></p></td>
+<td>the new pad target. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE if the new target could be set. This function
+can return FALSE when the internal pads could not be linked. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-ghost-pad-get-target"></a><h3>gst_ghost_pad_get_target ()</h3>
+<pre class="programlisting"><a class="link" href="GstPad.html" title="GstPad"><span class="returnvalue">GstPad</span></a> *            gst_ghost_pad_get_target            (<em class="parameter"><code><a class="link" href="GstGhostPad.html" title="GstGhostPad"><span class="type">GstGhostPad</span></a> *gpad</code></em>);</pre>
+<p>
+Get the target pad of <em class="parameter"><code>gpad</code></em>. Unref target pad after usage.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>gpad</code></em> :</span></p></td>
+<td>the <a class="link" href="GstGhostPad.html" title="GstGhostPad"><span class="type">GstGhostPad</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the target <a class="link" href="GstPad.html" title="GstPad"><span class="type">GstPad</span></a>, can be NULL if the ghostpad
+has no target set. Unref target pad after usage. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-ghost-pad-construct"></a><h3>gst_ghost_pad_construct ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_ghost_pad_construct             (<em class="parameter"><code><a class="link" href="GstGhostPad.html" title="GstGhostPad"><span class="type">GstGhostPad</span></a> *gpad</code></em>);</pre>
+<p>
+Finish initialization of a newly allocated ghost pad.
+</p>
+<p>
+This function is most useful in language bindings and when subclassing
+<a class="link" href="GstGhostPad.html" title="GstGhostPad"><span class="type">GstGhostPad</span></a>; plugin and application developers normally will not call this
+function. Call this function directly after a call to g_object_new
+(GST_TYPE_GHOST_PAD, "direction", <em class="parameter"><code>dir</code></em>, ..., NULL).
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>gpad</code></em> :</span></p></td>
+<td>the newly allocated ghost pad</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the construction succeeds, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-ghost-pad-activate-mode-default"></a><h3>gst_ghost_pad_activate_mode_default ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_ghost_pad_activate_mode_default (<em class="parameter"><code><a class="link" href="GstPad.html" title="GstPad"><span class="type">GstPad</span></a> *pad</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstPad.html#GstPadMode" title="enum GstPadMode"><span class="type">GstPadMode</span></a> mode</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> active</code></em>);</pre>
+<p>
+Invoke the default activate mode function of a ghost pad.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pad</code></em> :</span></p></td>
+<td>the <a class="link" href="GstPad.html" title="GstPad"><span class="type">GstPad</span></a> to activate or deactivate.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>the parent of <em class="parameter"><code>pad</code></em> or NULL</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mode</code></em> :</span></p></td>
+<td>the requested activation mode</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>active</code></em> :</span></p></td>
+<td>whether the pad should be active or not.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the operation was successful.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-ghost-pad-internal-activate-mode-default"></a><h3>gst_ghost_pad_internal_activate_mode_default ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_ghost_pad_internal_activate_mode_default
+                                                        (<em class="parameter"><code><a class="link" href="GstPad.html" title="GstPad"><span class="type">GstPad</span></a> *pad</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstPad.html#GstPadMode" title="enum GstPadMode"><span class="type">GstPadMode</span></a> mode</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> active</code></em>);</pre>
+<p>
+Invoke the default activate mode function of a proxy pad that is
+owned by a ghost pad.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pad</code></em> :</span></p></td>
+<td>the <a class="link" href="GstPad.html" title="GstPad"><span class="type">GstPad</span></a> to activate or deactivate.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>the parent of <em class="parameter"><code>pad</code></em> or NULL</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mode</code></em> :</span></p></td>
+<td>the requested activation mode</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>active</code></em> :</span></p></td>
+<td>whether the pad should be active or not.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the operation was successful.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-proxy-pad-get-internal"></a><h3>gst_proxy_pad_get_internal ()</h3>
+<pre class="programlisting"><a class="link" href="GstGhostPad.html#GstProxyPad"><span class="returnvalue">GstProxyPad</span></a> *       gst_proxy_pad_get_internal          (<em class="parameter"><code><a class="link" href="GstGhostPad.html#GstProxyPad"><span class="type">GstProxyPad</span></a> *pad</code></em>);</pre>
+<p>
+Get the internal pad of <em class="parameter"><code>pad</code></em>. Unref target pad after usage.
+</p>
+<p>
+The internal pad of a <a class="link" href="GstGhostPad.html" title="GstGhostPad"><span class="type">GstGhostPad</span></a> is the internally used
+pad of opposite direction, which is used to link to the target.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pad</code></em> :</span></p></td>
+<td>the <a class="link" href="GstGhostPad.html#GstProxyPad"><span class="type">GstProxyPad</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the target <a class="link" href="GstGhostPad.html#GstProxyPad"><span class="type">GstProxyPad</span></a>, can be NULL.
+Unref target pad after usage. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-proxy-pad-iterate-internal-links-default"></a><h3>gst_proxy_pad_iterate_internal_links_default ()</h3>
+<pre class="programlisting"><a class="link" href="gstreamer-GstIterator.html#GstIterator" title="struct GstIterator"><span class="returnvalue">GstIterator</span></a> *       gst_proxy_pad_iterate_internal_links_default
+                                                        (<em class="parameter"><code><a class="link" href="GstPad.html" title="GstPad"><span class="type">GstPad</span></a> *pad</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *parent</code></em>);</pre>
+<p>
+Invoke the default iterate internal links function of the proxy pad.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pad</code></em> :</span></p></td>
+<td>the <a class="link" href="GstPad.html" title="GstPad"><span class="type">GstPad</span></a> to get the internal links of.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>the parent of <em class="parameter"><code>pad</code></em> or NULL</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstIterator.html#GstIterator" title="struct GstIterator"><span class="type">GstIterator</span></a> of <a class="link" href="GstPad.html" title="GstPad"><span class="type">GstPad</span></a>, or NULL if <em class="parameter"><code>pad</code></em> has no parent. Unref each
+returned pad with <a class="link" href="GstObject.html#gst-object-unref" title="gst_object_unref ()"><code class="function">gst_object_unref()</code></a>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-proxy-pad-chain-default"></a><h3>gst_proxy_pad_chain_default ()</h3>
+<pre class="programlisting"><a class="link" href="GstPad.html#GstFlowReturn" title="enum GstFlowReturn"><span class="returnvalue">GstFlowReturn</span></a>       gst_proxy_pad_chain_default         (<em class="parameter"><code><a class="link" href="GstPad.html" title="GstPad"><span class="type">GstPad</span></a> *pad</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstBuffer.html#GstBuffer" title="struct GstBuffer"><span class="type">GstBuffer</span></a> *buffer</code></em>);</pre>
+<p>
+Invoke the default chain function of the proxy pad.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pad</code></em> :</span></p></td>
+<td>a sink <a class="link" href="GstPad.html" title="GstPad"><span class="type">GstPad</span></a>, returns GST_FLOW_ERROR if not.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>the parent of <em class="parameter"><code>pad</code></em> or NULL</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>buffer</code></em> :</span></p></td>
+<td>the <a class="link" href="gstreamer-GstBuffer.html#GstBuffer" title="struct GstBuffer"><span class="type">GstBuffer</span></a> to send, return GST_FLOW_ERROR
+if not. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a class="link" href="GstPad.html#GstFlowReturn" title="enum GstFlowReturn"><span class="type">GstFlowReturn</span></a> from the pad.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-proxy-pad-chain-list-default"></a><h3>gst_proxy_pad_chain_list_default ()</h3>
+<pre class="programlisting"><a class="link" href="GstPad.html#GstFlowReturn" title="enum GstFlowReturn"><span class="returnvalue">GstFlowReturn</span></a>       gst_proxy_pad_chain_list_default    (<em class="parameter"><code><a class="link" href="GstPad.html" title="GstPad"><span class="type">GstPad</span></a> *pad</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstBufferList.html#GstBufferList" title="GstBufferList"><span class="type">GstBufferList</span></a> *list</code></em>);</pre>
+<p>
+Invoke the default chain list function of the proxy pad.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pad</code></em> :</span></p></td>
+<td>a sink <a class="link" href="GstPad.html" title="GstPad"><span class="type">GstPad</span></a>, returns GST_FLOW_ERROR if not.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>the parent of <em class="parameter"><code>pad</code></em> or NULL</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>list</code></em> :</span></p></td>
+<td>the <a class="link" href="gstreamer-GstBufferList.html#GstBufferList" title="GstBufferList"><span class="type">GstBufferList</span></a> to send, return GST_FLOW_ERROR
+if not. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a class="link" href="GstPad.html#GstFlowReturn" title="enum GstFlowReturn"><span class="type">GstFlowReturn</span></a> from the pad.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-proxy-pad-getrange-default"></a><h3>gst_proxy_pad_getrange_default ()</h3>
+<pre class="programlisting"><a class="link" href="GstPad.html#GstFlowReturn" title="enum GstFlowReturn"><span class="returnvalue">GstFlowReturn</span></a>       gst_proxy_pad_getrange_default      (<em class="parameter"><code><a class="link" href="GstPad.html" title="GstPad"><span class="type">GstPad</span></a> *pad</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint64</span> offset</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> size</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstBuffer.html#GstBuffer" title="struct GstBuffer"><span class="type">GstBuffer</span></a> **buffer</code></em>);</pre>
+<p>
+Invoke the default getrange function of the proxy pad.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pad</code></em> :</span></p></td>
+<td>a src <a class="link" href="GstPad.html" title="GstPad"><span class="type">GstPad</span></a>, returns <a class="link" href="GstPad.html#GST-FLOW-ERROR:CAPS"><span class="type">GST_FLOW_ERROR</span></a> if not.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>the parent of <em class="parameter"><code>pad</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>offset</code></em> :</span></p></td>
+<td>The start offset of the buffer</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>size</code></em> :</span></p></td>
+<td>The length of the buffer</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>buffer</code></em> :</span></p></td>
+<td>a pointer to hold the <a class="link" href="gstreamer-GstBuffer.html#GstBuffer" title="struct GstBuffer"><span class="type">GstBuffer</span></a>,
+returns <a class="link" href="GstPad.html#GST-FLOW-ERROR:CAPS"><span class="type">GST_FLOW_ERROR</span></a> if <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym> callee-allocates]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a class="link" href="GstPad.html#GstFlowReturn" title="enum GstFlowReturn"><span class="type">GstFlowReturn</span></a> from the pad.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="GstGhostPad.see-also"></a><h2>See Also</h2>
+<a class="link" href="GstPad.html" title="GstPad"><span class="type">GstPad</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

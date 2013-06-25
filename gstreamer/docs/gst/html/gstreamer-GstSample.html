@@ -1,0 +1,269 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GstSample</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer 1.0 Core Reference Manual">
+<link rel="up" href="libgstreamer.html" title="GStreamer Core Library">
+<link rel="prev" href="gstreamer-GstCaps.html" title="GstCaps">
+<link rel="next" href="GstChildProxy.html" title="GstChildProxy">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gstreamer-GstCaps.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="libgstreamer.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer 1.0 Core Reference Manual</th>
+<td><a accesskey="n" href="GstChildProxy.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gstreamer-GstSample.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gstreamer-GstSample.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gstreamer-GstSample"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gstreamer-GstSample.top_of_page"></a>GstSample</span></h2>
+<p>GstSample — A media sample</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gstreamer-GstSample.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;gst/gst.h&gt;
+
+                    <a class="link" href="gstreamer-GstSample.html#GstSample" title="GstSample">GstSample</a>;
+<a class="link" href="gstreamer-GstBuffer.html#GstBuffer" title="struct GstBuffer"><span class="returnvalue">GstBuffer</span></a> *         <a class="link" href="gstreamer-GstSample.html#gst-sample-get-buffer" title="gst_sample_get_buffer ()">gst_sample_get_buffer</a>               (<em class="parameter"><code><a class="link" href="gstreamer-GstSample.html#GstSample" title="GstSample"><span class="type">GstSample</span></a> *sample</code></em>);
+<a class="link" href="gstreamer-GstCaps.html#GstCaps" title="struct GstCaps"><span class="returnvalue">GstCaps</span></a> *           <a class="link" href="gstreamer-GstSample.html#gst-sample-get-caps" title="gst_sample_get_caps ()">gst_sample_get_caps</a>                 (<em class="parameter"><code><a class="link" href="gstreamer-GstSample.html#GstSample" title="GstSample"><span class="type">GstSample</span></a> *sample</code></em>);
+const <a class="link" href="gstreamer-GstStructure.html#GstStructure" title="struct GstStructure"><span class="returnvalue">GstStructure</span></a> * <a class="link" href="gstreamer-GstSample.html#gst-sample-get-info" title="gst_sample_get_info ()">gst_sample_get_info</a>                (<em class="parameter"><code><a class="link" href="gstreamer-GstSample.html#GstSample" title="GstSample"><span class="type">GstSample</span></a> *sample</code></em>);
+<a class="link" href="gstreamer-GstSegment.html#GstSegment" title="struct GstSegment"><span class="returnvalue">GstSegment</span></a> *        <a class="link" href="gstreamer-GstSample.html#gst-sample-get-segment" title="gst_sample_get_segment ()">gst_sample_get_segment</a>              (<em class="parameter"><code><a class="link" href="gstreamer-GstSample.html#GstSample" title="GstSample"><span class="type">GstSample</span></a> *sample</code></em>);
+<a class="link" href="gstreamer-GstSample.html#GstSample" title="GstSample"><span class="returnvalue">GstSample</span></a> *         <a class="link" href="gstreamer-GstSample.html#gst-sample-new" title="gst_sample_new ()">gst_sample_new</a>                      (<em class="parameter"><code><a class="link" href="gstreamer-GstBuffer.html#GstBuffer" title="struct GstBuffer"><span class="type">GstBuffer</span></a> *buffer</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstCaps.html#GstCaps" title="struct GstCaps"><span class="type">GstCaps</span></a> *caps</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="gstreamer-GstSegment.html#GstSegment" title="struct GstSegment"><span class="type">GstSegment</span></a> *segment</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstStructure.html#GstStructure" title="struct GstStructure"><span class="type">GstStructure</span></a> *info</code></em>);
+<a class="link" href="gstreamer-GstSample.html#GstSample" title="GstSample"><span class="returnvalue">GstSample</span></a> *         <a class="link" href="gstreamer-GstSample.html#gst-sample-ref" title="gst_sample_ref ()">gst_sample_ref</a>                      (<em class="parameter"><code><a class="link" href="gstreamer-GstSample.html#GstSample" title="GstSample"><span class="type">GstSample</span></a> *sample</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gstreamer-GstSample.html#gst-sample-unref" title="gst_sample_unref ()">gst_sample_unref</a>                    (<em class="parameter"><code><a class="link" href="gstreamer-GstSample.html#GstSample" title="GstSample"><span class="type">GstSample</span></a> *sample</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="gstreamer-GstSample.description"></a><h2>Description</h2>
+<p>
+A <a class="link" href="gstreamer-GstSample.html#GstSample" title="GstSample"><span class="type">GstSample</span></a> is a small object containing data, a type, timing and
+extra arbitrary information.
+</p>
+<p>
+Last reviewed on 2012-03-29 (0.11.3)
+</p>
+</div>
+<div class="refsect1">
+<a name="gstreamer-GstSample.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstSample"></a><h3>GstSample</h3>
+<pre class="programlisting">typedef struct _GstSample GstSample;</pre>
+<p>
+The opaque structure of a <a class="link" href="gstreamer-GstSample.html#GstSample" title="GstSample"><span class="type">GstSample</span></a>. A sample contains a typed memory
+block and the associated timing information. It is mainly used to
+exchange buffers with an application.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-sample-get-buffer"></a><h3>gst_sample_get_buffer ()</h3>
+<pre class="programlisting"><a class="link" href="gstreamer-GstBuffer.html#GstBuffer" title="struct GstBuffer"><span class="returnvalue">GstBuffer</span></a> *         gst_sample_get_buffer               (<em class="parameter"><code><a class="link" href="gstreamer-GstSample.html#GstSample" title="GstSample"><span class="type">GstSample</span></a> *sample</code></em>);</pre>
+<p>
+Get the buffer associated with <em class="parameter"><code>sample</code></em>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sample</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstSample.html#GstSample" title="GstSample"><span class="type">GstSample</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the buffer of <em class="parameter"><code>sample</code></em> or NULL when there
+is no buffer. The buffer remains valid as long as <em class="parameter"><code>sample</code></em> is valid. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-sample-get-caps"></a><h3>gst_sample_get_caps ()</h3>
+<pre class="programlisting"><a class="link" href="gstreamer-GstCaps.html#GstCaps" title="struct GstCaps"><span class="returnvalue">GstCaps</span></a> *           gst_sample_get_caps                 (<em class="parameter"><code><a class="link" href="gstreamer-GstSample.html#GstSample" title="GstSample"><span class="type">GstSample</span></a> *sample</code></em>);</pre>
+<p>
+Get the caps associated with <em class="parameter"><code>sample</code></em>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sample</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstSample.html#GstSample" title="GstSample"><span class="type">GstSample</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the caps of <em class="parameter"><code>sample</code></em> or NULL when there
+is no caps. The caps remain valid as long as <em class="parameter"><code>sample</code></em> is valid. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-sample-get-info"></a><h3>gst_sample_get_info ()</h3>
+<pre class="programlisting">const <a class="link" href="gstreamer-GstStructure.html#GstStructure" title="struct GstStructure"><span class="returnvalue">GstStructure</span></a> * gst_sample_get_info                (<em class="parameter"><code><a class="link" href="gstreamer-GstSample.html#GstSample" title="GstSample"><span class="type">GstSample</span></a> *sample</code></em>);</pre>
+<p>
+Get extra information associated with <em class="parameter"><code>sample</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sample</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstSample.html#GstSample" title="GstSample"><span class="type">GstSample</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the extra info of <em class="parameter"><code>sample</code></em>.
+The info remains valid as long as <em class="parameter"><code>sample</code></em> is valid. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-sample-get-segment"></a><h3>gst_sample_get_segment ()</h3>
+<pre class="programlisting"><a class="link" href="gstreamer-GstSegment.html#GstSegment" title="struct GstSegment"><span class="returnvalue">GstSegment</span></a> *        gst_sample_get_segment              (<em class="parameter"><code><a class="link" href="gstreamer-GstSample.html#GstSample" title="GstSample"><span class="type">GstSample</span></a> *sample</code></em>);</pre>
+<p>
+Get the segment associated with <em class="parameter"><code>sample</code></em>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sample</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstSample.html#GstSample" title="GstSample"><span class="type">GstSample</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the segment of <em class="parameter"><code>sample</code></em>.
+The segment remains valid as long as <em class="parameter"><code>sample</code></em> is valid. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-sample-new"></a><h3>gst_sample_new ()</h3>
+<pre class="programlisting"><a class="link" href="gstreamer-GstSample.html#GstSample" title="GstSample"><span class="returnvalue">GstSample</span></a> *         gst_sample_new                      (<em class="parameter"><code><a class="link" href="gstreamer-GstBuffer.html#GstBuffer" title="struct GstBuffer"><span class="type">GstBuffer</span></a> *buffer</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstCaps.html#GstCaps" title="struct GstCaps"><span class="type">GstCaps</span></a> *caps</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="gstreamer-GstSegment.html#GstSegment" title="struct GstSegment"><span class="type">GstSegment</span></a> *segment</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstStructure.html#GstStructure" title="struct GstStructure"><span class="type">GstStructure</span></a> *info</code></em>);</pre>
+<p>
+Create a new <a class="link" href="gstreamer-GstSample.html#GstSample" title="GstSample"><span class="type">GstSample</span></a> with the provided details.
+</p>
+<p>
+Free-function: gst_sample_unref
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>buffer</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstBuffer.html#GstBuffer" title="struct GstBuffer"><span class="type">GstBuffer</span></a>, or NULL. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>caps</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstCaps.html#GstCaps" title="struct GstCaps"><span class="type">GstCaps</span></a>, or NULL. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>segment</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstSegment.html#GstSegment" title="struct GstSegment"><span class="type">GstSegment</span></a>, or NULL. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>info</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstStructure.html#GstStructure" title="struct GstStructure"><span class="type">GstStructure</span></a>, or NULL. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the new <a class="link" href="gstreamer-GstSample.html#GstSample" title="GstSample"><span class="type">GstSample</span></a>. <a class="link" href="gstreamer-GstSample.html#gst-sample-unref" title="gst_sample_unref ()"><code class="function">gst_sample_unref()</code></a>
+after usage. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-sample-ref"></a><h3>gst_sample_ref ()</h3>
+<pre class="programlisting"><a class="link" href="gstreamer-GstSample.html#GstSample" title="GstSample"><span class="returnvalue">GstSample</span></a> *         gst_sample_ref                      (<em class="parameter"><code><a class="link" href="gstreamer-GstSample.html#GstSample" title="GstSample"><span class="type">GstSample</span></a> *sample</code></em>);</pre>
+<p>
+Increases the refcount of the given sample by one.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sample</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstSample.html#GstSample" title="GstSample"><span class="type">GstSample</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<em class="parameter"><code>sample</code></em>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-sample-unref"></a><h3>gst_sample_unref ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_sample_unref                    (<em class="parameter"><code><a class="link" href="gstreamer-GstSample.html#GstSample" title="GstSample"><span class="type">GstSample</span></a> *sample</code></em>);</pre>
+<p>
+Decreases the refcount of the sample. If the refcount reaches 0, the
+sample will be freed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>sample</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstSample.html#GstSample" title="GstSample"><span class="type">GstSample</span></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="gstreamer-GstSample.see-also"></a><h2>See Also</h2>
+<a class="link" href="gstreamer-GstBuffer.html#GstBuffer" title="struct GstBuffer"><span class="type">GstBuffer</span></a>, <a class="link" href="gstreamer-GstCaps.html#GstCaps" title="struct GstCaps"><span class="type">GstCaps</span></a>, <a class="link" href="gstreamer-GstSegment.html#GstSegment" title="struct GstSegment"><span class="type">GstSegment</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

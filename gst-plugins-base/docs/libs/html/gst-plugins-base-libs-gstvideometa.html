@@ -1,0 +1,455 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>gstvideometa</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer Base Plugins 1.0 Library Reference Manual">
+<link rel="up" href="gstreamer-video.html" title="Video Library">
+<link rel="prev" href="gst-plugins-base-libs-gstvideo.html" title="gstvideo">
+<link rel="next" href="gst-plugins-base-libs-gstvideooverlaycomposition.html" title="gstvideooverlaycomposition">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gst-plugins-base-libs-gstvideo.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="gstreamer-video.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer Base Plugins 1.0 Library Reference Manual</th>
+<td><a accesskey="n" href="gst-plugins-base-libs-gstvideooverlaycomposition.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gst-plugins-base-libs-gstvideometa.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gst-plugins-base-libs-gstvideometa.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gst-plugins-base-libs-gstvideometa"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gst-plugins-base-libs-gstvideometa.top_of_page"></a>gstvideometa</span></h2>
+<p>gstvideometa</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gst-plugins-base-libs-gstvideometa.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;&gt;gst/video/gstvideometa.h&gt;
+
+struct              <a class="link" href="gst-plugins-base-libs-gstvideometa.html#GstVideoMeta" title="struct GstVideoMeta">GstVideoMeta</a>;
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="gst-plugins-base-libs-gstvideometa.html#gst-video-meta-map" title="gst_video_meta_map ()">gst_video_meta_map</a>                  (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstvideometa.html#GstVideoMeta" title="struct GstVideoMeta"><span class="type">GstVideoMeta</span></a> *meta</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> plane</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstMemory.html#GstMapInfo"><span class="type">GstMapInfo</span></a> *info</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> *data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> *stride</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstMemory.html#GstMapFlags"><span class="type">GstMapFlags</span></a> flags</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="gst-plugins-base-libs-gstvideometa.html#gst-video-meta-unmap" title="gst_video_meta_unmap ()">gst_video_meta_unmap</a>                (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstvideometa.html#GstVideoMeta" title="struct GstVideoMeta"><span class="type">GstVideoMeta</span></a> *meta</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> plane</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstMemory.html#GstMapInfo"><span class="type">GstMapInfo</span></a> *info</code></em>);
+const <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstMeta.html#GstMetaInfo"><span class="returnvalue">GstMetaInfo</span></a> * <a class="link" href="gst-plugins-base-libs-gstvideometa.html#gst-video-meta-get-info" title="gst_video_meta_get_info ()">gst_video_meta_get_info</a>             (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a class="link" href="gst-plugins-base-libs-gstvideometa.html#GstVideoMeta" title="struct GstVideoMeta"><span class="returnvalue">GstVideoMeta</span></a> *      <a class="link" href="gst-plugins-base-libs-gstvideometa.html#gst-buffer-add-video-meta" title="gst_buffer_add_video_meta ()">gst_buffer_add_video_meta</a>           (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *buffer</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstvideo.html#GstVideoFrameFlags" title="enum GstVideoFrameFlags"><span class="type">GstVideoFrameFlags</span></a> flags</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstvideo.html#GstVideoFormat" title="enum GstVideoFormat"><span class="type">GstVideoFormat</span></a> format</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> width</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> height</code></em>);
+<a class="link" href="gst-plugins-base-libs-gstvideometa.html#GstVideoMeta" title="struct GstVideoMeta"><span class="returnvalue">GstVideoMeta</span></a> *      <a class="link" href="gst-plugins-base-libs-gstvideometa.html#gst-buffer-add-video-meta-full" title="gst_buffer_add_video_meta_full ()">gst_buffer_add_video_meta_full</a>      (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *buffer</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstvideo.html#GstVideoFrameFlags" title="enum GstVideoFrameFlags"><span class="type">GstVideoFrameFlags</span></a> flags</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstvideo.html#GstVideoFormat" title="enum GstVideoFormat"><span class="type">GstVideoFormat</span></a> format</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> width</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> height</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> n_planes</code></em>,
+                                                         <em class="parameter"><code><span class="type">gsize</span> offset[GST_VIDEO_MAX_PLANES]</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> stride[GST_VIDEO_MAX_PLANES]</code></em>);
+#define             <a class="link" href="gst-plugins-base-libs-gstvideometa.html#gst-buffer-get-video-meta" title="gst_buffer_get_video_meta()">gst_buffer_get_video_meta</a>           (b)
+<a class="link" href="gst-plugins-base-libs-gstvideometa.html#GstVideoMeta" title="struct GstVideoMeta"><span class="returnvalue">GstVideoMeta</span></a> *      <a class="link" href="gst-plugins-base-libs-gstvideometa.html#gst-buffer-get-video-meta-id" title="gst_buffer_get_video_meta_id ()">gst_buffer_get_video_meta_id</a>        (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *buffer</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> id</code></em>);
+struct              <a class="link" href="gst-plugins-base-libs-gstvideometa.html#GstVideoCropMeta" title="struct GstVideoCropMeta">GstVideoCropMeta</a>;
+#define             <a class="link" href="gst-plugins-base-libs-gstvideometa.html#gst-buffer-add-video-crop-meta" title="gst_buffer_add_video_crop_meta()">gst_buffer_add_video_crop_meta</a>      (b)
+#define             <a class="link" href="gst-plugins-base-libs-gstvideometa.html#gst-buffer-get-video-crop-meta" title="gst_buffer_get_video_crop_meta()">gst_buffer_get_video_crop_meta</a>      (b)
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-libs-gstvideometa.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-libs-gstvideometa.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstVideoMeta"></a><h3>struct GstVideoMeta</h3>
+<pre class="programlisting">struct GstVideoMeta {
+  GstMeta            meta;
+
+  GstBuffer         *buffer;
+
+  GstVideoFrameFlags flags;
+  GstVideoFormat     format;
+  gint               id;
+  guint              width;
+  guint              height;
+
+  guint              n_planes;
+  gsize              offset[GST_VIDEO_MAX_PLANES];
+  gint               stride[GST_VIDEO_MAX_PLANES];
+
+  gboolean (*map)    (GstVideoMeta *meta, guint plane, GstMapInfo *info,
+                      gpointer *data, gint * stride, GstMapFlags flags);
+  gboolean (*unmap)  (GstVideoMeta *meta, guint plane, GstMapInfo *info);
+};
+</pre>
+<p>
+Extra buffer metadata describing image properties
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstMeta.html#GstMeta"><span class="type">GstMeta</span></a> <em class="structfield"><code><a name="GstVideoMeta.meta"></a>meta</code></em>;</span></p></td>
+<td>parent <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstMeta.html#GstMeta"><span class="type">GstMeta</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *<em class="structfield"><code><a name="GstVideoMeta.buffer"></a>buffer</code></em>;</span></p></td>
+<td>the buffer this metadata belongs to</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="gst-plugins-base-libs-gstvideo.html#GstVideoFrameFlags" title="enum GstVideoFrameFlags"><span class="type">GstVideoFrameFlags</span></a> <em class="structfield"><code><a name="GstVideoMeta.flags"></a>flags</code></em>;</span></p></td>
+<td>additional video flags</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="gst-plugins-base-libs-gstvideo.html#GstVideoFormat" title="enum GstVideoFormat"><span class="type">GstVideoFormat</span></a> <em class="structfield"><code><a name="GstVideoMeta.format"></a>format</code></em>;</span></p></td>
+<td>the video format</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> <em class="structfield"><code><a name="GstVideoMeta.id"></a>id</code></em>;</span></p></td>
+<td>identifier of the frame</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> <em class="structfield"><code><a name="GstVideoMeta.width"></a>width</code></em>;</span></p></td>
+<td>the video width</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> <em class="structfield"><code><a name="GstVideoMeta.height"></a>height</code></em>;</span></p></td>
+<td>the video height</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> <em class="structfield"><code><a name="GstVideoMeta.n-planes"></a>n_planes</code></em>;</span></p></td>
+<td>the number of planes in the image</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">gsize</span> <em class="structfield"><code><a name="GstVideoMeta.offset"></a>offset</code></em>[GST_VIDEO_MAX_PLANES];</span></p></td>
+<td>array of offsets for the planes. This field might not always be
+valid, it is used by the default implementation of <em class="parameter"><code>map</code></em>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> <em class="structfield"><code><a name="GstVideoMeta.stride"></a>stride</code></em>[GST_VIDEO_MAX_PLANES];</span></p></td>
+<td>array of strides for the planes. This field might not always be
+valid, it is used by the default implementation of <em class="parameter"><code>map</code></em>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GstVideoMeta.map"></a>map</code></em> ()</span></p></td>
+<td>map the memory of a plane</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GstVideoMeta.unmap"></a>unmap</code></em> ()</span></p></td>
+<td>unmap the memory of a plane</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-video-meta-map"></a><h3>gst_video_meta_map ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_video_meta_map                  (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstvideometa.html#GstVideoMeta" title="struct GstVideoMeta"><span class="type">GstVideoMeta</span></a> *meta</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> plane</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstMemory.html#GstMapInfo"><span class="type">GstMapInfo</span></a> *info</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> *data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> *stride</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstMemory.html#GstMapFlags"><span class="type">GstMapFlags</span></a> flags</code></em>);</pre>
+<p>
+Map the video plane with index <em class="parameter"><code>plane</code></em> in <em class="parameter"><code>meta</code></em> and return a pointer to the
+first byte of the plane and the stride of the plane.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>meta</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstvideometa.html#GstVideoMeta" title="struct GstVideoMeta"><span class="type">GstVideoMeta</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>plane</code></em> :</span></p></td>
+<td>a plane</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>info</code></em> :</span></p></td>
+<td>a <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstMemory.html#GstMapInfo"><span class="type">GstMapInfo</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>the data of <em class="parameter"><code>plane</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>stride</code></em> :</span></p></td>
+<td>the stride of <em class="parameter"><code>plane</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>flags</code></em> :</span></p></td>
+<td><em class="parameter"><code>GstMapFlags</code></em></td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE if the map operation was successful.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-video-meta-unmap"></a><h3>gst_video_meta_unmap ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_video_meta_unmap                (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstvideometa.html#GstVideoMeta" title="struct GstVideoMeta"><span class="type">GstVideoMeta</span></a> *meta</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> plane</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstMemory.html#GstMapInfo"><span class="type">GstMapInfo</span></a> *info</code></em>);</pre>
+<p>
+Unmap a previously mapped plane with <a class="link" href="gst-plugins-base-libs-gstvideometa.html#gst-video-meta-map" title="gst_video_meta_map ()"><code class="function">gst_video_meta_map()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>meta</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstvideometa.html#GstVideoMeta" title="struct GstVideoMeta"><span class="type">GstVideoMeta</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>plane</code></em> :</span></p></td>
+<td>a plane</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>info</code></em> :</span></p></td>
+<td>a <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstMemory.html#GstMapInfo"><span class="type">GstMapInfo</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE if the memory was successfully unmapped.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-video-meta-get-info"></a><h3>gst_video_meta_get_info ()</h3>
+<pre class="programlisting">const <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstMeta.html#GstMetaInfo"><span class="returnvalue">GstMetaInfo</span></a> * gst_video_meta_get_info             (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-buffer-add-video-meta"></a><h3>gst_buffer_add_video_meta ()</h3>
+<pre class="programlisting"><a class="link" href="gst-plugins-base-libs-gstvideometa.html#GstVideoMeta" title="struct GstVideoMeta"><span class="returnvalue">GstVideoMeta</span></a> *      gst_buffer_add_video_meta           (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *buffer</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstvideo.html#GstVideoFrameFlags" title="enum GstVideoFrameFlags"><span class="type">GstVideoFrameFlags</span></a> flags</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstvideo.html#GstVideoFormat" title="enum GstVideoFormat"><span class="type">GstVideoFormat</span></a> format</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> width</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> height</code></em>);</pre>
+<p>
+Attaches GstVideoMeta metadata to <em class="parameter"><code>buffer</code></em> with the given parameters and the
+default offsets and strides for <em class="parameter"><code>format</code></em> and <em class="parameter"><code>width</code></em> x <em class="parameter"><code>height</code></em>.
+</p>
+<p>
+This function calculates the default offsets and strides and then calls
+<a class="link" href="gst-plugins-base-libs-gstvideometa.html#gst-buffer-add-video-meta-full" title="gst_buffer_add_video_meta_full ()"><code class="function">gst_buffer_add_video_meta_full()</code></a> with them.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>buffer</code></em> :</span></p></td>
+<td>a <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>flags</code></em> :</span></p></td>
+<td><a class="link" href="gst-plugins-base-libs-gstvideo.html#GstVideoFrameFlags" title="enum GstVideoFrameFlags"><span class="type">GstVideoFrameFlags</span></a></td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstvideo.html#GstVideoFormat" title="enum GstVideoFormat"><span class="type">GstVideoFormat</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>width</code></em> :</span></p></td>
+<td>the width</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>height</code></em> :</span></p></td>
+<td>the height</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the <a class="link" href="gst-plugins-base-libs-gstvideometa.html#GstVideoMeta" title="struct GstVideoMeta"><span class="type">GstVideoMeta</span></a> on <em class="parameter"><code>buffer</code></em>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-buffer-add-video-meta-full"></a><h3>gst_buffer_add_video_meta_full ()</h3>
+<pre class="programlisting"><a class="link" href="gst-plugins-base-libs-gstvideometa.html#GstVideoMeta" title="struct GstVideoMeta"><span class="returnvalue">GstVideoMeta</span></a> *      gst_buffer_add_video_meta_full      (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *buffer</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstvideo.html#GstVideoFrameFlags" title="enum GstVideoFrameFlags"><span class="type">GstVideoFrameFlags</span></a> flags</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstvideo.html#GstVideoFormat" title="enum GstVideoFormat"><span class="type">GstVideoFormat</span></a> format</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> width</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> height</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> n_planes</code></em>,
+                                                         <em class="parameter"><code><span class="type">gsize</span> offset[GST_VIDEO_MAX_PLANES]</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> stride[GST_VIDEO_MAX_PLANES]</code></em>);</pre>
+<p>
+Attaches GstVideoMeta metadata to <em class="parameter"><code>buffer</code></em> with the given parameters.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>buffer</code></em> :</span></p></td>
+<td>a <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>flags</code></em> :</span></p></td>
+<td><a class="link" href="gst-plugins-base-libs-gstvideo.html#GstVideoFrameFlags" title="enum GstVideoFrameFlags"><span class="type">GstVideoFrameFlags</span></a></td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstvideo.html#GstVideoFormat" title="enum GstVideoFormat"><span class="type">GstVideoFormat</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>width</code></em> :</span></p></td>
+<td>the width</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>height</code></em> :</span></p></td>
+<td>the height</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>n_planes</code></em> :</span></p></td>
+<td>number of planes</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>offset</code></em> :</span></p></td>
+<td>offset of each plane</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>stride</code></em> :</span></p></td>
+<td>stride of each plane</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the <a class="link" href="gst-plugins-base-libs-gstvideometa.html#GstVideoMeta" title="struct GstVideoMeta"><span class="type">GstVideoMeta</span></a> on <em class="parameter"><code>buffer</code></em>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-buffer-get-video-meta"></a><h3>gst_buffer_get_video_meta()</h3>
+<pre class="programlisting">#define gst_buffer_get_video_meta(b) ((GstVideoMeta*)gst_buffer_get_meta((b),GST_VIDEO_META_API_TYPE))
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-buffer-get-video-meta-id"></a><h3>gst_buffer_get_video_meta_id ()</h3>
+<pre class="programlisting"><a class="link" href="gst-plugins-base-libs-gstvideometa.html#GstVideoMeta" title="struct GstVideoMeta"><span class="returnvalue">GstVideoMeta</span></a> *      gst_buffer_get_video_meta_id        (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *buffer</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> id</code></em>);</pre>
+<p>
+Find the <a class="link" href="gst-plugins-base-libs-gstvideometa.html#GstVideoMeta" title="struct GstVideoMeta"><span class="type">GstVideoMeta</span></a> on <em class="parameter"><code>buffer</code></em> with the given <em class="parameter"><code>id</code></em>.
+</p>
+<p>
+Buffers can contain multiple <a class="link" href="gst-plugins-base-libs-gstvideometa.html#GstVideoMeta" title="struct GstVideoMeta"><span class="type">GstVideoMeta</span></a> metadata items when dealing with
+multiview buffers.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>buffer</code></em> :</span></p></td>
+<td>a <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>id</code></em> :</span></p></td>
+<td>a metadata id</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the <a class="link" href="gst-plugins-base-libs-gstvideometa.html#GstVideoMeta" title="struct GstVideoMeta"><span class="type">GstVideoMeta</span></a> with <em class="parameter"><code>id</code></em> or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> when there is no such metadata
+on <em class="parameter"><code>buffer</code></em>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstVideoCropMeta"></a><h3>struct GstVideoCropMeta</h3>
+<pre class="programlisting">struct GstVideoCropMeta {
+  GstMeta       meta;
+
+  guint         x;
+  guint         y;
+  guint         width;
+  guint         height;
+};
+</pre>
+<p>
+Extra buffer metadata describing image cropping.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstMeta.html#GstMeta"><span class="type">GstMeta</span></a> <em class="structfield"><code><a name="GstVideoCropMeta.meta"></a>meta</code></em>;</span></p></td>
+<td>parent <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstMeta.html#GstMeta"><span class="type">GstMeta</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> <em class="structfield"><code><a name="GstVideoCropMeta.x"></a>x</code></em>;</span></p></td>
+<td>the horizontal offset</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> <em class="structfield"><code><a name="GstVideoCropMeta.y"></a>y</code></em>;</span></p></td>
+<td>the vertical offset</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> <em class="structfield"><code><a name="GstVideoCropMeta.width"></a>width</code></em>;</span></p></td>
+<td>the cropped width</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> <em class="structfield"><code><a name="GstVideoCropMeta.height"></a>height</code></em>;</span></p></td>
+<td>the cropped height</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-buffer-add-video-crop-meta"></a><h3>gst_buffer_add_video_crop_meta()</h3>
+<pre class="programlisting">#define gst_buffer_add_video_crop_meta(b) ((GstVideoCropMeta*)gst_buffer_add_meta((b),GST_VIDEO_CROP_META_INFO, NULL))
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-buffer-get-video-crop-meta"></a><h3>gst_buffer_get_video_crop_meta()</h3>
+<pre class="programlisting">#define gst_buffer_get_video_crop_meta(b) ((GstVideoCropMeta*)gst_buffer_get_meta((b),GST_VIDEO_CROP_META_API_TYPE))
+</pre>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

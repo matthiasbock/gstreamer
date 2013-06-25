@@ -1,0 +1,218 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>audiodynamic</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer Good Plugins 1.0 Plugins Reference Manual">
+<link rel="up" href="ch01.html" title="gst-plugins-good Elements">
+<link rel="prev" href="gst-plugins-good-plugins-audioecho.html" title="audioecho">
+<link rel="next" href="gst-plugins-good-plugins-audioinvert.html" title="audioinvert">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gst-plugins-good-plugins-audioecho.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer Good Plugins 1.0 Plugins Reference Manual</th>
+<td><a accesskey="n" href="gst-plugins-good-plugins-audioinvert.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gst-plugins-good-plugins-audiodynamic.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gst-plugins-good-plugins-audiodynamic.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#gst-plugins-good-plugins-audiodynamic.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#gst-plugins-good-plugins-audiodynamic.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gst-plugins-good-plugins-audiodynamic"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gst-plugins-good-plugins-audiodynamic.top_of_page"></a>audiodynamic</span></h2>
+<p>audiodynamic — Compressor and Expander</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gst-plugins-good-plugins-audiodynamic.synopsis"></a><h2>Synopsis</h2>
+<a name="GstAudioDynamic"></a><pre class="synopsis">struct              <a class="link" href="gst-plugins-good-plugins-audiodynamic.html#GstAudioDynamic-struct" title="struct GstAudioDynamic">GstAudioDynamic</a>;
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-good-plugins-audiodynamic.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstObject.html">GstObject</a>
+               +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html">GstElement</a>
+                     +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer-libs/html/GstBaseTransform.html">GstBaseTransform</a>
+                           +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gst-plugins-base-libs/html/gst-plugins-base-libs-gstaudiofilter.html#GstAudioFilter">GstAudioFilter</a>
+                                 +----GstAudioDynamic
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-good-plugins-audiodynamic.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="gst-plugins-good-plugins-audiodynamic.html#GstAudioDynamic--characteristics" title='The "characteristics" property'>characteristics</a>"          <span class="type">GstAudioDynamicCharacteristics</span>  : Read / Write
+  "<a class="link" href="gst-plugins-good-plugins-audiodynamic.html#GstAudioDynamic--mode" title='The "mode" property'>mode</a>"                     <span class="type">GstAudioDynamicMode</span>   : Read / Write
+  "<a class="link" href="gst-plugins-good-plugins-audiodynamic.html#GstAudioDynamic--ratio" title='The "ratio" property'>ratio</a>"                    <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gfloat"><span class="type">gfloat</span></a>                : Read / Write
+  "<a class="link" href="gst-plugins-good-plugins-audiodynamic.html#GstAudioDynamic--threshold" title='The "threshold" property'>threshold</a>"                <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gfloat"><span class="type">gfloat</span></a>                : Read / Write
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-good-plugins-audiodynamic.description"></a><h2>Description</h2>
+<p>
+This element can act as a compressor or expander. A compressor changes the
+amplitude of all samples above a specific threshold with a specific ratio,
+a expander does the same for all samples below a specific threshold. If
+soft-knee mode is selected the ratio is applied smoothly.
+</p>
+<p>
+</p>
+<div class="refsect2">
+<a name="idp11348400"></a><h3>Example launch line</h3>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3</pre></td>
+        <td class="listing_code"><pre class="programlisting">gst<span class="gtkdoc opt">-</span>launch<span class="gtkdoc opt">-</span><span class="number">1.0</span> audiotestsrc wave<span class="gtkdoc opt">=</span>saw <span class="gtkdoc opt">!</span> audiodynamic characteristics<span class="gtkdoc opt">=</span>soft<span class="gtkdoc opt">-</span>knee mode<span class="gtkdoc opt">=</span>compressor threshold<span class="gtkdoc opt">=</span><span class="number">0.5</span> rate<span class="gtkdoc opt">=</span><span class="number">0.5</span> <span class="gtkdoc opt">!</span> alsasink
+gst<span class="gtkdoc opt">-</span>launch<span class="gtkdoc opt">-</span><span class="number">1.0</span> filesrc location<span class="gtkdoc opt">=</span><span class="string">&quot;melo1.ogg&quot;</span> <span class="gtkdoc opt">!</span> oggdemux <span class="gtkdoc opt">!</span> vorbisdec <span class="gtkdoc opt">!</span> audioconvert <span class="gtkdoc opt">!</span> audiodynamic characteristics<span class="gtkdoc opt">=</span>hard<span class="gtkdoc opt">-</span>knee mode<span class="gtkdoc opt">=</span>expander threshold<span class="gtkdoc opt">=</span><span class="number">0.2</span> rate<span class="gtkdoc opt">=</span><span class="number">4.0</span> <span class="gtkdoc opt">!</span> alsasink
+gst<span class="gtkdoc opt">-</span>launch<span class="gtkdoc opt">-</span><span class="number">1.0</span> audiotestsrc wave<span class="gtkdoc opt">=</span>saw <span class="gtkdoc opt">!</span> audioconvert <span class="gtkdoc opt">!</span> audiodynamic <span class="gtkdoc opt">!</span> audioconvert <span class="gtkdoc opt">!</span> alsasink</pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</div>
+<p>
+</p>
+<div class="refsynopsisdiv">
+<h2>Synopsis</h2>
+<div class="refsect2">
+<a name="idp10697696"></a><h3>Element Information</h3>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">plugin</span></p></td>
+<td>
+            <a class="link" href="gst-plugins-good-plugins-plugin-audiofx.html#plugin-audiofx">audiofx</a>
+          </td>
+</tr>
+<tr>
+<td><p><span class="term">author</span></p></td>
+<td>Sebastian Dröge &lt;slomo@circular-chaos.org&gt;</td>
+</tr>
+<tr>
+<td><p><span class="term">class</span></p></td>
+<td>Filter/Effect/Audio</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="idp8929552"></a><h3>Element Pads</h3>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">name</span></p></td>
+<td>sink</td>
+</tr>
+<tr>
+<td><p><span class="term">direction</span></p></td>
+<td>sink</td>
+</tr>
+<tr>
+<td><p><span class="term">presence</span></p></td>
+<td>always</td>
+</tr>
+<tr>
+<td><p><span class="term">details</span></p></td>
+<td>audio/x-raw, format=(string){ S16LE, F32LE }, rate=(int)[ 1, 2147483647 ], channels=(int)[ 1, 2147483647 ], layout=(string){ interleaved, non-interleaved }</td>
+</tr>
+</tbody>
+</table></div>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">name</span></p></td>
+<td>src</td>
+</tr>
+<tr>
+<td><p><span class="term">direction</span></p></td>
+<td>source</td>
+</tr>
+<tr>
+<td><p><span class="term">presence</span></p></td>
+<td>always</td>
+</tr>
+<tr>
+<td><p><span class="term">details</span></p></td>
+<td>audio/x-raw, format=(string){ S16LE, F32LE }, rate=(int)[ 1, 2147483647 ], channels=(int)[ 1, 2147483647 ], layout=(string){ interleaved, non-interleaved }</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<p>
+</p>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-good-plugins-audiodynamic.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstAudioDynamic-struct"></a><h3>struct GstAudioDynamic</h3>
+<pre class="programlisting">struct GstAudioDynamic;</pre>
+<p>
+</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-good-plugins-audiodynamic.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GstAudioDynamic--characteristics"></a><h3>The <code class="literal">"characteristics"</code> property</h3>
+<pre class="programlisting">  "characteristics"          <span class="type">GstAudioDynamicCharacteristics</span>  : Read / Write</pre>
+<p>Selects whether the ratio should be applied smooth (soft-knee) or hard (hard-knee).</p>
+<p>Default value: Hard Knee (default)</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstAudioDynamic--mode"></a><h3>The <code class="literal">"mode"</code> property</h3>
+<pre class="programlisting">  "mode"                     <span class="type">GstAudioDynamicMode</span>   : Read / Write</pre>
+<p>Selects whether the filter should work on loud samples (compressor) orquiet samples (expander).</p>
+<p>Default value: Compressor (default)</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstAudioDynamic--ratio"></a><h3>The <code class="literal">"ratio"</code> property</h3>
+<pre class="programlisting">  "ratio"                    <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gfloat"><span class="type">gfloat</span></a>                : Read / Write</pre>
+<p>Ratio that should be applied.</p>
+<p>Allowed values: &gt;= 0</p>
+<p>Default value: 1</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstAudioDynamic--threshold"></a><h3>The <code class="literal">"threshold"</code> property</h3>
+<pre class="programlisting">  "threshold"                <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gfloat"><span class="type">gfloat</span></a>                : Read / Write</pre>
+<p>Threshold until the filter is activated.</p>
+<p>Allowed values: [0,1]</p>
+<p>Default value: 0</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

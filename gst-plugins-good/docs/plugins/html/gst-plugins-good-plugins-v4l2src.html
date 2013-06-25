@@ -1,0 +1,392 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>v4l2src</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer Good Plugins 1.0 Plugins Reference Manual">
+<link rel="up" href="ch01.html" title="gst-plugins-good Elements">
+<link rel="prev" href="gst-plugins-good-plugins-udpsink.html" title="udpsink">
+<link rel="next" href="gst-plugins-good-plugins-v4l2sink.html" title="v4l2sink">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gst-plugins-good-plugins-udpsink.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer Good Plugins 1.0 Plugins Reference Manual</th>
+<td><a accesskey="n" href="gst-plugins-good-plugins-v4l2sink.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gst-plugins-good-plugins-v4l2src.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gst-plugins-good-plugins-v4l2src.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#gst-plugins-good-plugins-v4l2src.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#gst-plugins-good-plugins-v4l2src.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                   | 
+                  <a href="#gst-plugins-good-plugins-v4l2src.properties" class="shortcut">Properties</a>
+                   | 
+                  <a href="#gst-plugins-good-plugins-v4l2src.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gst-plugins-good-plugins-v4l2src"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gst-plugins-good-plugins-v4l2src.top_of_page"></a>v4l2src</span></h2>
+<p>v4l2src — Reads frames from a Video4Linux2 device</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gst-plugins-good-plugins-v4l2src.synopsis"></a><h2>Synopsis</h2>
+<a name="GstV4l2Src"></a><pre class="synopsis">struct              <a class="link" href="gst-plugins-good-plugins-v4l2src.html#GstV4l2Src-struct" title="struct GstV4l2Src">GstV4l2Src</a>;
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-good-plugins-v4l2src.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstObject.html">GstObject</a>
+               +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html">GstElement</a>
+                     +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer-libs/html/GstBaseSrc.html">GstBaseSrc</a>
+                           +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer-libs/html/GstPushSrc.html">GstPushSrc</a>
+                                 +----GstV4l2Src
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-good-plugins-v4l2src.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+GstV4l2Src implements
+ <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstUriHandler.html#GstURIHandler">GstURIHandler</a>,  GstTuner,  <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gst-plugins-base-libs/html/gst-plugins-base-libs-gstcolorbalance.html#GstColorBalance">GstColorBalance</a> and  <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gst-plugins-base-libs/html/gst-plugins-base-libs-gstvideoorientation.html#GstVideoOrientation">GstVideoOrientation</a>.</p>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-good-plugins-v4l2src.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="gst-plugins-good-plugins-v4l2src.html#GstV4l2Src--device" title='The "device" property'>device</a>"                   <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write
+  "<a class="link" href="gst-plugins-good-plugins-v4l2src.html#GstV4l2Src--device-name" title='The "device-name" property'>device-name</a>"              <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read
+  "<a class="link" href="gst-plugins-good-plugins-v4l2src.html#GstV4l2Src--flags" title='The "flags" property'>flags</a>"                    <span class="type">GstV4l2DeviceTypeFlags</span>  : Read
+  "<a class="link" href="gst-plugins-good-plugins-v4l2src.html#GstV4l2Src--queue-size" title='The "queue-size" property'>queue-size</a>"               <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write
+  "<a class="link" href="gst-plugins-good-plugins-v4l2src.html#GstV4l2Src--always-copy" title='The "always-copy" property'>always-copy</a>"              <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write
+  "<a class="link" href="gst-plugins-good-plugins-v4l2src.html#GstV4l2Src--device-fd" title='The "device-fd" property'>device-fd</a>"                <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                  : Read
+  "<a class="link" href="gst-plugins-good-plugins-v4l2src.html#GstV4l2Src--brightness" title='The "brightness" property'>brightness</a>"               <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                  : Read / Write
+  "<a class="link" href="gst-plugins-good-plugins-v4l2src.html#GstV4l2Src--contrast" title='The "contrast" property'>contrast</a>"                 <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                  : Read / Write
+  "<a class="link" href="gst-plugins-good-plugins-v4l2src.html#GstV4l2Src--decimate" title='The "decimate" property'>decimate</a>"                 <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                  : Read / Write
+  "<a class="link" href="gst-plugins-good-plugins-v4l2src.html#GstV4l2Src--hue" title='The "hue" property'>hue</a>"                      <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                  : Read / Write
+  "<a class="link" href="gst-plugins-good-plugins-v4l2src.html#GstV4l2Src--saturation" title='The "saturation" property'>saturation</a>"               <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                  : Read / Write
+  "<a class="link" href="gst-plugins-good-plugins-v4l2src.html#GstV4l2Src--norm" title='The "norm" property'>norm</a>"                     <span class="type">V4L2_TV_norms</span>         : Read / Write
+  "<a class="link" href="gst-plugins-good-plugins-v4l2src.html#GstV4l2Src--io-mode" title='The "io-mode" property'>io-mode</a>"                  <span class="type">GstV4l2IOMode</span>         : Read / Write
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-good-plugins-v4l2src.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="gst-plugins-good-plugins-v4l2src.html#GstV4l2Src-prepare-format" title='The "prepare-format" signal'>prepare-format</a>"                                 : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-good-plugins-v4l2src.description"></a><h2>Description</h2>
+<div class="refsynopsisdiv">
+<h2>Synopsis</h2>
+<div class="refsect2">
+<a name="idp18987120"></a><h3>Element Information</h3>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">plugin</span></p></td>
+<td>
+            <a class="link" href="gst-plugins-good-plugins-plugin-video4linux2.html#plugin-video4linux2">video4linux2</a>
+          </td>
+</tr>
+<tr>
+<td><p><span class="term">author</span></p></td>
+<td>Edgard Lima &lt;edgard.lima@indt.org.br&gt;, Stefan Kost &lt;ensonic@users.sf.net&gt;</td>
+</tr>
+<tr>
+<td><p><span class="term">class</span></p></td>
+<td>Source/Video</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="idp18966896"></a><h3>Element Pads</h3>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">name</span></p></td>
+<td>src</td>
+</tr>
+<tr>
+<td><p><span class="term">direction</span></p></td>
+<td>source</td>
+</tr>
+<tr>
+<td><p><span class="term">presence</span></p></td>
+<td>always</td>
+</tr>
+<tr>
+<td><p><span class="term">details</span></p></td>
+<td>video/x-raw, format=(string)RGB15, width=(int)[ 1, 32768 ], height=(int)[ 1, 32768 ], framerate=(fraction)[ 0/1, 100/1 ]</td>
+</tr>
+<tr>
+<td><p><span class="term"></span></p></td>
+<td> video/x-raw, format=(string)RGB16, width=(int)[ 1, 32768 ], height=(int)[ 1, 32768 ], framerate=(fraction)[ 0/1, 100/1 ]</td>
+</tr>
+<tr>
+<td><p><span class="term"></span></p></td>
+<td> video/x-raw, format=(string)BGR, width=(int)[ 1, 32768 ], height=(int)[ 1, 32768 ], framerate=(fraction)[ 0/1, 100/1 ]</td>
+</tr>
+<tr>
+<td><p><span class="term"></span></p></td>
+<td> video/x-raw, format=(string)RGB, width=(int)[ 1, 32768 ], height=(int)[ 1, 32768 ], framerate=(fraction)[ 0/1, 100/1 ]</td>
+</tr>
+<tr>
+<td><p><span class="term"></span></p></td>
+<td> video/x-raw, format=(string)BGRx, width=(int)[ 1, 32768 ], height=(int)[ 1, 32768 ], framerate=(fraction)[ 0/1, 100/1 ]</td>
+</tr>
+<tr>
+<td><p><span class="term"></span></p></td>
+<td> video/x-raw, format=(string)RGBx, width=(int)[ 1, 32768 ], height=(int)[ 1, 32768 ], framerate=(fraction)[ 0/1, 100/1 ]</td>
+</tr>
+<tr>
+<td><p><span class="term"></span></p></td>
+<td> video/x-raw, format=(string)GRAY8, width=(int)[ 1, 32768 ], height=(int)[ 1, 32768 ], framerate=(fraction)[ 0/1, 100/1 ]</td>
+</tr>
+<tr>
+<td><p><span class="term"></span></p></td>
+<td> video/x-raw, format=(string)YVU9, width=(int)[ 1, 32768 ], height=(int)[ 1, 32768 ], framerate=(fraction)[ 0/1, 100/1 ]</td>
+</tr>
+<tr>
+<td><p><span class="term"></span></p></td>
+<td> video/x-raw, format=(string)YV12, width=(int)[ 1, 32768 ], height=(int)[ 1, 32768 ], framerate=(fraction)[ 0/1, 100/1 ]</td>
+</tr>
+<tr>
+<td><p><span class="term"></span></p></td>
+<td> video/x-raw, format=(string)YUY2, width=(int)[ 1, 32768 ], height=(int)[ 1, 32768 ], framerate=(fraction)[ 0/1, 100/1 ]</td>
+</tr>
+<tr>
+<td><p><span class="term"></span></p></td>
+<td> video/x-raw, format=(string)UYVY, width=(int)[ 1, 32768 ], height=(int)[ 1, 32768 ], framerate=(fraction)[ 0/1, 100/1 ]</td>
+</tr>
+<tr>
+<td><p><span class="term"></span></p></td>
+<td> video/x-raw, format=(string)Y42B, width=(int)[ 1, 32768 ], height=(int)[ 1, 32768 ], framerate=(fraction)[ 0/1, 100/1 ]</td>
+</tr>
+<tr>
+<td><p><span class="term"></span></p></td>
+<td> video/x-raw, format=(string)Y41B, width=(int)[ 1, 32768 ], height=(int)[ 1, 32768 ], framerate=(fraction)[ 0/1, 100/1 ]</td>
+</tr>
+<tr>
+<td><p><span class="term"></span></p></td>
+<td> video/x-raw, format=(string)NV12, width=(int)[ 1, 32768 ], height=(int)[ 1, 32768 ], framerate=(fraction)[ 0/1, 100/1 ]</td>
+</tr>
+<tr>
+<td><p><span class="term"></span></p></td>
+<td> video/x-raw, format=(string)NV21, width=(int)[ 1, 32768 ], height=(int)[ 1, 32768 ], framerate=(fraction)[ 0/1, 100/1 ]</td>
+</tr>
+<tr>
+<td><p><span class="term"></span></p></td>
+<td> video/x-raw, format=(string)YUV9, width=(int)[ 1, 32768 ], height=(int)[ 1, 32768 ], framerate=(fraction)[ 0/1, 100/1 ]</td>
+</tr>
+<tr>
+<td><p><span class="term"></span></p></td>
+<td> video/x-raw, format=(string)I420, width=(int)[ 1, 32768 ], height=(int)[ 1, 32768 ], framerate=(fraction)[ 0/1, 100/1 ]</td>
+</tr>
+<tr>
+<td><p><span class="term"></span></p></td>
+<td> video/x-bayer, width=(int)[ 1, 32768 ], height=(int)[ 1, 32768 ], framerate=(fraction)[ 0/1, 100/1 ]</td>
+</tr>
+<tr>
+<td><p><span class="term"></span></p></td>
+<td> image/jpeg, width=(int)[ 1, 32768 ], height=(int)[ 1, 32768 ], framerate=(fraction)[ 0/1, 100/1 ]</td>
+</tr>
+<tr>
+<td><p><span class="term"></span></p></td>
+<td> image/jpeg, width=(int)[ 1, 32768 ], height=(int)[ 1, 32768 ], framerate=(fraction)[ 0/1, 100/1 ]</td>
+</tr>
+<tr>
+<td><p><span class="term"></span></p></td>
+<td> image/jpeg, width=(int)[ 1, 32768 ], height=(int)[ 1, 32768 ], framerate=(fraction)[ 0/1, 100/1 ]</td>
+</tr>
+<tr>
+<td><p><span class="term"></span></p></td>
+<td> video/x-dv, systemstream=(boolean)true, width=(int)[ 1, 32768 ], height=(int)[ 1, 32768 ], framerate=(fraction)[ 0/1, 100/1 ]</td>
+</tr>
+<tr>
+<td><p><span class="term"></span></p></td>
+<td> video/mpegts</td>
+</tr>
+<tr>
+<td><p><span class="term"></span></p></td>
+<td> video/x-h264, width=(int)[ 1, 32768 ], height=(int)[ 1, 32768 ], framerate=(fraction)[ 0/1, 100/1 ]</td>
+</tr>
+<tr>
+<td><p><span class="term"></span></p></td>
+<td> video/x-sonix, width=(int)[ 1, 32768 ], height=(int)[ 1, 32768 ], framerate=(fraction)[ 0/1, 100/1 ]</td>
+</tr>
+<tr>
+<td><p><span class="term"></span></p></td>
+<td> video/x-pwc1, width=(int)[ 1, 32768 ], height=(int)[ 1, 32768 ], framerate=(fraction)[ 0/1, 100/1 ]</td>
+</tr>
+<tr>
+<td><p><span class="term"></span></p></td>
+<td> video/x-pwc2, width=(int)[ 1, 32768 ], height=(int)[ 1, 32768 ], framerate=(fraction)[ 0/1, 100/1 ]</td>
+</tr>
+<tr>
+<td><p><span class="term"></span></p></td>
+<td> video/x-raw, format=(string)YVYU, width=(int)[ 1, 32768 ], height=(int)[ 1, 32768 ], framerate=(fraction)[ 0/1, 100/1 ]</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<p>
+</p>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-good-plugins-v4l2src.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstV4l2Src-struct"></a><h3>struct GstV4l2Src</h3>
+<pre class="programlisting">struct GstV4l2Src;</pre>
+<p>
+</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-good-plugins-v4l2src.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GstV4l2Src--device"></a><h3>The <code class="literal">"device"</code> property</h3>
+<pre class="programlisting">  "device"                   <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write</pre>
+<p>Device location.</p>
+<p>Default value: "/dev/video0"</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstV4l2Src--device-name"></a><h3>The <code class="literal">"device-name"</code> property</h3>
+<pre class="programlisting">  "device-name"              <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read</pre>
+<p>Name of the device.</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstV4l2Src--flags"></a><h3>The <code class="literal">"flags"</code> property</h3>
+<pre class="programlisting">  "flags"                    <span class="type">GstV4l2DeviceTypeFlags</span>  : Read</pre>
+<p>Device type flags.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstV4l2Src--queue-size"></a><h3>The <code class="literal">"queue-size"</code> property</h3>
+<pre class="programlisting">  "queue-size"               <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write</pre>
+<p>Number of buffers to be enqueud in the driver in streaming mode.</p>
+<p>Allowed values: [1,16]</p>
+<p>Default value: 2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstV4l2Src--always-copy"></a><h3>The <code class="literal">"always-copy"</code> property</h3>
+<pre class="programlisting">  "always-copy"              <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write</pre>
+<p>If the buffer will or not be used directly from mmap.</p>
+<p>Default value: TRUE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstV4l2Src--device-fd"></a><h3>The <code class="literal">"device-fd"</code> property</h3>
+<pre class="programlisting">  "device-fd"                <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                  : Read</pre>
+<p>File descriptor of the device.</p>
+<p>Allowed values: &gt;= G_MAXULONG</p>
+<p>Default value: -1</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstV4l2Src--brightness"></a><h3>The <code class="literal">"brightness"</code> property</h3>
+<pre class="programlisting">  "brightness"               <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                  : Read / Write</pre>
+<p>Picture brightness, or more precisely, the black level.</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstV4l2Src--contrast"></a><h3>The <code class="literal">"contrast"</code> property</h3>
+<pre class="programlisting">  "contrast"                 <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                  : Read / Write</pre>
+<p>Picture contrast or luma gain.</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstV4l2Src--decimate"></a><h3>The <code class="literal">"decimate"</code> property</h3>
+<pre class="programlisting">  "decimate"                 <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                  : Read / Write</pre>
+<p>Only use every nth frame.</p>
+<p>Allowed values: &gt;= 1</p>
+<p>Default value: 1</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstV4l2Src--hue"></a><h3>The <code class="literal">"hue"</code> property</h3>
+<pre class="programlisting">  "hue"                      <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                  : Read / Write</pre>
+<p>Hue or color balance.</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstV4l2Src--saturation"></a><h3>The <code class="literal">"saturation"</code> property</h3>
+<pre class="programlisting">  "saturation"               <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                  : Read / Write</pre>
+<p>Picture color saturation or chroma gain.</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstV4l2Src--norm"></a><h3>The <code class="literal">"norm"</code> property</h3>
+<pre class="programlisting">  "norm"                     <span class="type">V4L2_TV_norms</span>         : Read / Write</pre>
+<p>video standard.</p>
+<p>Default value: none</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstV4l2Src--io-mode"></a><h3>The <code class="literal">"io-mode"</code> property</h3>
+<pre class="programlisting">  "io-mode"                  <span class="type">GstV4l2IOMode</span>         : Read / Write</pre>
+<p>I/O mode.</p>
+<p>Default value: GST_V4L2_IO_AUTO</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-good-plugins-v4l2src.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="GstV4l2Src-prepare-format"></a><h3>The <code class="literal">"prepare-format"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="gst-plugins-good-plugins-v4l2src.html#GstV4l2Src"><span class="type">GstV4l2Src</span></a> *gstv4l2src,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>        arg1,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>       arg2,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>       arg3,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>       arg4,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>    user_data)       : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a></pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>gstv4l2src</code></em> :</span></p></td>
+<td>the object which received the signal.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

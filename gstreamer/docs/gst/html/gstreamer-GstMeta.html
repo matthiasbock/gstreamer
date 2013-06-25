@@ -1,0 +1,615 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GstMeta</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer 1.0 Core Reference Manual">
+<link rel="up" href="libgstreamer.html" title="GStreamer Core Library">
+<link rel="prev" href="gstreamer-GstMessage.html" title="GstMessage">
+<link rel="next" href="gstreamer-GstMiniObject.html" title="GstMiniObject">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gstreamer-GstMessage.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="libgstreamer.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer 1.0 Core Reference Manual</th>
+<td><a accesskey="n" href="gstreamer-GstMiniObject.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gstreamer-GstMeta.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gstreamer-GstMeta.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gstreamer-GstMeta"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gstreamer-GstMeta.top_of_page"></a>GstMeta</span></h2>
+<p>GstMeta — Buffer metadata</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gstreamer-GstMeta.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;gst/gst.h&gt;
+
+struct              <a class="link" href="gstreamer-GstMeta.html#GstMeta" title="struct GstMeta">GstMeta</a>;
+enum                <a class="link" href="gstreamer-GstMeta.html#GstMetaFlags" title="enum GstMetaFlags">GstMetaFlags</a>;
+#define             <a class="link" href="gstreamer-GstMeta.html#GST-META-FLAGS:CAPS" title="GST_META_FLAGS()">GST_META_FLAGS</a>                      (meta)
+#define             <a class="link" href="gstreamer-GstMeta.html#GST-META-FLAG-IS-SET:CAPS" title="GST_META_FLAG_IS_SET()">GST_META_FLAG_IS_SET</a>                (meta,
+                                                         flag)
+#define             <a class="link" href="gstreamer-GstMeta.html#GST-META-FLAG-SET:CAPS" title="GST_META_FLAG_SET()">GST_META_FLAG_SET</a>                   (meta,
+                                                         flag)
+#define             <a class="link" href="gstreamer-GstMeta.html#GST-META-FLAG-UNSET:CAPS" title="GST_META_FLAG_UNSET()">GST_META_FLAG_UNSET</a>                 (meta,
+                                                         flag)
+struct              <a class="link" href="gstreamer-GstMeta.html#GstMetaInfo" title="struct GstMetaInfo">GstMetaInfo</a>;
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (<a class="link" href="gstreamer-GstMeta.html#GstMetaInitFunction" title="GstMetaInitFunction ()">*GstMetaInitFunction</a>)              (<em class="parameter"><code><a class="link" href="gstreamer-GstMeta.html#GstMeta" title="struct GstMeta"><span class="type">GstMeta</span></a> *meta</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> params</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstBuffer.html#GstBuffer" title="struct GstBuffer"><span class="type">GstBuffer</span></a> *buffer</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="gstreamer-GstMeta.html#GstMetaFreeFunction" title="GstMetaFreeFunction ()">*GstMetaFreeFunction</a>)              (<em class="parameter"><code><a class="link" href="gstreamer-GstMeta.html#GstMeta" title="struct GstMeta"><span class="type">GstMeta</span></a> *meta</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstBuffer.html#GstBuffer" title="struct GstBuffer"><span class="type">GstBuffer</span></a> *buffer</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (<a class="link" href="gstreamer-GstMeta.html#GstMetaTransformFunction" title="GstMetaTransformFunction ()">*GstMetaTransformFunction</a>)         (<em class="parameter"><code><a class="link" href="gstreamer-GstBuffer.html#GstBuffer" title="struct GstBuffer"><span class="type">GstBuffer</span></a> *transbuf</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstMeta.html#GstMeta" title="struct GstMeta"><span class="type">GstMeta</span></a> *meta</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstBuffer.html#GstBuffer" title="struct GstBuffer"><span class="type">GstBuffer</span></a> *buffer</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> type</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);
+                    <a class="link" href="gstreamer-GstMeta.html#GstMetaTransformCopy" title="GstMetaTransformCopy">GstMetaTransformCopy</a>;
+#define             <a class="link" href="gstreamer-GstMeta.html#GST-META-TRANSFORM-IS-COPY:CAPS" title="GST_META_TRANSFORM_IS_COPY()">GST_META_TRANSFORM_IS_COPY</a>          (type)
+<a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GType"><span class="returnvalue">GType</span></a>               <a class="link" href="gstreamer-GstMeta.html#gst-meta-api-type-register" title="gst_meta_api_type_register ()">gst_meta_api_type_register</a>          (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *api</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **tags</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="gstreamer-GstMeta.html#gst-meta-api-type-has-tag" title="gst_meta_api_type_has_tag ()">gst_meta_api_type_has_tag</a>           (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GType"><span class="type">GType</span></a> api</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> tag</code></em>);
+#define             <a class="link" href="gstreamer-GstMeta.html#GST-META-TAG-MEMORY:CAPS" title="GST_META_TAG_MEMORY">GST_META_TAG_MEMORY</a>
+const <a class="link" href="gstreamer-GstMeta.html#GstMetaInfo" title="struct GstMetaInfo"><span class="returnvalue">GstMetaInfo</span></a> * <a class="link" href="gstreamer-GstMeta.html#gst-meta-register" title="gst_meta_register ()">gst_meta_register</a>                   (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GType"><span class="type">GType</span></a> api</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *impl</code></em>,
+                                                         <em class="parameter"><code><span class="type">gsize</span> size</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstMeta.html#GstMetaInitFunction" title="GstMetaInitFunction ()"><span class="type">GstMetaInitFunction</span></a> init_func</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstMeta.html#GstMetaFreeFunction" title="GstMetaFreeFunction ()"><span class="type">GstMetaFreeFunction</span></a> free_func</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstMeta.html#GstMetaTransformFunction" title="GstMetaTransformFunction ()"><span class="type">GstMetaTransformFunction</span></a> transform_func</code></em>);
+const <a class="link" href="gstreamer-GstMeta.html#GstMetaInfo" title="struct GstMetaInfo"><span class="returnvalue">GstMetaInfo</span></a> * <a class="link" href="gstreamer-GstMeta.html#gst-meta-get-info" title="gst_meta_get_info ()">gst_meta_get_info</a>                   (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *impl</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="gstreamer-GstMeta.description"></a><h2>Description</h2>
+<p>
+The <a class="link" href="gstreamer-GstMeta.html#GstMeta" title="struct GstMeta"><span class="type">GstMeta</span></a> structure should be included as the first member of a <a class="link" href="gstreamer-GstBuffer.html#GstBuffer" title="struct GstBuffer"><span class="type">GstBuffer</span></a>
+metadata structure. The structure defines the API of the metadata and should
+be accessible to all elements using the metadata.
+</p>
+<p>
+A metadata API is registered with <a class="link" href="gstreamer-GstMeta.html#gst-meta-api-type-register" title="gst_meta_api_type_register ()"><code class="function">gst_meta_api_type_register()</code></a> which takes a
+name for the metadata API and some tags associated with the metadata.
+With <a class="link" href="gstreamer-GstMeta.html#gst-meta-api-type-has-tag" title="gst_meta_api_type_has_tag ()"><code class="function">gst_meta_api_type_has_tag()</code></a> one can check if a certain metadata API
+contains a given tag.
+</p>
+<p>
+Multiple implementations of a metadata API can be registered.
+To implement a metadata API, <a class="link" href="gstreamer-GstMeta.html#gst-meta-register" title="gst_meta_register ()"><code class="function">gst_meta_register()</code></a> should be used. This
+function takes all parameters needed to create, free and transform metadata
+along with the size of the metadata. The function returns a <a class="link" href="gstreamer-GstMeta.html#GstMetaInfo" title="struct GstMetaInfo"><span class="type">GstMetaInfo</span></a>
+structure that contains the information for the implementation of the API.
+</p>
+<p>
+A specific implementation can be retrieved by name with <a class="link" href="gstreamer-GstMeta.html#gst-meta-get-info" title="gst_meta_get_info ()"><code class="function">gst_meta_get_info()</code></a>.
+</p>
+<p>
+See <a class="link" href="gstreamer-GstBuffer.html#GstBuffer" title="struct GstBuffer"><span class="type">GstBuffer</span></a> for how the metadata can be added, retrieved and removed from
+buffers.
+</p>
+<p>
+Last reviewed on 2012-03-28 (0.11.3)
+</p>
+</div>
+<div class="refsect1">
+<a name="gstreamer-GstMeta.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstMeta"></a><h3>struct GstMeta</h3>
+<pre class="programlisting">struct GstMeta {
+  GstMetaFlags       flags;
+  const GstMetaInfo *info;
+};
+</pre>
+<p>
+Base structure for metadata. Custom metadata will put this structure
+as the first member of their structure.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a class="link" href="gstreamer-GstMeta.html#GstMetaFlags" title="enum GstMetaFlags"><span class="type">GstMetaFlags</span></a> <em class="structfield"><code><a name="GstMeta.flags"></a>flags</code></em>;</span></p></td>
+<td>extra flags for the metadata</td>
+</tr>
+<tr>
+<td><p><span class="term">const <a class="link" href="gstreamer-GstMeta.html#GstMetaInfo" title="struct GstMetaInfo"><span class="type">GstMetaInfo</span></a> *<em class="structfield"><code><a name="GstMeta.info"></a>info</code></em>;</span></p></td>
+<td>pointer to the <a class="link" href="gstreamer-GstMeta.html#GstMetaInfo" title="struct GstMetaInfo"><span class="type">GstMetaInfo</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMetaFlags"></a><h3>enum GstMetaFlags</h3>
+<pre class="programlisting">typedef enum {
+  GST_META_FLAG_NONE        = 0,
+  GST_META_FLAG_READONLY    = (1 &lt;&lt; 0),
+  GST_META_FLAG_POOLED      = (1 &lt;&lt; 1),
+  GST_META_FLAG_LOCKED      = (1 &lt;&lt; 2),
+
+  GST_META_FLAG_LAST        = (1 &lt;&lt; 16)
+} GstMetaFlags;
+</pre>
+<p>
+Extra metadata flags.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="GST-META-FLAG-NONE:CAPS"></a><span class="term"><code class="literal">GST_META_FLAG_NONE</code></span></p></td>
+<td>no flags
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-META-FLAG-READONLY:CAPS"></a><span class="term"><code class="literal">GST_META_FLAG_READONLY</code></span></p></td>
+<td>metadata should not be modified
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-META-FLAG-POOLED:CAPS"></a><span class="term"><code class="literal">GST_META_FLAG_POOLED</code></span></p></td>
+<td>metadata is managed by a bufferpool
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-META-FLAG-LOCKED:CAPS"></a><span class="term"><code class="literal">GST_META_FLAG_LOCKED</code></span></p></td>
+<td>metadata should not be removed
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-META-FLAG-LAST:CAPS"></a><span class="term"><code class="literal">GST_META_FLAG_LAST</code></span></p></td>
+<td>additional flags can be added starting from this flag.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-META-FLAGS:CAPS"></a><h3>GST_META_FLAGS()</h3>
+<pre class="programlisting">#define GST_META_FLAGS(meta)  (GST_META_CAST (meta)-&gt;flags)
+</pre>
+<p>
+A flags word containing <a class="link" href="gstreamer-GstMeta.html#GstMetaFlags" title="enum GstMetaFlags"><span class="type">GstMetaFlags</span></a> flags set on <em class="parameter"><code>meta</code></em>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>meta</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstMeta.html#GstMeta" title="struct GstMeta"><span class="type">GstMeta</span></a>.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-META-FLAG-IS-SET:CAPS"></a><h3>GST_META_FLAG_IS_SET()</h3>
+<pre class="programlisting">#define GST_META_FLAG_IS_SET(meta,flag)        !!(GST_META_FLAGS (meta) &amp; (flag))
+</pre>
+<p>
+Gives the status of a specific flag on a metadata.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>meta</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstMeta.html#GstMeta" title="struct GstMeta"><span class="type">GstMeta</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>flag</code></em> :</span></p></td>
+<td>the <a class="link" href="gstreamer-GstMeta.html#GstMetaFlags" title="enum GstMetaFlags"><span class="type">GstMetaFlags</span></a> to check.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-META-FLAG-SET:CAPS"></a><h3>GST_META_FLAG_SET()</h3>
+<pre class="programlisting">#define GST_META_FLAG_SET(meta,flag)           (GST_META_FLAGS (meta) |= (flag))
+</pre>
+<p>
+Sets a metadata flag on a metadata.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>meta</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstMeta.html#GstMeta" title="struct GstMeta"><span class="type">GstMeta</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>flag</code></em> :</span></p></td>
+<td>the <a class="link" href="gstreamer-GstMeta.html#GstMetaFlags" title="enum GstMetaFlags"><span class="type">GstMetaFlags</span></a> to set.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-META-FLAG-UNSET:CAPS"></a><h3>GST_META_FLAG_UNSET()</h3>
+<pre class="programlisting">#define GST_META_FLAG_UNSET(meta,flag)         (GST_META_FLAGS (meta) &amp;= ~(flag))
+</pre>
+<p>
+Clears a metadata flag.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>meta</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstMeta.html#GstMeta" title="struct GstMeta"><span class="type">GstMeta</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>flag</code></em> :</span></p></td>
+<td>the <a class="link" href="gstreamer-GstMeta.html#GstMetaFlags" title="enum GstMetaFlags"><span class="type">GstMetaFlags</span></a> to clear.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMetaInfo"></a><h3>struct GstMetaInfo</h3>
+<pre class="programlisting">struct GstMetaInfo {
+  GType                      api;
+  GType                      type;
+  gsize                      size;
+
+  GstMetaInitFunction        init_func;
+  GstMetaFreeFunction        free_func;
+  GstMetaTransformFunction   transform_func;
+};
+</pre>
+<p>
+The <a class="link" href="gstreamer-GstMeta.html#GstMetaInfo" title="struct GstMetaInfo"><span class="type">GstMetaInfo</span></a> provides information about a specific metadata
+structure.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GType"><span class="type">GType</span></a> <em class="structfield"><code><a name="GstMetaInfo.api"></a>api</code></em>;</span></p></td>
+<td>tag indentifying the metadata structure and api</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GType"><span class="type">GType</span></a> <em class="structfield"><code><a name="GstMetaInfo.type"></a>type</code></em>;</span></p></td>
+<td>type indentifying the implementor of the api</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">gsize</span> <em class="structfield"><code><a name="GstMetaInfo.size"></a>size</code></em>;</span></p></td>
+<td>size of the metadata</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="gstreamer-GstMeta.html#GstMetaInitFunction" title="GstMetaInitFunction ()"><span class="type">GstMetaInitFunction</span></a> <em class="structfield"><code><a name="GstMetaInfo.init-func"></a>init_func</code></em>;</span></p></td>
+<td>function for initializing the metadata</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="gstreamer-GstMeta.html#GstMetaFreeFunction" title="GstMetaFreeFunction ()"><span class="type">GstMetaFreeFunction</span></a> <em class="structfield"><code><a name="GstMetaInfo.free-func"></a>free_func</code></em>;</span></p></td>
+<td>function for freeing the metadata</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="gstreamer-GstMeta.html#GstMetaTransformFunction" title="GstMetaTransformFunction ()"><span class="type">GstMetaTransformFunction</span></a> <em class="structfield"><code><a name="GstMetaInfo.transform-func"></a>transform_func</code></em>;</span></p></td>
+<td>function for transforming the metadata</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMetaInitFunction"></a><h3>GstMetaInitFunction ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (*GstMetaInitFunction)              (<em class="parameter"><code><a class="link" href="gstreamer-GstMeta.html#GstMeta" title="struct GstMeta"><span class="type">GstMeta</span></a> *meta</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> params</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstBuffer.html#GstBuffer" title="struct GstBuffer"><span class="type">GstBuffer</span></a> *buffer</code></em>);</pre>
+<p>
+Function called when <em class="parameter"><code>meta</code></em> is initialized in <em class="parameter"><code>buffer</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>meta</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstMeta.html#GstMeta" title="struct GstMeta"><span class="type">GstMeta</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>params</code></em> :</span></p></td>
+<td>parameters passed to the init function</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>buffer</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstBuffer.html#GstBuffer" title="struct GstBuffer"><span class="type">GstBuffer</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMetaFreeFunction"></a><h3>GstMetaFreeFunction ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*GstMetaFreeFunction)              (<em class="parameter"><code><a class="link" href="gstreamer-GstMeta.html#GstMeta" title="struct GstMeta"><span class="type">GstMeta</span></a> *meta</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstBuffer.html#GstBuffer" title="struct GstBuffer"><span class="type">GstBuffer</span></a> *buffer</code></em>);</pre>
+<p>
+Function called when <em class="parameter"><code>meta</code></em> is freed in <em class="parameter"><code>buffer</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>meta</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstMeta.html#GstMeta" title="struct GstMeta"><span class="type">GstMeta</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>buffer</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstBuffer.html#GstBuffer" title="struct GstBuffer"><span class="type">GstBuffer</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMetaTransformFunction"></a><h3>GstMetaTransformFunction ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (*GstMetaTransformFunction)         (<em class="parameter"><code><a class="link" href="gstreamer-GstBuffer.html#GstBuffer" title="struct GstBuffer"><span class="type">GstBuffer</span></a> *transbuf</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstMeta.html#GstMeta" title="struct GstMeta"><span class="type">GstMeta</span></a> *meta</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstBuffer.html#GstBuffer" title="struct GstBuffer"><span class="type">GstBuffer</span></a> *buffer</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> type</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);</pre>
+<p>
+Function called for each <em class="parameter"><code>meta</code></em> in <em class="parameter"><code>buffer</code></em> as a result of performing a
+transformation on <em class="parameter"><code>transbuf</code></em>. Additional <em class="parameter"><code>type</code></em> specific transform data
+is passed to the function as <em class="parameter"><code>data</code></em>.
+</p>
+<p>
+Implementations should check the <em class="parameter"><code>type</code></em> of the transform and parse
+additional type specific fields in <em class="parameter"><code>data</code></em> that should be used to update
+the metadata on <em class="parameter"><code>transbuf</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>transbuf</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstBuffer.html#GstBuffer" title="struct GstBuffer"><span class="type">GstBuffer</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>meta</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstMeta.html#GstMeta" title="struct GstMeta"><span class="type">GstMeta</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>buffer</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstBuffer.html#GstBuffer" title="struct GstBuffer"><span class="type">GstBuffer</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>type</code></em> :</span></p></td>
+<td>the transform type</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>transform specific data.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the transform could be performed</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMetaTransformCopy"></a><h3>GstMetaTransformCopy</h3>
+<pre class="programlisting">typedef struct {
+  gboolean region;
+  gsize offset;
+  gsize size;
+} GstMetaTransformCopy;
+</pre>
+<p>
+Extra data passed to a "gst-copy" transform <a class="link" href="gstreamer-GstMeta.html#GstMetaTransformFunction" title="GstMetaTransformFunction ()"><span class="type">GstMetaTransformFunction</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> <em class="structfield"><code><a name="GstMetaTransformCopy.region"></a>region</code></em>;</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if only region is copied</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">gsize</span> <em class="structfield"><code><a name="GstMetaTransformCopy.offset"></a>offset</code></em>;</span></p></td>
+<td>the offset to copy, 0 if <em class="parameter"><code>region</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>, otherwise &gt; 0</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">gsize</span> <em class="structfield"><code><a name="GstMetaTransformCopy.size"></a>size</code></em>;</span></p></td>
+<td>the size to copy, -1 or the buffer size when <em class="parameter"><code>region</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-META-TRANSFORM-IS-COPY:CAPS"></a><h3>GST_META_TRANSFORM_IS_COPY()</h3>
+<pre class="programlisting">#define GST_META_TRANSFORM_IS_COPY(type) ((type) == _gst_meta_transform_copy)
+</pre>
+<p>
+Check if the transform type is a copy transform
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>type</code></em> :</span></p></td>
+<td>a transform type</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-meta-api-type-register"></a><h3>gst_meta_api_type_register ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GType"><span class="returnvalue">GType</span></a>               gst_meta_api_type_register          (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *api</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **tags</code></em>);</pre>
+<p>
+Register and return a GType for the <em class="parameter"><code>api</code></em> and associate it with
+<em class="parameter"><code>tags</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>api</code></em> :</span></p></td>
+<td>an API to register</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>tags</code></em> :</span></p></td>
+<td>tags for <em class="parameter"><code>api</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a unique GType for <em class="parameter"><code>api</code></em>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-meta-api-type-has-tag"></a><h3>gst_meta_api_type_has_tag ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_meta_api_type_has_tag           (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GType"><span class="type">GType</span></a> api</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> tag</code></em>);</pre>
+<p>
+Check if <em class="parameter"><code>api</code></em> was registered with <em class="parameter"><code>tag</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>api</code></em> :</span></p></td>
+<td>an API</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>tag</code></em> :</span></p></td>
+<td>the tag to check</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if <em class="parameter"><code>api</code></em> was registered with <em class="parameter"><code>tag</code></em>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-META-TAG-MEMORY:CAPS"></a><h3>GST_META_TAG_MEMORY</h3>
+<pre class="programlisting">#define GST_META_TAG_MEMORY (_gst_meta_tag_memory)
+</pre>
+<p>
+Metadata tagged with this tag depends on the particular memory
+or buffer that it is on.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-meta-register"></a><h3>gst_meta_register ()</h3>
+<pre class="programlisting">const <a class="link" href="gstreamer-GstMeta.html#GstMetaInfo" title="struct GstMetaInfo"><span class="returnvalue">GstMetaInfo</span></a> * gst_meta_register                   (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GType"><span class="type">GType</span></a> api</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *impl</code></em>,
+                                                         <em class="parameter"><code><span class="type">gsize</span> size</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstMeta.html#GstMetaInitFunction" title="GstMetaInitFunction ()"><span class="type">GstMetaInitFunction</span></a> init_func</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstMeta.html#GstMetaFreeFunction" title="GstMetaFreeFunction ()"><span class="type">GstMetaFreeFunction</span></a> free_func</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstMeta.html#GstMetaTransformFunction" title="GstMetaTransformFunction ()"><span class="type">GstMetaTransformFunction</span></a> transform_func</code></em>);</pre>
+<p>
+Register a new <a class="link" href="gstreamer-GstMeta.html#GstMeta" title="struct GstMeta"><span class="type">GstMeta</span></a> implementation.
+</p>
+<p>
+The same <em class="parameter"><code>info</code></em> can be retrieved later with <a class="link" href="gstreamer-GstMeta.html#gst-meta-get-info" title="gst_meta_get_info ()"><code class="function">gst_meta_get_info()</code></a> by using
+<em class="parameter"><code>impl</code></em> as the key.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>api</code></em> :</span></p></td>
+<td>the type of the <a class="link" href="gstreamer-GstMeta.html#GstMeta" title="struct GstMeta"><span class="type">GstMeta</span></a> API</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>the name of the <a class="link" href="gstreamer-GstMeta.html#GstMeta" title="struct GstMeta"><span class="type">GstMeta</span></a> implementation</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>size</code></em> :</span></p></td>
+<td>the size of the <a class="link" href="gstreamer-GstMeta.html#GstMeta" title="struct GstMeta"><span class="type">GstMeta</span></a> structure</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>init_func</code></em> :</span></p></td>
+<td>(scope async) a <a class="link" href="gstreamer-GstMeta.html#GstMetaInitFunction" title="GstMetaInitFunction ()"><span class="type">GstMetaInitFunction</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>free_func</code></em> :</span></p></td>
+<td>(scope async) a <a class="link" href="gstreamer-GstMeta.html#GstMetaFreeFunction" title="GstMetaFreeFunction ()"><span class="type">GstMetaFreeFunction</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>transform_func</code></em> :</span></p></td>
+<td>(scope async) a <a class="link" href="gstreamer-GstMeta.html#GstMetaTransformFunction" title="GstMetaTransformFunction ()"><span class="type">GstMetaTransformFunction</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstMeta.html#GstMetaInfo" title="struct GstMetaInfo"><span class="type">GstMetaInfo</span></a> that can be used to access metadata. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-meta-get-info"></a><h3>gst_meta_get_info ()</h3>
+<pre class="programlisting">const <a class="link" href="gstreamer-GstMeta.html#GstMetaInfo" title="struct GstMetaInfo"><span class="returnvalue">GstMetaInfo</span></a> * gst_meta_get_info                   (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *impl</code></em>);</pre>
+<p>
+Lookup a previously registered meta info structure by its implementation name
+<em class="parameter"><code>impl</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>impl</code></em> :</span></p></td>
+<td>the name</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstMeta.html#GstMetaInfo" title="struct GstMetaInfo"><span class="type">GstMetaInfo</span></a> with <em class="parameter"><code>impl</code></em>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><span class="type">NULL</span></a> when no such
+metainfo exists. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

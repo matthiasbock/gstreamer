@@ -1,0 +1,288 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GstTaskPool</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer 1.0 Core Reference Manual">
+<link rel="up" href="libgstreamer.html" title="GStreamer Core Library">
+<link rel="prev" href="GstTask.html" title="GstTask">
+<link rel="next" href="gstreamer-GstToc.html" title="GstToc">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="GstTask.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="libgstreamer.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer 1.0 Core Reference Manual</th>
+<td><a accesskey="n" href="gstreamer-GstToc.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#GstTaskPool.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#GstTaskPool.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#GstTaskPool.object-hierarchy" class="shortcut">Object Hierarchy</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="GstTaskPool"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GstTaskPool.top_of_page"></a>GstTaskPool</span></h2>
+<p>GstTaskPool — Pool of GStreamer streaming threads</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="GstTaskPool.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;gst/gst.h&gt;
+
+struct              <a class="link" href="GstTaskPool.html#GstTaskPool-struct" title="struct GstTaskPool">GstTaskPool</a>;
+struct              <a class="link" href="GstTaskPool.html#GstTaskPoolClass" title="struct GstTaskPoolClass">GstTaskPoolClass</a>;
+<span class="returnvalue">void</span>                (<a class="link" href="GstTaskPool.html#GstTaskPoolFunction" title="GstTaskPoolFunction ()">*GstTaskPoolFunction</a>)              (<em class="parameter"><code><span class="type">void</span> *user_data</code></em>);
+<a class="link" href="GstTaskPool.html" title="GstTaskPool"><span class="returnvalue">GstTaskPool</span></a> *       <a class="link" href="GstTaskPool.html#gst-task-pool-new" title="gst_task_pool_new ()">gst_task_pool_new</a>                   (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="GstTaskPool.html#gst-task-pool-prepare" title="gst_task_pool_prepare ()">gst_task_pool_prepare</a>               (<em class="parameter"><code><a class="link" href="GstTaskPool.html" title="GstTaskPool"><span class="type">GstTaskPool</span></a> *pool</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            <a class="link" href="GstTaskPool.html#gst-task-pool-push" title="gst_task_pool_push ()">gst_task_pool_push</a>                  (<em class="parameter"><code><a class="link" href="GstTaskPool.html" title="GstTaskPool"><span class="type">GstTaskPool</span></a> *pool</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstTaskPool.html#GstTaskPoolFunction" title="GstTaskPoolFunction ()"><span class="type">GstTaskPoolFunction</span></a> func</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="GstTaskPool.html#gst-task-pool-join" title="gst_task_pool_join ()">gst_task_pool_join</a>                  (<em class="parameter"><code><a class="link" href="GstTaskPool.html" title="GstTaskPool"><span class="type">GstTaskPool</span></a> *pool</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> id</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="GstTaskPool.html#gst-task-pool-cleanup" title="gst_task_pool_cleanup ()">gst_task_pool_cleanup</a>               (<em class="parameter"><code><a class="link" href="GstTaskPool.html" title="GstTaskPool"><span class="type">GstTaskPool</span></a> *pool</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="GstTaskPool.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a class="link" href="GstObject.html" title="GstObject">GstObject</a>
+               +----GstTaskPool
+</pre>
+</div>
+<div class="refsect1">
+<a name="GstTaskPool.description"></a><h2>Description</h2>
+<p>
+This object provides an abstraction for creating threads. The default
+implementation uses a regular GThreadPool to start tasks.
+</p>
+<p>
+Subclasses can be made to create custom threads.
+</p>
+<p>
+Last reviewed on 2009-04-23 (0.10.24)
+</p>
+</div>
+<div class="refsect1">
+<a name="GstTaskPool.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstTaskPool-struct"></a><h3>struct GstTaskPool</h3>
+<pre class="programlisting">struct GstTaskPool;</pre>
+<p>
+The <a class="link" href="GstTaskPool.html" title="GstTaskPool"><span class="type">GstTaskPool</span></a> object.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstTaskPoolClass"></a><h3>struct GstTaskPoolClass</h3>
+<pre class="programlisting">struct GstTaskPoolClass {
+  GstObjectClass parent_class;
+
+  void      (*prepare)  (GstTaskPool *pool, GError **error);
+  void      (*cleanup)  (GstTaskPool *pool);
+
+  gpointer  (*push)     (GstTaskPool *pool, GstTaskPoolFunction func,
+                         gpointer user_data, GError **error);
+  void      (*join)     (GstTaskPool *pool, gpointer id);
+};
+</pre>
+<p>
+The <a class="link" href="GstTaskPool.html#GstTaskPoolClass" title="struct GstTaskPoolClass"><span class="type">GstTaskPoolClass</span></a> object.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a class="link" href="GstObject.html#GstObjectClass" title="struct GstObjectClass"><span class="type">GstObjectClass</span></a> <em class="structfield"><code><a name="GstTaskPoolClass.parent-class"></a>parent_class</code></em>;</span></p></td>
+<td>the parent class structure</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GstTaskPoolClass.prepare"></a>prepare</code></em> ()</span></p></td>
+<td>prepare the threadpool</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GstTaskPoolClass.cleanup"></a>cleanup</code></em> ()</span></p></td>
+<td>make sure all threads are stopped</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GstTaskPoolClass.push"></a>push</code></em> ()</span></p></td>
+<td>start a new thread</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GstTaskPoolClass.join"></a>join</code></em> ()</span></p></td>
+<td>join a thread</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstTaskPoolFunction"></a><h3>GstTaskPoolFunction ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*GstTaskPoolFunction)              (<em class="parameter"><code><span class="type">void</span> *user_data</code></em>);</pre>
+<p>
+Task function, see <a class="link" href="GstTaskPool.html#gst-task-pool-push" title="gst_task_pool_push ()"><code class="function">gst_task_pool_push()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data for the task function</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-task-pool-new"></a><h3>gst_task_pool_new ()</h3>
+<pre class="programlisting"><a class="link" href="GstTaskPool.html" title="GstTaskPool"><span class="returnvalue">GstTaskPool</span></a> *       gst_task_pool_new                   (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Create a new default task pool. The default task pool will use a regular
+GThreadPool for threads.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="GstTaskPool.html" title="GstTaskPool"><span class="type">GstTaskPool</span></a>. <a class="link" href="GstObject.html#gst-object-unref" title="gst_object_unref ()"><code class="function">gst_object_unref()</code></a> after usage. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-task-pool-prepare"></a><h3>gst_task_pool_prepare ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_task_pool_prepare               (<em class="parameter"><code><a class="link" href="GstTaskPool.html" title="GstTaskPool"><span class="type">GstTaskPool</span></a> *pool</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Prepare the taskpool for accepting <a class="link" href="GstTaskPool.html#gst-task-pool-push" title="gst_task_pool_push ()"><code class="function">gst_task_pool_push()</code></a> operations.
+</p>
+<p>
+MT safe.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pool</code></em> :</span></p></td>
+<td>a <a class="link" href="GstTaskPool.html" title="GstTaskPool"><span class="type">GstTaskPool</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>an error return location</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-task-pool-push"></a><h3>gst_task_pool_push ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            gst_task_pool_push                  (<em class="parameter"><code><a class="link" href="GstTaskPool.html" title="GstTaskPool"><span class="type">GstTaskPool</span></a> *pool</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstTaskPool.html#GstTaskPoolFunction" title="GstTaskPoolFunction ()"><span class="type">GstTaskPoolFunction</span></a> func</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Start the execution of a new thread from <em class="parameter"><code>pool</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pool</code></em> :</span></p></td>
+<td>a <a class="link" href="GstTaskPool.html" title="GstTaskPool"><span class="type">GstTaskPool</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>func</code></em> :</span></p></td>
+<td>the function to call. <span class="annotation">[<acronym title="The callback is valid until first called."><span class="acronym">scope async</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>data to pass to <em class="parameter"><code>func</code></em>. <span class="annotation">[<acronym title="This parameter is a 'user_data', for callbacks; many bindings can pass NULL here."><span class="acronym">closure</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>return location for an error</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a pointer that should be used for the
+gst_task_pool_join function. This pointer can be NULL, you must
+check <em class="parameter"><code>error</code></em> to detect errors. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-task-pool-join"></a><h3>gst_task_pool_join ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_task_pool_join                  (<em class="parameter"><code><a class="link" href="GstTaskPool.html" title="GstTaskPool"><span class="type">GstTaskPool</span></a> *pool</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> id</code></em>);</pre>
+<p>
+Join a task and/or return it to the pool. <em class="parameter"><code>id</code></em> is the id obtained from 
+<a class="link" href="GstTaskPool.html#gst-task-pool-push" title="gst_task_pool_push ()"><code class="function">gst_task_pool_push()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pool</code></em> :</span></p></td>
+<td>a <a class="link" href="GstTaskPool.html" title="GstTaskPool"><span class="type">GstTaskPool</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>id</code></em> :</span></p></td>
+<td>the id</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-task-pool-cleanup"></a><h3>gst_task_pool_cleanup ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_task_pool_cleanup               (<em class="parameter"><code><a class="link" href="GstTaskPool.html" title="GstTaskPool"><span class="type">GstTaskPool</span></a> *pool</code></em>);</pre>
+<p>
+Wait for all tasks to be stopped. This is mainly used internally
+to ensure proper cleanup of internal data structures in test suites.
+</p>
+<p>
+MT safe.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>pool</code></em> :</span></p></td>
+<td>a <a class="link" href="GstTaskPool.html" title="GstTaskPool"><span class="type">GstTaskPool</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="GstTaskPool.see-also"></a><h2>See Also</h2>
+<a class="link" href="GstTask.html" title="GstTask"><span class="type">GstTask</span></a>, <a class="link" href="GstPad.html" title="GstPad"><span class="type">GstPad</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

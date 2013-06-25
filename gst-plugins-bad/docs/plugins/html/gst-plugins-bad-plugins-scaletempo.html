@@ -1,0 +1,265 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>scaletempo</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer Bad Plugins 1.0 Plugins Reference Manual">
+<link rel="up" href="ch01.html" title="gst-plugins-bad Elements">
+<link rel="prev" href="gst-plugins-bad-plugins-rtpmux.html" title="rtpmux">
+<link rel="next" href="gst-plugins-bad-plugins-shmsink.html" title="shmsink">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gst-plugins-bad-plugins-rtpmux.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer Bad Plugins 1.0 Plugins Reference Manual</th>
+<td><a accesskey="n" href="gst-plugins-bad-plugins-shmsink.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gst-plugins-bad-plugins-scaletempo.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gst-plugins-bad-plugins-scaletempo.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#gst-plugins-bad-plugins-scaletempo.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#gst-plugins-bad-plugins-scaletempo.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gst-plugins-bad-plugins-scaletempo"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gst-plugins-bad-plugins-scaletempo.top_of_page"></a>scaletempo</span></h2>
+<p>scaletempo — Sync audio tempo with playback rate</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gst-plugins-bad-plugins-scaletempo.synopsis"></a><h2>Synopsis</h2>
+<a name="GstScaletempo"></a><pre class="synopsis">struct              <a class="link" href="gst-plugins-bad-plugins-scaletempo.html#GstScaletempo-struct" title="struct GstScaletempo">GstScaletempo</a>;
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-bad-plugins-scaletempo.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstObject.html">GstObject</a>
+               +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html">GstElement</a>
+                     +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer-libs/html/GstBaseTransform.html">GstBaseTransform</a>
+                           +----GstScaletempo
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-bad-plugins-scaletempo.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="gst-plugins-bad-plugins-scaletempo.html#GstScaletempo--overlap" title='The "overlap" property'>overlap</a>"                  <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a>               : Read / Write
+  "<a class="link" href="gst-plugins-bad-plugins-scaletempo.html#GstScaletempo--rate" title='The "rate" property'>rate</a>"                     <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a>               : Read
+  "<a class="link" href="gst-plugins-bad-plugins-scaletempo.html#GstScaletempo--search" title='The "search" property'>search</a>"                   <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write
+  "<a class="link" href="gst-plugins-bad-plugins-scaletempo.html#GstScaletempo--stride" title='The "stride" property'>stride</a>"                   <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-bad-plugins-scaletempo.description"></a><h2>Description</h2>
+<p>
+Scale tempo while maintaining pitch
+(WSOLA-like technique with cross correlation)
+Inspired by SoundTouch library by Olli Parviainen
+</p>
+<p>
+Use Sceletempo to apply playback rates without the chipmunk effect.
+</p>
+<p>
+</p>
+<div class="refsect2">
+<a name="idp13904560"></a><h3>Example pipelines</h3>
+<p>
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3</pre></td>
+        <td class="listing_code"><pre class="programlisting">filesrc location<span class="gtkdoc opt">=</span>media<span class="gtkdoc opt">.</span>ext <span class="gtkdoc opt">!</span> decodebin name<span class="gtkdoc opt">=</span>d \
+    d<span class="gtkdoc opt">. !</span> queue <span class="gtkdoc opt">!</span> audioconvert <span class="gtkdoc opt">!</span> audioresample <span class="gtkdoc opt">!</span> scaletempo <span class="gtkdoc opt">!</span> audioconvert <span class="gtkdoc opt">!</span> audioresample <span class="gtkdoc opt">!</span> autoaudiosink \
+    d<span class="gtkdoc opt">. !</span> queue <span class="gtkdoc opt">!</span> videoconvert <span class="gtkdoc opt">!</span> autovideosink</pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+OR
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1</pre></td>
+        <td class="listing_code"><pre class="programlisting">playbin uri<span class="gtkdoc opt">=...</span> audio_sink<span class="gtkdoc opt">=</span><span class="string">&quot;scaletempo ! audioconvert ! audioresample ! autoaudiosink&quot;</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+When an application sends a seek event with rate != 1.0, Scaletempo applies
+the rate change by scaling the tempo without scaling the pitch.
+</p>
+<p>
+Scaletempo works by producing audio in constant sized chunks
+(<a class="link" href="gst-plugins-bad-plugins-scaletempo.html#GstScaletempo--stride" title='The "stride" property'><span class="type">"stride"</span></a>) but consuming chunks proportional to the playback
+rate.
+</p>
+<p>
+Scaletempo then smooths the output by blending the end of one stride with
+the next (<a class="link" href="gst-plugins-bad-plugins-scaletempo.html#GstScaletempo--overlap" title='The "overlap" property'><span class="type">"overlap"</span></a>).
+</p>
+<p>
+Scaletempo smooths the overlap further by searching within the input buffer
+for the best overlap position.  Scaletempo uses a statistical cross
+correlation (roughly a dot-product).  Scaletempo consumes most of its CPU
+cycles here. One can use the <a class="link" href="gst-plugins-bad-plugins-scaletempo.html#GstScaletempo--search" title='The "search" property'><span class="type">"search"</span></a> propery to tune how far
+the algoritm looks.
+</p>
+</div>
+<p>
+</p>
+<div class="refsynopsisdiv">
+<h2>Synopsis</h2>
+<div class="refsect2">
+<a name="idp16747536"></a><h3>Element Information</h3>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">plugin</span></p></td>
+<td>
+            <a class="link" href="gst-plugins-bad-plugins-plugin-scaletempo.html#plugin-scaletempo">scaletempo</a>
+          </td>
+</tr>
+<tr>
+<td><p><span class="term">author</span></p></td>
+<td>Rov Juvano &lt;rovjuvano@users.sourceforge.net&gt;</td>
+</tr>
+<tr>
+<td><p><span class="term">class</span></p></td>
+<td>Filter/Effect/Rate</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="idp17780912"></a><h3>Element Pads</h3>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">name</span></p></td>
+<td>sink</td>
+</tr>
+<tr>
+<td><p><span class="term">direction</span></p></td>
+<td>sink</td>
+</tr>
+<tr>
+<td><p><span class="term">presence</span></p></td>
+<td>always</td>
+</tr>
+<tr>
+<td><p><span class="term">details</span></p></td>
+<td>audio/x-raw, format=(string)F32LE, rate=(int)[ 1, 2147483647 ], channels=(int)[ 1, 2147483647 ]</td>
+</tr>
+<tr>
+<td><p><span class="term"></span></p></td>
+<td> audio/x-raw, format=(string)S16LE, rate=(int)[ 1, 2147483647 ], channels=(int)[ 1, 2147483647 ]</td>
+</tr>
+</tbody>
+</table></div>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">name</span></p></td>
+<td>src</td>
+</tr>
+<tr>
+<td><p><span class="term">direction</span></p></td>
+<td>source</td>
+</tr>
+<tr>
+<td><p><span class="term">presence</span></p></td>
+<td>always</td>
+</tr>
+<tr>
+<td><p><span class="term">details</span></p></td>
+<td>audio/x-raw, format=(string)F32LE, rate=(int)[ 1, 2147483647 ], channels=(int)[ 1, 2147483647 ]</td>
+</tr>
+<tr>
+<td><p><span class="term"></span></p></td>
+<td> audio/x-raw, format=(string)S16LE, rate=(int)[ 1, 2147483647 ], channels=(int)[ 1, 2147483647 ]</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<p>
+</p>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-bad-plugins-scaletempo.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstScaletempo-struct"></a><h3>struct GstScaletempo</h3>
+<pre class="programlisting">struct GstScaletempo;</pre>
+<p>
+</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-bad-plugins-scaletempo.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GstScaletempo--overlap"></a><h3>The <code class="literal">"overlap"</code> property</h3>
+<pre class="programlisting">  "overlap"                  <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a>               : Read / Write</pre>
+<p>Percentage of stride to overlap.</p>
+<p>Allowed values: [0,1]</p>
+<p>Default value: 0.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstScaletempo--rate"></a><h3>The <code class="literal">"rate"</code> property</h3>
+<pre class="programlisting">  "rate"                     <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a>               : Read</pre>
+<p>Current playback rate.</p>
+<p>Allowed values: [-2.14748e+09,2.14748e+09]</p>
+<p>Default value: 1</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstScaletempo--search"></a><h3>The <code class="literal">"search"</code> property</h3>
+<pre class="programlisting">  "search"                   <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write</pre>
+<p>Length in milliseconds to search for best overlap position.</p>
+<p>Allowed values: &lt;= 500</p>
+<p>Default value: 14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstScaletempo--stride"></a><h3>The <code class="literal">"stride"</code> property</h3>
+<pre class="programlisting">  "stride"                   <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write</pre>
+<p>Length in milliseconds to output each stride.</p>
+<p>Allowed values: [1,5000]</p>
+<p>Default value: 30</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>
