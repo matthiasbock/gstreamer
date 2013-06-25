@@ -1,0 +1,292 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>gstmultichannel</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer Base Plugins 1.0 Library Reference Manual">
+<link rel="up" href="gstreamer-audio.html" title="Audio Library">
+<link rel="prev" href="gst-plugins-base-libs-gstaudiobasesrc.html" title="gstaudiobasesrc">
+<link rel="next" href="gst-plugins-base-libs-gstaudioringbuffer.html" title="gstaudioringbuffer">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gst-plugins-base-libs-gstaudiobasesrc.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="gstreamer-audio.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer Base Plugins 1.0 Library Reference Manual</th>
+<td><a accesskey="n" href="gst-plugins-base-libs-gstaudioringbuffer.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gst-plugins-base-libs-gstmultichannel.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gst-plugins-base-libs-gstmultichannel.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gst-plugins-base-libs-gstmultichannel"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gst-plugins-base-libs-gstmultichannel.top_of_page"></a>gstmultichannel</span></h2>
+<p>gstmultichannel</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gst-plugins-base-libs-gstmultichannel.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;gst/audio/multichannel.h&gt;
+
+enum                <a class="link" href="gst-plugins-base-libs-gstmultichannel.html#GstAudioChannelPosition" title="enum GstAudioChannelPosition">GstAudioChannelPosition</a>;
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-libs-gstmultichannel.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-libs-gstmultichannel.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstAudioChannelPosition"></a><h3>enum GstAudioChannelPosition</h3>
+<pre class="programlisting">typedef enum {
+  /* These get negative indices to allow to use
+   * the enum values of the normal cases for the
+   * bit-mask position */
+  GST_AUDIO_CHANNEL_POSITION_NONE = -3,
+  GST_AUDIO_CHANNEL_POSITION_MONO = -2,
+  GST_AUDIO_CHANNEL_POSITION_INVALID = -1,
+
+  /* Normal cases */
+  GST_AUDIO_CHANNEL_POSITION_FRONT_LEFT = 0,
+  GST_AUDIO_CHANNEL_POSITION_FRONT_RIGHT,
+  GST_AUDIO_CHANNEL_POSITION_FRONT_CENTER,
+  GST_AUDIO_CHANNEL_POSITION_LFE1,
+  GST_AUDIO_CHANNEL_POSITION_REAR_LEFT,
+  GST_AUDIO_CHANNEL_POSITION_REAR_RIGHT,
+  GST_AUDIO_CHANNEL_POSITION_FRONT_LEFT_OF_CENTER,
+  GST_AUDIO_CHANNEL_POSITION_FRONT_RIGHT_OF_CENTER,
+  GST_AUDIO_CHANNEL_POSITION_REAR_CENTER,
+  GST_AUDIO_CHANNEL_POSITION_LFE2,
+  GST_AUDIO_CHANNEL_POSITION_SIDE_LEFT,
+  GST_AUDIO_CHANNEL_POSITION_SIDE_RIGHT,
+  GST_AUDIO_CHANNEL_POSITION_TOP_FRONT_LEFT,
+  GST_AUDIO_CHANNEL_POSITION_TOP_FRONT_RIGHT,
+  GST_AUDIO_CHANNEL_POSITION_TOP_FRONT_CENTER,
+  GST_AUDIO_CHANNEL_POSITION_TOP_CENTER,
+  GST_AUDIO_CHANNEL_POSITION_TOP_REAR_LEFT,
+  GST_AUDIO_CHANNEL_POSITION_TOP_REAR_RIGHT,
+  GST_AUDIO_CHANNEL_POSITION_TOP_SIDE_LEFT,
+  GST_AUDIO_CHANNEL_POSITION_TOP_SIDE_RIGHT,
+  GST_AUDIO_CHANNEL_POSITION_TOP_REAR_CENTER,
+  GST_AUDIO_CHANNEL_POSITION_BOTTOM_FRONT_CENTER,
+  GST_AUDIO_CHANNEL_POSITION_BOTTOM_FRONT_LEFT,
+  GST_AUDIO_CHANNEL_POSITION_BOTTOM_FRONT_RIGHT,
+  GST_AUDIO_CHANNEL_POSITION_WIDE_LEFT,
+  GST_AUDIO_CHANNEL_POSITION_WIDE_RIGHT,
+  GST_AUDIO_CHANNEL_POSITION_SURROUND_LEFT,
+  GST_AUDIO_CHANNEL_POSITION_SURROUND_RIGHT
+} GstAudioChannelPosition;
+</pre>
+<p>
+Audio channel positions.
+</p>
+<p>
+These are the channels defined in SMPTE 2036-2-2008
+Table 1 for 22.2 audio systems with the Surround and Wide channels from
+DTS Coherent Acoustics (v.1.3.1) and 10.2 and 7.1 layouts. In the caps the
+actual channel layout is expressed with a channel count and a channel mask,
+which describes the existing channels. The positions in the bit mask correspond
+to the enum values.
+For negotiation it is allowed to have more bits set in the channel mask than
+the number of channels to specify the allowed channel positions but this is
+not allowed in negotiated caps. It is not allowed in any situation other
+than the one mentioned below to have less bits set in the channel mask than
+the number of channels.
+</p>
+<p>
+<em class="parameter"><code>GST_AUDIO_CHANNEL_POSITION_MONO</code></em> can only be used with a single mono channel that
+has no direction information and would be mixed into all directional channels.
+This is expressed in caps by having a single channel and no channel mask.
+</p>
+<p>
+<em class="parameter"><code>GST_AUDIO_CHANNEL_POSITION_NONE</code></em> can only be used if all channels have this position.
+This is expressed in caps by having a channel mask with no bits set.
+</p>
+<p>
+As another special case it is allowed to have two channels without a channel mask.
+This implicitely means that this is a stereo stream with a front left and front right
+channel.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="GST-AUDIO-CHANNEL-POSITION-NONE:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_CHANNEL_POSITION_NONE</code></span></p></td>
+<td>used for position-less channels, e.g.
+    from a sound card that records 1024 channels; mutually exclusive with
+    any other channel position
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-CHANNEL-POSITION-MONO:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_CHANNEL_POSITION_MONO</code></span></p></td>
+<td>Mono without direction;
+    can only be used with 1 channel
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-CHANNEL-POSITION-INVALID:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_CHANNEL_POSITION_INVALID</code></span></p></td>
+<td>invalid position
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-CHANNEL-POSITION-FRONT-LEFT:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_CHANNEL_POSITION_FRONT_LEFT</code></span></p></td>
+<td>Front left
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-CHANNEL-POSITION-FRONT-RIGHT:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_CHANNEL_POSITION_FRONT_RIGHT</code></span></p></td>
+<td>Front right
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-CHANNEL-POSITION-FRONT-CENTER:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_CHANNEL_POSITION_FRONT_CENTER</code></span></p></td>
+<td>Front center
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-CHANNEL-POSITION-LFE1:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_CHANNEL_POSITION_LFE1</code></span></p></td>
+<td>Low-frequency effects 1 (subwoofer)
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-CHANNEL-POSITION-REAR-LEFT:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_CHANNEL_POSITION_REAR_LEFT</code></span></p></td>
+<td>Rear left
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-CHANNEL-POSITION-REAR-RIGHT:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_CHANNEL_POSITION_REAR_RIGHT</code></span></p></td>
+<td>Rear right
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-CHANNEL-POSITION-FRONT-LEFT-OF-CENTER:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_CHANNEL_POSITION_FRONT_LEFT_OF_CENTER</code></span></p></td>
+<td>Front left of center
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-CHANNEL-POSITION-FRONT-RIGHT-OF-CENTER:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_CHANNEL_POSITION_FRONT_RIGHT_OF_CENTER</code></span></p></td>
+<td>Front right of center
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-CHANNEL-POSITION-REAR-CENTER:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_CHANNEL_POSITION_REAR_CENTER</code></span></p></td>
+<td>Rear center
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-CHANNEL-POSITION-LFE2:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_CHANNEL_POSITION_LFE2</code></span></p></td>
+<td>Low-frequency effects 2 (subwoofer)
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-CHANNEL-POSITION-SIDE-LEFT:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_CHANNEL_POSITION_SIDE_LEFT</code></span></p></td>
+<td>Side left
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-CHANNEL-POSITION-SIDE-RIGHT:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_CHANNEL_POSITION_SIDE_RIGHT</code></span></p></td>
+<td>Side right
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-CHANNEL-POSITION-TOP-FRONT-LEFT:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_CHANNEL_POSITION_TOP_FRONT_LEFT</code></span></p></td>
+<td>Top front left
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-CHANNEL-POSITION-TOP-FRONT-RIGHT:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_CHANNEL_POSITION_TOP_FRONT_RIGHT</code></span></p></td>
+<td>Top front right
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-CHANNEL-POSITION-TOP-FRONT-CENTER:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_CHANNEL_POSITION_TOP_FRONT_CENTER</code></span></p></td>
+<td>Top front center
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-CHANNEL-POSITION-TOP-CENTER:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_CHANNEL_POSITION_TOP_CENTER</code></span></p></td>
+<td>Top center
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-CHANNEL-POSITION-TOP-REAR-LEFT:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_CHANNEL_POSITION_TOP_REAR_LEFT</code></span></p></td>
+<td>Top rear left
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-CHANNEL-POSITION-TOP-REAR-RIGHT:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_CHANNEL_POSITION_TOP_REAR_RIGHT</code></span></p></td>
+<td>Top rear right
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-CHANNEL-POSITION-TOP-SIDE-LEFT:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_CHANNEL_POSITION_TOP_SIDE_LEFT</code></span></p></td>
+<td>Top side right
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-CHANNEL-POSITION-TOP-SIDE-RIGHT:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_CHANNEL_POSITION_TOP_SIDE_RIGHT</code></span></p></td>
+<td>Top rear right
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-CHANNEL-POSITION-TOP-REAR-CENTER:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_CHANNEL_POSITION_TOP_REAR_CENTER</code></span></p></td>
+<td>Top rear center
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-CHANNEL-POSITION-BOTTOM-FRONT-CENTER:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_CHANNEL_POSITION_BOTTOM_FRONT_CENTER</code></span></p></td>
+<td>Bottom front center
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-CHANNEL-POSITION-BOTTOM-FRONT-LEFT:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_CHANNEL_POSITION_BOTTOM_FRONT_LEFT</code></span></p></td>
+<td>Bottom front left
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-CHANNEL-POSITION-BOTTOM-FRONT-RIGHT:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_CHANNEL_POSITION_BOTTOM_FRONT_RIGHT</code></span></p></td>
+<td>Bottom front right
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-CHANNEL-POSITION-WIDE-LEFT:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_CHANNEL_POSITION_WIDE_LEFT</code></span></p></td>
+<td>Wide left (between front left and side left)
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-CHANNEL-POSITION-WIDE-RIGHT:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_CHANNEL_POSITION_WIDE_RIGHT</code></span></p></td>
+<td>Wide right (between front right and side right)
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-CHANNEL-POSITION-SURROUND-LEFT:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_CHANNEL_POSITION_SURROUND_LEFT</code></span></p></td>
+<td>Surround left (between rear left and side left)
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-CHANNEL-POSITION-SURROUND-RIGHT:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_CHANNEL_POSITION_SURROUND_RIGHT</code></span></p></td>
+<td>Surround right (between rear right and side right)
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

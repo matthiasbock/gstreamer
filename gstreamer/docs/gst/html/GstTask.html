@@ -1,0 +1,771 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GstTask</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer 1.0 Core Reference Manual">
+<link rel="up" href="libgstreamer.html" title="GStreamer Core Library">
+<link rel="prev" href="GstTagSetter.html" title="GstTagSetter">
+<link rel="next" href="GstTaskPool.html" title="GstTaskPool">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="GstTagSetter.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="libgstreamer.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer 1.0 Core Reference Manual</th>
+<td><a accesskey="n" href="GstTaskPool.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#GstTask.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#GstTask.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#GstTask.object-hierarchy" class="shortcut">Object Hierarchy</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="GstTask"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GstTask.top_of_page"></a>GstTask</span></h2>
+<p>GstTask — Abstraction of GStreamer streaming threads.</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="GstTask.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;gst/gst.h&gt;
+
+struct              <a class="link" href="GstTask.html#GstTask-struct" title="struct GstTask">GstTask</a>;
+<span class="returnvalue">void</span>                (<a class="link" href="GstTask.html#GstTaskFunction" title="GstTaskFunction ()">*GstTaskFunction</a>)                  (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+enum                <a class="link" href="GstTask.html#GstTaskState" title="enum GstTaskState">GstTaskState</a>;
+#define             <a class="link" href="GstTask.html#GST-TASK-BROADCAST:CAPS" title="GST_TASK_BROADCAST()">GST_TASK_BROADCAST</a>                  (task)
+#define             <a class="link" href="GstTask.html#GST-TASK-GET-COND:CAPS" title="GST_TASK_GET_COND()">GST_TASK_GET_COND</a>                   (task)
+#define             <a class="link" href="GstTask.html#GST-TASK-GET-LOCK:CAPS" title="GST_TASK_GET_LOCK()">GST_TASK_GET_LOCK</a>                   (task)
+#define             <a class="link" href="GstTask.html#GST-TASK-SIGNAL:CAPS" title="GST_TASK_SIGNAL()">GST_TASK_SIGNAL</a>                     (task)
+#define             <a class="link" href="GstTask.html#GST-TASK-STATE:CAPS" title="GST_TASK_STATE()">GST_TASK_STATE</a>                      (task)
+#define             <a class="link" href="GstTask.html#GST-TASK-WAIT:CAPS" title="GST_TASK_WAIT()">GST_TASK_WAIT</a>                       (task)
+<a class="link" href="GstTask.html" title="GstTask"><span class="returnvalue">GstTask</span></a> *           <a class="link" href="GstTask.html#gst-task-new" title="gst_task_new ()">gst_task_new</a>                        (<em class="parameter"><code><a class="link" href="GstTask.html#GstTaskFunction" title="GstTaskFunction ()"><span class="type">GstTaskFunction</span></a> func</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> notify</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="GstTask.html#gst-task-set-lock" title="gst_task_set_lock ()">gst_task_set_lock</a>                   (<em class="parameter"><code><a class="link" href="GstTask.html" title="GstTask"><span class="type">GstTask</span></a> *task</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Threads.html#GRecMutex"><span class="type">GRecMutex</span></a> *mutex</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="GstTask.html#gst-task-set-pool" title="gst_task_set_pool ()">gst_task_set_pool</a>                   (<em class="parameter"><code><a class="link" href="GstTask.html" title="GstTask"><span class="type">GstTask</span></a> *task</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstTaskPool.html" title="GstTaskPool"><span class="type">GstTaskPool</span></a> *pool</code></em>);
+<a class="link" href="GstTaskPool.html" title="GstTaskPool"><span class="returnvalue">GstTaskPool</span></a> *       <a class="link" href="GstTask.html#gst-task-get-pool" title="gst_task_get_pool ()">gst_task_get_pool</a>                   (<em class="parameter"><code><a class="link" href="GstTask.html" title="GstTask"><span class="type">GstTask</span></a> *task</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="GstTask.html#GstTaskThreadFunc" title="GstTaskThreadFunc ()">*GstTaskThreadFunc</a>)                (<em class="parameter"><code><a class="link" href="GstTask.html" title="GstTask"><span class="type">GstTask</span></a> *task</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Threads.html#GThread"><span class="type">GThread</span></a> *thread</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="GstTask.html#gst-task-set-enter-callback" title="gst_task_set_enter_callback ()">gst_task_set_enter_callback</a>         (<em class="parameter"><code><a class="link" href="GstTask.html" title="GstTask"><span class="type">GstTask</span></a> *task</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstTask.html#GstTaskThreadFunc" title="GstTaskThreadFunc ()"><span class="type">GstTaskThreadFunc</span></a> enter_func</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> notify</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="GstTask.html#gst-task-set-leave-callback" title="gst_task_set_leave_callback ()">gst_task_set_leave_callback</a>         (<em class="parameter"><code><a class="link" href="GstTask.html" title="GstTask"><span class="type">GstTask</span></a> *task</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstTask.html#GstTaskThreadFunc" title="GstTaskThreadFunc ()"><span class="type">GstTaskThreadFunc</span></a> leave_func</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> notify</code></em>);
+<a class="link" href="GstTask.html#GstTaskState" title="enum GstTaskState"><span class="returnvalue">GstTaskState</span></a>        <a class="link" href="GstTask.html#gst-task-get-state" title="gst_task_get_state ()">gst_task_get_state</a>                  (<em class="parameter"><code><a class="link" href="GstTask.html" title="GstTask"><span class="type">GstTask</span></a> *task</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="GstTask.html#gst-task-set-state" title="gst_task_set_state ()">gst_task_set_state</a>                  (<em class="parameter"><code><a class="link" href="GstTask.html" title="GstTask"><span class="type">GstTask</span></a> *task</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstTask.html#GstTaskState" title="enum GstTaskState"><span class="type">GstTaskState</span></a> state</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="GstTask.html#gst-task-pause" title="gst_task_pause ()">gst_task_pause</a>                      (<em class="parameter"><code><a class="link" href="GstTask.html" title="GstTask"><span class="type">GstTask</span></a> *task</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="GstTask.html#gst-task-start" title="gst_task_start ()">gst_task_start</a>                      (<em class="parameter"><code><a class="link" href="GstTask.html" title="GstTask"><span class="type">GstTask</span></a> *task</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="GstTask.html#gst-task-stop" title="gst_task_stop ()">gst_task_stop</a>                       (<em class="parameter"><code><a class="link" href="GstTask.html" title="GstTask"><span class="type">GstTask</span></a> *task</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="GstTask.html#gst-task-join" title="gst_task_join ()">gst_task_join</a>                       (<em class="parameter"><code><a class="link" href="GstTask.html" title="GstTask"><span class="type">GstTask</span></a> *task</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="GstTask.html#gst-task-cleanup-all" title="gst_task_cleanup_all ()">gst_task_cleanup_all</a>                (<em class="parameter"><code><span class="type">void</span></code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="GstTask.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a class="link" href="GstObject.html" title="GstObject">GstObject</a>
+               +----GstTask
+</pre>
+</div>
+<div class="refsect1">
+<a name="GstTask.description"></a><h2>Description</h2>
+<p>
+<a class="link" href="GstTask.html" title="GstTask"><span class="type">GstTask</span></a> is used by <a class="link" href="GstElement.html" title="GstElement"><span class="type">GstElement</span></a> and <a class="link" href="GstPad.html" title="GstPad"><span class="type">GstPad</span></a> to provide the data passing
+threads in a <a class="link" href="GstPipeline.html" title="GstPipeline"><span class="type">GstPipeline</span></a>.
+</p>
+<p>
+A <a class="link" href="GstPad.html" title="GstPad"><span class="type">GstPad</span></a> will typically start a <a class="link" href="GstTask.html" title="GstTask"><span class="type">GstTask</span></a> to push or pull data to/from the
+peer pads. Most source elements start a <a class="link" href="GstTask.html" title="GstTask"><span class="type">GstTask</span></a> to push data. In some cases
+a demuxer element can start a <a class="link" href="GstTask.html" title="GstTask"><span class="type">GstTask</span></a> to pull data from a peer element. This
+is typically done when the demuxer can perform random access on the upstream
+peer element for improved performance.
+</p>
+<p>
+Although convenience functions exist on <a class="link" href="GstPad.html" title="GstPad"><span class="type">GstPad</span></a> to start/pause/stop tasks, it
+might sometimes be needed to create a <a class="link" href="GstTask.html" title="GstTask"><span class="type">GstTask</span></a> manually if it is not related to
+a <a class="link" href="GstPad.html" title="GstPad"><span class="type">GstPad</span></a>.
+</p>
+<p>
+Before the <a class="link" href="GstTask.html" title="GstTask"><span class="type">GstTask</span></a> can be run, it needs a <a href="http://library.gnome.org/devel/glib/unstable/glib-Deprecated-Thread-APIs.html#GStaticRecMutex"><span class="type">GStaticRecMutex</span></a> that can be set with
+<a class="link" href="GstTask.html#gst-task-set-lock" title="gst_task_set_lock ()"><code class="function">gst_task_set_lock()</code></a>.
+</p>
+<p>
+The task can be started, paused and stopped with <a class="link" href="GstTask.html#gst-task-start" title="gst_task_start ()"><code class="function">gst_task_start()</code></a>, <a class="link" href="GstTask.html#gst-task-pause" title="gst_task_pause ()"><code class="function">gst_task_pause()</code></a>
+and <a class="link" href="GstTask.html#gst-task-stop" title="gst_task_stop ()"><code class="function">gst_task_stop()</code></a> respectively or with the <a class="link" href="GstTask.html#gst-task-set-state" title="gst_task_set_state ()"><code class="function">gst_task_set_state()</code></a> function.
+</p>
+<p>
+A <a class="link" href="GstTask.html" title="GstTask"><span class="type">GstTask</span></a> will repeatedly call the <a class="link" href="GstTask.html#GstTaskFunction" title="GstTaskFunction ()"><span class="type">GstTaskFunction</span></a> with the user data
+that was provided when creating the task with <a class="link" href="GstTask.html#gst-task-new" title="gst_task_new ()"><code class="function">gst_task_new()</code></a>. While calling
+the function it will acquire the provided lock. The provided lock is released
+when the task pauses or stops.
+</p>
+<p>
+Stopping a task with <a class="link" href="GstTask.html#gst-task-stop" title="gst_task_stop ()"><code class="function">gst_task_stop()</code></a> will not immediately make sure the task is
+not running anymore. Use <a class="link" href="GstTask.html#gst-task-join" title="gst_task_join ()"><code class="function">gst_task_join()</code></a> to make sure the task is completely
+stopped and the thread is stopped.
+</p>
+<p>
+After creating a <a class="link" href="GstTask.html" title="GstTask"><span class="type">GstTask</span></a>, use <a class="link" href="GstObject.html#gst-object-unref" title="gst_object_unref ()"><code class="function">gst_object_unref()</code></a> to free its resources. This can
+only be done when the task is not running anymore.
+</p>
+<p>
+Task functions can send a <a class="link" href="gstreamer-GstMessage.html#GstMessage" title="struct GstMessage"><span class="type">GstMessage</span></a> to send out-of-band data to the
+application. The application can receive messages from the <a class="link" href="GstBus.html" title="GstBus"><span class="type">GstBus</span></a> in its
+mainloop.
+</p>
+<p>
+For debugging purposes, the task will configure its object name as the thread
+name on Linux. Please note that the object name should be configured before the
+task is started; changing the object name after the task has been started, has
+no effect on the thread name.
+</p>
+<p>
+Last reviewed on 2012-03-29 (0.11.3)
+</p>
+</div>
+<div class="refsect1">
+<a name="GstTask.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstTask-struct"></a><h3>struct GstTask</h3>
+<pre class="programlisting">struct GstTask {
+  GstTaskState     state;
+  GCond            cond;
+
+  GRecMutex       *lock;
+
+  GstTaskFunction  func;
+  gpointer         user_data;
+  GDestroyNotify   notify;
+
+  gboolean         running;
+};
+</pre>
+<p>
+The <a class="link" href="GstTask.html" title="GstTask"><span class="type">GstTask</span></a> object.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a class="link" href="GstTask.html#GstTaskState" title="enum GstTaskState"><span class="type">GstTaskState</span></a> <em class="structfield"><code><a name="GstTask-struct.state"></a>state</code></em>;</span></p></td>
+<td>the state of the task</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Threads.html#GCond"><span class="type">GCond</span></a> <em class="structfield"><code><a name="GstTask-struct.cond"></a>cond</code></em>;</span></p></td>
+<td>used to pause/resume the task</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Threads.html#GRecMutex"><span class="type">GRecMutex</span></a> *<em class="structfield"><code><a name="GstTask-struct.lock"></a>lock</code></em>;</span></p></td>
+<td>The lock taken when iterating the task function</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="GstTask.html#GstTaskFunction" title="GstTaskFunction ()"><span class="type">GstTaskFunction</span></a> <em class="structfield"><code><a name="GstTask-struct.func"></a>func</code></em>;</span></p></td>
+<td>the function executed by this task</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> <em class="structfield"><code><a name="GstTask-struct.user-data"></a>user_data</code></em>;</span></p></td>
+<td>user_data passed to the task function</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> <em class="structfield"><code><a name="GstTask-struct.notify"></a>notify</code></em>;</span></p></td>
+<td>GDestroyNotify for <em class="parameter"><code>user_data</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> <em class="structfield"><code><a name="GstTask-struct.running"></a>running</code></em>;</span></p></td>
+<td>a flag indicating that the task is running</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstTaskFunction"></a><h3>GstTaskFunction ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*GstTaskFunction)                  (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+A function that will repeatedly be called in the thread created by
+a <a class="link" href="GstTask.html" title="GstTask"><span class="type">GstTask</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data passed to the function</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstTaskState"></a><h3>enum GstTaskState</h3>
+<pre class="programlisting">typedef enum {
+  GST_TASK_STARTED,
+  GST_TASK_STOPPED,
+  GST_TASK_PAUSED
+} GstTaskState;
+</pre>
+<p>
+The different states a task can be in
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="GST-TASK-STARTED:CAPS"></a><span class="term"><code class="literal">GST_TASK_STARTED</code></span></p></td>
+<td>the task is started and running
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-TASK-STOPPED:CAPS"></a><span class="term"><code class="literal">GST_TASK_STOPPED</code></span></p></td>
+<td>the task is stopped
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-TASK-PAUSED:CAPS"></a><span class="term"><code class="literal">GST_TASK_PAUSED</code></span></p></td>
+<td>the task is paused
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-TASK-BROADCAST:CAPS"></a><h3>GST_TASK_BROADCAST()</h3>
+<pre class="programlisting">#define GST_TASK_BROADCAST(task)        g_cond_broadcast(GST_TASK_GET_COND (task))
+</pre>
+<p>
+Send a broadcast signal to all waiting task conds
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>task</code></em> :</span></p></td>
+<td>Task to broadcast</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-TASK-GET-COND:CAPS"></a><h3>GST_TASK_GET_COND()</h3>
+<pre class="programlisting">#define GST_TASK_GET_COND(task)         (&amp;GST_TASK_CAST(task)-&gt;cond)
+</pre>
+<p>
+Get access to the cond of the task.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>task</code></em> :</span></p></td>
+<td>Task to get the cond of</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-TASK-GET-LOCK:CAPS"></a><h3>GST_TASK_GET_LOCK()</h3>
+<pre class="programlisting">#define GST_TASK_GET_LOCK(task)         (GST_TASK_CAST(task)-&gt;lock)
+</pre>
+<p>
+Get access to the task lock.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>task</code></em> :</span></p></td>
+<td>Task to get the lock of</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-TASK-SIGNAL:CAPS"></a><h3>GST_TASK_SIGNAL()</h3>
+<pre class="programlisting">#define GST_TASK_SIGNAL(task)           g_cond_signal(GST_TASK_GET_COND (task))
+</pre>
+<p>
+Signal the task cond
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>task</code></em> :</span></p></td>
+<td>Task to signal</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-TASK-STATE:CAPS"></a><h3>GST_TASK_STATE()</h3>
+<pre class="programlisting">#define GST_TASK_STATE(task)            (GST_TASK_CAST(task)-&gt;state)
+</pre>
+<p>
+Get access to the state of the task.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>task</code></em> :</span></p></td>
+<td>Task to get the state of</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-TASK-WAIT:CAPS"></a><h3>GST_TASK_WAIT()</h3>
+<pre class="programlisting">#define GST_TASK_WAIT(task)             g_cond_wait(GST_TASK_GET_COND (task), GST_OBJECT_GET_LOCK (task))
+</pre>
+<p>
+Wait for the task cond to be signalled
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>task</code></em> :</span></p></td>
+<td>Task to wait for</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-task-new"></a><h3>gst_task_new ()</h3>
+<pre class="programlisting"><a class="link" href="GstTask.html" title="GstTask"><span class="returnvalue">GstTask</span></a> *           gst_task_new                        (<em class="parameter"><code><a class="link" href="GstTask.html#GstTaskFunction" title="GstTaskFunction ()"><span class="type">GstTaskFunction</span></a> func</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> notify</code></em>);</pre>
+<p>
+Create a new Task that will repeatedly call the provided <em class="parameter"><code>func</code></em>
+with <em class="parameter"><code>user_data</code></em> as a parameter. Typically the task will run in
+a new thread.
+</p>
+<p>
+The function cannot be changed after the task has been created. You
+must create a new <a class="link" href="GstTask.html" title="GstTask"><span class="type">GstTask</span></a> to change the function.
+</p>
+<p>
+This function will not yet create and start a thread. Use <a class="link" href="GstTask.html#gst-task-start" title="gst_task_start ()"><code class="function">gst_task_start()</code></a> or
+<a class="link" href="GstTask.html#gst-task-pause" title="gst_task_pause ()"><code class="function">gst_task_pause()</code></a> to create and start the GThread.
+</p>
+<p>
+Before the task can be used, a <a href="http://library.gnome.org/devel/glib/unstable/glib-Deprecated-Thread-APIs.html#GStaticRecMutex"><span class="type">GStaticRecMutex</span></a> must be configured using the
+<a class="link" href="GstTask.html#gst-task-set-lock" title="gst_task_set_lock ()"><code class="function">gst_task_set_lock()</code></a> function. This lock will always be acquired while
+<em class="parameter"><code>func</code></em> is called.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>func</code></em> :</span></p></td>
+<td>The <a class="link" href="GstTask.html#GstTaskFunction" title="GstTaskFunction ()"><span class="type">GstTaskFunction</span></a> to use</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>User data to pass to <em class="parameter"><code>func</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>notify</code></em> :</span></p></td>
+<td>the function to call when <em class="parameter"><code>user_data</code></em> is no longer needed.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>A new <a class="link" href="GstTask.html" title="GstTask"><span class="type">GstTask</span></a>.
+MT safe. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-task-set-lock"></a><h3>gst_task_set_lock ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_task_set_lock                   (<em class="parameter"><code><a class="link" href="GstTask.html" title="GstTask"><span class="type">GstTask</span></a> *task</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Threads.html#GRecMutex"><span class="type">GRecMutex</span></a> *mutex</code></em>);</pre>
+<p>
+Set the mutex used by the task. The mutex will be acquired before
+calling the <a class="link" href="GstTask.html#GstTaskFunction" title="GstTaskFunction ()"><span class="type">GstTaskFunction</span></a>.
+</p>
+<p>
+This function has to be called before calling <a class="link" href="GstTask.html#gst-task-pause" title="gst_task_pause ()"><code class="function">gst_task_pause()</code></a> or
+<a class="link" href="GstTask.html#gst-task-start" title="gst_task_start ()"><code class="function">gst_task_start()</code></a>.
+</p>
+<p>
+MT safe.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>task</code></em> :</span></p></td>
+<td>The <a class="link" href="GstTask.html" title="GstTask"><span class="type">GstTask</span></a> to use</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mutex</code></em> :</span></p></td>
+<td>The <a href="http://library.gnome.org/devel/glib/unstable/glib-Threads.html#GRecMutex"><span class="type">GRecMutex</span></a> to use</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-task-set-pool"></a><h3>gst_task_set_pool ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_task_set_pool                   (<em class="parameter"><code><a class="link" href="GstTask.html" title="GstTask"><span class="type">GstTask</span></a> *task</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstTaskPool.html" title="GstTaskPool"><span class="type">GstTaskPool</span></a> *pool</code></em>);</pre>
+<p>
+Set <em class="parameter"><code>pool</code></em> as the new GstTaskPool for <em class="parameter"><code>task</code></em>. Any new streaming threads that
+will be created by <em class="parameter"><code>task</code></em> will now use <em class="parameter"><code>pool</code></em>.
+</p>
+<p>
+MT safe.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>task</code></em> :</span></p></td>
+<td>a <a class="link" href="GstTask.html" title="GstTask"><span class="type">GstTask</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pool</code></em> :</span></p></td>
+<td>a <a class="link" href="GstTaskPool.html" title="GstTaskPool"><span class="type">GstTaskPool</span></a>. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-task-get-pool"></a><h3>gst_task_get_pool ()</h3>
+<pre class="programlisting"><a class="link" href="GstTaskPool.html" title="GstTaskPool"><span class="returnvalue">GstTaskPool</span></a> *       gst_task_get_pool                   (<em class="parameter"><code><a class="link" href="GstTask.html" title="GstTask"><span class="type">GstTask</span></a> *task</code></em>);</pre>
+<p>
+Get the <a class="link" href="GstTaskPool.html" title="GstTaskPool"><span class="type">GstTaskPool</span></a> that this task will use for its streaming
+threads.
+</p>
+<p>
+MT safe.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>task</code></em> :</span></p></td>
+<td>a <a class="link" href="GstTask.html" title="GstTask"><span class="type">GstTask</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the <a class="link" href="GstTaskPool.html" title="GstTaskPool"><span class="type">GstTaskPool</span></a> used by <em class="parameter"><code>task</code></em>. <a class="link" href="GstObject.html#gst-object-unref" title="gst_object_unref ()"><code class="function">gst_object_unref()</code></a>
+after usage. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstTaskThreadFunc"></a><h3>GstTaskThreadFunc ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*GstTaskThreadFunc)                (<em class="parameter"><code><a class="link" href="GstTask.html" title="GstTask"><span class="type">GstTask</span></a> *task</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Threads.html#GThread"><span class="type">GThread</span></a> *thread</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+Custom GstTask thread callback functions that can be installed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>task</code></em> :</span></p></td>
+<td>The <a class="link" href="GstTask.html" title="GstTask"><span class="type">GstTask</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>thread</code></em> :</span></p></td>
+<td>The <a href="http://library.gnome.org/devel/glib/unstable/glib-Threads.html#GThread"><span class="type">GThread</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-task-set-enter-callback"></a><h3>gst_task_set_enter_callback ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_task_set_enter_callback         (<em class="parameter"><code><a class="link" href="GstTask.html" title="GstTask"><span class="type">GstTask</span></a> *task</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstTask.html#GstTaskThreadFunc" title="GstTaskThreadFunc ()"><span class="type">GstTaskThreadFunc</span></a> enter_func</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> notify</code></em>);</pre>
+<p>
+Call <em class="parameter"><code>enter_func</code></em> when the task function of <em class="parameter"><code>task</code></em> is entered. <em class="parameter"><code>user_data</code></em> will
+be passed to <em class="parameter"><code>enter_func</code></em> and <em class="parameter"><code>notify</code></em> will be called when <em class="parameter"><code>user_data</code></em> is no
+longer referenced.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>task</code></em> :</span></p></td>
+<td>The <a class="link" href="GstTask.html" title="GstTask"><span class="type">GstTask</span></a> to use</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>enter_func</code></em> :</span></p></td>
+<td>a <a class="link" href="GstTask.html#GstTaskThreadFunc" title="GstTaskThreadFunc ()"><span class="type">GstTaskThreadFunc</span></a>. <span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data passed to <em class="parameter"><code>enter_func</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>notify</code></em> :</span></p></td>
+<td>called when <em class="parameter"><code>user_data</code></em> is no longer referenced</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-task-set-leave-callback"></a><h3>gst_task_set_leave_callback ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_task_set_leave_callback         (<em class="parameter"><code><a class="link" href="GstTask.html" title="GstTask"><span class="type">GstTask</span></a> *task</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstTask.html#GstTaskThreadFunc" title="GstTaskThreadFunc ()"><span class="type">GstTaskThreadFunc</span></a> leave_func</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> notify</code></em>);</pre>
+<p>
+Call <em class="parameter"><code>leave_func</code></em> when the task function of <em class="parameter"><code>task</code></em> is left. <em class="parameter"><code>user_data</code></em> will
+be passed to <em class="parameter"><code>leave_func</code></em> and <em class="parameter"><code>notify</code></em> will be called when <em class="parameter"><code>user_data</code></em> is no
+longer referenced.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>task</code></em> :</span></p></td>
+<td>The <a class="link" href="GstTask.html" title="GstTask"><span class="type">GstTask</span></a> to use</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>leave_func</code></em> :</span></p></td>
+<td>a <a class="link" href="GstTask.html#GstTaskThreadFunc" title="GstTaskThreadFunc ()"><span class="type">GstTaskThreadFunc</span></a>. <span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data passed to <em class="parameter"><code>leave_func</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>notify</code></em> :</span></p></td>
+<td>called when <em class="parameter"><code>user_data</code></em> is no longer referenced</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-task-get-state"></a><h3>gst_task_get_state ()</h3>
+<pre class="programlisting"><a class="link" href="GstTask.html#GstTaskState" title="enum GstTaskState"><span class="returnvalue">GstTaskState</span></a>        gst_task_get_state                  (<em class="parameter"><code><a class="link" href="GstTask.html" title="GstTask"><span class="type">GstTask</span></a> *task</code></em>);</pre>
+<p>
+Get the current state of the task.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>task</code></em> :</span></p></td>
+<td>The <a class="link" href="GstTask.html" title="GstTask"><span class="type">GstTask</span></a> to query</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The <a class="link" href="GstTask.html#GstTaskState" title="enum GstTaskState"><span class="type">GstTaskState</span></a> of the task
+MT safe.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-task-set-state"></a><h3>gst_task_set_state ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_task_set_state                  (<em class="parameter"><code><a class="link" href="GstTask.html" title="GstTask"><span class="type">GstTask</span></a> *task</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstTask.html#GstTaskState" title="enum GstTaskState"><span class="type">GstTaskState</span></a> state</code></em>);</pre>
+<p>
+Sets the state of <em class="parameter"><code>task</code></em> to <em class="parameter"><code>state</code></em>.
+</p>
+<p>
+The <em class="parameter"><code>task</code></em> must have a lock associated with it using
+<a class="link" href="GstTask.html#gst-task-set-lock" title="gst_task_set_lock ()"><code class="function">gst_task_set_lock()</code></a> when going to GST_TASK_STARTED or GST_TASK_PAUSED or
+this function will return <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.
+</p>
+<p>
+MT safe.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>task</code></em> :</span></p></td>
+<td>a <a class="link" href="GstTask.html" title="GstTask"><span class="type">GstTask</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>state</code></em> :</span></p></td>
+<td>the new task state</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the state could be changed.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-task-pause"></a><h3>gst_task_pause ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_task_pause                      (<em class="parameter"><code><a class="link" href="GstTask.html" title="GstTask"><span class="type">GstTask</span></a> *task</code></em>);</pre>
+<p>
+Pauses <em class="parameter"><code>task</code></em>. This method can also be called on a task in the
+stopped state, in which case a thread will be started and will remain
+in the paused state. This function does not wait for the task to complete
+the paused state.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>task</code></em> :</span></p></td>
+<td>The <a class="link" href="GstTask.html" title="GstTask"><span class="type">GstTask</span></a> to pause</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the task could be paused.
+MT safe.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-task-start"></a><h3>gst_task_start ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_task_start                      (<em class="parameter"><code><a class="link" href="GstTask.html" title="GstTask"><span class="type">GstTask</span></a> *task</code></em>);</pre>
+<p>
+Starts <em class="parameter"><code>task</code></em>. The <em class="parameter"><code>task</code></em> must have a lock associated with it using
+<a class="link" href="GstTask.html#gst-task-set-lock" title="gst_task_set_lock ()"><code class="function">gst_task_set_lock()</code></a> or this function will return <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>task</code></em> :</span></p></td>
+<td>The <a class="link" href="GstTask.html" title="GstTask"><span class="type">GstTask</span></a> to start</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the task could be started.
+MT safe.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-task-stop"></a><h3>gst_task_stop ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_task_stop                       (<em class="parameter"><code><a class="link" href="GstTask.html" title="GstTask"><span class="type">GstTask</span></a> *task</code></em>);</pre>
+<p>
+Stops <em class="parameter"><code>task</code></em>. This method merely schedules the task to stop and
+will not wait for the task to have completely stopped. Use
+<a class="link" href="GstTask.html#gst-task-join" title="gst_task_join ()"><code class="function">gst_task_join()</code></a> to stop and wait for completion.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>task</code></em> :</span></p></td>
+<td>The <a class="link" href="GstTask.html" title="GstTask"><span class="type">GstTask</span></a> to stop</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the task could be stopped.
+MT safe.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-task-join"></a><h3>gst_task_join ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_task_join                       (<em class="parameter"><code><a class="link" href="GstTask.html" title="GstTask"><span class="type">GstTask</span></a> *task</code></em>);</pre>
+<p>
+Joins <em class="parameter"><code>task</code></em>. After this call, it is safe to unref the task
+and clean up the lock set with <a class="link" href="GstTask.html#gst-task-set-lock" title="gst_task_set_lock ()"><code class="function">gst_task_set_lock()</code></a>.
+</p>
+<p>
+The task will automatically be stopped with this call.
+</p>
+<p>
+This function cannot be called from within a task function as this
+would cause a deadlock. The function will detect this and print a
+g_warning.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>task</code></em> :</span></p></td>
+<td>The <a class="link" href="GstTask.html" title="GstTask"><span class="type">GstTask</span></a> to join</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the task could be joined.
+MT safe.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-task-cleanup-all"></a><h3>gst_task_cleanup_all ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_task_cleanup_all                (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Wait for all tasks to be stopped. This is mainly used internally
+to ensure proper cleanup of internal data structures in test suites.
+</p>
+<p>
+MT safe.
+</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GstTask.see-also"></a><h2>See Also</h2>
+<a class="link" href="GstElement.html" title="GstElement"><span class="type">GstElement</span></a>, <a class="link" href="GstPad.html" title="GstPad"><span class="type">GstPad</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

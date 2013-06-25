@@ -1,0 +1,1375 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>gstaudio</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer Base Plugins 1.0 Library Reference Manual">
+<link rel="up" href="gstreamer-audio.html" title="Audio Library">
+<link rel="prev" href="gstreamer-audio.html" title="Audio Library">
+<link rel="next" href="gst-plugins-base-libs-gstaudiocdsrc.html" title="gstaudiocdsrc">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gstreamer-audio.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="gstreamer-audio.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer Base Plugins 1.0 Library Reference Manual</th>
+<td><a accesskey="n" href="gst-plugins-base-libs-gstaudiocdsrc.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gst-plugins-base-libs-gstaudio.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gst-plugins-base-libs-gstaudio.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gst-plugins-base-libs-gstaudio"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gst-plugins-base-libs-gstaudio.top_of_page"></a>gstaudio</span></h2>
+<p>gstaudio — Support library for audio elements</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gst-plugins-base-libs-gstaudio.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;gst/audio/audio.h&gt;
+
+enum                <a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioFlags" title="enum GstAudioFlags">GstAudioFlags</a>;
+enum                <a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioFormat" title="enum GstAudioFormat">GstAudioFormat</a>;
+enum                <a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioFormatFlags" title="enum GstAudioFormatFlags">GstAudioFormatFlags</a>;
+struct              <a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioFormatInfo" title="struct GstAudioFormatInfo">GstAudioFormatInfo</a>;
+struct              <a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioInfo" title="struct GstAudioInfo">GstAudioInfo</a>;
+enum                <a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioLayout" title="enum GstAudioLayout">GstAudioLayout</a>;
+enum                <a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioPackFlags" title="enum GstAudioPackFlags">GstAudioPackFlags</a>;
+<span class="returnvalue">void</span>                (<a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioFormatPack" title="GstAudioFormatPack ()">*GstAudioFormatPack</a>)               (<em class="parameter"><code>const <a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioFormatInfo" title="struct GstAudioFormatInfo"><span class="type">GstAudioFormatInfo</span></a> *info</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioPackFlags" title="enum GstAudioPackFlags"><span class="type">GstAudioPackFlags</span></a> flags</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> src</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> length</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioFormatUnpack" title="GstAudioFormatUnpack ()">*GstAudioFormatUnpack</a>)             (<em class="parameter"><code>const <a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioFormatInfo" title="struct GstAudioFormatInfo"><span class="type">GstAudioFormatInfo</span></a> *info</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioPackFlags" title="enum GstAudioPackFlags"><span class="type">GstAudioPackFlags</span></a> flags</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> dest</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> length</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-base-libs-gstaudio.html#gst-audio-info-init" title="gst_audio_info_init ()">gst_audio_info_init</a>                 (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioInfo" title="struct GstAudioInfo"><span class="type">GstAudioInfo</span></a> *info</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="gst-plugins-base-libs-gstaudio.html#gst-audio-info-from-caps" title="gst_audio_info_from_caps ()">gst_audio_info_from_caps</a>            (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioInfo" title="struct GstAudioInfo"><span class="type">GstAudioInfo</span></a> *info</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="type">GstCaps</span></a> *caps</code></em>);
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="returnvalue">GstCaps</span></a> *           <a class="link" href="gst-plugins-base-libs-gstaudio.html#gst-audio-info-to-caps" title="gst_audio_info_to_caps ()">gst_audio_info_to_caps</a>              (<em class="parameter"><code>const <a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioInfo" title="struct GstAudioInfo"><span class="type">GstAudioInfo</span></a> *info</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="gst-plugins-base-libs-gstaudio.html#gst-audio-info-convert" title="gst_audio_info_convert ()">gst_audio_info_convert</a>              (<em class="parameter"><code>const <a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioInfo" title="struct GstAudioInfo"><span class="type">GstAudioInfo</span></a> *info</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstFormat.html#GstFormat"><span class="type">GstFormat</span></a> src_fmt</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint64</span> src_val</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstFormat.html#GstFormat"><span class="type">GstFormat</span></a> dest_fmt</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint64</span> *dest_val</code></em>);
+const <a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioFormatInfo" title="struct GstAudioFormatInfo"><span class="returnvalue">GstAudioFormatInfo</span></a> * <a class="link" href="gst-plugins-base-libs-gstaudio.html#gst-audio-format-get-info" title="gst_audio_format_get_info ()">gst_audio_format_get_info</a>    (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioFormat" title="enum GstAudioFormat"><span class="type">GstAudioFormat</span></a> format</code></em>);
+<a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioInfo" title="struct GstAudioInfo"><span class="returnvalue">GstAudioInfo</span></a> *      <a class="link" href="gst-plugins-base-libs-gstaudio.html#gst-audio-info-copy" title="gst_audio_info_copy ()">gst_audio_info_copy</a>                 (<em class="parameter"><code>const <a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioInfo" title="struct GstAudioInfo"><span class="type">GstAudioInfo</span></a> *info</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-base-libs-gstaudio.html#gst-audio-info-free" title="gst_audio_info_free ()">gst_audio_info_free</a>                 (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioInfo" title="struct GstAudioInfo"><span class="type">GstAudioInfo</span></a> *info</code></em>);
+<a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioInfo" title="struct GstAudioInfo"><span class="returnvalue">GstAudioInfo</span></a> *      <a class="link" href="gst-plugins-base-libs-gstaudio.html#gst-audio-info-new" title="gst_audio_info_new ()">gst_audio_info_new</a>                  (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-base-libs-gstaudio.html#gst-audio-info-set-format" title="gst_audio_info_set_format ()">gst_audio_info_set_format</a>           (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioInfo" title="struct GstAudioInfo"><span class="type">GstAudioInfo</span></a> *info</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioFormat" title="enum GstAudioFormat"><span class="type">GstAudioFormat</span></a> format</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> rate</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> channels</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="gst-plugins-base-libs-gstmultichannel.html#GstAudioChannelPosition" title="enum GstAudioChannelPosition"><span class="type">GstAudioChannelPosition</span></a> *position</code></em>);
+<a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioFormat" title="enum GstAudioFormat"><span class="returnvalue">GstAudioFormat</span></a>      <a class="link" href="gst-plugins-base-libs-gstaudio.html#gst-audio-format-build-integer" title="gst_audio_format_build_integer ()">gst_audio_format_build_integer</a>      (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> sign</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> endianness</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> width</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> depth</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-base-libs-gstaudio.html#gst-audio-format-fill-silence" title="gst_audio_format_fill_silence ()">gst_audio_format_fill_silence</a>       (<em class="parameter"><code>const <a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioFormatInfo" title="struct GstAudioFormatInfo"><span class="type">GstAudioFormatInfo</span></a> *info</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> dest</code></em>,
+                                                         <em class="parameter"><code><span class="type">gsize</span> length</code></em>);
+<a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioFormat" title="enum GstAudioFormat"><span class="returnvalue">GstAudioFormat</span></a>      <a class="link" href="gst-plugins-base-libs-gstaudio.html#gst-audio-format-from-string" title="gst_audio_format_from_string ()">gst_audio_format_from_string</a>        (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *format</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="gst-plugins-base-libs-gstaudio.html#gst-audio-format-to-string" title="gst_audio_format_to_string ()">gst_audio_format_to_string</a>          (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioFormat" title="enum GstAudioFormat"><span class="type">GstAudioFormat</span></a> format</code></em>);
+#define             <a class="link" href="gst-plugins-base-libs-gstaudio.html#GST-AUDIO-FORMAT-INFO-DEPTH:CAPS" title="GST_AUDIO_FORMAT_INFO_DEPTH()">GST_AUDIO_FORMAT_INFO_DEPTH</a>         (info)
+#define             <a class="link" href="gst-plugins-base-libs-gstaudio.html#GST-AUDIO-FORMAT-INFO-ENDIANNESS:CAPS" title="GST_AUDIO_FORMAT_INFO_ENDIANNESS()">GST_AUDIO_FORMAT_INFO_ENDIANNESS</a>    (info)
+#define             <a class="link" href="gst-plugins-base-libs-gstaudio.html#GST-AUDIO-FORMAT-INFO-FLAGS:CAPS" title="GST_AUDIO_FORMAT_INFO_FLAGS()">GST_AUDIO_FORMAT_INFO_FLAGS</a>         (info)
+#define             <a class="link" href="gst-plugins-base-libs-gstaudio.html#GST-AUDIO-FORMAT-INFO-FORMAT:CAPS" title="GST_AUDIO_FORMAT_INFO_FORMAT()">GST_AUDIO_FORMAT_INFO_FORMAT</a>        (info)
+#define             <a class="link" href="gst-plugins-base-libs-gstaudio.html#GST-AUDIO-FORMAT-INFO-IS-FLOAT:CAPS" title="GST_AUDIO_FORMAT_INFO_IS_FLOAT()">GST_AUDIO_FORMAT_INFO_IS_FLOAT</a>      (info)
+#define             <a class="link" href="gst-plugins-base-libs-gstaudio.html#GST-AUDIO-FORMAT-INFO-IS-INTEGER:CAPS" title="GST_AUDIO_FORMAT_INFO_IS_INTEGER()">GST_AUDIO_FORMAT_INFO_IS_INTEGER</a>    (info)
+#define             <a class="link" href="gst-plugins-base-libs-gstaudio.html#GST-AUDIO-FORMAT-INFO-IS-BIG-ENDIAN:CAPS" title="GST_AUDIO_FORMAT_INFO_IS_BIG_ENDIAN()">GST_AUDIO_FORMAT_INFO_IS_BIG_ENDIAN</a> (info)
+#define             <a class="link" href="gst-plugins-base-libs-gstaudio.html#GST-AUDIO-FORMAT-INFO-IS-LITTLE-ENDIAN:CAPS" title="GST_AUDIO_FORMAT_INFO_IS_LITTLE_ENDIAN()">GST_AUDIO_FORMAT_INFO_IS_LITTLE_ENDIAN</a>(info)
+#define             <a class="link" href="gst-plugins-base-libs-gstaudio.html#GST-AUDIO-FORMAT-INFO-IS-SIGNED:CAPS" title="GST_AUDIO_FORMAT_INFO_IS_SIGNED()">GST_AUDIO_FORMAT_INFO_IS_SIGNED</a>     (info)
+#define             <a class="link" href="gst-plugins-base-libs-gstaudio.html#GST-AUDIO-FORMAT-INFO-NAME:CAPS" title="GST_AUDIO_FORMAT_INFO_NAME()">GST_AUDIO_FORMAT_INFO_NAME</a>          (info)
+#define             <a class="link" href="gst-plugins-base-libs-gstaudio.html#GST-AUDIO-FORMAT-INFO-WIDTH:CAPS" title="GST_AUDIO_FORMAT_INFO_WIDTH()">GST_AUDIO_FORMAT_INFO_WIDTH</a>         (info)
+#define             <a class="link" href="gst-plugins-base-libs-gstaudio.html#GST-AUDIO-INFO-BPF:CAPS" title="GST_AUDIO_INFO_BPF()">GST_AUDIO_INFO_BPF</a>                  (info)
+#define             <a class="link" href="gst-plugins-base-libs-gstaudio.html#GST-AUDIO-INFO-BPS:CAPS" title="GST_AUDIO_INFO_BPS()">GST_AUDIO_INFO_BPS</a>                  (info)
+#define             <a class="link" href="gst-plugins-base-libs-gstaudio.html#GST-AUDIO-INFO-CHANNELS:CAPS" title="GST_AUDIO_INFO_CHANNELS()">GST_AUDIO_INFO_CHANNELS</a>             (info)
+#define             <a class="link" href="gst-plugins-base-libs-gstaudio.html#GST-AUDIO-INFO-DEPTH:CAPS" title="GST_AUDIO_INFO_DEPTH()">GST_AUDIO_INFO_DEPTH</a>                (i)
+#define             <a class="link" href="gst-plugins-base-libs-gstaudio.html#GST-AUDIO-INFO-FLAGS:CAPS" title="GST_AUDIO_INFO_FLAGS()">GST_AUDIO_INFO_FLAGS</a>                (info)
+#define             <a class="link" href="gst-plugins-base-libs-gstaudio.html#GST-AUDIO-INFO-FORMAT:CAPS" title="GST_AUDIO_INFO_FORMAT()">GST_AUDIO_INFO_FORMAT</a>               (i)
+#define             <a class="link" href="gst-plugins-base-libs-gstaudio.html#GST-AUDIO-INFO-NAME:CAPS" title="GST_AUDIO_INFO_NAME()">GST_AUDIO_INFO_NAME</a>                 (i)
+#define             <a class="link" href="gst-plugins-base-libs-gstaudio.html#GST-AUDIO-INFO-POSITION:CAPS" title="GST_AUDIO_INFO_POSITION()">GST_AUDIO_INFO_POSITION</a>             (info,
+                                                         c)
+#define             <a class="link" href="gst-plugins-base-libs-gstaudio.html#GST-AUDIO-INFO-RATE:CAPS" title="GST_AUDIO_INFO_RATE()">GST_AUDIO_INFO_RATE</a>                 (info)
+#define             <a class="link" href="gst-plugins-base-libs-gstaudio.html#GST-AUDIO-INFO-WIDTH:CAPS" title="GST_AUDIO_INFO_WIDTH()">GST_AUDIO_INFO_WIDTH</a>                (i)
+#define             <a class="link" href="gst-plugins-base-libs-gstaudio.html#GST-AUDIO-INFO-ENDIANNESS:CAPS" title="GST_AUDIO_INFO_ENDIANNESS()">GST_AUDIO_INFO_ENDIANNESS</a>           (i)
+#define             <a class="link" href="gst-plugins-base-libs-gstaudio.html#GST-AUDIO-INFO-IS-BIG-ENDIAN:CAPS" title="GST_AUDIO_INFO_IS_BIG_ENDIAN()">GST_AUDIO_INFO_IS_BIG_ENDIAN</a>        (i)
+#define             <a class="link" href="gst-plugins-base-libs-gstaudio.html#GST-AUDIO-INFO-IS-FLOAT:CAPS" title="GST_AUDIO_INFO_IS_FLOAT()">GST_AUDIO_INFO_IS_FLOAT</a>             (i)
+#define             <a class="link" href="gst-plugins-base-libs-gstaudio.html#GST-AUDIO-INFO-IS-INTEGER:CAPS" title="GST_AUDIO_INFO_IS_INTEGER()">GST_AUDIO_INFO_IS_INTEGER</a>           (i)
+#define             <a class="link" href="gst-plugins-base-libs-gstaudio.html#GST-AUDIO-INFO-IS-LITTLE-ENDIAN:CAPS" title="GST_AUDIO_INFO_IS_LITTLE_ENDIAN()">GST_AUDIO_INFO_IS_LITTLE_ENDIAN</a>     (i)
+#define             <a class="link" href="gst-plugins-base-libs-gstaudio.html#GST-AUDIO-INFO-IS-SIGNED:CAPS" title="GST_AUDIO_INFO_IS_SIGNED()">GST_AUDIO_INFO_IS_SIGNED</a>            (i)
+#define             <a class="link" href="gst-plugins-base-libs-gstaudio.html#GST-AUDIO-INFO-IS-UNPOSITIONED:CAPS" title="GST_AUDIO_INFO_IS_UNPOSITIONED()">GST_AUDIO_INFO_IS_UNPOSITIONED</a>      (info)
+#define             <a class="link" href="gst-plugins-base-libs-gstaudio.html#GST-AUDIO-INFO-IS-VALID:CAPS" title="GST_AUDIO_INFO_IS_VALID()">GST_AUDIO_INFO_IS_VALID</a>             (i)
+#define             <a class="link" href="gst-plugins-base-libs-gstaudio.html#GST-AUDIO-INFO-LAYOUT:CAPS" title="GST_AUDIO_INFO_LAYOUT()">GST_AUDIO_INFO_LAYOUT</a>               (info)
+#define             <a class="link" href="gst-plugins-base-libs-gstaudio.html#GST-FRAMES-TO-CLOCK-TIME:CAPS" title="GST_FRAMES_TO_CLOCK_TIME()">GST_FRAMES_TO_CLOCK_TIME</a>            (frames,
+                                                         rate)
+#define             <a class="link" href="gst-plugins-base-libs-gstaudio.html#GST-CLOCK-TIME-TO-FRAMES:CAPS" title="GST_CLOCK_TIME_TO_FRAMES()">GST_CLOCK_TIME_TO_FRAMES</a>            (clocktime,
+                                                         rate)
+#define             <a class="link" href="gst-plugins-base-libs-gstaudio.html#GST-AUDIO-DEF-RATE:CAPS" title="GST_AUDIO_DEF_RATE">GST_AUDIO_DEF_RATE</a>
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="returnvalue">GstBuffer</span></a> *         <a class="link" href="gst-plugins-base-libs-gstaudio.html#gst-audio-buffer-clip" title="gst_audio_buffer_clip ()">gst_audio_buffer_clip</a>               (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *buffer</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstSegment.html#GstSegment"><span class="type">GstSegment</span></a> *segment</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> rate</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> bpf</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-libs-gstaudio.description"></a><h2>Description</h2>
+<p>
+This library contains some helper functions for audio elements.
+</p>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-libs-gstaudio.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstAudioFlags"></a><h3>enum GstAudioFlags</h3>
+<pre class="programlisting">typedef enum {
+  GST_AUDIO_FLAG_NONE              = 0,
+  GST_AUDIO_FLAG_UNPOSITIONED      = (1 &lt;&lt; 0)
+} GstAudioFlags;
+</pre>
+<p>
+Extra audio flags
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="GST-AUDIO-FLAG-NONE:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FLAG_NONE</code></span></p></td>
+<td>no valid flag
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FLAG-UNPOSITIONED:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FLAG_UNPOSITIONED</code></span></p></td>
+<td>the position array explicitly
+    contains unpositioned channels.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstAudioFormat"></a><h3>enum GstAudioFormat</h3>
+<pre class="programlisting">typedef enum {
+  GST_AUDIO_FORMAT_UNKNOWN,
+  GST_AUDIO_FORMAT_ENCODED,
+  /* 8 bit */
+  GST_AUDIO_FORMAT_S8,
+  GST_AUDIO_FORMAT_U8,
+  /* 16 bit */
+  GST_AUDIO_FORMAT_S16LE,
+  GST_AUDIO_FORMAT_S16BE,
+  GST_AUDIO_FORMAT_U16LE,
+  GST_AUDIO_FORMAT_U16BE,
+  /* 24 bit in low 3 bytes of 32 bits*/
+  GST_AUDIO_FORMAT_S24_32LE,
+  GST_AUDIO_FORMAT_S24_32BE,
+  GST_AUDIO_FORMAT_U24_32LE,
+  GST_AUDIO_FORMAT_U24_32BE,
+  /* 32 bit */
+  GST_AUDIO_FORMAT_S32LE,
+  GST_AUDIO_FORMAT_S32BE,
+  GST_AUDIO_FORMAT_U32LE,
+  GST_AUDIO_FORMAT_U32BE,
+  /* 24 bit in 3 bytes*/
+  GST_AUDIO_FORMAT_S24LE,
+  GST_AUDIO_FORMAT_S24BE,
+  GST_AUDIO_FORMAT_U24LE,
+  GST_AUDIO_FORMAT_U24BE,
+  /* 20 bit in 3 bytes*/
+  GST_AUDIO_FORMAT_S20LE,
+  GST_AUDIO_FORMAT_S20BE,
+  GST_AUDIO_FORMAT_U20LE,
+  GST_AUDIO_FORMAT_U20BE,
+  /* 18 bit in 3 bytes*/
+  GST_AUDIO_FORMAT_S18LE,
+  GST_AUDIO_FORMAT_S18BE,
+  GST_AUDIO_FORMAT_U18LE,
+  GST_AUDIO_FORMAT_U18BE,
+  /* float */
+  GST_AUDIO_FORMAT_F32LE,
+  GST_AUDIO_FORMAT_F32BE,
+  GST_AUDIO_FORMAT_F64LE,
+  GST_AUDIO_FORMAT_F64BE,
+  /* native endianness equivalents */
+  GST_AUDIO_FORMAT_S16 = _GST_AUDIO_FORMAT_NE(S16),
+  GST_AUDIO_FORMAT_U16 = _GST_AUDIO_FORMAT_NE(U16),
+  GST_AUDIO_FORMAT_S24_32 = _GST_AUDIO_FORMAT_NE(S24_32),
+  GST_AUDIO_FORMAT_U24_32 = _GST_AUDIO_FORMAT_NE(U24_32),
+  GST_AUDIO_FORMAT_S32 = _GST_AUDIO_FORMAT_NE(S32),
+  GST_AUDIO_FORMAT_U32 = _GST_AUDIO_FORMAT_NE(U32),
+  GST_AUDIO_FORMAT_S24 = _GST_AUDIO_FORMAT_NE(S24),
+  GST_AUDIO_FORMAT_U24 = _GST_AUDIO_FORMAT_NE(U24),
+  GST_AUDIO_FORMAT_S20 = _GST_AUDIO_FORMAT_NE(S20),
+  GST_AUDIO_FORMAT_U20 = _GST_AUDIO_FORMAT_NE(U20),
+  GST_AUDIO_FORMAT_S18 = _GST_AUDIO_FORMAT_NE(S18),
+  GST_AUDIO_FORMAT_U18 = _GST_AUDIO_FORMAT_NE(U18),
+  GST_AUDIO_FORMAT_F32 = _GST_AUDIO_FORMAT_NE(F32),
+  GST_AUDIO_FORMAT_F64 = _GST_AUDIO_FORMAT_NE(F64)
+} GstAudioFormat;
+</pre>
+<p>
+Enum value describing the most common audio formats.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-UNKNOWN:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_UNKNOWN</code></span></p></td>
+<td>unknown or unset audio format
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-ENCODED:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_ENCODED</code></span></p></td>
+<td>encoded audio format
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-S8:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_S8</code></span></p></td>
+<td>8 bits in 8 bits, signed
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-U8:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_U8</code></span></p></td>
+<td>8 bits in 8 bits, unsigned
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-S16LE:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_S16LE</code></span></p></td>
+<td>16 bits in 16 bits, signed, little endian
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-S16BE:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_S16BE</code></span></p></td>
+<td>16 bits in 16 bits, signed, big endian
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-U16LE:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_U16LE</code></span></p></td>
+<td>16 bits in 16 bits, unsigned, little endian
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-U16BE:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_U16BE</code></span></p></td>
+<td>16 bits in 16 bits, unsigned, big endian
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-S24-32LE:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_S24_32LE</code></span></p></td>
+<td>24 bits in 32 bits, signed, little endian
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-S24-32BE:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_S24_32BE</code></span></p></td>
+<td>24 bits in 32 bits, signed, big endian
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-U24-32LE:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_U24_32LE</code></span></p></td>
+<td>24 bits in 32 bits, unsigned, little endian
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-U24-32BE:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_U24_32BE</code></span></p></td>
+<td>24 bits in 32 bits, unsigned, big endian
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-S32LE:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_S32LE</code></span></p></td>
+<td>32 bits in 32 bits, signed, little endian
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-S32BE:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_S32BE</code></span></p></td>
+<td>32 bits in 32 bits, signed, big endian
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-U32LE:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_U32LE</code></span></p></td>
+<td>32 bits in 32 bits, unsigned, little endian
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-U32BE:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_U32BE</code></span></p></td>
+<td>32 bits in 32 bits, unsigned, big endian
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-S24LE:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_S24LE</code></span></p></td>
+<td>24 bits in 24 bits, signed, little endian
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-S24BE:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_S24BE</code></span></p></td>
+<td>24 bits in 24 bits, signed, big endian
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-U24LE:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_U24LE</code></span></p></td>
+<td>24 bits in 24 bits, unsigned, little endian
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-U24BE:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_U24BE</code></span></p></td>
+<td>24 bits in 24 bits, unsigned, big endian
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-S20LE:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_S20LE</code></span></p></td>
+<td>20 bits in 24 bits, signed, little endian
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-S20BE:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_S20BE</code></span></p></td>
+<td>20 bits in 24 bits, signed, big endian
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-U20LE:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_U20LE</code></span></p></td>
+<td>20 bits in 24 bits, unsigned, little endian
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-U20BE:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_U20BE</code></span></p></td>
+<td>20 bits in 24 bits, unsigned, big endian
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-S18LE:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_S18LE</code></span></p></td>
+<td>18 bits in 24 bits, signed, little endian
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-S18BE:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_S18BE</code></span></p></td>
+<td>18 bits in 24 bits, signed, big endian
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-U18LE:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_U18LE</code></span></p></td>
+<td>18 bits in 24 bits, unsigned, little endian
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-U18BE:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_U18BE</code></span></p></td>
+<td>18 bits in 24 bits, unsigned, big endian
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-F32LE:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_F32LE</code></span></p></td>
+<td>32-bit floating point samples, little endian
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-F32BE:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_F32BE</code></span></p></td>
+<td>32-bit floating point samples, big endian
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-F64LE:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_F64LE</code></span></p></td>
+<td>64-bit floating point samples, little endian
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-F64BE:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_F64BE</code></span></p></td>
+<td>64-bit floating point samples, big endian
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-S16:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_S16</code></span></p></td>
+<td>16 bits in 16 bits, signed, native endianness
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-U16:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_U16</code></span></p></td>
+<td>16 bits in 16 bits, unsigned, native endianness
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-S24-32:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_S24_32</code></span></p></td>
+<td>24 bits in 32 bits, signed, native endianness
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-U24-32:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_U24_32</code></span></p></td>
+<td>24 bits in 32 bits, unsigned, native endianness
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-S32:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_S32</code></span></p></td>
+<td>32 bits in 32 bits, signed, native endianness
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-U32:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_U32</code></span></p></td>
+<td>32 bits in 32 bits, unsigned, native endianness
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-S24:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_S24</code></span></p></td>
+<td>24 bits in 24 bits, signed, native endianness
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-U24:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_U24</code></span></p></td>
+<td>24 bits in 24 bits, unsigned, native endianness
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-S20:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_S20</code></span></p></td>
+<td>20 bits in 24 bits, signed, native endianness
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-U20:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_U20</code></span></p></td>
+<td>20 bits in 24 bits, unsigned, native endianness
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-S18:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_S18</code></span></p></td>
+<td>18 bits in 24 bits, signed, native endianness
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-U18:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_U18</code></span></p></td>
+<td>18 bits in 24 bits, unsigned, native endianness
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-F32:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_F32</code></span></p></td>
+<td>32-bit floating point samples, native endianness
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-F64:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_F64</code></span></p></td>
+<td>64-bit floating point samples, native endianness
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstAudioFormatFlags"></a><h3>enum GstAudioFormatFlags</h3>
+<pre class="programlisting">typedef enum {
+  GST_AUDIO_FORMAT_FLAG_INTEGER  = (1 &lt;&lt; 0),
+  GST_AUDIO_FORMAT_FLAG_FLOAT    = (1 &lt;&lt; 1),
+  GST_AUDIO_FORMAT_FLAG_SIGNED   = (1 &lt;&lt; 2),
+  GST_AUDIO_FORMAT_FLAG_COMPLEX  = (1 &lt;&lt; 4),
+  GST_AUDIO_FORMAT_FLAG_UNPACK   = (1 &lt;&lt; 5)
+} GstAudioFormatFlags;
+</pre>
+<p>
+The different audio flags that a format info can have.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-FLAG-INTEGER:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_FLAG_INTEGER</code></span></p></td>
+<td>integer samples
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-FLAG-FLOAT:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_FLAG_FLOAT</code></span></p></td>
+<td>float samples
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-FLAG-SIGNED:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_FLAG_SIGNED</code></span></p></td>
+<td>signed samples
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-FLAG-COMPLEX:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_FLAG_COMPLEX</code></span></p></td>
+<td>complex layout
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-FORMAT-FLAG-UNPACK:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_FORMAT_FLAG_UNPACK</code></span></p></td>
+<td>the format can be used in
+<a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioFormatUnpack" title="GstAudioFormatUnpack ()"><span class="type">GstAudioFormatUnpack</span></a> and <a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioFormatPack" title="GstAudioFormatPack ()"><span class="type">GstAudioFormatPack</span></a> functions
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstAudioFormatInfo"></a><h3>struct GstAudioFormatInfo</h3>
+<pre class="programlisting">struct GstAudioFormatInfo {
+  GstAudioFormat format;
+  const gchar *name;
+  const gchar *description;
+  GstAudioFormatFlags flags;
+  gint endianness;
+  gint width;
+  gint depth;
+  guint8 silence[8];
+
+  GstAudioFormat unpack_format;
+  GstAudioFormatUnpack unpack_func;
+  GstAudioFormatPack pack_func;
+};
+</pre>
+<p>
+Information for an audio format.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioFormat" title="enum GstAudioFormat"><span class="type">GstAudioFormat</span></a> <em class="structfield"><code><a name="GstAudioFormatInfo.format"></a>format</code></em>;</span></p></td>
+<td><a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioFormat" title="enum GstAudioFormat"><span class="type">GstAudioFormat</span></a></td>
+</tr>
+<tr>
+<td><p><span class="term">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *<em class="structfield"><code><a name="GstAudioFormatInfo.name"></a>name</code></em>;</span></p></td>
+<td>string representation of the format</td>
+</tr>
+<tr>
+<td><p><span class="term">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *<em class="structfield"><code><a name="GstAudioFormatInfo.description"></a>description</code></em>;</span></p></td>
+<td>user readable description of the format</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioFormatFlags" title="enum GstAudioFormatFlags"><span class="type">GstAudioFormatFlags</span></a> <em class="structfield"><code><a name="GstAudioFormatInfo.flags"></a>flags</code></em>;</span></p></td>
+<td><a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioFormatFlags" title="enum GstAudioFormatFlags"><span class="type">GstAudioFormatFlags</span></a></td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> <em class="structfield"><code><a name="GstAudioFormatInfo.endianness"></a>endianness</code></em>;</span></p></td>
+<td>the endianness</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> <em class="structfield"><code><a name="GstAudioFormatInfo.width"></a>width</code></em>;</span></p></td>
+<td>amount of bits used for one sample</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> <em class="structfield"><code><a name="GstAudioFormatInfo.depth"></a>depth</code></em>;</span></p></td>
+<td>amount of valid bits in <em class="parameter"><code>width</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">guint8</span> <em class="structfield"><code><a name="GstAudioFormatInfo.silence"></a>silence</code></em>[8];</span></p></td>
+<td>
+<em class="parameter"><code>width</code></em>/8 bytes with 1 silent sample</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioFormat" title="enum GstAudioFormat"><span class="type">GstAudioFormat</span></a> <em class="structfield"><code><a name="GstAudioFormatInfo.unpack-format"></a>unpack_format</code></em>;</span></p></td>
+<td>the format of the unpacked samples</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioFormatUnpack" title="GstAudioFormatUnpack ()"><span class="type">GstAudioFormatUnpack</span></a> <em class="structfield"><code><a name="GstAudioFormatInfo.unpack-func"></a>unpack_func</code></em>;</span></p></td>
+<td>function to unpack samples</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioFormatPack" title="GstAudioFormatPack ()"><span class="type">GstAudioFormatPack</span></a> <em class="structfield"><code><a name="GstAudioFormatInfo.pack-func"></a>pack_func</code></em>;</span></p></td>
+<td>function to pack samples</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstAudioInfo"></a><h3>struct GstAudioInfo</h3>
+<pre class="programlisting">struct GstAudioInfo {
+  const GstAudioFormatInfo *finfo;
+  GstAudioFlags             flags;
+  GstAudioLayout            layout;
+  gint                      rate;
+  gint                      channels;
+  gint                      bpf;
+  GstAudioChannelPosition   position[64];
+};
+</pre>
+<p>
+Information describing audio properties. This information can be filled
+in from GstCaps with <a class="link" href="gst-plugins-base-libs-gstaudio.html#gst-audio-info-from-caps" title="gst_audio_info_from_caps ()"><code class="function">gst_audio_info_from_caps()</code></a>.
+</p>
+<p>
+Use the provided macros to access the info in this structure.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">const <a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioFormatInfo" title="struct GstAudioFormatInfo"><span class="type">GstAudioFormatInfo</span></a> *<em class="structfield"><code><a name="GstAudioInfo.finfo"></a>finfo</code></em>;</span></p></td>
+<td>the format info of the audio</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioFlags" title="enum GstAudioFlags"><span class="type">GstAudioFlags</span></a> <em class="structfield"><code><a name="GstAudioInfo.flags"></a>flags</code></em>;</span></p></td>
+<td>additional audio flags</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioLayout" title="enum GstAudioLayout"><span class="type">GstAudioLayout</span></a> <em class="structfield"><code><a name="GstAudioInfo.layout"></a>layout</code></em>;</span></p></td>
+<td>audio layout</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> <em class="structfield"><code><a name="GstAudioInfo.rate"></a>rate</code></em>;</span></p></td>
+<td>the audio sample rate</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> <em class="structfield"><code><a name="GstAudioInfo.channels"></a>channels</code></em>;</span></p></td>
+<td>the number of channels</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> <em class="structfield"><code><a name="GstAudioInfo.bpf"></a>bpf</code></em>;</span></p></td>
+<td>the number of bytes for one frame, this is the size of one
+sample * <em class="parameter"><code>channels</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="gst-plugins-base-libs-gstmultichannel.html#GstAudioChannelPosition" title="enum GstAudioChannelPosition"><span class="type">GstAudioChannelPosition</span></a> <em class="structfield"><code><a name="GstAudioInfo.position"></a>position</code></em>[64];</span></p></td>
+<td>the positions for each channel</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstAudioLayout"></a><h3>enum GstAudioLayout</h3>
+<pre class="programlisting">typedef enum {
+  GST_AUDIO_LAYOUT_INTERLEAVED = 0,
+  GST_AUDIO_LAYOUT_NON_INTERLEAVED
+} GstAudioLayout;
+</pre>
+<p>
+Layout of the audio samples for the different channels.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="GST-AUDIO-LAYOUT-INTERLEAVED:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_LAYOUT_INTERLEAVED</code></span></p></td>
+<td>interleaved audio
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-LAYOUT-NON-INTERLEAVED:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_LAYOUT_NON_INTERLEAVED</code></span></p></td>
+<td>non-interleaved audio
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstAudioPackFlags"></a><h3>enum GstAudioPackFlags</h3>
+<pre class="programlisting">typedef enum {
+  GST_AUDIO_PACK_FLAG_NONE       = 0
+} GstAudioPackFlags;
+</pre>
+<p>
+The different flags that can be used when packing and unpacking.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><a name="GST-AUDIO-PACK-FLAG-NONE:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_PACK_FLAG_NONE</code></span></p></td>
+<td>No flag
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstAudioFormatPack"></a><h3>GstAudioFormatPack ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*GstAudioFormatPack)               (<em class="parameter"><code>const <a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioFormatInfo" title="struct GstAudioFormatInfo"><span class="type">GstAudioFormatInfo</span></a> *info</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioPackFlags" title="enum GstAudioPackFlags"><span class="type">GstAudioPackFlags</span></a> flags</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> src</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> length</code></em>);</pre>
+<p>
+Packs <em class="parameter"><code>length</code></em> samples from <em class="parameter"><code>src</code></em> to the data array in format <em class="parameter"><code>info</code></em>.
+The samples from source have each channel interleaved
+and will be packed into <em class="parameter"><code>data</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>info</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioFormatInfo" title="struct GstAudioFormatInfo"><span class="type">GstAudioFormatInfo</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>src</code></em> :</span></p></td>
+<td>a source array. <span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> guint8]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>pointer to the destination
+data. <span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> guint8]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>length</code></em> :</span></p></td>
+<td>the amount of samples to pack.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstAudioFormatUnpack"></a><h3>GstAudioFormatUnpack ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*GstAudioFormatUnpack)             (<em class="parameter"><code>const <a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioFormatInfo" title="struct GstAudioFormatInfo"><span class="type">GstAudioFormatInfo</span></a> *info</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioPackFlags" title="enum GstAudioPackFlags"><span class="type">GstAudioPackFlags</span></a> flags</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> dest</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> length</code></em>);</pre>
+<p>
+Unpacks <em class="parameter"><code>length</code></em> samples from the given data of format <em class="parameter"><code>info</code></em>.
+The samples will be unpacked into <em class="parameter"><code>dest</code></em> which each channel
+interleaved. <em class="parameter"><code>dest</code></em> should at least be big enough to hold <em class="parameter"><code>length</code></em> *
+channels * size(unpack_format) bytes.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>info</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioFormatInfo" title="struct GstAudioFormatInfo"><span class="type">GstAudioFormatInfo</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dest</code></em> :</span></p></td>
+<td>a destination array. <span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> guint8]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>pointer to the audio data. <span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> guint8]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>length</code></em> :</span></p></td>
+<td>the amount of samples to unpack.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-info-init"></a><h3>gst_audio_info_init ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_audio_info_init                 (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioInfo" title="struct GstAudioInfo"><span class="type">GstAudioInfo</span></a> *info</code></em>);</pre>
+<p>
+Initialize <em class="parameter"><code>info</code></em> with default values.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>info</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioInfo" title="struct GstAudioInfo"><span class="type">GstAudioInfo</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-info-from-caps"></a><h3>gst_audio_info_from_caps ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_audio_info_from_caps            (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioInfo" title="struct GstAudioInfo"><span class="type">GstAudioInfo</span></a> *info</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="type">GstCaps</span></a> *caps</code></em>);</pre>
+<p>
+Parse <em class="parameter"><code>caps</code></em> and update <em class="parameter"><code>info</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>info</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioInfo" title="struct GstAudioInfo"><span class="type">GstAudioInfo</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>caps</code></em> :</span></p></td>
+<td>a <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="type">GstCaps</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE if <em class="parameter"><code>caps</code></em> could be parsed</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-info-to-caps"></a><h3>gst_audio_info_to_caps ()</h3>
+<pre class="programlisting"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="returnvalue">GstCaps</span></a> *           gst_audio_info_to_caps              (<em class="parameter"><code>const <a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioInfo" title="struct GstAudioInfo"><span class="type">GstAudioInfo</span></a> *info</code></em>);</pre>
+<p>
+Convert the values of <em class="parameter"><code>info</code></em> into a <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="type">GstCaps</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>info</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioInfo" title="struct GstAudioInfo"><span class="type">GstAudioInfo</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the new <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="type">GstCaps</span></a> containing the
+info of <em class="parameter"><code>info</code></em>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-info-convert"></a><h3>gst_audio_info_convert ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_audio_info_convert              (<em class="parameter"><code>const <a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioInfo" title="struct GstAudioInfo"><span class="type">GstAudioInfo</span></a> *info</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstFormat.html#GstFormat"><span class="type">GstFormat</span></a> src_fmt</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint64</span> src_val</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstFormat.html#GstFormat"><span class="type">GstFormat</span></a> dest_fmt</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint64</span> *dest_val</code></em>);</pre>
+<p>
+Converts among various <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstFormat.html#GstFormat"><span class="type">GstFormat</span></a> types.  This function handles
+GST_FORMAT_BYTES, GST_FORMAT_TIME, and GST_FORMAT_DEFAULT.  For
+raw audio, GST_FORMAT_DEFAULT corresponds to audio frames.  This
+function can be used to handle pad queries of the type GST_QUERY_CONVERT.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>info</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioInfo" title="struct GstAudioInfo"><span class="type">GstAudioInfo</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>src_fmt</code></em> :</span></p></td>
+<td>
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstFormat.html#GstFormat"><span class="type">GstFormat</span></a> of the <em class="parameter"><code>src_val</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>src_val</code></em> :</span></p></td>
+<td>value to convert</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dest_fmt</code></em> :</span></p></td>
+<td>
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstFormat.html#GstFormat"><span class="type">GstFormat</span></a> of the <em class="parameter"><code>dest_val</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dest_val</code></em> :</span></p></td>
+<td>pointer to destination value</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE if the conversion was successful.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-format-get-info"></a><h3>gst_audio_format_get_info ()</h3>
+<pre class="programlisting">const <a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioFormatInfo" title="struct GstAudioFormatInfo"><span class="returnvalue">GstAudioFormatInfo</span></a> * gst_audio_format_get_info    (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioFormat" title="enum GstAudioFormat"><span class="type">GstAudioFormat</span></a> format</code></em>);</pre>
+<p>
+Get the <a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioFormatInfo" title="struct GstAudioFormatInfo"><span class="type">GstAudioFormatInfo</span></a> for <em class="parameter"><code>format</code></em>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioFormat" title="enum GstAudioFormat"><span class="type">GstAudioFormat</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The <a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioFormatInfo" title="struct GstAudioFormatInfo"><span class="type">GstAudioFormatInfo</span></a> for <em class="parameter"><code>format</code></em>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-info-copy"></a><h3>gst_audio_info_copy ()</h3>
+<pre class="programlisting"><a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioInfo" title="struct GstAudioInfo"><span class="returnvalue">GstAudioInfo</span></a> *      gst_audio_info_copy                 (<em class="parameter"><code>const <a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioInfo" title="struct GstAudioInfo"><span class="type">GstAudioInfo</span></a> *info</code></em>);</pre>
+<p>
+Copy a GstAudioInfo structure.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>info</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioInfo" title="struct GstAudioInfo"><span class="type">GstAudioInfo</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioInfo" title="struct GstAudioInfo"><span class="type">GstAudioInfo</span></a>. free with gst_audio_info_free.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-info-free"></a><h3>gst_audio_info_free ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_audio_info_free                 (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioInfo" title="struct GstAudioInfo"><span class="type">GstAudioInfo</span></a> *info</code></em>);</pre>
+<p>
+Free a GstAudioInfo structure previously allocated with <a class="link" href="gst-plugins-base-libs-gstaudio.html#gst-audio-info-new" title="gst_audio_info_new ()"><code class="function">gst_audio_info_new()</code></a>
+or <a class="link" href="gst-plugins-base-libs-gstaudio.html#gst-audio-info-copy" title="gst_audio_info_copy ()"><code class="function">gst_audio_info_copy()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>info</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioInfo" title="struct GstAudioInfo"><span class="type">GstAudioInfo</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-info-new"></a><h3>gst_audio_info_new ()</h3>
+<pre class="programlisting"><a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioInfo" title="struct GstAudioInfo"><span class="returnvalue">GstAudioInfo</span></a> *      gst_audio_info_new                  (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Allocate a new <a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioInfo" title="struct GstAudioInfo"><span class="type">GstAudioInfo</span></a> that is also initialized with
+<a class="link" href="gst-plugins-base-libs-gstaudio.html#gst-audio-info-init" title="gst_audio_info_init ()"><code class="function">gst_audio_info_init()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioInfo" title="struct GstAudioInfo"><span class="type">GstAudioInfo</span></a>. free with <a class="link" href="gst-plugins-base-libs-gstaudio.html#gst-audio-info-free" title="gst_audio_info_free ()"><code class="function">gst_audio_info_free()</code></a>.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-info-set-format"></a><h3>gst_audio_info_set_format ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_audio_info_set_format           (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioInfo" title="struct GstAudioInfo"><span class="type">GstAudioInfo</span></a> *info</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioFormat" title="enum GstAudioFormat"><span class="type">GstAudioFormat</span></a> format</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> rate</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> channels</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="gst-plugins-base-libs-gstmultichannel.html#GstAudioChannelPosition" title="enum GstAudioChannelPosition"><span class="type">GstAudioChannelPosition</span></a> *position</code></em>);</pre>
+<p>
+Set the default info for the audio info of <em class="parameter"><code>format</code></em> and <em class="parameter"><code>rate</code></em> and <em class="parameter"><code>channels</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>info</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioInfo" title="struct GstAudioInfo"><span class="type">GstAudioInfo</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format</code></em> :</span></p></td>
+<td>the format</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>rate</code></em> :</span></p></td>
+<td>the samplerate</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>channels</code></em> :</span></p></td>
+<td>the number of channels</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>position</code></em> :</span></p></td>
+<td>the channel positions</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-format-build-integer"></a><h3>gst_audio_format_build_integer ()</h3>
+<pre class="programlisting"><a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioFormat" title="enum GstAudioFormat"><span class="returnvalue">GstAudioFormat</span></a>      gst_audio_format_build_integer      (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> sign</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> endianness</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> width</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> depth</code></em>);</pre>
+<p>
+Construct a <a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioFormat" title="enum GstAudioFormat"><span class="type">GstAudioFormat</span></a> with given parameters.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sign</code></em> :</span></p></td>
+<td>signed or unsigned format</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>endianness</code></em> :</span></p></td>
+<td>G_LITTLE_ENDIAN or G_BIG_ENDIAN</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>width</code></em> :</span></p></td>
+<td>amount of bits used per sample</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>depth</code></em> :</span></p></td>
+<td>amount of used bits in <em class="parameter"><code>width</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioFormat" title="enum GstAudioFormat"><span class="type">GstAudioFormat</span></a> or GST_AUDIO_FORMAT_UNKNOWN when no audio format
+exists with the given parameters.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-format-fill-silence"></a><h3>gst_audio_format_fill_silence ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_audio_format_fill_silence       (<em class="parameter"><code>const <a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioFormatInfo" title="struct GstAudioFormatInfo"><span class="type">GstAudioFormatInfo</span></a> *info</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> dest</code></em>,
+                                                         <em class="parameter"><code><span class="type">gsize</span> length</code></em>);</pre>
+<p>
+Fill <em class="parameter"><code>length</code></em> bytes in <em class="parameter"><code>dest</code></em> with silence samples for <em class="parameter"><code>info</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>info</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioFormatInfo" title="struct GstAudioFormatInfo"><span class="type">GstAudioFormatInfo</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dest</code></em> :</span></p></td>
+<td>a destination
+to fill. <span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=length][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> guint8]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>length</code></em> :</span></p></td>
+<td>the length to fill</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-format-from-string"></a><h3>gst_audio_format_from_string ()</h3>
+<pre class="programlisting"><a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioFormat" title="enum GstAudioFormat"><span class="returnvalue">GstAudioFormat</span></a>      gst_audio_format_from_string        (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *format</code></em>);</pre>
+<p>
+Convert the <em class="parameter"><code>format</code></em> string to its <a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioFormat" title="enum GstAudioFormat"><span class="type">GstAudioFormat</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format</code></em> :</span></p></td>
+<td>a format string</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the <a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioFormat" title="enum GstAudioFormat"><span class="type">GstAudioFormat</span></a> for <em class="parameter"><code>format</code></em> or GST_AUDIO_FORMAT_UNKNOWN when the
+string is not a known format.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-format-to-string"></a><h3>gst_audio_format_to_string ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       gst_audio_format_to_string          (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudio.html#GstAudioFormat" title="enum GstAudioFormat"><span class="type">GstAudioFormat</span></a> format</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-AUDIO-FORMAT-INFO-DEPTH:CAPS"></a><h3>GST_AUDIO_FORMAT_INFO_DEPTH()</h3>
+<pre class="programlisting">#define GST_AUDIO_FORMAT_INFO_DEPTH(info)            ((info)-&gt;depth)
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-AUDIO-FORMAT-INFO-ENDIANNESS:CAPS"></a><h3>GST_AUDIO_FORMAT_INFO_ENDIANNESS()</h3>
+<pre class="programlisting">#define GST_AUDIO_FORMAT_INFO_ENDIANNESS(info)       ((info)-&gt;endianness)
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-AUDIO-FORMAT-INFO-FLAGS:CAPS"></a><h3>GST_AUDIO_FORMAT_INFO_FLAGS()</h3>
+<pre class="programlisting">#define GST_AUDIO_FORMAT_INFO_FLAGS(info)            ((info)-&gt;flags)
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-AUDIO-FORMAT-INFO-FORMAT:CAPS"></a><h3>GST_AUDIO_FORMAT_INFO_FORMAT()</h3>
+<pre class="programlisting">#define GST_AUDIO_FORMAT_INFO_FORMAT(info)           ((info)-&gt;format)
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-AUDIO-FORMAT-INFO-IS-FLOAT:CAPS"></a><h3>GST_AUDIO_FORMAT_INFO_IS_FLOAT()</h3>
+<pre class="programlisting">#define GST_AUDIO_FORMAT_INFO_IS_FLOAT(info)         !!((info)-&gt;flags &amp; GST_AUDIO_FORMAT_FLAG_FLOAT)
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-AUDIO-FORMAT-INFO-IS-INTEGER:CAPS"></a><h3>GST_AUDIO_FORMAT_INFO_IS_INTEGER()</h3>
+<pre class="programlisting">#define GST_AUDIO_FORMAT_INFO_IS_INTEGER(info)       !!((info)-&gt;flags &amp; GST_AUDIO_FORMAT_FLAG_INTEGER)
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-AUDIO-FORMAT-INFO-IS-BIG-ENDIAN:CAPS"></a><h3>GST_AUDIO_FORMAT_INFO_IS_BIG_ENDIAN()</h3>
+<pre class="programlisting">#define GST_AUDIO_FORMAT_INFO_IS_BIG_ENDIAN(info)    ((info)-&gt;endianness == G_BIG_ENDIAN)
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-AUDIO-FORMAT-INFO-IS-LITTLE-ENDIAN:CAPS"></a><h3>GST_AUDIO_FORMAT_INFO_IS_LITTLE_ENDIAN()</h3>
+<pre class="programlisting">#define GST_AUDIO_FORMAT_INFO_IS_LITTLE_ENDIAN(info) ((info)-&gt;endianness == G_LITTLE_ENDIAN)
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-AUDIO-FORMAT-INFO-IS-SIGNED:CAPS"></a><h3>GST_AUDIO_FORMAT_INFO_IS_SIGNED()</h3>
+<pre class="programlisting">#define GST_AUDIO_FORMAT_INFO_IS_SIGNED(info)        !!((info)-&gt;flags &amp; GST_AUDIO_FORMAT_FLAG_SIGNED)
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-AUDIO-FORMAT-INFO-NAME:CAPS"></a><h3>GST_AUDIO_FORMAT_INFO_NAME()</h3>
+<pre class="programlisting">#define GST_AUDIO_FORMAT_INFO_NAME(info)             ((info)-&gt;name)
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-AUDIO-FORMAT-INFO-WIDTH:CAPS"></a><h3>GST_AUDIO_FORMAT_INFO_WIDTH()</h3>
+<pre class="programlisting">#define GST_AUDIO_FORMAT_INFO_WIDTH(info)            ((info)-&gt;width)
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-AUDIO-INFO-BPF:CAPS"></a><h3>GST_AUDIO_INFO_BPF()</h3>
+<pre class="programlisting">#define GST_AUDIO_INFO_BPF(info)             ((info)-&gt;bpf)
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-AUDIO-INFO-BPS:CAPS"></a><h3>GST_AUDIO_INFO_BPS()</h3>
+<pre class="programlisting">#define GST_AUDIO_INFO_BPS(info)             (GST_AUDIO_INFO_DEPTH(info) &gt;&gt; 3)
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-AUDIO-INFO-CHANNELS:CAPS"></a><h3>GST_AUDIO_INFO_CHANNELS()</h3>
+<pre class="programlisting">#define GST_AUDIO_INFO_CHANNELS(info)        ((info)-&gt;channels)
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-AUDIO-INFO-DEPTH:CAPS"></a><h3>GST_AUDIO_INFO_DEPTH()</h3>
+<pre class="programlisting">#define GST_AUDIO_INFO_DEPTH(i)              (GST_AUDIO_FORMAT_INFO_DEPTH((i)-&gt;finfo))
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-AUDIO-INFO-FLAGS:CAPS"></a><h3>GST_AUDIO_INFO_FLAGS()</h3>
+<pre class="programlisting">#define GST_AUDIO_INFO_FLAGS(info)           ((info)-&gt;flags)
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-AUDIO-INFO-FORMAT:CAPS"></a><h3>GST_AUDIO_INFO_FORMAT()</h3>
+<pre class="programlisting">#define GST_AUDIO_INFO_FORMAT(i)             (GST_AUDIO_FORMAT_INFO_FORMAT((i)-&gt;finfo))
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-AUDIO-INFO-NAME:CAPS"></a><h3>GST_AUDIO_INFO_NAME()</h3>
+<pre class="programlisting">#define GST_AUDIO_INFO_NAME(i)               (GST_AUDIO_FORMAT_INFO_NAME((i)-&gt;finfo))
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-AUDIO-INFO-POSITION:CAPS"></a><h3>GST_AUDIO_INFO_POSITION()</h3>
+<pre class="programlisting">#define GST_AUDIO_INFO_POSITION(info,c)      ((info)-&gt;position[c])
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-AUDIO-INFO-RATE:CAPS"></a><h3>GST_AUDIO_INFO_RATE()</h3>
+<pre class="programlisting">#define GST_AUDIO_INFO_RATE(info)            ((info)-&gt;rate)
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-AUDIO-INFO-WIDTH:CAPS"></a><h3>GST_AUDIO_INFO_WIDTH()</h3>
+<pre class="programlisting">#define GST_AUDIO_INFO_WIDTH(i)              (GST_AUDIO_FORMAT_INFO_WIDTH((i)-&gt;finfo))
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-AUDIO-INFO-ENDIANNESS:CAPS"></a><h3>GST_AUDIO_INFO_ENDIANNESS()</h3>
+<pre class="programlisting">#define GST_AUDIO_INFO_ENDIANNESS(i)         (GST_AUDIO_FORMAT_INFO_ENDIANNES((i)-&gt;finfo))
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-AUDIO-INFO-IS-BIG-ENDIAN:CAPS"></a><h3>GST_AUDIO_INFO_IS_BIG_ENDIAN()</h3>
+<pre class="programlisting">#define GST_AUDIO_INFO_IS_BIG_ENDIAN(i)      (GST_AUDIO_FORMAT_INFO_IS_BIG_ENDIAN((i)-&gt;finfo))
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-AUDIO-INFO-IS-FLOAT:CAPS"></a><h3>GST_AUDIO_INFO_IS_FLOAT()</h3>
+<pre class="programlisting">#define GST_AUDIO_INFO_IS_FLOAT(i)           (GST_AUDIO_FORMAT_INFO_IS_FLOAT((i)-&gt;finfo))
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-AUDIO-INFO-IS-INTEGER:CAPS"></a><h3>GST_AUDIO_INFO_IS_INTEGER()</h3>
+<pre class="programlisting">#define GST_AUDIO_INFO_IS_INTEGER(i)         (GST_AUDIO_FORMAT_INFO_IS_INTEGER((i)-&gt;finfo))
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-AUDIO-INFO-IS-LITTLE-ENDIAN:CAPS"></a><h3>GST_AUDIO_INFO_IS_LITTLE_ENDIAN()</h3>
+<pre class="programlisting">#define GST_AUDIO_INFO_IS_LITTLE_ENDIAN(i)   (GST_AUDIO_FORMAT_INFO_IS_LITTLE_ENDIAN((i)-&gt;finfo))
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-AUDIO-INFO-IS-SIGNED:CAPS"></a><h3>GST_AUDIO_INFO_IS_SIGNED()</h3>
+<pre class="programlisting">#define GST_AUDIO_INFO_IS_SIGNED(i)          (GST_AUDIO_FORMAT_INFO_IS_SIGNED((i)-&gt;finfo))
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-AUDIO-INFO-IS-UNPOSITIONED:CAPS"></a><h3>GST_AUDIO_INFO_IS_UNPOSITIONED()</h3>
+<pre class="programlisting">#define GST_AUDIO_INFO_IS_UNPOSITIONED(info) ((info)-&gt;flags &amp; GST_AUDIO_FLAG_UNPOSITIONED)
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-AUDIO-INFO-IS-VALID:CAPS"></a><h3>GST_AUDIO_INFO_IS_VALID()</h3>
+<pre class="programlisting">#define GST_AUDIO_INFO_IS_VALID(i)           ((i)-&gt;finfo != NULL &amp;&amp; (i)-&gt;rate &gt; 0 &amp;&amp; (i)-&gt;channels &gt; 0 &amp;&amp; (i)-&gt;bpf &gt; 0)
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-AUDIO-INFO-LAYOUT:CAPS"></a><h3>GST_AUDIO_INFO_LAYOUT()</h3>
+<pre class="programlisting">#define GST_AUDIO_INFO_LAYOUT(info)          ((info)-&gt;layout)
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-FRAMES-TO-CLOCK-TIME:CAPS"></a><h3>GST_FRAMES_TO_CLOCK_TIME()</h3>
+<pre class="programlisting">#define             GST_FRAMES_TO_CLOCK_TIME(frames, rate)</pre>
+<p>
+Calculate clocktime from sample <em class="parameter"><code>frames</code></em> and <em class="parameter"><code>rate</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>frames</code></em> :</span></p></td>
+<td>sample frames</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>rate</code></em> :</span></p></td>
+<td>sampling rate</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-CLOCK-TIME-TO-FRAMES:CAPS"></a><h3>GST_CLOCK_TIME_TO_FRAMES()</h3>
+<pre class="programlisting">#define             GST_CLOCK_TIME_TO_FRAMES(clocktime, rate)</pre>
+<p>
+Calculate frames from <em class="parameter"><code>clocktime</code></em> and sample <em class="parameter"><code>rate</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>clocktime</code></em> :</span></p></td>
+<td>clock time</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>rate</code></em> :</span></p></td>
+<td>sampling rate</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-AUDIO-DEF-RATE:CAPS"></a><h3>GST_AUDIO_DEF_RATE</h3>
+<pre class="programlisting">#define GST_AUDIO_DEF_RATE 44100
+</pre>
+<p>
+Standard sampling rate used in consumer audio.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-buffer-clip"></a><h3>gst_audio_buffer_clip ()</h3>
+<pre class="programlisting"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="returnvalue">GstBuffer</span></a> *         gst_audio_buffer_clip               (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *buffer</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstSegment.html#GstSegment"><span class="type">GstSegment</span></a> *segment</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> rate</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> bpf</code></em>);</pre>
+<p>
+Clip the buffer to the given <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstSegment.html#GstSegment"><code class="literal">GstSegment</code></a>.
+</p>
+<p>
+After calling this function the caller does not own a reference to
+<em class="parameter"><code>buffer</code></em> anymore.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>buffer</code></em> :</span></p></td>
+<td>The buffer to clip. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>segment</code></em> :</span></p></td>
+<td>Segment in <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstFormat.html#GST-FORMAT-TIME:CAPS"><code class="literal">GST_FORMAT_TIME</code></a> or <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstFormat.html#GST-FORMAT-DEFAULT:CAPS"><code class="literal">GST_FORMAT_DEFAULT</code></a> to which
+the buffer should be clipped.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>rate</code></em> :</span></p></td>
+<td>sample rate.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>bpf</code></em> :</span></p></td>
+<td>size of one audio frame in bytes. This is the size of one sample
+* channels.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if the buffer is completely outside the configured segment,
+otherwise the clipped buffer is returned.
+If the buffer has no timestamp, it is assumed to be inside the segment and
+is not clipped. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

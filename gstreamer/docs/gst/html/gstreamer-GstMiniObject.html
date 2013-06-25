@@ -1,0 +1,1030 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GstMiniObject</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer 1.0 Core Reference Manual">
+<link rel="up" href="libgstreamer.html" title="GStreamer Core Library">
+<link rel="prev" href="gstreamer-GstMeta.html" title="GstMeta">
+<link rel="next" href="GstObject.html" title="GstObject">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gstreamer-GstMeta.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="libgstreamer.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer 1.0 Core Reference Manual</th>
+<td><a accesskey="n" href="GstObject.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gstreamer-GstMiniObject.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gstreamer-GstMiniObject.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gstreamer-GstMiniObject"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gstreamer-GstMiniObject.top_of_page"></a>GstMiniObject</span></h2>
+<p>GstMiniObject — Lightweight base class for the GStreamer object hierarchy</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gstreamer-GstMiniObject.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;gst/gst.h&gt;
+
+struct              <a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject">GstMiniObject</a>;
+<a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="returnvalue">GstMiniObject</span></a> *     (<a class="link" href="gstreamer-GstMiniObject.html#GstMiniObjectCopyFunction" title="GstMiniObjectCopyFunction ()">*GstMiniObjectCopyFunction</a>)        (<em class="parameter"><code>const <a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> *obj</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (<a class="link" href="gstreamer-GstMiniObject.html#GstMiniObjectDisposeFunction" title="GstMiniObjectDisposeFunction ()">*GstMiniObjectDisposeFunction</a>)     (<em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> *obj</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="gstreamer-GstMiniObject.html#GstMiniObjectFreeFunction" title="GstMiniObjectFreeFunction ()">*GstMiniObjectFreeFunction</a>)        (<em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> *obj</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="gstreamer-GstMiniObject.html#GstMiniObjectNotify" title="GstMiniObjectNotify ()">*GstMiniObjectNotify</a>)              (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> *obj</code></em>);
+#define             <a class="link" href="gstreamer-GstMiniObject.html#GST-MINI-OBJECT-TYPE:CAPS" title="GST_MINI_OBJECT_TYPE()">GST_MINI_OBJECT_TYPE</a>                (obj)
+enum                <a class="link" href="gstreamer-GstMiniObject.html#GstMiniObjectFlags" title="enum GstMiniObjectFlags">GstMiniObjectFlags</a>;
+#define             <a class="link" href="gstreamer-GstMiniObject.html#GST-MINI-OBJECT-FLAGS:CAPS" title="GST_MINI_OBJECT_FLAGS()">GST_MINI_OBJECT_FLAGS</a>               (obj)
+#define             <a class="link" href="gstreamer-GstMiniObject.html#GST-MINI-OBJECT-FLAG-IS-SET:CAPS" title="GST_MINI_OBJECT_FLAG_IS_SET()">GST_MINI_OBJECT_FLAG_IS_SET</a>         (obj,
+                                                         flag)
+#define             <a class="link" href="gstreamer-GstMiniObject.html#GST-MINI-OBJECT-FLAG-SET:CAPS" title="GST_MINI_OBJECT_FLAG_SET()">GST_MINI_OBJECT_FLAG_SET</a>            (obj,
+                                                         flag)
+#define             <a class="link" href="gstreamer-GstMiniObject.html#GST-MINI-OBJECT-FLAG-UNSET:CAPS" title="GST_MINI_OBJECT_FLAG_UNSET()">GST_MINI_OBJECT_FLAG_UNSET</a>          (obj,
+                                                         flag)
+#define             <a class="link" href="gstreamer-GstMiniObject.html#GST-MINI-OBJECT-IS-LOCKABLE:CAPS" title="GST_MINI_OBJECT_IS_LOCKABLE()">GST_MINI_OBJECT_IS_LOCKABLE</a>         (obj)
+enum                <a class="link" href="gstreamer-GstMiniObject.html#GstLockFlags" title="enum GstLockFlags">GstLockFlags</a>;
+#define             <a class="link" href="gstreamer-GstMiniObject.html#GST-LOCK-FLAG-READWRITE:CAPS" title="GST_LOCK_FLAG_READWRITE">GST_LOCK_FLAG_READWRITE</a>
+#define             <a class="link" href="gstreamer-GstMiniObject.html#GST-MINI-OBJECT-REFCOUNT:CAPS" title="GST_MINI_OBJECT_REFCOUNT()">GST_MINI_OBJECT_REFCOUNT</a>            (obj)
+#define             <a class="link" href="gstreamer-GstMiniObject.html#GST-MINI-OBJECT-REFCOUNT-VALUE:CAPS" title="GST_MINI_OBJECT_REFCOUNT_VALUE()">GST_MINI_OBJECT_REFCOUNT_VALUE</a>      (obj)
+#define             <a class="link" href="gstreamer-GstMiniObject.html#GST-DEFINE-MINI-OBJECT-TYPE:CAPS" title="GST_DEFINE_MINI_OBJECT_TYPE()">GST_DEFINE_MINI_OBJECT_TYPE</a>         (TypeName,
+                                                         type_name)
+<span class="returnvalue">void</span>                <a class="link" href="gstreamer-GstMiniObject.html#gst-mini-object-init" title="gst_mini_object_init ()">gst_mini_object_init</a>                (<em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> *mini_object</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> flags</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GType"><span class="type">GType</span></a> type</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObjectCopyFunction" title="GstMiniObjectCopyFunction ()"><span class="type">GstMiniObjectCopyFunction</span></a> copy_func</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObjectDisposeFunction" title="GstMiniObjectDisposeFunction ()"><span class="type">GstMiniObjectDisposeFunction</span></a> dispose_func</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObjectFreeFunction" title="GstMiniObjectFreeFunction ()"><span class="type">GstMiniObjectFreeFunction</span></a> free_func</code></em>);
+<a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="returnvalue">GstMiniObject</span></a> *     <a class="link" href="gstreamer-GstMiniObject.html#gst-mini-object-ref" title="gst_mini_object_ref ()">gst_mini_object_ref</a>                 (<em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> *mini_object</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gstreamer-GstMiniObject.html#gst-mini-object-unref" title="gst_mini_object_unref ()">gst_mini_object_unref</a>               (<em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> *mini_object</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gstreamer-GstMiniObject.html#gst-mini-object-weak-ref" title="gst_mini_object_weak_ref ()">gst_mini_object_weak_ref</a>            (<em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObjectNotify" title="GstMiniObjectNotify ()"><span class="type">GstMiniObjectNotify</span></a> notify</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gstreamer-GstMiniObject.html#gst-mini-object-weak-unref" title="gst_mini_object_weak_unref ()">gst_mini_object_weak_unref</a>          (<em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObjectNotify" title="GstMiniObjectNotify ()"><span class="type">GstMiniObjectNotify</span></a> notify</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="gstreamer-GstMiniObject.html#gst-mini-object-lock" title="gst_mini_object_lock ()">gst_mini_object_lock</a>                (<em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstLockFlags" title="enum GstLockFlags"><span class="type">GstLockFlags</span></a> flags</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gstreamer-GstMiniObject.html#gst-mini-object-unlock" title="gst_mini_object_unlock ()">gst_mini_object_unlock</a>              (<em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstLockFlags" title="enum GstLockFlags"><span class="type">GstLockFlags</span></a> flags</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="gstreamer-GstMiniObject.html#gst-mini-object-is-writable" title="gst_mini_object_is_writable ()">gst_mini_object_is_writable</a>         (<em class="parameter"><code>const <a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> *mini_object</code></em>);
+<a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="returnvalue">GstMiniObject</span></a> *     <a class="link" href="gstreamer-GstMiniObject.html#gst-mini-object-make-writable" title="gst_mini_object_make_writable ()">gst_mini_object_make_writable</a>       (<em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> *mini_object</code></em>);
+<a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="returnvalue">GstMiniObject</span></a> *     <a class="link" href="gstreamer-GstMiniObject.html#gst-mini-object-copy" title="gst_mini_object_copy ()">gst_mini_object_copy</a>                (<em class="parameter"><code>const <a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> *mini_object</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gstreamer-GstMiniObject.html#gst-mini-object-set-qdata" title="gst_mini_object_set_qdata ()">gst_mini_object_set_qdata</a>           (<em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> quark</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> destroy</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            <a class="link" href="gstreamer-GstMiniObject.html#gst-mini-object-get-qdata" title="gst_mini_object_get_qdata ()">gst_mini_object_get_qdata</a>           (<em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> quark</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            <a class="link" href="gstreamer-GstMiniObject.html#gst-mini-object-steal-qdata" title="gst_mini_object_steal_qdata ()">gst_mini_object_steal_qdata</a>         (<em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> quark</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="gstreamer-GstMiniObject.html#gst-mini-object-replace" title="gst_mini_object_replace ()">gst_mini_object_replace</a>             (<em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> **olddata</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> *newdata</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="gstreamer-GstMiniObject.html#gst-mini-object-take" title="gst_mini_object_take ()">gst_mini_object_take</a>                (<em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> **olddata</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> *newdata</code></em>);
+<a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="returnvalue">GstMiniObject</span></a> *     <a class="link" href="gstreamer-GstMiniObject.html#gst-mini-object-steal" title="gst_mini_object_steal ()">gst_mini_object_steal</a>               (<em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> **olddata</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="gstreamer-GstMiniObject.description"></a><h2>Description</h2>
+<p>
+<a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> is a simple structure that can be used to implement refcounted
+types.
+</p>
+<p>
+Subclasses will include <a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> as the first member in their structure
+and then call <a class="link" href="gstreamer-GstMiniObject.html#gst-mini-object-init" title="gst_mini_object_init ()"><code class="function">gst_mini_object_init()</code></a> to initialize the <a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> fields.
+</p>
+<p>
+<a class="link" href="gstreamer-GstMiniObject.html#gst-mini-object-ref" title="gst_mini_object_ref ()"><code class="function">gst_mini_object_ref()</code></a> and <a class="link" href="gstreamer-GstMiniObject.html#gst-mini-object-unref" title="gst_mini_object_unref ()"><code class="function">gst_mini_object_unref()</code></a> increment and decrement the
+refcount respectively. When the refcount of a mini-object reaches 0, the
+dispose function is called first and when this returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, the free
+function of the miniobject is called.
+</p>
+<p>
+A copy can be made with <a class="link" href="gstreamer-GstMiniObject.html#gst-mini-object-copy" title="gst_mini_object_copy ()"><code class="function">gst_mini_object_copy()</code></a>.
+</p>
+<p>
+<a class="link" href="gstreamer-GstMiniObject.html#gst-mini-object-is-writable" title="gst_mini_object_is_writable ()"><code class="function">gst_mini_object_is_writable()</code></a> will return <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> when the refcount of the
+object is exactly 1, meaning the current caller has the only reference to the
+object. <a class="link" href="gstreamer-GstMiniObject.html#gst-mini-object-make-writable" title="gst_mini_object_make_writable ()"><code class="function">gst_mini_object_make_writable()</code></a> will return a writable version of the
+object, which might be a new copy when the refcount was not 1.
+</p>
+<p>
+Opaque data can be associated with a <a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> with
+<a class="link" href="gstreamer-GstMiniObject.html#gst-mini-object-set-qdata" title="gst_mini_object_set_qdata ()"><code class="function">gst_mini_object_set_qdata()</code></a> and <a class="link" href="gstreamer-GstMiniObject.html#gst-mini-object-get-qdata" title="gst_mini_object_get_qdata ()"><code class="function">gst_mini_object_get_qdata()</code></a>. The data is
+meant to be specific to the particular object and is not automatically copied
+with <a class="link" href="gstreamer-GstMiniObject.html#gst-mini-object-copy" title="gst_mini_object_copy ()"><code class="function">gst_mini_object_copy()</code></a> or similar methods.
+</p>
+<p>
+A weak reference can be added and remove with <a class="link" href="gstreamer-GstMiniObject.html#gst-mini-object-weak-ref" title="gst_mini_object_weak_ref ()"><code class="function">gst_mini_object_weak_ref()</code></a>
+and <a class="link" href="gstreamer-GstMiniObject.html#gst-mini-object-weak-unref" title="gst_mini_object_weak_unref ()"><code class="function">gst_mini_object_weak_unref()</code></a> respectively.
+</p>
+<p>
+Last reviewed on 2012-06-15 (0.11.93)
+</p>
+</div>
+<div class="refsect1">
+<a name="gstreamer-GstMiniObject.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstMiniObject"></a><h3>struct GstMiniObject</h3>
+<pre class="programlisting">struct GstMiniObject {
+  GType   type;
+
+  gint    refcount;
+  gint    lockstate;
+  guint   flags;
+
+  GstMiniObjectCopyFunction copy;
+  GstMiniObjectDisposeFunction dispose;
+  GstMiniObjectFreeFunction free;
+};
+</pre>
+<p>
+Base class for refcounted lightweight objects.
+Ref Func: gst_mini_object_ref
+Unref Func: gst_mini_object_unref
+Set Value Func: g_value_set_boxed
+Get Value Func: g_value_get_boxed
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GType"><span class="type">GType</span></a> <em class="structfield"><code><a name="GstMiniObject.type"></a>type</code></em>;</span></p></td>
+<td>the GType of the object</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> <em class="structfield"><code><a name="GstMiniObject.refcount"></a>refcount</code></em>;</span></p></td>
+<td>atomic refcount</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> <em class="structfield"><code><a name="GstMiniObject.lockstate"></a>lockstate</code></em>;</span></p></td>
+<td>atomic state of the locks</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> <em class="structfield"><code><a name="GstMiniObject.flags"></a>flags</code></em>;</span></p></td>
+<td>extra flags.</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObjectCopyFunction" title="GstMiniObjectCopyFunction ()"><span class="type">GstMiniObjectCopyFunction</span></a> <em class="structfield"><code><a name="GstMiniObject.copy"></a>copy</code></em>;</span></p></td>
+<td>a copy function</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObjectDisposeFunction" title="GstMiniObjectDisposeFunction ()"><span class="type">GstMiniObjectDisposeFunction</span></a> <em class="structfield"><code><a name="GstMiniObject.dispose"></a>dispose</code></em>;</span></p></td>
+<td>a dispose function</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObjectFreeFunction" title="GstMiniObjectFreeFunction ()"><span class="type">GstMiniObjectFreeFunction</span></a> <em class="structfield"><code><a name="GstMiniObject.free"></a>free</code></em>;</span></p></td>
+<td>the free function</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMiniObjectCopyFunction"></a><h3>GstMiniObjectCopyFunction ()</h3>
+<pre class="programlisting"><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="returnvalue">GstMiniObject</span></a> *     (*GstMiniObjectCopyFunction)        (<em class="parameter"><code>const <a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> *obj</code></em>);</pre>
+<p>
+Function prototype for methods to create copies of instances.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>MiniObject to copy</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>reference to cloned instance.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMiniObjectDisposeFunction"></a><h3>GstMiniObjectDisposeFunction ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (*GstMiniObjectDisposeFunction)     (<em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> *obj</code></em>);</pre>
+<p>
+Function prototype for when a miniobject has lost its last refcount.
+Implementation of the mini object are allowed to revive the
+passed object by doing a <a class="link" href="gstreamer-GstMiniObject.html#gst-mini-object-ref" title="gst_mini_object_ref ()"><code class="function">gst_mini_object_ref()</code></a>. If the object is not
+revived after the dispose function, the function should return <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>
+and the memory associated with the object is freed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>MiniObject to dispose</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the object should be cleaned up.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMiniObjectFreeFunction"></a><h3>GstMiniObjectFreeFunction ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*GstMiniObjectFreeFunction)        (<em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> *obj</code></em>);</pre>
+<p>
+Virtual function prototype for methods to free ressources used by
+mini-objects.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>MiniObject to free</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMiniObjectNotify"></a><h3>GstMiniObjectNotify ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*GstMiniObjectNotify)              (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> *obj</code></em>);</pre>
+<p>
+A <a class="link" href="gstreamer-GstMiniObject.html#GstMiniObjectNotify" title="GstMiniObjectNotify ()"><span class="type">GstMiniObjectNotify</span></a> function can be added to a mini object as a
+callback that gets triggered when <a class="link" href="gstreamer-GstMiniObject.html#gst-mini-object-unref" title="gst_mini_object_unref ()"><code class="function">gst_mini_object_unref()</code></a> drops the
+last ref and <em class="parameter"><code>obj</code></em> is about to be freed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>data that was provided when the notify was added</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>the mini object</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-MINI-OBJECT-TYPE:CAPS"></a><h3>GST_MINI_OBJECT_TYPE()</h3>
+<pre class="programlisting">#define GST_MINI_OBJECT_TYPE(obj)  (GST_MINI_OBJECT_CAST(obj)-&gt;type)
+</pre>
+<p>
+This macro returns the type of the mini-object.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>MiniObject to return type for.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMiniObjectFlags"></a><h3>enum GstMiniObjectFlags</h3>
+<pre class="programlisting">typedef enum {
+  GST_MINI_OBJECT_FLAG_LOCKABLE      = (1 &lt;&lt; 0),
+  GST_MINI_OBJECT_FLAG_LOCK_READONLY = (1 &lt;&lt; 1),
+  /* padding */
+  GST_MINI_OBJECT_FLAG_LAST          = (1 &lt;&lt; 4)
+} GstMiniObjectFlags;
+</pre>
+<p>
+Flags for the mini object
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="GST-MINI-OBJECT-FLAG-LOCKABLE:CAPS"></a><span class="term"><code class="literal">GST_MINI_OBJECT_FLAG_LOCKABLE</code></span></p></td>
+<td>the object can be locked and unlocked with
+<a class="link" href="gstreamer-GstMiniObject.html#gst-mini-object-lock" title="gst_mini_object_lock ()"><code class="function">gst_mini_object_lock()</code></a> and <a class="link" href="gstreamer-GstMiniObject.html#gst-mini-object-unlock" title="gst_mini_object_unlock ()"><code class="function">gst_mini_object_unlock()</code></a>.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-MINI-OBJECT-FLAG-LOCK-READONLY:CAPS"></a><span class="term"><code class="literal">GST_MINI_OBJECT_FLAG_LOCK_READONLY</code></span></p></td>
+<td>the object is permanently locked in
+READONLY mode. Only read locks can be performed on the object.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-MINI-OBJECT-FLAG-LAST:CAPS"></a><span class="term"><code class="literal">GST_MINI_OBJECT_FLAG_LAST</code></span></p></td>
+<td>first flag that can be used by subclasses.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-MINI-OBJECT-FLAGS:CAPS"></a><h3>GST_MINI_OBJECT_FLAGS()</h3>
+<pre class="programlisting">#define GST_MINI_OBJECT_FLAGS(obj)  (GST_MINI_OBJECT_CAST(obj)-&gt;flags)
+</pre>
+<p>
+This macro returns the entire set of flags for the mini-object.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>MiniObject to return flags for.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-MINI-OBJECT-FLAG-IS-SET:CAPS"></a><h3>GST_MINI_OBJECT_FLAG_IS_SET()</h3>
+<pre class="programlisting">#define GST_MINI_OBJECT_FLAG_IS_SET(obj,flag)        !!(GST_MINI_OBJECT_FLAGS (obj) &amp; (flag))
+</pre>
+<p>
+This macro checks to see if the given flag is set.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>MiniObject to check for flags.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>flag</code></em> :</span></p></td>
+<td>Flag to check for</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-MINI-OBJECT-FLAG-SET:CAPS"></a><h3>GST_MINI_OBJECT_FLAG_SET()</h3>
+<pre class="programlisting">#define GST_MINI_OBJECT_FLAG_SET(obj,flag)           (GST_MINI_OBJECT_FLAGS (obj) |= (flag))
+</pre>
+<p>
+This macro sets the given bits.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>MiniObject to set flag in.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>flag</code></em> :</span></p></td>
+<td>Flag to set, can by any number of bits in guint32.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-MINI-OBJECT-FLAG-UNSET:CAPS"></a><h3>GST_MINI_OBJECT_FLAG_UNSET()</h3>
+<pre class="programlisting">#define GST_MINI_OBJECT_FLAG_UNSET(obj,flag)         (GST_MINI_OBJECT_FLAGS (obj) &amp;= ~(flag))
+</pre>
+<p>
+This macro usets the given bits.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>MiniObject to unset flag in.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>flag</code></em> :</span></p></td>
+<td>Flag to set, must be a single bit in guint32.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-MINI-OBJECT-IS-LOCKABLE:CAPS"></a><h3>GST_MINI_OBJECT_IS_LOCKABLE()</h3>
+<pre class="programlisting">#define GST_MINI_OBJECT_IS_LOCKABLE(obj)  GST_MINI_OBJECT_FLAG_IS_SET(obj, GST_MINI_OBJECT_FLAG_LOCKABLE)
+</pre>
+<p>
+Check if <em class="parameter"><code>obj</code></em> is lockable. A lockable object can be locked and unlocked with
+<a class="link" href="gstreamer-GstMiniObject.html#gst-mini-object-lock" title="gst_mini_object_lock ()"><code class="function">gst_mini_object_lock()</code></a> and <a class="link" href="gstreamer-GstMiniObject.html#gst-mini-object-unlock" title="gst_mini_object_unlock ()"><code class="function">gst_mini_object_unlock()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstLockFlags"></a><h3>enum GstLockFlags</h3>
+<pre class="programlisting">typedef enum {
+  GST_LOCK_FLAG_READ      = (1 &lt;&lt; 0),
+  GST_LOCK_FLAG_WRITE     = (1 &lt;&lt; 1),
+  GST_LOCK_FLAG_EXCLUSIVE = (1 &lt;&lt; 2),
+
+  GST_LOCK_FLAG_LAST      = (1 &lt;&lt; 8)
+} GstLockFlags;
+</pre>
+<p>
+Flags used when locking miniobjects
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="GST-LOCK-FLAG-READ:CAPS"></a><span class="term"><code class="literal">GST_LOCK_FLAG_READ</code></span></p></td>
+<td>lock for read access
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-LOCK-FLAG-WRITE:CAPS"></a><span class="term"><code class="literal">GST_LOCK_FLAG_WRITE</code></span></p></td>
+<td>lock for write access
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-LOCK-FLAG-EXCLUSIVE:CAPS"></a><span class="term"><code class="literal">GST_LOCK_FLAG_EXCLUSIVE</code></span></p></td>
+<td>lock for exclusive access
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-LOCK-FLAG-LAST:CAPS"></a><span class="term"><code class="literal">GST_LOCK_FLAG_LAST</code></span></p></td>
+<td>first flag that can be used for custom purposes
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-LOCK-FLAG-READWRITE:CAPS"></a><h3>GST_LOCK_FLAG_READWRITE</h3>
+<pre class="programlisting">#define GST_LOCK_FLAG_READWRITE  (GST_LOCK_FLAG_READ | GST_LOCK_FLAG_WRITE)
+</pre>
+<p>
+GstLockFlags value alias for GST_LOCK_FLAG_READ | GST_LOCK_FLAG_WRITE
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-MINI-OBJECT-REFCOUNT:CAPS"></a><h3>GST_MINI_OBJECT_REFCOUNT()</h3>
+<pre class="programlisting">#define GST_MINI_OBJECT_REFCOUNT(obj)           ((GST_MINI_OBJECT_CAST(obj))-&gt;refcount)
+</pre>
+<p>
+Get access to the reference count field of the mini-object.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-MINI-OBJECT-REFCOUNT-VALUE:CAPS"></a><h3>GST_MINI_OBJECT_REFCOUNT_VALUE()</h3>
+<pre class="programlisting">#define GST_MINI_OBJECT_REFCOUNT_VALUE(obj)     (g_atomic_int_get (&amp;(GST_MINI_OBJECT_CAST(obj))-&gt;refcount))
+</pre>
+<p>
+Get the reference count value of the mini-object.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-DEFINE-MINI-OBJECT-TYPE:CAPS"></a><h3>GST_DEFINE_MINI_OBJECT_TYPE()</h3>
+<pre class="programlisting">#define             GST_DEFINE_MINI_OBJECT_TYPE(TypeName,type_name)</pre>
+<p>
+Define a new mini-object type with the given name
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>TypeName</code></em> :</span></p></td>
+<td>name of the new type in CamelCase</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>type_name</code></em> :</span></p></td>
+<td>name of the new type</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-mini-object-init"></a><h3>gst_mini_object_init ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_mini_object_init                (<em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> *mini_object</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> flags</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GType"><span class="type">GType</span></a> type</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObjectCopyFunction" title="GstMiniObjectCopyFunction ()"><span class="type">GstMiniObjectCopyFunction</span></a> copy_func</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObjectDisposeFunction" title="GstMiniObjectDisposeFunction ()"><span class="type">GstMiniObjectDisposeFunction</span></a> dispose_func</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObjectFreeFunction" title="GstMiniObjectFreeFunction ()"><span class="type">GstMiniObjectFreeFunction</span></a> free_func</code></em>);</pre>
+<p>
+Initializes a mini-object with the desired type and copy/dispose/free
+functions.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mini_object</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>flags</code></em> :</span></p></td>
+<td>initial <a class="link" href="gstreamer-GstMiniObject.html#GstMiniObjectFlags" title="enum GstMiniObjectFlags"><span class="type">GstMiniObjectFlags</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>type</code></em> :</span></p></td>
+<td>the <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GType"><span class="type">GType</span></a> of the mini-object to create</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>copy_func</code></em> :</span></p></td>
+<td>the copy function, or NULL</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dispose_func</code></em> :</span></p></td>
+<td>the dispose function, or NULL</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>free_func</code></em> :</span></p></td>
+<td>the free function or NULL</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-mini-object-ref"></a><h3>gst_mini_object_ref ()</h3>
+<pre class="programlisting"><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="returnvalue">GstMiniObject</span></a> *     gst_mini_object_ref                 (<em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> *mini_object</code></em>);</pre>
+<p>
+Increase the reference count of the mini-object.
+</p>
+<p>
+Note that the refcount affects the writeability
+of <em class="parameter"><code>mini</code></em>-object, see <a class="link" href="gstreamer-GstMiniObject.html#gst-mini-object-is-writable" title="gst_mini_object_is_writable ()"><code class="function">gst_mini_object_is_writable()</code></a>. It is
+important to note that keeping additional references to
+GstMiniObject instances can potentially increase the number
+of memcpy operations in a pipeline, especially if the miniobject
+is a <a class="link" href="gstreamer-GstBuffer.html#GstBuffer" title="struct GstBuffer"><span class="type">GstBuffer</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mini_object</code></em> :</span></p></td>
+<td>the mini-object</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the mini-object. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-mini-object-unref"></a><h3>gst_mini_object_unref ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_mini_object_unref               (<em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> *mini_object</code></em>);</pre>
+<p>
+Decreases the reference count of the mini-object, possibly freeing
+the mini-object.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>mini_object</code></em> :</span></p></td>
+<td>the mini-object</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-mini-object-weak-ref"></a><h3>gst_mini_object_weak_ref ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_mini_object_weak_ref            (<em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObjectNotify" title="GstMiniObjectNotify ()"><span class="type">GstMiniObjectNotify</span></a> notify</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);</pre>
+<p>
+Adds a weak reference callback to a mini object. Weak references are
+used for notification when a mini object is finalized. They are called
+"weak references" because they allow you to safely hold a pointer
+to the mini object without calling <a class="link" href="gstreamer-GstMiniObject.html#gst-mini-object-ref" title="gst_mini_object_ref ()"><code class="function">gst_mini_object_ref()</code></a>
+(<a class="link" href="gstreamer-GstMiniObject.html#gst-mini-object-ref" title="gst_mini_object_ref ()"><code class="function">gst_mini_object_ref()</code></a> adds a strong reference, that is, forces the object
+to stay alive).
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>
+<a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> to reference weakly</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>notify</code></em> :</span></p></td>
+<td>callback to invoke before the mini object is freed</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>extra data to pass to notify</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-mini-object-weak-unref"></a><h3>gst_mini_object_weak_unref ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_mini_object_weak_unref          (<em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObjectNotify" title="GstMiniObjectNotify ()"><span class="type">GstMiniObjectNotify</span></a> notify</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);</pre>
+<p>
+Removes a weak reference callback from a mini object.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>
+<a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> to remove a weak reference from</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>notify</code></em> :</span></p></td>
+<td>callback to search for</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>data to search for</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-mini-object-lock"></a><h3>gst_mini_object_lock ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_mini_object_lock                (<em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstLockFlags" title="enum GstLockFlags"><span class="type">GstLockFlags</span></a> flags</code></em>);</pre>
+<p>
+Lock the mini-object with the specified access mode in <em class="parameter"><code>flags</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>the mini-object to lock</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>flags</code></em> :</span></p></td>
+<td><a class="link" href="gstreamer-GstMiniObject.html#GstLockFlags" title="enum GstLockFlags"><span class="type">GstLockFlags</span></a></td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if <em class="parameter"><code>object</code></em> could be locked.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-mini-object-unlock"></a><h3>gst_mini_object_unlock ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_mini_object_unlock              (<em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstLockFlags" title="enum GstLockFlags"><span class="type">GstLockFlags</span></a> flags</code></em>);</pre>
+<p>
+Unlock the mini-object with the specified access mode in <em class="parameter"><code>flags</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>the mini-object to unlock</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>flags</code></em> :</span></p></td>
+<td><a class="link" href="gstreamer-GstMiniObject.html#GstLockFlags" title="enum GstLockFlags"><span class="type">GstLockFlags</span></a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-mini-object-is-writable"></a><h3>gst_mini_object_is_writable ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_mini_object_is_writable         (<em class="parameter"><code>const <a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> *mini_object</code></em>);</pre>
+<p>
+If <em class="parameter"><code>mini_object</code></em> has the LOCKABLE flag set, check if the current EXCLUSIVE
+lock on <em class="parameter"><code>object</code></em> is the only one, this means that changes to the object will
+not be visible to any other object.
+</p>
+<p>
+If the LOCKABLE flag is not set, check if the refcount of <em class="parameter"><code>mini_object</code></em> is
+exactly 1, meaning that no other reference exists to the object and that the
+object is therefore writable.
+</p>
+<p>
+Modification of a mini-object should only be done after verifying that it
+is writable.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mini_object</code></em> :</span></p></td>
+<td>the mini-object to check</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE if the object is writable.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-mini-object-make-writable"></a><h3>gst_mini_object_make_writable ()</h3>
+<pre class="programlisting"><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="returnvalue">GstMiniObject</span></a> *     gst_mini_object_make_writable       (<em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> *mini_object</code></em>);</pre>
+<p>
+Checks if a mini-object is writable.  If not, a writable copy is made and
+returned.  This gives away the reference to the original mini object,
+and returns a reference to the new object.
+</p>
+<p>
+MT safe
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mini_object</code></em> :</span></p></td>
+<td>the mini-object to make writable. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a mini-object (possibly the same pointer) that
+is writable. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-mini-object-copy"></a><h3>gst_mini_object_copy ()</h3>
+<pre class="programlisting"><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="returnvalue">GstMiniObject</span></a> *     gst_mini_object_copy                (<em class="parameter"><code>const <a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> *mini_object</code></em>);</pre>
+<p>
+Creates a copy of the mini-object.
+</p>
+<p>
+MT safe
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mini_object</code></em> :</span></p></td>
+<td>the mini-object to copy</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the new mini-object. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-mini-object-set-qdata"></a><h3>gst_mini_object_set_qdata ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_mini_object_set_qdata           (<em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> quark</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> destroy</code></em>);</pre>
+<p>
+This sets an opaque, named pointer on a miniobject.
+The name is specified through a <a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> (retrived e.g. via
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#g-quark-from-static-string"><code class="function">g_quark_from_static_string()</code></a>), and the pointer
+can be gotten back from the <em class="parameter"><code>object</code></em> with <a class="link" href="gstreamer-GstMiniObject.html#gst-mini-object-get-qdata" title="gst_mini_object_get_qdata ()"><code class="function">gst_mini_object_get_qdata()</code></a>
+until the <em class="parameter"><code>object</code></em> is disposed.
+Setting a previously set user data pointer, overrides (frees)
+the old pointer set, using <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><span class="type">NULL</span></a> as pointer essentially
+removes the data stored.
+</p>
+<p>
+<em class="parameter"><code>destroy</code></em> may be specified which is called with <em class="parameter"><code>data</code></em> as argument
+when the <em class="parameter"><code>object</code></em> is disposed, or the data is being overwritten by
+a call to <a class="link" href="gstreamer-GstMiniObject.html#gst-mini-object-set-qdata" title="gst_mini_object_set_qdata ()"><code class="function">gst_mini_object_set_qdata()</code></a> with the same <em class="parameter"><code>quark</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>quark</code></em> :</span></p></td>
+<td>A <a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a>, naming the user data pointer</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>An opaque user data pointer</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>destroy</code></em> :</span></p></td>
+<td>Function to invoke with <em class="parameter"><code>data</code></em> as argument, when <em class="parameter"><code>data</code></em>
+needs to be freed</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-mini-object-get-qdata"></a><h3>gst_mini_object_get_qdata ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            gst_mini_object_get_qdata           (<em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> quark</code></em>);</pre>
+<p>
+This function gets back user data pointers stored via
+<a class="link" href="gstreamer-GstMiniObject.html#gst-mini-object-set-qdata" title="gst_mini_object_set_qdata ()"><code class="function">gst_mini_object_set_qdata()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>The GstMiniObject to get a stored user data pointer from</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>quark</code></em> :</span></p></td>
+<td>A <a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a>, naming the user data pointer</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The user data pointer set, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-mini-object-steal-qdata"></a><h3>gst_mini_object_steal_qdata ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            gst_mini_object_steal_qdata         (<em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> quark</code></em>);</pre>
+<p>
+This function gets back user data pointers stored via <a class="link" href="gstreamer-GstMiniObject.html#gst-mini-object-set-qdata" title="gst_mini_object_set_qdata ()"><code class="function">gst_mini_object_set_qdata()</code></a>
+and removes the data from <em class="parameter"><code>object</code></em> without invoking its <code class="function">destroy()</code> function (if
+any was set).
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>The GstMiniObject to get a stored user data pointer from</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>quark</code></em> :</span></p></td>
+<td>A <a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a>, naming the user data pointer</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The user data pointer set, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-mini-object-replace"></a><h3>gst_mini_object_replace ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_mini_object_replace             (<em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> **olddata</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> *newdata</code></em>);</pre>
+<p>
+Atomically modifies a pointer to point to a new mini-object.
+The reference count of <em class="parameter"><code>olddata</code></em> is decreased and the reference count of
+<em class="parameter"><code>newdata</code></em> is increased.
+</p>
+<p>
+Either <em class="parameter"><code>newdata</code></em> and the value pointed to by <em class="parameter"><code>olddata</code></em> may be NULL.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>olddata</code></em> :</span></p></td>
+<td>pointer to a pointer to a mini-object to
+be replaced. <span class="annotation">[<acronym title="Parameter for input and for returning results. Default is transfer full."><span class="acronym">inout</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>newdata</code></em> :</span></p></td>
+<td>pointer to new mini-object</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE if <em class="parameter"><code>newdata</code></em> was different from <em class="parameter"><code>olddata</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-mini-object-take"></a><h3>gst_mini_object_take ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_mini_object_take                (<em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> **olddata</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> *newdata</code></em>);</pre>
+<p>
+Modifies a pointer to point to a new mini-object. The modification
+is done atomically. This version is similar to <a class="link" href="gstreamer-GstMiniObject.html#gst-mini-object-replace" title="gst_mini_object_replace ()"><code class="function">gst_mini_object_replace()</code></a>
+except that it does not increase the refcount of <em class="parameter"><code>newdata</code></em> and thus
+takes ownership of <em class="parameter"><code>newdata</code></em>.
+</p>
+<p>
+Either <em class="parameter"><code>newdata</code></em> and the value pointed to by <em class="parameter"><code>olddata</code></em> may be NULL.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>olddata</code></em> :</span></p></td>
+<td>pointer to a pointer to a mini-object to
+be replaced. <span class="annotation">[<acronym title="Parameter for input and for returning results. Default is transfer full."><span class="acronym">inout</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>newdata</code></em> :</span></p></td>
+<td>pointer to new mini-object</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE if <em class="parameter"><code>newdata</code></em> was different from <em class="parameter"><code>olddata</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-mini-object-steal"></a><h3>gst_mini_object_steal ()</h3>
+<pre class="programlisting"><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="returnvalue">GstMiniObject</span></a> *     gst_mini_object_steal               (<em class="parameter"><code><a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> **olddata</code></em>);</pre>
+<p>
+Replace the current <a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> pointer to by <em class="parameter"><code>olddata</code></em> with NULL and
+return the old value.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>olddata</code></em> :</span></p></td>
+<td>pointer to a pointer to a mini-object to
+be stolen. <span class="annotation">[<acronym title="Parameter for input and for returning results. Default is transfer full."><span class="acronym">inout</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the <a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a> at <em class="parameter"><code>oldata</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

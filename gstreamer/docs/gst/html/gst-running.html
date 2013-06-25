@@ -1,0 +1,267 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Running GStreamer Applications</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer 1.0 Core Reference Manual">
+<link rel="up" href="gstreamer.html" title="GStreamer Overview">
+<link rel="prev" href="gst-building.html" title="Building GStreamer and GStreamer Applications">
+<link rel="next" href="libgstreamer.html" title="GStreamer Core Library">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2"><tr valign="middle">
+<td><a accesskey="p" href="gst-building.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="gstreamer.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer 1.0 Core Reference Manual</th>
+<td><a accesskey="n" href="libgstreamer.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="gst-running"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle">Running GStreamer Applications</span></h2>
+<p>Running GStreamer Applications — 
+How to run and debug your GStreamer application
+</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="idp8840896"></a><h2>Running and debugging GStreamer Applications</h2>
+<div class="refsect2">
+<a name="idp7197888"></a><h3>Environment variables</h3>
+<p> 
+GStreamer inspects a few of environment variables in addition to standard
+variables like <code class="envar">LANG</code>, <code class="envar">PATH</code> or <code class="envar">HOME</code>. 
+</p>
+<p><a name="GST_PLUGIN_SYSTEM_PATH"></a><b><code class="envar">GST_PLUGIN_SYSTEM_PATH</code>. </b>
+
+This environment variable can be set to a colon-separated list of paths.
+If this variable is not set, GStreamer will fill in this list for you
+with
+</p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem"><p>
+plug-ins in the user's home directory.  These are stored in a directory called
+<code class="filename">plugins</code> inside the
+<code class="filename">.gstreamer-1.0</code> directory in the user's
+home directory.
+    </p></li>
+<li class="listitem"><p>
+plug-ins installed system-wide.  On this system, they are stored in
+<code class="filename">/usr/local/lib/gstreamer-1.0</code>.
+    </p></li>
+</ul></div>
+<p>
+   
+GStreamer will scan these paths for GStreamer plug-ins.  These plug-ins will
+be loaded after the plug-ins in the GST_PLUGIN_PATH variable below.
+
+The paths are scanned in the given order.  This allows a user to override
+system-installed plug-ins with his own versions.
+   
+Setting this variable to an empty string will cause GStreamer not to scan any
+system paths at all for plug-ins.  This can be useful if you're running
+uninstalled (for development purposes) or while running testsuites.
+   </p>
+<p><a name="GST_PLUGIN_PATH"></a><b><code class="envar">GST_PLUGIN_PATH</code>. </b>
+This environment variable can be set to a colon-separated list of paths.
+GStreamer will scan these paths for GStreamer plug-ins.  These plug-ins will
+be loaded in addition to, and before, the plug-ins in the system paths.
+  </p>
+<p><a name="GST_DEBUG"></a><b><code class="envar">GST_DEBUG</code>. </b>
+If GStreamer has been configured with <code class="option">--enable-gst-debug=yes</code>,
+this variable can be set to a list of debug options, which cause GStreamer
+to print out different types of debugging information to stderr.
+  
+The variable takes a comma-separated list of "category_name:level" pairs
+to set specific levels for the individual categories.
+The level value ranges from 0 (nothing) to 9 (MEMDUMP).
+    </p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">1 - <code class="option">ERROR</code></span></p></td>
+<td><p>
+Logs all fatal errors.  These are errors that do not allow the core or elements
+to perform the requested action.  The application can still recover if
+programmed to handle the conditions that triggered the error.
+</p></td>
+</tr>
+<tr>
+<td><p><span class="term">2 - <code class="option">WARNING</code></span></p></td>
+<td><p>
+Logs all warnings.  Typically these are non-fatal, but user-visible problems
+are expected to happen.
+</p></td>
+</tr>
+<tr>
+<td><p><span class="term">3 - <code class="option">FIXME</code></span></p></td>
+<td><p>
+Logs all fixme messages. Fixme messages are messages that indicate that something
+in the executed code path is not fully implemented or handled yet.  The purpose
+of this message is to make it easier to spot incomplete/unfinished pieces of
+code when reading the debug log.
+</p></td>
+</tr>
+<tr>
+<td><p><span class="term">4 - <code class="option">INFO</code></span></p></td>
+<td><p>
+Logs all informational messages.  These are typically used for events in
+the system that only happen once, or are important and rare enough to be
+logged at this level.
+</p></td>
+</tr>
+<tr>
+<td><p><span class="term">5 - <code class="option">DEBUG</code></span></p></td>
+<td><p>
+Logs all debug messages.  These are general debug messages for events
+that happen only a limited number of times during an object's lifetime;
+these include setup, teardown, change of parameters, ...
+</p></td>
+</tr>
+<tr>
+<td><p><span class="term">6 - <code class="option">LOG</code></span></p></td>
+<td><p>
+Logs all log messages.  These are messages for events
+that happen repeatedly during an object's lifetime;
+these include streaming and steady-state conditions.
+</p></td>
+</tr>
+<tr>
+<td><p><span class="term">7 - <code class="option">TRACE</code></span></p></td>
+<td><p>
+Logs all trace messages.  These messages for events
+that happen repeatedly during an object's lifetime such as the
+ref/unref cycles.
+</p></td>
+</tr>
+<tr>
+<td><p><span class="term">9 - <code class="option">MEMDUMP</code></span></p></td>
+<td><p>
+Log all memory dump messages. Memory dump messages are used to log
+(small) chunks of data as memory dumps in the log. They will be displayed
+as hexdump with ASCII characters.
+</p></td>
+</tr>
+</tbody>
+</table></div>
+<p>
+
+ The category_name can contain "<code class="option">*"</code> as a wildcard.
+  
+For example, setting <code class="envar">GST_DEBUG</code> to
+<code class="option">GST_AUTOPLUG:6,GST_ELEMENT_*:4</code>, will cause the
+<code class="option">GST_AUTOPLUG</code> category to be logged at full
+<code class="option">LOG</code> level, while all categories starting with
+<code class="option">GST_ELEMENT_</code> will be logged at <code class="option">INFO</code> level.
+  
+To get all possible debug output, set
+<code class="envar">GST_DEBUG</code>
+to <code class="option">*:9</code>. For debugging purposes a <code class="option">*:6</code> debug
+log is usually the most useful, as it contains all important information, but
+hides a lot of noise such as refs/unrefs. For bug reporting purposes, a
+<code class="option">*:6</code> log is also what will be requested usually. It's often
+also worth running with <code class="option">*:3</code> to see if there are any
+non-fatal errors or warnings that might be related to the problem at hand.
+  </p>
+<p><a name="GST_DEBUG_NO_COLOR"></a><b><code class="envar">GST_DEBUG_NO_COLOR</code>. </b>
+Set this environment variable to any value ("1" typically) to switch off
+colouring in GST_DEBUG output. This has the same effect as specifying the
+<code class="option">--gst-debug-no-color</code> command line option to well-behaved
+GStreamer applications (ie. those that pass command-line options correctly to
+GStreamer).
+This is particularly useful to reduce the size of debug output and also allows
+for the output to be compressed much better than with colours turned on.
+  </p>
+<p><a name="GST_DEBUG_OPTIONS"></a><b><code class="envar">GST_DEBUG_OPTIONS</code>. </b>
+This environment variable can be used to tweak the behaviour of the debugging
+system. Currently the only options supported are "pretty-tags" and "full-tags".
+In "pretty-tags" mode (the default), taglists in the debug log will be
+serialized so that only the first few and last few bytes of a buffer-type tag
+will be serialized into the log, to avoid dumping hundreds of lines of useless
+output into the log in case of large image tags and the like.
+  </p>
+<p><a name="GST_DEBUG_DUMP_DOT_DIR"></a><b><code class="envar">GST_DEBUG_DUMP_DOT_DIR</code>. </b>
+Set this environment variable to a path to turn on all
+#GST_DEBUG_BIN_TO_DOT_FILE or #GST_DEBUG_BIN_TO_DOT_FILE_WITH_TS calls
+and have the dot files in that location.
+  </p>
+<p><a name="GST_REGISTRY_FORK"></a><b><code class="envar">GST_REGISTRY_FORK</code>. </b>
+Set this environment variable to "no" to prevent GStreamer from forking on
+startup in order to update the plugin registry. This is useful for debugging
+purposes, but should not be used under normal circumstances, since it means
+that plugins may be loaded into memory even if they are not needed by the
+application.
+  </p>
+<p><a name="GST_REGISTRY_UPDATE"></a><b><code class="envar">GST_REGISTRY_UPDATE</code>. </b>
+Set this environment variable to "no" to prevent GStreamer from updating the
+plugin registry. This is useful for embedded device which is not updating the
+plugins frequently, it will save time when doing gst_init().
+  </p>
+<p><a name="GST_TRACE"></a><b><code class="envar">GST_TRACE</code>. </b>
+    Enable memory allocation tracing. Most GStreamer objects have support for
+    tracing the number of unfreed objects and their memory pointers.
+  
+The variable takes a comma-separated list of tracing options to enable.
+    </p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">live</span></p></td>
+<td><p>
+  Counts all live objects and dumps an overview of the number of unfreed
+  objects at program exit.
+</p></td>
+</tr>
+<tr>
+<td><p><span class="term">mem-live</span></p></td>
+<td><p>
+  Keep track of the unfreed memory pointers and dump an overview of all unfreed
+  memory at program exit. Together with a level 9 debug log this can be used to
+  follow the lifecycle of leaked objects in order to track down where they are
+  leaked. This can be useful for debugging memory leaks in situations where
+  tools such as valgrind are not available, or not an option.
+</p></td>
+</tr>
+</tbody>
+</table></div>
+<p>
+
+ Use <code class="option">all</code> to enable all tracing flags.
+  </p>
+<p><a name="ORC_CODE"></a><b><code class="envar">ORC_CODE</code>. </b>
+Useful Orc environment variable. Set ORC_CODE=debug to enable debuggers
+such as gdb to create useful backtraces from Orc-generated code.  Set
+ORC_CODE=backup or ORC_CODE=emulate if you suspect Orc's SIMD code
+generator is producing incorrect code (Quite a few important
+GStreamer plugins like videotestsrc, audioconvert or audioresample use Orc).
+One can also combine flags like ORC_CODE=backup,debug.
+  </p>
+<p><a name="G_DEBUG"></a><b><code class="envar">G_DEBUG</code>. </b>
+Useful GLib environment variable. Set G_DEBUG=fatal_warnings to make
+GStreamer programs abort when a critical warning such as an assertion failure
+occurs. This is useful if you want to find out which part of the code caused
+that warning to be triggered and under what circumstances. Simply set G_DEBUG
+as mentioned above and run the program in gdb (or let it core dump). Then get
+a stack trace in the usual way.
+  </p>
+<p><a name="G_SLICE"></a><b><code class="envar">G_SLICE</code>. </b>
+Useful GLib environment variable. Set G_SLICE=always-malloc when running
+GStreamer programs in valgrind, or debugging memory leaks with other tools.
+See the GLib API reference for more details.
+  </p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

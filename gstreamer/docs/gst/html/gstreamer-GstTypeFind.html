@@ -1,0 +1,408 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GstTypeFind</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer 1.0 Core Reference Manual">
+<link rel="up" href="libgstreamer.html" title="GStreamer Core Library">
+<link rel="prev" href="gstreamer-GstTocSetter.html" title="GstTocSetter">
+<link rel="next" href="GstTypeFindFactory.html" title="GstTypeFindFactory">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gstreamer-GstTocSetter.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="libgstreamer.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer 1.0 Core Reference Manual</th>
+<td><a accesskey="n" href="GstTypeFindFactory.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gstreamer-GstTypeFind.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gstreamer-GstTypeFind.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gstreamer-GstTypeFind"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gstreamer-GstTypeFind.top_of_page"></a>GstTypeFind</span></h2>
+<p>GstTypeFind — Stream type detection</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gstreamer-GstTypeFind.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;gst/gst.h&gt;
+
+struct              <a class="link" href="gstreamer-GstTypeFind.html#GstTypeFind" title="struct GstTypeFind">GstTypeFind</a>;
+<span class="returnvalue">void</span>                (<a class="link" href="gstreamer-GstTypeFind.html#GstTypeFindFunction" title="GstTypeFindFunction ()">*GstTypeFindFunction</a>)              (<em class="parameter"><code><a class="link" href="gstreamer-GstTypeFind.html#GstTypeFind" title="struct GstTypeFind"><span class="type">GstTypeFind</span></a> *find</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+enum                <a class="link" href="gstreamer-GstTypeFind.html#GstTypeFindProbability" title="enum GstTypeFindProbability">GstTypeFindProbability</a>;
+const <span class="returnvalue">guint8</span> *      <a class="link" href="gstreamer-GstTypeFind.html#gst-type-find-peek" title="gst_type_find_peek ()">gst_type_find_peek</a>                  (<em class="parameter"><code><a class="link" href="gstreamer-GstTypeFind.html#GstTypeFind" title="struct GstTypeFind"><span class="type">GstTypeFind</span></a> *find</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint64</span> offset</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> size</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gstreamer-GstTypeFind.html#gst-type-find-suggest" title="gst_type_find_suggest ()">gst_type_find_suggest</a>               (<em class="parameter"><code><a class="link" href="gstreamer-GstTypeFind.html#GstTypeFind" title="struct GstTypeFind"><span class="type">GstTypeFind</span></a> *find</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> probability</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstCaps.html#GstCaps" title="struct GstCaps"><span class="type">GstCaps</span></a> *caps</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gstreamer-GstTypeFind.html#gst-type-find-suggest-simple" title="gst_type_find_suggest_simple ()">gst_type_find_suggest_simple</a>        (<em class="parameter"><code><a class="link" href="gstreamer-GstTypeFind.html#GstTypeFind" title="struct GstTypeFind"><span class="type">GstTypeFind</span></a> *find</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> probability</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *media_type</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *fieldname</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);
+<span class="returnvalue">guint64</span>             <a class="link" href="gstreamer-GstTypeFind.html#gst-type-find-get-length" title="gst_type_find_get_length ()">gst_type_find_get_length</a>            (<em class="parameter"><code><a class="link" href="gstreamer-GstTypeFind.html#GstTypeFind" title="struct GstTypeFind"><span class="type">GstTypeFind</span></a> *find</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="gstreamer-GstTypeFind.html#gst-type-find-register" title="gst_type_find_register ()">gst_type_find_register</a>              (<em class="parameter"><code><a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a> *plugin</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> rank</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstTypeFind.html#GstTypeFindFunction" title="GstTypeFindFunction ()"><span class="type">GstTypeFindFunction</span></a> func</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *extensions</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstCaps.html#GstCaps" title="struct GstCaps"><span class="type">GstCaps</span></a> *possible_caps</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> data_notify</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="gstreamer-GstTypeFind.description"></a><h2>Description</h2>
+<p>
+The following functions allow you to detect the media type of an unknown
+stream.
+</p>
+<p>
+Last reviewed on 2005-11-09 (0.9.4)
+</p>
+</div>
+<div class="refsect1">
+<a name="gstreamer-GstTypeFind.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstTypeFind"></a><h3>struct GstTypeFind</h3>
+<pre class="programlisting">struct GstTypeFind {
+  /* private to the caller of the typefind function */
+  const guint8 *  (* peek)       (gpointer         data,
+                                  gint64           offset,
+                                  guint            size);
+
+  void            (* suggest)    (gpointer         data,
+                                  guint            probability,
+                                  GstCaps         *caps);
+
+  gpointer         data;
+
+  /* optional */
+  guint64         (* get_length) (gpointer data);
+};
+</pre>
+<p>
+Object that stores typefind callbacks. To use with <a class="link" href="GstTypeFindFactory.html" title="GstTypeFindFactory"><span class="type">GstTypeFindFactory</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GstTypeFind.peek"></a>peek</code></em> ()</span></p></td>
+<td>Method to peek data.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GstTypeFind.suggest"></a>suggest</code></em> ()</span></p></td>
+<td>Method to suggest <a class="link" href="gstreamer-GstCaps.html#GstCaps" title="struct GstCaps"><span class="type">GstCaps</span></a> with a given probability.</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> <em class="structfield"><code><a name="GstTypeFind.data"></a>data</code></em>;</span></p></td>
+<td>The data used by the caller of the typefinding function.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GstTypeFind.get-length"></a>get_length</code></em> ()</span></p></td>
+<td>Returns the length of current data.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstTypeFindFunction"></a><h3>GstTypeFindFunction ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*GstTypeFindFunction)              (<em class="parameter"><code><a class="link" href="gstreamer-GstTypeFind.html#GstTypeFind" title="struct GstTypeFind"><span class="type">GstTypeFind</span></a> *find</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+A function that will be called by typefinding.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>find</code></em> :</span></p></td>
+<td>A <a class="link" href="gstreamer-GstTypeFind.html#GstTypeFind" title="struct GstTypeFind"><span class="type">GstTypeFind</span></a> structure</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>optionnal data to pass to the function</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstTypeFindProbability"></a><h3>enum GstTypeFindProbability</h3>
+<pre class="programlisting">typedef enum {
+  GST_TYPE_FIND_NONE = 0,
+  GST_TYPE_FIND_MINIMUM = 1,
+  GST_TYPE_FIND_POSSIBLE = 50,
+  GST_TYPE_FIND_LIKELY = 80,
+  GST_TYPE_FIND_NEARLY_CERTAIN = 99,
+  GST_TYPE_FIND_MAXIMUM = 100
+} GstTypeFindProbability;
+</pre>
+<p>
+The probability of the typefind function. Higher values have more certainty
+in doing a reliable typefind.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="GST-TYPE-FIND-NONE:CAPS"></a><span class="term"><code class="literal">GST_TYPE_FIND_NONE</code></span></p></td>
+<td>type undetected.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-TYPE-FIND-MINIMUM:CAPS"></a><span class="term"><code class="literal">GST_TYPE_FIND_MINIMUM</code></span></p></td>
+<td>unlikely typefind.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-TYPE-FIND-POSSIBLE:CAPS"></a><span class="term"><code class="literal">GST_TYPE_FIND_POSSIBLE</code></span></p></td>
+<td>possible type detected.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-TYPE-FIND-LIKELY:CAPS"></a><span class="term"><code class="literal">GST_TYPE_FIND_LIKELY</code></span></p></td>
+<td>likely a type was detected.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-TYPE-FIND-NEARLY-CERTAIN:CAPS"></a><span class="term"><code class="literal">GST_TYPE_FIND_NEARLY_CERTAIN</code></span></p></td>
+<td>nearly certain that a type was detected.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-TYPE-FIND-MAXIMUM:CAPS"></a><span class="term"><code class="literal">GST_TYPE_FIND_MAXIMUM</code></span></p></td>
+<td>very certain a type was detected.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-type-find-peek"></a><h3>gst_type_find_peek ()</h3>
+<pre class="programlisting">const <span class="returnvalue">guint8</span> *      gst_type_find_peek                  (<em class="parameter"><code><a class="link" href="gstreamer-GstTypeFind.html#GstTypeFind" title="struct GstTypeFind"><span class="type">GstTypeFind</span></a> *find</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint64</span> offset</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> size</code></em>);</pre>
+<p>
+Returns the <em class="parameter"><code>size</code></em> bytes of the stream to identify beginning at offset. If
+offset is a positive number, the offset is relative to the beginning of the
+stream, if offset is a negative number the offset is relative to the end of
+the stream. The returned memory is valid until the typefinding function
+returns and must not be freed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>find</code></em> :</span></p></td>
+<td>The <a class="link" href="gstreamer-GstTypeFind.html#GstTypeFind" title="struct GstTypeFind"><span class="type">GstTypeFind</span></a> object the function was called with</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>offset</code></em> :</span></p></td>
+<td>The offset</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>size</code></em> :</span></p></td>
+<td>The number of bytes to return</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the requested data, or NULL
+if that data is not available. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=size]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-type-find-suggest"></a><h3>gst_type_find_suggest ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_type_find_suggest               (<em class="parameter"><code><a class="link" href="gstreamer-GstTypeFind.html#GstTypeFind" title="struct GstTypeFind"><span class="type">GstTypeFind</span></a> *find</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> probability</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstCaps.html#GstCaps" title="struct GstCaps"><span class="type">GstCaps</span></a> *caps</code></em>);</pre>
+<p>
+If a <a class="link" href="gstreamer-GstTypeFind.html#GstTypeFindFunction" title="GstTypeFindFunction ()"><span class="type">GstTypeFindFunction</span></a> calls this function it suggests the caps with the
+given probability. A <a class="link" href="gstreamer-GstTypeFind.html#GstTypeFindFunction" title="GstTypeFindFunction ()"><span class="type">GstTypeFindFunction</span></a> may supply different suggestions
+in one call.
+It is up to the caller of the <a class="link" href="gstreamer-GstTypeFind.html#GstTypeFindFunction" title="GstTypeFindFunction ()"><span class="type">GstTypeFindFunction</span></a> to interpret these values.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>find</code></em> :</span></p></td>
+<td>The <a class="link" href="gstreamer-GstTypeFind.html#GstTypeFind" title="struct GstTypeFind"><span class="type">GstTypeFind</span></a> object the function was called with</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>probability</code></em> :</span></p></td>
+<td>The probability in percent that the suggestion is right</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>caps</code></em> :</span></p></td>
+<td>The fixed <a class="link" href="gstreamer-GstCaps.html#GstCaps" title="struct GstCaps"><span class="type">GstCaps</span></a> to suggest</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-type-find-suggest-simple"></a><h3>gst_type_find_suggest_simple ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_type_find_suggest_simple        (<em class="parameter"><code><a class="link" href="gstreamer-GstTypeFind.html#GstTypeFind" title="struct GstTypeFind"><span class="type">GstTypeFind</span></a> *find</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> probability</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *media_type</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *fieldname</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);</pre>
+<p>
+If a <a class="link" href="gstreamer-GstTypeFind.html#GstTypeFindFunction" title="GstTypeFindFunction ()"><span class="type">GstTypeFindFunction</span></a> calls this function it suggests the caps with the
+given probability. A <a class="link" href="gstreamer-GstTypeFind.html#GstTypeFindFunction" title="GstTypeFindFunction ()"><span class="type">GstTypeFindFunction</span></a> may supply different suggestions
+in one call. It is up to the caller of the <a class="link" href="gstreamer-GstTypeFind.html#GstTypeFindFunction" title="GstTypeFindFunction ()"><span class="type">GstTypeFindFunction</span></a> to interpret
+these values.
+</p>
+<p>
+This function is similar to <a class="link" href="gstreamer-GstTypeFind.html#gst-type-find-suggest" title="gst_type_find_suggest ()"><code class="function">gst_type_find_suggest()</code></a>, only that instead of
+passing a <a class="link" href="gstreamer-GstCaps.html#GstCaps" title="struct GstCaps"><span class="type">GstCaps</span></a> argument you can create the caps on the fly in the same
+way as you can with <a class="link" href="gstreamer-GstCaps.html#gst-caps-new-simple" title="gst_caps_new_simple ()"><code class="function">gst_caps_new_simple()</code></a>.
+</p>
+<p>
+Make sure you terminate the list of arguments with a NULL argument and that
+the values passed have the correct type (in terms of width in bytes when
+passed to the vararg function - this applies particularly to gdouble and
+guint64 arguments).
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>find</code></em> :</span></p></td>
+<td>The <a class="link" href="gstreamer-GstTypeFind.html#GstTypeFind" title="struct GstTypeFind"><span class="type">GstTypeFind</span></a> object the function was called with</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>probability</code></em> :</span></p></td>
+<td>The probability in percent that the suggestion is right</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>media_type</code></em> :</span></p></td>
+<td>the media type of the suggested caps</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fieldname</code></em> :</span></p></td>
+<td>first field of the suggested caps, or NULL</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>additional arguments to the suggested caps in the same format as the
+arguments passed to <a class="link" href="gstreamer-GstStructure.html#gst-structure-new" title="gst_structure_new ()"><code class="function">gst_structure_new()</code></a> (ie. triplets of field name,
+field GType and field value)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-type-find-get-length"></a><h3>gst_type_find_get_length ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint64</span>             gst_type_find_get_length            (<em class="parameter"><code><a class="link" href="gstreamer-GstTypeFind.html#GstTypeFind" title="struct GstTypeFind"><span class="type">GstTypeFind</span></a> *find</code></em>);</pre>
+<p>
+Get the length of the data stream.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>find</code></em> :</span></p></td>
+<td>The <a class="link" href="gstreamer-GstTypeFind.html#GstTypeFind" title="struct GstTypeFind"><span class="type">GstTypeFind</span></a> the function was called with</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The length of the data stream, or 0 if it is not available.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-type-find-register"></a><h3>gst_type_find_register ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_type_find_register              (<em class="parameter"><code><a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a> *plugin</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> rank</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstTypeFind.html#GstTypeFindFunction" title="GstTypeFindFunction ()"><span class="type">GstTypeFindFunction</span></a> func</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *extensions</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstCaps.html#GstCaps" title="struct GstCaps"><span class="type">GstCaps</span></a> *possible_caps</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> data_notify</code></em>);</pre>
+<p>
+Registers a new typefind function to be used for typefinding. After
+registering this function will be available for typefinding.
+This function is typically called during an element's plugin initialization.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>plugin</code></em> :</span></p></td>
+<td>A <a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a>, or NULL for a static typefind function</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>The name for registering</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>rank</code></em> :</span></p></td>
+<td>The rank (or importance) of this typefind function</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>func</code></em> :</span></p></td>
+<td>The <a class="link" href="gstreamer-GstTypeFind.html#GstTypeFindFunction" title="GstTypeFindFunction ()"><span class="type">GstTypeFindFunction</span></a> to use</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extensions</code></em> :</span></p></td>
+<td>Optional comma-separated list of extensions
+that could belong to this type. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>possible_caps</code></em> :</span></p></td>
+<td>Optionally the caps that could be returned when typefinding
+succeeds</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>Optional user data. This user data must be available until the plugin
+is unloaded.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data_notify</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> that will be called on <em class="parameter"><code>data</code></em> when the plugin
+is unloaded.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE on success, FALSE otherwise</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

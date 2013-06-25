@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>gsttagmux</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer Base Plugins 1.0 Library Reference Manual">
+<link rel="up" href="gstreamer-tag.html" title="Tag Support Library">
+<link rel="prev" href="gst-plugins-base-libs-gsttagdemux.html" title="gsttagdemux">
+<link rel="next" href="gst-plugins-base-libs-gsttaglanguagecodes.html" title="gsttaglanguagecodes">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gst-plugins-base-libs-gsttagdemux.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="gstreamer-tag.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer Base Plugins 1.0 Library Reference Manual</th>
+<td><a accesskey="n" href="gst-plugins-base-libs-gsttaglanguagecodes.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gst-plugins-base-libs-gsttagmux.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gst-plugins-base-libs-gsttagmux.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gst-plugins-base-libs-gsttagmux"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gst-plugins-base-libs-gsttagmux.top_of_page"></a>gsttagmux</span></h2>
+<p>gsttagmux — Base class for adding tags that are in one single chunk
+                    directly at the beginning or at the end of a file</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gst-plugins-base-libs-gsttagmux.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;gst/tag/gsttagmux.h&gt;
+
+struct              <a class="link" href="gst-plugins-base-libs-gsttagmux.html#GstTagMux" title="struct GstTagMux">GstTagMux</a>;
+struct              <a class="link" href="gst-plugins-base-libs-gsttagmux.html#GstTagMuxClass" title="struct GstTagMuxClass">GstTagMuxClass</a>;
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-libs-gsttagmux.description"></a><h2>Description</h2>
+<p>
+</p>
+<div class="refsect2">
+<a name="idp9069200"></a><h3>Deriving from GstTagMux</h3>
+<p>
+Provides a base class for adding tags at the beginning or end of a
+stream.
+</p>
+<p>
+Subclasses have to do the following things:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem"><p>
+ In their base init function, they must add pad templates for the sink
+ pad and the source pad to the element class, describing the media type
+ they accept and output in the caps of the pad template.
+ </p></li>
+<li class="listitem"><p>
+ In their class init function, they must override the
+ GST_TAG_MUX_CLASS(mux_klass)-&gt;render_start_tag and/or
+ GST_TAG_MUX_CLASS(mux_klass)-&gt;render_end_tag vfuncs and set up a render
+ function.
+ </p></li>
+</ul></div>
+<p>
+</p>
+</div>
+<p>
+</p>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-libs-gsttagmux.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstTagMux"></a><h3>struct GstTagMux</h3>
+<pre class="programlisting">struct GstTagMux {
+  GstElement    element;
+};
+</pre>
+<p>
+Opaque <a class="link" href="gst-plugins-base-libs-gsttagmux.html#GstTagMux" title="struct GstTagMux"><span class="type">GstTagMux</span></a> structure.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> <em class="structfield"><code><a name="GstTagMux.element"></a>element</code></em>;</span></p></td>
+<td>parent element</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstTagMuxClass"></a><h3>struct GstTagMuxClass</h3>
+<pre class="programlisting">struct GstTagMuxClass {
+  GstElementClass parent_class;
+
+  /* vfuncs */
+  GstBuffer  * (*render_start_tag) (GstTagMux * mux, const GstTagList * tag_list);
+  GstBuffer  * (*render_end_tag)   (GstTagMux * mux, const GstTagList * tag_list);
+};
+</pre>
+<p>
+The <a class="link" href="gst-plugins-base-libs-gsttagmux.html#GstTagMuxClass" title="struct GstTagMuxClass"><span class="type">GstTagMuxClass</span></a> structure. Subclasses need to override at least one
+of the two render vfuncs.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html#GstElementClass"><span class="type">GstElementClass</span></a> <em class="structfield"><code><a name="GstTagMuxClass.parent-class"></a>parent_class</code></em>;</span></p></td>
+<td>the parent class.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GstTagMuxClass.render-start-tag"></a>render_start_tag</code></em> ()</span></p></td>
+<td>create a tag buffer to add to the beginning of the
+input stream given a tag list, or NULL</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GstTagMuxClass.render-end-tag"></a>render_end_tag</code></em> ()</span></p></td>
+<td>create a tag buffer to add to the end of the
+input stream given a tag list, or NULL</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-libs-gsttagmux.see-also"></a><h2>See Also</h2>
+GstApeMux, GstId3Mux
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

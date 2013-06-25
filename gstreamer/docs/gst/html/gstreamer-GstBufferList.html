@@ -1,0 +1,495 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GstBufferList</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer 1.0 Core Reference Manual">
+<link rel="up" href="libgstreamer.html" title="GStreamer Core Library">
+<link rel="prev" href="gstreamer-GstBuffer.html" title="GstBuffer">
+<link rel="next" href="gstreamer-GstBufferPool.html" title="GstBufferPool">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gstreamer-GstBuffer.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="libgstreamer.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer 1.0 Core Reference Manual</th>
+<td><a accesskey="n" href="gstreamer-GstBufferPool.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gstreamer-GstBufferList.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gstreamer-GstBufferList.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gstreamer-GstBufferList"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gstreamer-GstBufferList.top_of_page"></a>GstBufferList</span></h2>
+<p>GstBufferList — Lists of buffers for data-passing</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gstreamer-GstBufferList.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;gst/gst.h&gt;
+
+                    <a class="link" href="gstreamer-GstBufferList.html#GstBufferList" title="GstBufferList">GstBufferList</a>;
+<a class="link" href="gstreamer-GstBufferList.html#GstBufferList" title="GstBufferList"><span class="returnvalue">GstBufferList</span></a> *     <a class="link" href="gstreamer-GstBufferList.html#gst-buffer-list-new" title="gst_buffer_list_new ()">gst_buffer_list_new</a>                 (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a class="link" href="gstreamer-GstBufferList.html#GstBufferList" title="GstBufferList"><span class="returnvalue">GstBufferList</span></a> *     <a class="link" href="gstreamer-GstBufferList.html#gst-buffer-list-new-sized" title="gst_buffer_list_new_sized ()">gst_buffer_list_new_sized</a>           (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> size</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               <a class="link" href="gstreamer-GstBufferList.html#gst-buffer-list-length" title="gst_buffer_list_length ()">gst_buffer_list_length</a>              (<em class="parameter"><code><a class="link" href="gstreamer-GstBufferList.html#GstBufferList" title="GstBufferList"><span class="type">GstBufferList</span></a> *list</code></em>);
+#define             <a class="link" href="gstreamer-GstBufferList.html#gst-buffer-list-add" title="gst_buffer_list_add()">gst_buffer_list_add</a>                 (l,
+                                                         b)
+<span class="returnvalue">void</span>                <a class="link" href="gstreamer-GstBufferList.html#gst-buffer-list-insert" title="gst_buffer_list_insert ()">gst_buffer_list_insert</a>              (<em class="parameter"><code><a class="link" href="gstreamer-GstBufferList.html#GstBufferList" title="GstBufferList"><span class="type">GstBufferList</span></a> *list</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> idx</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstBuffer.html#GstBuffer" title="struct GstBuffer"><span class="type">GstBuffer</span></a> *buffer</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gstreamer-GstBufferList.html#gst-buffer-list-remove" title="gst_buffer_list_remove ()">gst_buffer_list_remove</a>              (<em class="parameter"><code><a class="link" href="gstreamer-GstBufferList.html#GstBufferList" title="GstBufferList"><span class="type">GstBufferList</span></a> *list</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> idx</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> length</code></em>);
+<a class="link" href="gstreamer-GstBufferList.html#GstBufferList" title="GstBufferList"><span class="returnvalue">GstBufferList</span></a> *     <a class="link" href="gstreamer-GstBufferList.html#gst-buffer-list-ref" title="gst_buffer_list_ref ()">gst_buffer_list_ref</a>                 (<em class="parameter"><code><a class="link" href="gstreamer-GstBufferList.html#GstBufferList" title="GstBufferList"><span class="type">GstBufferList</span></a> *list</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gstreamer-GstBufferList.html#gst-buffer-list-unref" title="gst_buffer_list_unref ()">gst_buffer_list_unref</a>               (<em class="parameter"><code><a class="link" href="gstreamer-GstBufferList.html#GstBufferList" title="GstBufferList"><span class="type">GstBufferList</span></a> *list</code></em>);
+<a class="link" href="gstreamer-GstBufferList.html#GstBufferList" title="GstBufferList"><span class="returnvalue">GstBufferList</span></a> *     <a class="link" href="gstreamer-GstBufferList.html#gst-buffer-list-copy" title="gst_buffer_list_copy ()">gst_buffer_list_copy</a>                (<em class="parameter"><code>const <a class="link" href="gstreamer-GstBufferList.html#GstBufferList" title="GstBufferList"><span class="type">GstBufferList</span></a> *list</code></em>);
+#define             <a class="link" href="gstreamer-GstBufferList.html#gst-buffer-list-is-writable" title="gst_buffer_list_is_writable()">gst_buffer_list_is_writable</a>         (list)
+#define             <a class="link" href="gstreamer-GstBufferList.html#gst-buffer-list-make-writable" title="gst_buffer_list_make_writable()">gst_buffer_list_make_writable</a>       (list)
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (<a class="link" href="gstreamer-GstBufferList.html#GstBufferListFunc" title="GstBufferListFunc ()">*GstBufferListFunc</a>)                (<em class="parameter"><code><a class="link" href="gstreamer-GstBuffer.html#GstBuffer" title="struct GstBuffer"><span class="type">GstBuffer</span></a> **buffer</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> idx</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="gstreamer-GstBufferList.html#gst-buffer-list-foreach" title="gst_buffer_list_foreach ()">gst_buffer_list_foreach</a>             (<em class="parameter"><code><a class="link" href="gstreamer-GstBufferList.html#GstBufferList" title="GstBufferList"><span class="type">GstBufferList</span></a> *list</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstBufferList.html#GstBufferListFunc" title="GstBufferListFunc ()"><span class="type">GstBufferListFunc</span></a> func</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<a class="link" href="gstreamer-GstBuffer.html#GstBuffer" title="struct GstBuffer"><span class="returnvalue">GstBuffer</span></a> *         <a class="link" href="gstreamer-GstBufferList.html#gst-buffer-list-get" title="gst_buffer_list_get ()">gst_buffer_list_get</a>                 (<em class="parameter"><code><a class="link" href="gstreamer-GstBufferList.html#GstBufferList" title="GstBufferList"><span class="type">GstBufferList</span></a> *list</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> idx</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="gstreamer-GstBufferList.description"></a><h2>Description</h2>
+<p>
+Buffer lists are an object containing a list of buffers.
+</p>
+<p>
+Buffer lists are created with <a class="link" href="gstreamer-GstBufferList.html#gst-buffer-list-new" title="gst_buffer_list_new ()"><code class="function">gst_buffer_list_new()</code></a> and filled with data
+using a <a class="link" href="gstreamer-GstBufferList.html#gst-buffer-list-insert" title="gst_buffer_list_insert ()"><code class="function">gst_buffer_list_insert()</code></a>.
+</p>
+<p>
+Buffer lists can be pushed on a srcpad with <a class="link" href="GstPad.html#gst-pad-push-list" title="gst_pad_push_list ()"><code class="function">gst_pad_push_list()</code></a>. This is
+interesting when multiple buffers need to be pushed in one go because it
+can reduce the amount of overhead for pushing each buffer individually.
+</p>
+<p>
+Last reviewed on 2012-03-28 (0.11.3)
+</p>
+</div>
+<div class="refsect1">
+<a name="gstreamer-GstBufferList.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstBufferList"></a><h3>GstBufferList</h3>
+<pre class="programlisting">typedef struct _GstBufferList GstBufferList;</pre>
+<p>
+Opaque list of grouped buffers.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-buffer-list-new"></a><h3>gst_buffer_list_new ()</h3>
+<pre class="programlisting"><a class="link" href="gstreamer-GstBufferList.html#GstBufferList" title="GstBufferList"><span class="returnvalue">GstBufferList</span></a> *     gst_buffer_list_new                 (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Creates a new, empty <a class="link" href="gstreamer-GstBufferList.html#GstBufferList" title="GstBufferList"><span class="type">GstBufferList</span></a>. The caller is responsible for unreffing
+the returned <a class="link" href="gstreamer-GstBufferList.html#GstBufferList" title="GstBufferList"><span class="type">GstBufferList</span></a>.
+</p>
+<p>
+Free-function: gst_buffer_list_unref
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the new <a class="link" href="gstreamer-GstBufferList.html#GstBufferList" title="GstBufferList"><span class="type">GstBufferList</span></a>. <a class="link" href="gstreamer-GstBufferList.html#gst-buffer-list-unref" title="gst_buffer_list_unref ()"><code class="function">gst_buffer_list_unref()</code></a>
+after usage. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-buffer-list-new-sized"></a><h3>gst_buffer_list_new_sized ()</h3>
+<pre class="programlisting"><a class="link" href="gstreamer-GstBufferList.html#GstBufferList" title="GstBufferList"><span class="returnvalue">GstBufferList</span></a> *     gst_buffer_list_new_sized           (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> size</code></em>);</pre>
+<p>
+Creates a new, empty <a class="link" href="gstreamer-GstBufferList.html#GstBufferList" title="GstBufferList"><span class="type">GstBufferList</span></a>. The caller is responsible for unreffing
+the returned <a class="link" href="gstreamer-GstBufferList.html#GstBufferList" title="GstBufferList"><span class="type">GstBufferList</span></a>. The list will have <em class="parameter"><code>size</code></em> space preallocated so
+that memory reallocations can be avoided.
+</p>
+<p>
+Free-function: gst_buffer_list_unref
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>size</code></em> :</span></p></td>
+<td>an initial reserved size</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the new <a class="link" href="gstreamer-GstBufferList.html#GstBufferList" title="GstBufferList"><span class="type">GstBufferList</span></a>. <a class="link" href="gstreamer-GstBufferList.html#gst-buffer-list-unref" title="gst_buffer_list_unref ()"><code class="function">gst_buffer_list_unref()</code></a>
+after usage. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-buffer-list-length"></a><h3>gst_buffer_list_length ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               gst_buffer_list_length              (<em class="parameter"><code><a class="link" href="gstreamer-GstBufferList.html#GstBufferList" title="GstBufferList"><span class="type">GstBufferList</span></a> *list</code></em>);</pre>
+<p>
+Returns the number of buffers in <em class="parameter"><code>list</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>list</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstBufferList.html#GstBufferList" title="GstBufferList"><span class="type">GstBufferList</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the number of buffers in the buffer list</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-buffer-list-add"></a><h3>gst_buffer_list_add()</h3>
+<pre class="programlisting">#define gst_buffer_list_add(l,b) gst_buffer_list_insert((l),-1,(b));
+</pre>
+<p>
+Append <em class="parameter"><code>b</code></em> at the end of <em class="parameter"><code>l</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>l</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstBufferList.html#GstBufferList" title="GstBufferList"><span class="type">GstBufferList</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstBuffer.html#GstBuffer" title="struct GstBuffer"><span class="type">GstBuffer</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-buffer-list-insert"></a><h3>gst_buffer_list_insert ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_buffer_list_insert              (<em class="parameter"><code><a class="link" href="gstreamer-GstBufferList.html#GstBufferList" title="GstBufferList"><span class="type">GstBufferList</span></a> *list</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> idx</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstBuffer.html#GstBuffer" title="struct GstBuffer"><span class="type">GstBuffer</span></a> *buffer</code></em>);</pre>
+<p>
+Insert <em class="parameter"><code>buffer</code></em> at <em class="parameter"><code>idx</code></em> in <em class="parameter"><code>list</code></em>. Other buffers are moved to make room for
+this new buffer.
+</p>
+<p>
+A -1 value for <em class="parameter"><code>idx</code></em> will append the buffer at the end.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>list</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstBufferList.html#GstBufferList" title="GstBufferList"><span class="type">GstBufferList</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>idx</code></em> :</span></p></td>
+<td>the index</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>buffer</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstBuffer.html#GstBuffer" title="struct GstBuffer"><span class="type">GstBuffer</span></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-buffer-list-remove"></a><h3>gst_buffer_list_remove ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_buffer_list_remove              (<em class="parameter"><code><a class="link" href="gstreamer-GstBufferList.html#GstBufferList" title="GstBufferList"><span class="type">GstBufferList</span></a> *list</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> idx</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> length</code></em>);</pre>
+<p>
+Remove <em class="parameter"><code>length</code></em> buffers starting from <em class="parameter"><code>idx</code></em> in <em class="parameter"><code>list</code></em>. The following buffers are
+moved to close the gap.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>list</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstBufferList.html#GstBufferList" title="GstBufferList"><span class="type">GstBufferList</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>idx</code></em> :</span></p></td>
+<td>the index</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>length</code></em> :</span></p></td>
+<td>the amount to remove</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-buffer-list-ref"></a><h3>gst_buffer_list_ref ()</h3>
+<pre class="programlisting"><a class="link" href="gstreamer-GstBufferList.html#GstBufferList" title="GstBufferList"><span class="returnvalue">GstBufferList</span></a> *     gst_buffer_list_ref                 (<em class="parameter"><code><a class="link" href="gstreamer-GstBufferList.html#GstBufferList" title="GstBufferList"><span class="type">GstBufferList</span></a> *list</code></em>);</pre>
+<p>
+Increases the refcount of the given buffer list by one.
+</p>
+<p>
+Note that the refcount affects the writeability of <em class="parameter"><code>list</code></em> and its data, see
+<a class="link" href="gstreamer-GstBufferList.html#gst-buffer-list-make-writable" title="gst_buffer_list_make_writable()"><code class="function">gst_buffer_list_make_writable()</code></a>. It is important to note that keeping
+additional references to GstBufferList instances can potentially increase
+the number of memcpy operations in a pipeline.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>list</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstBufferList.html#GstBufferList" title="GstBufferList"><span class="type">GstBufferList</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<em class="parameter"><code>list</code></em>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-buffer-list-unref"></a><h3>gst_buffer_list_unref ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_buffer_list_unref               (<em class="parameter"><code><a class="link" href="gstreamer-GstBufferList.html#GstBufferList" title="GstBufferList"><span class="type">GstBufferList</span></a> *list</code></em>);</pre>
+<p>
+Decreases the refcount of the buffer list. If the refcount reaches 0, the
+buffer list will be freed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>list</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstBufferList.html#GstBufferList" title="GstBufferList"><span class="type">GstBufferList</span></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-buffer-list-copy"></a><h3>gst_buffer_list_copy ()</h3>
+<pre class="programlisting"><a class="link" href="gstreamer-GstBufferList.html#GstBufferList" title="GstBufferList"><span class="returnvalue">GstBufferList</span></a> *     gst_buffer_list_copy                (<em class="parameter"><code>const <a class="link" href="gstreamer-GstBufferList.html#GstBufferList" title="GstBufferList"><span class="type">GstBufferList</span></a> *list</code></em>);</pre>
+<p>
+Create a shallow copy of the given buffer list. This will make a newly
+allocated copy of the source list with copies of buffer pointers. The
+refcount of buffers pointed to will be increased by one.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>list</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstBufferList.html#GstBufferList" title="GstBufferList"><span class="type">GstBufferList</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new copy of <em class="parameter"><code>list</code></em>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-buffer-list-is-writable"></a><h3>gst_buffer_list_is_writable()</h3>
+<pre class="programlisting">#define gst_buffer_list_is_writable(list) gst_mini_object_is_writable (GST_MINI_OBJECT_CAST (list))
+</pre>
+<p>
+Tests if you can safely add buffers and groups into a buffer list.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>list</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstBufferList.html#GstBufferList" title="GstBufferList"><span class="type">GstBufferList</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-buffer-list-make-writable"></a><h3>gst_buffer_list_make_writable()</h3>
+<pre class="programlisting">#define gst_buffer_list_make_writable(list) GST_BUFFER_LIST_CAST (gst_mini_object_make_writable (GST_MINI_OBJECT_CAST (list)))
+</pre>
+<p>
+Makes a writable buffer list from the given buffer list. If the source buffer
+list is already writable, this will simply return the same buffer list. A
+copy will otherwise be made using <a class="link" href="gstreamer-GstBufferList.html#gst-buffer-list-copy" title="gst_buffer_list_copy ()"><code class="function">gst_buffer_list_copy()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>list</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstBufferList.html#GstBufferList" title="GstBufferList"><span class="type">GstBufferList</span></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a writable list, which may or may not be the
+same as <em class="parameter"><code>list</code></em>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstBufferListFunc"></a><h3>GstBufferListFunc ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (*GstBufferListFunc)                (<em class="parameter"><code><a class="link" href="gstreamer-GstBuffer.html#GstBuffer" title="struct GstBuffer"><span class="type">GstBuffer</span></a> **buffer</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> idx</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+A function that will be called from <a class="link" href="gstreamer-GstBufferList.html#gst-buffer-list-foreach" title="gst_buffer_list_foreach ()"><code class="function">gst_buffer_list_foreach()</code></a>. The <em class="parameter"><code>buffer</code></em>
+field will point to a the reference of the buffer at <em class="parameter"><code>idx</code></em>.
+</p>
+<p>
+When this function returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, the next buffer will be
+returned. When <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> is returned, <a class="link" href="gstreamer-GstBufferList.html#gst-buffer-list-foreach" title="gst_buffer_list_foreach ()"><code class="function">gst_buffer_list_foreach()</code></a> will return.
+</p>
+<p>
+When <em class="parameter"><code>buffer</code></em> is set to NULL, the item will be removed from the bufferlist.
+When <em class="parameter"><code>buffer</code></em> has been made writable, the new buffer reference can be assigned
+to <em class="parameter"><code>buffer</code></em>. This function is responsible for unreffing the old buffer when
+removing or modifying.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>buffer</code></em> :</span></p></td>
+<td>pointer the buffer</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>idx</code></em> :</span></p></td>
+<td>the index of <em class="parameter"><code>buffer</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data passed to <a class="link" href="gstreamer-GstBufferList.html#gst-buffer-list-foreach" title="gst_buffer_list_foreach ()"><code class="function">gst_buffer_list_foreach()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> when <a class="link" href="gstreamer-GstBufferList.html#gst-buffer-list-foreach" title="gst_buffer_list_foreach ()"><code class="function">gst_buffer_list_foreach()</code></a> should stop</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-buffer-list-foreach"></a><h3>gst_buffer_list_foreach ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_buffer_list_foreach             (<em class="parameter"><code><a class="link" href="gstreamer-GstBufferList.html#GstBufferList" title="GstBufferList"><span class="type">GstBufferList</span></a> *list</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstBufferList.html#GstBufferListFunc" title="GstBufferListFunc ()"><span class="type">GstBufferListFunc</span></a> func</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+Call <em class="parameter"><code>func</code></em> with <em class="parameter"><code>data</code></em> for each buffer in <em class="parameter"><code>list</code></em>.
+</p>
+<p>
+<em class="parameter"><code>func</code></em> can modify the passed buffer pointer or its contents. The return value
+of <em class="parameter"><code>func</code></em> define if this function returns or if the remaining buffers in
+the list should be skipped.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>list</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstBufferList.html#GstBufferList" title="GstBufferList"><span class="type">GstBufferList</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>func</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstBufferList.html#GstBufferListFunc" title="GstBufferListFunc ()"><span class="type">GstBufferListFunc</span></a> to call. <span class="annotation">[<acronym title="The callback is valid only during the call to the method."><span class="acronym">scope call</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data passed to <em class="parameter"><code>func</code></em>. <span class="annotation">[<acronym title="This parameter is a 'user_data', for callbacks; many bindings can pass NULL here."><span class="acronym">closure</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> when <em class="parameter"><code>func</code></em> returned <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> for each buffer in <em class="parameter"><code>list</code></em> or when
+<em class="parameter"><code>list</code></em> is empty.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-buffer-list-get"></a><h3>gst_buffer_list_get ()</h3>
+<pre class="programlisting"><a class="link" href="gstreamer-GstBuffer.html#GstBuffer" title="struct GstBuffer"><span class="returnvalue">GstBuffer</span></a> *         gst_buffer_list_get                 (<em class="parameter"><code><a class="link" href="gstreamer-GstBufferList.html#GstBufferList" title="GstBufferList"><span class="type">GstBufferList</span></a> *list</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> idx</code></em>);</pre>
+<p>
+Get the buffer at <em class="parameter"><code>idx</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>list</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstBufferList.html#GstBufferList" title="GstBufferList"><span class="type">GstBufferList</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>idx</code></em> :</span></p></td>
+<td>the index</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the buffer at <em class="parameter"><code>idx</code></em> in <em class="parameter"><code>group</code></em> or NULL when there
+is no buffer. The buffer remains valid as long as <em class="parameter"><code>list</code></em> is valid. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="gstreamer-GstBufferList.see-also"></a><h2>See Also</h2>
+<a class="link" href="GstPad.html" title="GstPad"><span class="type">GstPad</span></a>, <a class="link" href="gstreamer-GstMiniObject.html#GstMiniObject" title="struct GstMiniObject"><span class="type">GstMiniObject</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

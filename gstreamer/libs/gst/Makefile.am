@@ -1,0 +1,22 @@
+if HAVE_CHECK
+SUBDIRS_CHECK = check
+else
+SUBDIRS_CHECK =
+endif
+
+if GST_DISABLE_REGISTRY
+SUBDIRS_HELPERS =
+else
+SUBDIRS_HELPERS = helpers
+endif
+
+SUBDIRS_ALWAYS = base controller net
+
+SUBDIRS = $(SUBDIRS_ALWAYS) $(SUBDIRS_CHECK) $(SUBDIRS_HELPERS)
+DIST_SUBDIRS = $(SUBDIRS_ALWAYS) check helpers
+
+Android.mk: Makefile.am
+	echo $(PWD)
+	androgenizer -:PROJECT gstreamer \
+	 -:SUBDIR $(patsubst %, libs/gst/%, $(SUBDIRS)) \
+	> $@

@@ -1,0 +1,652 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>decodebin</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer Base Plugins 1.0 Plugins Reference Manual">
+<link rel="up" href="ch01.html" title="gst-plugins-base Elements">
+<link rel="prev" href="gst-plugins-base-plugins-clockoverlay.html" title="clockoverlay">
+<link rel="next" href="gst-plugins-base-plugins-encodebin.html" title="encodebin">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gst-plugins-base-plugins-clockoverlay.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer Base Plugins 1.0 Plugins Reference Manual</th>
+<td><a accesskey="n" href="gst-plugins-base-plugins-encodebin.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gst-plugins-base-plugins-decodebin.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gst-plugins-base-plugins-decodebin.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#gst-plugins-base-plugins-decodebin.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#gst-plugins-base-plugins-decodebin.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                   | 
+                  <a href="#gst-plugins-base-plugins-decodebin.properties" class="shortcut">Properties</a>
+                   | 
+                  <a href="#gst-plugins-base-plugins-decodebin.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gst-plugins-base-plugins-decodebin"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gst-plugins-base-plugins-decodebin.top_of_page"></a>decodebin</span></h2>
+<p>decodebin — Autoplug and decode to raw media</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gst-plugins-base-plugins-decodebin.synopsis"></a><h2>Synopsis</h2>
+<a name="GstDecodeBin"></a><pre class="synopsis">struct              <a class="link" href="gst-plugins-base-plugins-decodebin.html#GstDecodeBin-struct" title="struct GstDecodeBin">GstDecodeBin</a>;
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-plugins-decodebin.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstObject.html">GstObject</a>
+               +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html">GstElement</a>
+                     +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstBin.html">GstBin</a>
+                           +----GstDecodeBin
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-plugins-decodebin.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+GstDecodeBin implements
+ <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstChildProxy.html">GstChildProxy</a>.</p>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-plugins-decodebin.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="gst-plugins-base-plugins-decodebin.html#GstDecodeBin--threaded" title='The "threaded" property'>threaded</a>"                 <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write
+  "<a class="link" href="gst-plugins-base-plugins-decodebin.html#GstDecodeBin--sink-caps" title='The "sink-caps" property'>sink-caps</a>"                <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="type">GstCaps</span></a>*              : Read / Write
+  "<a class="link" href="gst-plugins-base-plugins-decodebin.html#GstDecodeBin--caps" title='The "caps" property'>caps</a>"                     <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="type">GstCaps</span></a>*              : Read / Write
+  "<a class="link" href="gst-plugins-base-plugins-decodebin.html#GstDecodeBin--expose-all-streams" title='The "expose-all-streams" property'>expose-all-streams</a>"       <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write
+  "<a class="link" href="gst-plugins-base-plugins-decodebin.html#GstDecodeBin--high-percent" title='The "high-percent" property'>high-percent</a>"             <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                  : Read / Write
+  "<a class="link" href="gst-plugins-base-plugins-decodebin.html#GstDecodeBin--low-percent" title='The "low-percent" property'>low-percent</a>"              <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                  : Read / Write
+  "<a class="link" href="gst-plugins-base-plugins-decodebin.html#GstDecodeBin--max-size-buffers" title='The "max-size-buffers" property'>max-size-buffers</a>"         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write
+  "<a class="link" href="gst-plugins-base-plugins-decodebin.html#GstDecodeBin--max-size-bytes" title='The "max-size-bytes" property'>max-size-bytes</a>"           <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write
+  "<a class="link" href="gst-plugins-base-plugins-decodebin.html#GstDecodeBin--max-size-time" title='The "max-size-time" property'>max-size-time</a>"            <span class="type">guint64</span>               : Read / Write
+  "<a class="link" href="gst-plugins-base-plugins-decodebin.html#GstDecodeBin--post-stream-topology" title='The "post-stream-topology" property'>post-stream-topology</a>"     <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write
+  "<a class="link" href="gst-plugins-base-plugins-decodebin.html#GstDecodeBin--subtitle-encoding" title='The "subtitle-encoding" property'>subtitle-encoding</a>"        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write
+  "<a class="link" href="gst-plugins-base-plugins-decodebin.html#GstDecodeBin--use-buffering" title='The "use-buffering" property'>use-buffering</a>"            <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write
+  "<a class="link" href="gst-plugins-base-plugins-decodebin.html#GstDecodeBin--connection-speed" title='The "connection-speed" property'>connection-speed</a>"         <span class="type">guint64</span>               : Read / Write
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-plugins-decodebin.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="gst-plugins-base-plugins-decodebin.html#GstDecodeBin-new-decoded-pad" title='The "new-decoded-pad" signal'>new-decoded-pad</a>"                                : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a>
+  "<a class="link" href="gst-plugins-base-plugins-decodebin.html#GstDecodeBin-removed-decoded-pad" title='The "removed-decoded-pad" signal'>removed-decoded-pad</a>"                            : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a>
+  "<a class="link" href="gst-plugins-base-plugins-decodebin.html#GstDecodeBin-unknown-type" title='The "unknown-type" signal'>unknown-type</a>"                                   : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a>
+  "<a class="link" href="gst-plugins-base-plugins-decodebin.html#GstDecodeBin-autoplug-continue" title='The "autoplug-continue" signal'>autoplug-continue</a>"                              : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a>
+  "<a class="link" href="gst-plugins-base-plugins-decodebin.html#GstDecodeBin-autoplug-factories" title='The "autoplug-factories" signal'>autoplug-factories</a>"                             : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a>
+  "<a class="link" href="gst-plugins-base-plugins-decodebin.html#GstDecodeBin-autoplug-select" title='The "autoplug-select" signal'>autoplug-select</a>"                                : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a>
+  "<a class="link" href="gst-plugins-base-plugins-decodebin.html#GstDecodeBin-autoplug-sort" title='The "autoplug-sort" signal'>autoplug-sort</a>"                                  : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a>
+  "<a class="link" href="gst-plugins-base-plugins-decodebin.html#GstDecodeBin-drained" title='The "drained" signal'>drained</a>"                                        : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-plugins-decodebin.description"></a><h2>Description</h2>
+<p>
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstBin.html"><span class="type">GstBin</span></a> that auto-magically constructs a decoding pipeline using available
+decoders and demuxers via auto-plugging.
+</p>
+<p>
+decodebin is considered stable now and replaces the old <span class="type">decodebin</span> element.
+<span class="type">uridecodebin</span> uses decodebin internally and is often more convenient to
+use, as it creates a suitable source element as well.
+</p>
+<div class="refsynopsisdiv">
+<h2>Synopsis</h2>
+<div class="refsect2">
+<a name="idp10814816"></a><h3>Element Information</h3>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">plugin</span></p></td>
+<td>
+            <a class="link" href="gst-plugins-base-plugins-plugin-playback.html#plugin-playback">playback</a>
+          </td>
+</tr>
+<tr>
+<td><p><span class="term">author</span></p></td>
+<td>Edward Hervey &lt;edward.hervey@collabora.co.uk&gt;, Sebastian Dröge &lt;sebastian.droege@collabora.co.uk&gt;</td>
+</tr>
+<tr>
+<td><p><span class="term">class</span></p></td>
+<td>Generic/Bin/Decoder</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="idp10822336"></a><h3>Element Pads</h3>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">name</span></p></td>
+<td>sink</td>
+</tr>
+<tr>
+<td><p><span class="term">direction</span></p></td>
+<td>sink</td>
+</tr>
+<tr>
+<td><p><span class="term">presence</span></p></td>
+<td>always</td>
+</tr>
+<tr>
+<td><p><span class="term">details</span></p></td>
+<td>ANY</td>
+</tr>
+</tbody>
+</table></div>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">name</span></p></td>
+<td>src_%u</td>
+</tr>
+<tr>
+<td><p><span class="term">direction</span></p></td>
+<td>source</td>
+</tr>
+<tr>
+<td><p><span class="term">presence</span></p></td>
+<td>sometimes</td>
+</tr>
+<tr>
+<td><p><span class="term">details</span></p></td>
+<td>ANY</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<p>
+</p>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-plugins-decodebin.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstDecodeBin-struct"></a><h3>struct GstDecodeBin</h3>
+<pre class="programlisting">struct GstDecodeBin;</pre>
+<p>
+The opaque <a class="link" href="gst-plugins-base-plugins-decodebin.html#GstDecodeBin"><span class="type">GstDecodeBin</span></a> data structure
+</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-plugins-decodebin.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GstDecodeBin--threaded"></a><h3>The <code class="literal">"threaded"</code> property</h3>
+<pre class="programlisting">  "threaded"                 <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write</pre>
+<p>Use threads.</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstDecodeBin--sink-caps"></a><h3>The <code class="literal">"sink-caps"</code> property</h3>
+<pre class="programlisting">  "sink-caps"                <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="type">GstCaps</span></a>*              : Read / Write</pre>
+<p>The caps of the input data. (NULL = use typefind element).</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstDecodeBin--caps"></a><h3>The <code class="literal">"caps"</code> property</h3>
+<pre class="programlisting">  "caps"                     <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="type">GstCaps</span></a>*              : Read / Write</pre>
+<p>The caps on which to stop decoding.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstDecodeBin--expose-all-streams"></a><h3>The <code class="literal">"expose-all-streams"</code> property</h3>
+<pre class="programlisting">  "expose-all-streams"       <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write</pre>
+<p>Expose all streams, including those of unknown type or that don't match the 'caps' property.</p>
+<p>Default value: TRUE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstDecodeBin--high-percent"></a><h3>The <code class="literal">"high-percent"</code> property</h3>
+<pre class="programlisting">  "high-percent"             <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                  : Read / Write</pre>
+<p>
+High threshold percent for buffering to finish.
+</p>
+<p>Allowed values: [0,100]</p>
+<p>Default value: 99</p>
+<p class="since">Since 0.10.26</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstDecodeBin--low-percent"></a><h3>The <code class="literal">"low-percent"</code> property</h3>
+<pre class="programlisting">  "low-percent"              <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                  : Read / Write</pre>
+<p>
+Low threshold percent for buffering to start.
+</p>
+<p>Allowed values: [0,100]</p>
+<p>Default value: 10</p>
+<p class="since">Since 0.10.26</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstDecodeBin--max-size-buffers"></a><h3>The <code class="literal">"max-size-buffers"</code> property</h3>
+<pre class="programlisting">  "max-size-buffers"         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write</pre>
+<p>
+Max amount of buffers in the queue (0=automatic).
+</p>
+<p>Default value: 0</p>
+<p class="since">Since 0.10.26</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstDecodeBin--max-size-bytes"></a><h3>The <code class="literal">"max-size-bytes"</code> property</h3>
+<pre class="programlisting">  "max-size-bytes"           <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write</pre>
+<p>
+Max amount of bytes in the queue (0=automatic).
+</p>
+<p>Default value: 0</p>
+<p class="since">Since 0.10.26</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstDecodeBin--max-size-time"></a><h3>The <code class="literal">"max-size-time"</code> property</h3>
+<pre class="programlisting">  "max-size-time"            <span class="type">guint64</span>               : Read / Write</pre>
+<p>
+Max amount of time in the queue (in ns, 0=automatic).
+</p>
+<p>Default value: 0</p>
+<p class="since">Since 0.10.26</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstDecodeBin--post-stream-topology"></a><h3>The <code class="literal">"post-stream-topology"</code> property</h3>
+<pre class="programlisting">  "post-stream-topology"     <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write</pre>
+<p>Post stream-topology messages.</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstDecodeBin--subtitle-encoding"></a><h3>The <code class="literal">"subtitle-encoding"</code> property</h3>
+<pre class="programlisting">  "subtitle-encoding"        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write</pre>
+<p>Encoding to assume if input subtitles are not in UTF-8 encoding. If not set, the GST_SUBTITLE_ENCODING environment variable will be checked for an encoding to use. If that is not set either, ISO-8859-15 will be assumed.</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstDecodeBin--use-buffering"></a><h3>The <code class="literal">"use-buffering"</code> property</h3>
+<pre class="programlisting">  "use-buffering"            <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write</pre>
+<p>Emit GST_MESSAGE_BUFFERING based on low-/high-percent thresholds.</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstDecodeBin--connection-speed"></a><h3>The <code class="literal">"connection-speed"</code> property</h3>
+<pre class="programlisting">  "connection-speed"         <span class="type">guint64</span>               : Read / Write</pre>
+<p>Network connection speed in kbps (0 = unknown).</p>
+<p>Allowed values: &lt;= 18446744073709551</p>
+<p>Default value: 0</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-plugins-decodebin.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="GstDecodeBin-new-decoded-pad"></a><h3>The <code class="literal">"new-decoded-pad"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="gst-plugins-base-plugins-decodebin.html#GstDecodeBin"><span class="type">GstDecodeBin</span></a> *gstdecodebin,
+                                                        <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPad.html"><span class="type">GstPad</span></a>       *arg1,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>      arg2,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data)         : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a></pre>
+<p>
+</p>
+@:
+@:
+@:</div>
+<hr>
+<div class="refsect2">
+<a name="GstDecodeBin-removed-decoded-pad"></a><h3>The <code class="literal">"removed-decoded-pad"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="gst-plugins-base-plugins-decodebin.html#GstDecodeBin"><span class="type">GstDecodeBin</span></a> *gstdecodebin,
+                                                        <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPad.html"><span class="type">GstPad</span></a>       *arg1,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data)         : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a></pre>
+<p>
+</p>
+@:
+@:</div>
+<hr>
+<div class="refsect2">
+<a name="GstDecodeBin-unknown-type"></a><h3>The <code class="literal">"unknown-type"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="gst-plugins-base-plugins-decodebin.html#GstDecodeBin"><span class="type">GstDecodeBin</span></a> *bin,
+                                                        <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPad.html"><span class="type">GstPad</span></a>       *pad,
+                                                        <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="type">GstCaps</span></a>      *caps,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a></pre>
+<p>
+This signal is emitted when a pad for which there is no further possible
+decoding is added to the decodebin.
+</p>
+<p>
+</p>
+@:
+@:
+@:<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>bin</code></em> :</span></p></td>
+<td>The decodebin.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pad</code></em> :</span></p></td>
+<td>The new pad containing caps that cannot be resolved to a 'final'
+stream type.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>caps</code></em> :</span></p></td>
+<td>The <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="type">GstCaps</span></a> of the pad that cannot be resolved.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstDecodeBin-autoplug-continue"></a><h3>The <code class="literal">"autoplug-continue"</code> signal</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            user_function                      (<a class="link" href="gst-plugins-base-plugins-decodebin.html#GstDecodeBin"><span class="type">GstDecodeBin</span></a> *bin,
+                                                        <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPad.html"><span class="type">GstPad</span></a>       *pad,
+                                                        <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="type">GstCaps</span></a>      *caps,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a></pre>
+<p>
+This signal is emitted whenever decodebin finds a new stream. It is
+emitted before looking for any elements that can handle that stream.
+</p>
+<p>
+</p>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Note</h3>
+  Invocation of signal handlers stops after the first signal handler
+returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><span class="type">FALSE</span></a>. Signal handlers are invoked in the order they were
+  connected in.
+</div>
+<p>
+</p>
+<p>
+</p>
+@:
+@:
+@:<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>bin</code></em> :</span></p></td>
+<td>The decodebin.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pad</code></em> :</span></p></td>
+<td>The <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPad.html"><span class="type">GstPad</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>caps</code></em> :</span></p></td>
+<td>The <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="type">GstCaps</span></a> found.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><span class="type">TRUE</span></a> if you wish decodebin to look for elements that can
+handle the given <em class="parameter"><code>caps</code></em>. If <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><span class="type">FALSE</span></a>, those caps will be considered as
+final and the pad will be exposed as such (see 'pad-added' signal of
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a>).</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstDecodeBin-autoplug-factories"></a><h3>The <code class="literal">"autoplug-factories"</code> signal</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Value-arrays.html#GValueArray"><span class="returnvalue">GValueArray</span></a>*        user_function                      (<a class="link" href="gst-plugins-base-plugins-decodebin.html#GstDecodeBin"><span class="type">GstDecodeBin</span></a> *bin,
+                                                        <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPad.html"><span class="type">GstPad</span></a>       *pad,
+                                                        <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="type">GstCaps</span></a>      *caps,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a></pre>
+<p>
+This function is emited when an array of possible factories for <em class="parameter"><code>caps</code></em> on
+<em class="parameter"><code>pad</code></em> is needed. Decodebin will by default return an array with all
+compatible factories, sorted by rank.
+</p>
+<p>
+If this function returns NULL, <em class="parameter"><code>pad</code></em> will be exposed as a final caps.
+</p>
+<p>
+If this function returns an empty array, the pad will be considered as
+having an unhandled type media type.
+</p>
+<p>
+</p>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Note</h3>
+  Only the signal handler that is connected first will ever by invoked.
+  Don't connect signal handlers with the <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-CONNECT-AFTER:CAPS"><span class="type">G_CONNECT_AFTER</span></a> flag to this
+  signal, they will never be invoked!
+</div>
+<p>
+</p>
+<p>
+</p>
+@:
+@:
+@:<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>bin</code></em> :</span></p></td>
+<td>The decodebin.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pad</code></em> :</span></p></td>
+<td>The <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPad.html"><span class="type">GstPad</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>caps</code></em> :</span></p></td>
+<td>The <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="type">GstCaps</span></a> found.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Value-arrays.html#GValueArray"><span class="type">GValueArray</span></a>* with a list of factories to try. The factories are
+by default tried in the returned order or based on the index returned by
+"autoplug-select".</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstDecodeBin-autoplug-select"></a><h3>The <code class="literal">"autoplug-select"</code> signal</h3>
+<pre class="programlisting"><a class="link" href="gst-plugins-base-plugins-uridecodebin.html#GstAutoplugSelectResult" title="enum GstAutoplugSelectResult"><span class="returnvalue">GstAutoplugSelectResult</span></a>user_function                      (<a class="link" href="gst-plugins-base-plugins-decodebin.html#GstDecodeBin"><span class="type">GstDecodeBin</span></a>      *bin,
+                                                        <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPad.html"><span class="type">GstPad</span></a>            *pad,
+                                                        <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="type">GstCaps</span></a>           *caps,
+                                                        <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElementFactory.html"><span class="type">GstElementFactory</span></a> *factory,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a></pre>
+<p>
+This signal is emitted once decodebin has found all the possible
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElementFactory.html"><span class="type">GstElementFactory</span></a> that can be used to handle the given <em class="parameter"><code>caps</code></em>. For each of
+those factories, this signal is emitted.
+</p>
+<p>
+The signal handler should return a <span class="type">GST_TYPE_AUTOPLUG_SELECT_RESULT</span> enum
+value indicating what decodebin should do next.
+</p>
+<p>
+A value of <a class="link" href="gst-plugins-base-plugins-uridecodebin.html#GST-AUTOPLUG-SELECT-TRY:CAPS"><span class="type">GST_AUTOPLUG_SELECT_TRY</span></a> will try to autoplug an element from
+<em class="parameter"><code>factory</code></em>.
+</p>
+<p>
+A value of <a class="link" href="gst-plugins-base-plugins-uridecodebin.html#GST-AUTOPLUG-SELECT-EXPOSE:CAPS"><span class="type">GST_AUTOPLUG_SELECT_EXPOSE</span></a> will expose <em class="parameter"><code>pad</code></em> without plugging
+any element to it.
+</p>
+<p>
+A value of <a class="link" href="gst-plugins-base-plugins-uridecodebin.html#GST-AUTOPLUG-SELECT-SKIP:CAPS"><span class="type">GST_AUTOPLUG_SELECT_SKIP</span></a> will skip <em class="parameter"><code>factory</code></em> and move to the
+next factory.
+</p>
+<p>
+</p>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Note</h3>
+  Only the signal handler that is connected first will ever by invoked.
+  Don't connect signal handlers with the <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-CONNECT-AFTER:CAPS"><span class="type">G_CONNECT_AFTER</span></a> flag to this
+  signal, they will never be invoked!
+</div>
+<p>
+</p>
+<p>
+</p>
+@:
+@:
+@:
+@:<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>bin</code></em> :</span></p></td>
+<td>The decodebin.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pad</code></em> :</span></p></td>
+<td>The <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPad.html"><span class="type">GstPad</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>caps</code></em> :</span></p></td>
+<td>The <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="type">GstCaps</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>factory</code></em> :</span></p></td>
+<td>A <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElementFactory.html"><span class="type">GstElementFactory</span></a> to use.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <span class="type">GST_TYPE_AUTOPLUG_SELECT_RESULT</span> that indicates the required
+operation. the default handler will always return
+<a class="link" href="gst-plugins-base-plugins-uridecodebin.html#GST-AUTOPLUG-SELECT-TRY:CAPS"><span class="type">GST_AUTOPLUG_SELECT_TRY</span></a>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstDecodeBin-autoplug-sort"></a><h3>The <code class="literal">"autoplug-sort"</code> signal</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Value-arrays.html#GValueArray"><span class="returnvalue">GValueArray</span></a>*        user_function                      (<a class="link" href="gst-plugins-base-plugins-decodebin.html#GstDecodeBin"><span class="type">GstDecodeBin</span></a> *bin,
+                                                        <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPad.html"><span class="type">GstPad</span></a>       *pad,
+                                                        <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="type">GstCaps</span></a>      *caps,
+                                                        <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Value-arrays.html#GValueArray"><span class="type">GValueArray</span></a>  *factories,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a></pre>
+<p>
+Once decodebin has found the possible <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElementFactory.html"><span class="type">GstElementFactory</span></a> objects to try
+for <em class="parameter"><code>caps</code></em> on <em class="parameter"><code>pad</code></em>, this signal is emited. The purpose of the signal is for
+the application to perform additional sorting or filtering on the element
+factory array.
+</p>
+<p>
+The callee should copy and modify <em class="parameter"><code>factories</code></em> or return <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><span class="type">NULL</span></a> if the
+order should not change.
+</p>
+<p>
+</p>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Note</h3>
+  Invocation of signal handlers stops after one signal handler has
+  returned something else than <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><span class="type">NULL</span></a>. Signal handlers are invoked in
+  the order they were connected in.
+  Don't connect signal handlers with the <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-CONNECT-AFTER:CAPS"><span class="type">G_CONNECT_AFTER</span></a> flag to this
+  signal, they will never be invoked!
+</div>
+<p>
+</p>
+<p>
+</p>
+@:
+@:
+@:
+@:<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>bin</code></em> :</span></p></td>
+<td>The decodebin.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pad</code></em> :</span></p></td>
+<td>The <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPad.html"><span class="type">GstPad</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>caps</code></em> :</span></p></td>
+<td>The <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="type">GstCaps</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>factories</code></em> :</span></p></td>
+<td>A <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Value-arrays.html#GValueArray"><span class="type">GValueArray</span></a> of possible <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElementFactory.html"><span class="type">GstElementFactory</span></a> to use.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>A new sorted array of <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElementFactory.html"><span class="type">GstElementFactory</span></a> objects.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstDecodeBin-drained"></a><h3>The <code class="literal">"drained"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="gst-plugins-base-plugins-decodebin.html#GstDecodeBin"><span class="type">GstDecodeBin</span></a> *bin,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a></pre>
+<p>
+This signal is emitted once decodebin has finished decoding all the data.
+</p>
+<p>
+</p>
+@:<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>bin</code></em> :</span></p></td>
+<td>The decodebin</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.10.16</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

@@ -1,0 +1,645 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GstGError</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer 1.0 Core Reference Manual">
+<link rel="up" href="libgstreamer.html" title="GStreamer Core Library">
+<link rel="prev" href="GstElementFactory.html" title="GstElementFactory">
+<link rel="next" href="gstreamer-GstEvent.html" title="GstEvent">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="GstElementFactory.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="libgstreamer.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer 1.0 Core Reference Manual</th>
+<td><a accesskey="n" href="gstreamer-GstEvent.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gstreamer-GstGError.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gstreamer-GstGError.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gstreamer-GstGError"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gstreamer-GstGError.top_of_page"></a>GstGError</span></h2>
+<p>GstGError — Categorized error messages</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gstreamer-GstGError.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;gst/gst.h&gt;
+
+enum                <a class="link" href="gstreamer-GstGError.html#GstCoreError" title="enum GstCoreError">GstCoreError</a>;
+enum                <a class="link" href="gstreamer-GstGError.html#GstLibraryError" title="enum GstLibraryError">GstLibraryError</a>;
+enum                <a class="link" href="gstreamer-GstGError.html#GstResourceError" title="enum GstResourceError">GstResourceError</a>;
+enum                <a class="link" href="gstreamer-GstGError.html#GstStreamError" title="enum GstStreamError">GstStreamError</a>;
+#define             <a class="link" href="gstreamer-GstGError.html#GST-CORE-ERROR:CAPS" title="GST_CORE_ERROR">GST_CORE_ERROR</a>
+#define             <a class="link" href="gstreamer-GstGError.html#GST-LIBRARY-ERROR:CAPS" title="GST_LIBRARY_ERROR">GST_LIBRARY_ERROR</a>
+#define             <a class="link" href="gstreamer-GstGError.html#GST-RESOURCE-ERROR:CAPS" title="GST_RESOURCE_ERROR">GST_RESOURCE_ERROR</a>
+#define             <a class="link" href="gstreamer-GstGError.html#GST-STREAM-ERROR:CAPS" title="GST_STREAM_ERROR">GST_STREAM_ERROR</a>
+#define             <a class="link" href="gstreamer-GstGError.html#GST-ERROR-SYSTEM:CAPS" title="GST_ERROR_SYSTEM">GST_ERROR_SYSTEM</a>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             <a class="link" href="gstreamer-GstGError.html#gst-error-get-message" title="gst_error_get_message ()">gst_error_get_message</a>               (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> domain</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> code</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="gstreamer-GstGError.description"></a><h2>Description</h2>
+<p>
+GStreamer elements can throw non-fatal warnings and fatal errors.
+Higher-level elements and applications can programatically filter
+the ones they are interested in or can recover from,
+and have a default handler handle the rest of them.
+</p>
+<p>
+The rest of this section will use the term <span class="quote">“<span class="quote">error</span>”</span>
+to mean both (non-fatal) warnings and (fatal) errors; they are treated
+similarly.
+</p>
+<p>
+Errors from elements are the combination of a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> and a debug string.
+The <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> contains:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem"><p>a domain type: CORE, LIBRARY, RESOURCE or STREAM</p></li>
+<li class="listitem"><p>a code: an enum value specific to the domain</p></li>
+<li class="listitem"><p>a translated, human-readable message</p></li>
+<li class="listitem"><p>a non-translated additional debug string, which also contains</p></li>
+<li class="listitem"><p>file and line information</p></li>
+</ul></div>
+<p>
+</p>
+<p>
+Elements do not have the context required to decide what to do with
+errors.  As such, they should only inform about errors, and stop their
+processing.  In short, an element doesn't know what it is being used for.
+</p>
+<p>
+It is the application or compound element using the given element that
+has more context about the use of the element. Errors can be received by
+listening to the <a class="link" href="GstBus.html" title="GstBus"><span class="type">GstBus</span></a> of the element/pipeline for <a class="link" href="gstreamer-GstMessage.html#GstMessage" title="struct GstMessage"><span class="type">GstMessage</span></a> objects with
+the type <a class="link" href="gstreamer-GstMessage.html#GST-MESSAGE-ERROR:CAPS"><code class="literal">GST_MESSAGE_ERROR</code></a> or <a class="link" href="gstreamer-GstMessage.html#GST-MESSAGE-WARNING:CAPS"><code class="literal">GST_MESSAGE_WARNING</code></a>. The thrown errors should
+be inspected, and filtered if appropriate.
+</p>
+<p>
+An application is expected to, by default, present the user with a
+dialog box (or an equivalent) showing the error message.  The dialog
+should also allow a way to get at the additional debug information,
+so the user can provide bug reporting information.
+</p>
+<p>
+A compound element is expected to forward errors by default higher up
+the hierarchy; this is done by default in the same way as for other types
+of <a class="link" href="gstreamer-GstMessage.html#GstMessage" title="struct GstMessage"><span class="type">GstMessage</span></a>.
+</p>
+<p>
+When applications or compound elements trigger errors that they can
+recover from, they can filter out these errors and take appropriate action.
+For example, an application that gets an error from xvimagesink
+that indicates all XVideo ports are taken, the application can attempt
+to use another sink instead.
+</p>
+<p>
+Elements throw errors using the <a class="link" href="GstElement.html#GST-ELEMENT-ERROR:CAPS" title="GST_ELEMENT_ERROR()"><span class="type">GST_ELEMENT_ERROR</span></a> convenience macro:
+</p>
+<p>
+</p>
+<div class="example">
+<a name="idp12077840"></a><p class="title"><b>Example 7. Throwing an error</b></p>
+<div class="example-contents">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html#GST-ELEMENT-ERROR:CAPS">GST_ELEMENT_ERROR</a></span> <span class="gtkdoc opt">(</span>src<span class="gtkdoc opt">,</span> RESOURCE<span class="gtkdoc opt">,</span> NOT_FOUND<span class="gtkdoc opt">,</span>
+  <span class="gtkdoc opt">(</span><span class="function"><a href="http://library.gnome.org/devel/glib/unstable/glib-I18N.html#gettext-macro">_</a></span><span class="gtkdoc opt">(</span><span class="string">&quot;No file name specified for reading.&quot;</span><span class="gtkdoc opt">)), (</span>NULL<span class="gtkdoc opt">));</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</div>
+<p><br class="example-break">
+</p>
+<p>
+Things to keep in mind:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem"><p>Don't go off inventing new error codes.  The ones
+    currently provided should be enough.  If you find your type of error
+    does not fit the current codes, you should use FAILED.</p></li>
+<li class="listitem"><p>Don't provide a message if the default one suffices.
+    this keeps messages more uniform.  Use (NULL) - not forgetting the
+    parentheses.</p></li>
+<li class="listitem"><p>If you do supply a custom message, it should be
+    marked for translation.  The message should start with a capital
+    and end with a period.  The message should describe the error in short,
+    in a human-readable form, and without any complex technical terms.
+    A user interface will present this message as the first thing a user
+    sees.  Details, technical info, ... should go in the debug string.
+  </p></li>
+<li class="listitem"><p>The debug string can be as you like.  Again, use (NULL)
+    if there's nothing to add - file and line number will still be
+    passed.  <a class="link" href="gstreamer-GstGError.html#GST-ERROR-SYSTEM:CAPS" title="GST_ERROR_SYSTEM"><span class="type">GST_ERROR_SYSTEM</span></a> can be used as a shortcut to give
+    debug information on a system call error.</p></li>
+</ul></div>
+<p>
+</p>
+<p>
+Last reviewed on 2006-09-15 (0.10.10)
+</p>
+</div>
+<div class="refsect1">
+<a name="gstreamer-GstGError.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstCoreError"></a><h3>enum GstCoreError</h3>
+<pre class="programlisting">typedef enum {
+  GST_CORE_ERROR_FAILED = 1,
+  GST_CORE_ERROR_TOO_LAZY,
+  GST_CORE_ERROR_NOT_IMPLEMENTED,
+  GST_CORE_ERROR_STATE_CHANGE,
+  GST_CORE_ERROR_PAD,
+  GST_CORE_ERROR_THREAD,
+  GST_CORE_ERROR_NEGOTIATION,
+  GST_CORE_ERROR_EVENT,
+  GST_CORE_ERROR_SEEK,
+  GST_CORE_ERROR_CAPS,
+  GST_CORE_ERROR_TAG,
+  GST_CORE_ERROR_MISSING_PLUGIN,
+  GST_CORE_ERROR_CLOCK,
+  GST_CORE_ERROR_DISABLED,
+  GST_CORE_ERROR_NUM_ERRORS
+} GstCoreError;
+</pre>
+<p>
+Core errors are errors inside the core GStreamer library.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="GST-CORE-ERROR-FAILED:CAPS"></a><span class="term"><code class="literal">GST_CORE_ERROR_FAILED</code></span></p></td>
+<td>a general error which doesn't fit in any other
+category.  Make sure you add a custom message to the error call.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-CORE-ERROR-TOO-LAZY:CAPS"></a><span class="term"><code class="literal">GST_CORE_ERROR_TOO_LAZY</code></span></p></td>
+<td>do not use this except as a placeholder for
+deciding where to go while developing code.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-CORE-ERROR-NOT-IMPLEMENTED:CAPS"></a><span class="term"><code class="literal">GST_CORE_ERROR_NOT_IMPLEMENTED</code></span></p></td>
+<td>use this when you do not want to implement
+this functionality yet.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-CORE-ERROR-STATE-CHANGE:CAPS"></a><span class="term"><code class="literal">GST_CORE_ERROR_STATE_CHANGE</code></span></p></td>
+<td>used for state change errors.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-CORE-ERROR-PAD:CAPS"></a><span class="term"><code class="literal">GST_CORE_ERROR_PAD</code></span></p></td>
+<td>used for pad-related errors.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-CORE-ERROR-THREAD:CAPS"></a><span class="term"><code class="literal">GST_CORE_ERROR_THREAD</code></span></p></td>
+<td>used for thread-related errors.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-CORE-ERROR-NEGOTIATION:CAPS"></a><span class="term"><code class="literal">GST_CORE_ERROR_NEGOTIATION</code></span></p></td>
+<td>used for negotiation-related errors.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-CORE-ERROR-EVENT:CAPS"></a><span class="term"><code class="literal">GST_CORE_ERROR_EVENT</code></span></p></td>
+<td>used for event-related errors.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-CORE-ERROR-SEEK:CAPS"></a><span class="term"><code class="literal">GST_CORE_ERROR_SEEK</code></span></p></td>
+<td>used for seek-related errors.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-CORE-ERROR-CAPS"></a><span class="term"><code class="literal">GST_CORE_ERROR_CAPS</code></span></p></td>
+<td>used for caps-related errors.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-CORE-ERROR-TAG:CAPS"></a><span class="term"><code class="literal">GST_CORE_ERROR_TAG</code></span></p></td>
+<td>used for negotiation-related errors.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-CORE-ERROR-MISSING-PLUGIN:CAPS"></a><span class="term"><code class="literal">GST_CORE_ERROR_MISSING_PLUGIN</code></span></p></td>
+<td>used if a plugin is missing.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-CORE-ERROR-CLOCK:CAPS"></a><span class="term"><code class="literal">GST_CORE_ERROR_CLOCK</code></span></p></td>
+<td>used for clock related errors.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-CORE-ERROR-DISABLED:CAPS"></a><span class="term"><code class="literal">GST_CORE_ERROR_DISABLED</code></span></p></td>
+<td>used if functionality has been disabled at
+                          compile time.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-CORE-ERROR-NUM-ERRORS:CAPS"></a><span class="term"><code class="literal">GST_CORE_ERROR_NUM_ERRORS</code></span></p></td>
+<td>the number of core error types.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstLibraryError"></a><h3>enum GstLibraryError</h3>
+<pre class="programlisting">typedef enum {
+  GST_LIBRARY_ERROR_FAILED = 1,
+  GST_LIBRARY_ERROR_TOO_LAZY,
+  GST_LIBRARY_ERROR_INIT,
+  GST_LIBRARY_ERROR_SHUTDOWN,
+  GST_LIBRARY_ERROR_SETTINGS,
+  GST_LIBRARY_ERROR_ENCODE,
+  GST_LIBRARY_ERROR_NUM_ERRORS
+} GstLibraryError;
+</pre>
+<p>
+Library errors are for errors from the library being used by elements
+(initializing, finalizing, settings, ...)
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="GST-LIBRARY-ERROR-FAILED:CAPS"></a><span class="term"><code class="literal">GST_LIBRARY_ERROR_FAILED</code></span></p></td>
+<td>a general error which doesn't fit in any other
+category.  Make sure you add a custom message to the error call.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-LIBRARY-ERROR-TOO-LAZY:CAPS"></a><span class="term"><code class="literal">GST_LIBRARY_ERROR_TOO_LAZY</code></span></p></td>
+<td>do not use this except as a placeholder for
+deciding where to go while developing code.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-LIBRARY-ERROR-INIT:CAPS"></a><span class="term"><code class="literal">GST_LIBRARY_ERROR_INIT</code></span></p></td>
+<td>used when the library could not be opened.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-LIBRARY-ERROR-SHUTDOWN:CAPS"></a><span class="term"><code class="literal">GST_LIBRARY_ERROR_SHUTDOWN</code></span></p></td>
+<td>used when the library could not be closed.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-LIBRARY-ERROR-SETTINGS:CAPS"></a><span class="term"><code class="literal">GST_LIBRARY_ERROR_SETTINGS</code></span></p></td>
+<td>used when the library doesn't accept settings.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-LIBRARY-ERROR-ENCODE:CAPS"></a><span class="term"><code class="literal">GST_LIBRARY_ERROR_ENCODE</code></span></p></td>
+<td>used when the library generated an encoding error.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-LIBRARY-ERROR-NUM-ERRORS:CAPS"></a><span class="term"><code class="literal">GST_LIBRARY_ERROR_NUM_ERRORS</code></span></p></td>
+<td>the number of library error types.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstResourceError"></a><h3>enum GstResourceError</h3>
+<pre class="programlisting">typedef enum {
+  GST_RESOURCE_ERROR_FAILED = 1,
+  GST_RESOURCE_ERROR_TOO_LAZY,
+  GST_RESOURCE_ERROR_NOT_FOUND,
+  GST_RESOURCE_ERROR_BUSY,
+  GST_RESOURCE_ERROR_OPEN_READ,
+  GST_RESOURCE_ERROR_OPEN_WRITE,
+  GST_RESOURCE_ERROR_OPEN_READ_WRITE,
+  GST_RESOURCE_ERROR_CLOSE,
+  GST_RESOURCE_ERROR_READ,
+  GST_RESOURCE_ERROR_WRITE,
+  GST_RESOURCE_ERROR_SEEK,
+  GST_RESOURCE_ERROR_SYNC,
+  GST_RESOURCE_ERROR_SETTINGS,
+  GST_RESOURCE_ERROR_NO_SPACE_LEFT,
+  GST_RESOURCE_ERROR_NUM_ERRORS
+} GstResourceError;
+</pre>
+<p>
+Resource errors are for any resource used by an element:
+memory, files, network connections, process space, ...
+They're typically used by source and sink elements.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="GST-RESOURCE-ERROR-FAILED:CAPS"></a><span class="term"><code class="literal">GST_RESOURCE_ERROR_FAILED</code></span></p></td>
+<td>a general error which doesn't fit in any other
+category.  Make sure you add a custom message to the error call.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-RESOURCE-ERROR-TOO-LAZY:CAPS"></a><span class="term"><code class="literal">GST_RESOURCE_ERROR_TOO_LAZY</code></span></p></td>
+<td>do not use this except as a placeholder for
+deciding where to go while developing code.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-RESOURCE-ERROR-NOT-FOUND:CAPS"></a><span class="term"><code class="literal">GST_RESOURCE_ERROR_NOT_FOUND</code></span></p></td>
+<td>used when the resource could not be found.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-RESOURCE-ERROR-BUSY:CAPS"></a><span class="term"><code class="literal">GST_RESOURCE_ERROR_BUSY</code></span></p></td>
+<td>used when resource is busy.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-RESOURCE-ERROR-OPEN-READ:CAPS"></a><span class="term"><code class="literal">GST_RESOURCE_ERROR_OPEN_READ</code></span></p></td>
+<td>used when resource fails to open for reading.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-RESOURCE-ERROR-OPEN-WRITE:CAPS"></a><span class="term"><code class="literal">GST_RESOURCE_ERROR_OPEN_WRITE</code></span></p></td>
+<td>used when resource fails to open for writing.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-RESOURCE-ERROR-OPEN-READ-WRITE:CAPS"></a><span class="term"><code class="literal">GST_RESOURCE_ERROR_OPEN_READ_WRITE</code></span></p></td>
+<td>used when resource cannot be opened for
+both reading and writing, or either (but unspecified which).
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-RESOURCE-ERROR-CLOSE:CAPS"></a><span class="term"><code class="literal">GST_RESOURCE_ERROR_CLOSE</code></span></p></td>
+<td>used when the resource can't be closed.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-RESOURCE-ERROR-READ:CAPS"></a><span class="term"><code class="literal">GST_RESOURCE_ERROR_READ</code></span></p></td>
+<td>used when the resource can't be read from.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-RESOURCE-ERROR-WRITE:CAPS"></a><span class="term"><code class="literal">GST_RESOURCE_ERROR_WRITE</code></span></p></td>
+<td>used when the resource can't be written to.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-RESOURCE-ERROR-SEEK:CAPS"></a><span class="term"><code class="literal">GST_RESOURCE_ERROR_SEEK</code></span></p></td>
+<td>used when a seek on the resource fails.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-RESOURCE-ERROR-SYNC:CAPS"></a><span class="term"><code class="literal">GST_RESOURCE_ERROR_SYNC</code></span></p></td>
+<td>used when a synchronize on the resource fails.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-RESOURCE-ERROR-SETTINGS:CAPS"></a><span class="term"><code class="literal">GST_RESOURCE_ERROR_SETTINGS</code></span></p></td>
+<td>used when settings can't be manipulated on.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-RESOURCE-ERROR-NO-SPACE-LEFT:CAPS"></a><span class="term"><code class="literal">GST_RESOURCE_ERROR_NO_SPACE_LEFT</code></span></p></td>
+<td>used when the resource has no space left.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-RESOURCE-ERROR-NUM-ERRORS:CAPS"></a><span class="term"><code class="literal">GST_RESOURCE_ERROR_NUM_ERRORS</code></span></p></td>
+<td>the number of resource error types.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstStreamError"></a><h3>enum GstStreamError</h3>
+<pre class="programlisting">typedef enum {
+  GST_STREAM_ERROR_FAILED = 1,
+  GST_STREAM_ERROR_TOO_LAZY,
+  GST_STREAM_ERROR_NOT_IMPLEMENTED,
+  GST_STREAM_ERROR_TYPE_NOT_FOUND,
+  GST_STREAM_ERROR_WRONG_TYPE,
+  GST_STREAM_ERROR_CODEC_NOT_FOUND,
+  GST_STREAM_ERROR_DECODE,
+  GST_STREAM_ERROR_ENCODE,
+  GST_STREAM_ERROR_DEMUX,
+  GST_STREAM_ERROR_MUX,
+  GST_STREAM_ERROR_FORMAT,
+  GST_STREAM_ERROR_DECRYPT,
+  GST_STREAM_ERROR_DECRYPT_NOKEY,
+  GST_STREAM_ERROR_NUM_ERRORS
+} GstStreamError;
+</pre>
+<p>
+Stream errors are for anything related to the stream being processed:
+format errors, media type errors, ...
+They're typically used by decoders, demuxers, converters, ...
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="GST-STREAM-ERROR-FAILED:CAPS"></a><span class="term"><code class="literal">GST_STREAM_ERROR_FAILED</code></span></p></td>
+<td>a general error which doesn't fit in any other
+category.  Make sure you add a custom message to the error call.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-STREAM-ERROR-TOO-LAZY:CAPS"></a><span class="term"><code class="literal">GST_STREAM_ERROR_TOO_LAZY</code></span></p></td>
+<td>do not use this except as a placeholder for
+deciding where to go while developing code.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-STREAM-ERROR-NOT-IMPLEMENTED:CAPS"></a><span class="term"><code class="literal">GST_STREAM_ERROR_NOT_IMPLEMENTED</code></span></p></td>
+<td>use this when you do not want to implement
+this functionality yet.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-STREAM-ERROR-TYPE-NOT-FOUND:CAPS"></a><span class="term"><code class="literal">GST_STREAM_ERROR_TYPE_NOT_FOUND</code></span></p></td>
+<td>used when the element doesn't know the
+stream's type.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-STREAM-ERROR-WRONG-TYPE:CAPS"></a><span class="term"><code class="literal">GST_STREAM_ERROR_WRONG_TYPE</code></span></p></td>
+<td>used when the element doesn't handle this type
+of stream.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-STREAM-ERROR-CODEC-NOT-FOUND:CAPS"></a><span class="term"><code class="literal">GST_STREAM_ERROR_CODEC_NOT_FOUND</code></span></p></td>
+<td>used when there's no codec to handle the
+stream's type.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-STREAM-ERROR-DECODE:CAPS"></a><span class="term"><code class="literal">GST_STREAM_ERROR_DECODE</code></span></p></td>
+<td>used when decoding fails.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-STREAM-ERROR-ENCODE:CAPS"></a><span class="term"><code class="literal">GST_STREAM_ERROR_ENCODE</code></span></p></td>
+<td>used when encoding fails.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-STREAM-ERROR-DEMUX:CAPS"></a><span class="term"><code class="literal">GST_STREAM_ERROR_DEMUX</code></span></p></td>
+<td>used when demuxing fails.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-STREAM-ERROR-MUX:CAPS"></a><span class="term"><code class="literal">GST_STREAM_ERROR_MUX</code></span></p></td>
+<td>used when muxing fails.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-STREAM-ERROR-FORMAT:CAPS"></a><span class="term"><code class="literal">GST_STREAM_ERROR_FORMAT</code></span></p></td>
+<td>used when the stream is of the wrong format
+(for example, wrong caps).
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-STREAM-ERROR-DECRYPT:CAPS"></a><span class="term"><code class="literal">GST_STREAM_ERROR_DECRYPT</code></span></p></td>
+<td>used when the stream is encrypted and can't be
+decrypted because this is not supported by the element.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-STREAM-ERROR-DECRYPT-NOKEY:CAPS"></a><span class="term"><code class="literal">GST_STREAM_ERROR_DECRYPT_NOKEY</code></span></p></td>
+<td>used when the stream is encrypted and
+can't be decrypted because no suitable key is available.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-STREAM-ERROR-NUM-ERRORS:CAPS"></a><span class="term"><code class="literal">GST_STREAM_ERROR_NUM_ERRORS</code></span></p></td>
+<td>the number of stream error types.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-CORE-ERROR:CAPS"></a><h3>GST_CORE_ERROR</h3>
+<pre class="programlisting">#define GST_CORE_ERROR      gst_core_error_quark ()
+</pre>
+<p>
+Error domain for core system. Errors in this domain will
+be from the <a class="link" href="gstreamer-GstGError.html#GstCoreError" title="enum GstCoreError"><span class="type">GstCoreError</span></a> enumeration.
+See <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> for information on error domains.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-LIBRARY-ERROR:CAPS"></a><h3>GST_LIBRARY_ERROR</h3>
+<pre class="programlisting">#define GST_LIBRARY_ERROR   gst_library_error_quark ()
+</pre>
+<p>
+Error domain for library loading. Errors in this domain will
+be from the <a class="link" href="gstreamer-GstGError.html#GstLibraryError" title="enum GstLibraryError"><span class="type">GstLibraryError</span></a> enumeration.
+See <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> for information on error domains.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-RESOURCE-ERROR:CAPS"></a><h3>GST_RESOURCE_ERROR</h3>
+<pre class="programlisting">#define GST_RESOURCE_ERROR  gst_resource_error_quark ()
+</pre>
+<p>
+Error domain for resource handling. Errors in this domain will
+be from the <a class="link" href="gstreamer-GstGError.html#GstResourceError" title="enum GstResourceError"><span class="type">GstResourceError</span></a> enumeration.
+See <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> for information on error domains.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-STREAM-ERROR:CAPS"></a><h3>GST_STREAM_ERROR</h3>
+<pre class="programlisting">#define GST_STREAM_ERROR    gst_stream_error_quark ()
+</pre>
+<p>
+Error domain for media stream processing. Errors in this domain will
+be from the <a class="link" href="gstreamer-GstGError.html#GstStreamError" title="enum GstStreamError"><span class="type">GstStreamError</span></a> enumeration.
+See <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> for information on error domains.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-ERROR-SYSTEM:CAPS"></a><h3>GST_ERROR_SYSTEM</h3>
+<pre class="programlisting">#define GST_ERROR_SYSTEM    ("system error: %s", g_strerror (errno))
+</pre>
+<p>
+Builds a string using errno describing the previously failed system
+call.  To be used as the debug argument in <a class="link" href="GstElement.html#GST-ELEMENT-ERROR:CAPS" title="GST_ELEMENT_ERROR()"><span class="type">GST_ELEMENT_ERROR</span></a>.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-error-get-message"></a><h3>gst_error_get_message ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             gst_error_get_message               (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> domain</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> code</code></em>);</pre>
+<p>
+Get a string describing the error message in the current locale.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>domain</code></em> :</span></p></td>
+<td>the GStreamer error domain this error belongs to.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>code</code></em> :</span></p></td>
+<td>the error code belonging to the domain.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a newly allocated string describing
+the error message (in UTF-8 encoding). <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="gstreamer-GstGError.see-also"></a><h2>See Also</h2>
+<a class="link" href="gstreamer-GstMessage.html#GstMessage" title="struct GstMessage"><span class="type">GstMessage</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

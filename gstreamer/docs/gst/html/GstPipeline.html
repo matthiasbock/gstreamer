@@ -1,0 +1,534 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GstPipeline</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer 1.0 Core Reference Manual">
+<link rel="up" href="libgstreamer.html" title="GStreamer Core Library">
+<link rel="prev" href="gstreamer-GstParse.html" title="GstParse">
+<link rel="next" href="GstPlugin.html" title="GstPlugin">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gstreamer-GstParse.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="libgstreamer.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer 1.0 Core Reference Manual</th>
+<td><a accesskey="n" href="GstPlugin.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#GstPipeline.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#GstPipeline.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#GstPipeline.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#GstPipeline.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                   | 
+                  <a href="#GstPipeline.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="GstPipeline"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GstPipeline.top_of_page"></a>GstPipeline</span></h2>
+<p>GstPipeline — Top-level bin with clocking and bus management
+                       functionality.</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="GstPipeline.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;gst/gst.h&gt;
+
+struct              <a class="link" href="GstPipeline.html#GstPipeline-struct" title="struct GstPipeline">GstPipeline</a>;
+enum                <a class="link" href="GstPipeline.html#GstPipelineFlags" title="enum GstPipelineFlags">GstPipelineFlags</a>;
+<a class="link" href="GstElement.html" title="GstElement"><span class="returnvalue">GstElement</span></a> *        <a class="link" href="GstPipeline.html#gst-pipeline-new" title="gst_pipeline_new ()">gst_pipeline_new</a>                    (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);
+<a class="link" href="GstBus.html" title="GstBus"><span class="returnvalue">GstBus</span></a> *            <a class="link" href="GstPipeline.html#gst-pipeline-get-bus" title="gst_pipeline_get_bus ()">gst_pipeline_get_bus</a>                (<em class="parameter"><code><a class="link" href="GstPipeline.html" title="GstPipeline"><span class="type">GstPipeline</span></a> *pipeline</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="GstPipeline.html#gst-pipeline-set-clock" title="gst_pipeline_set_clock ()">gst_pipeline_set_clock</a>              (<em class="parameter"><code><a class="link" href="GstPipeline.html" title="GstPipeline"><span class="type">GstPipeline</span></a> *pipeline</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstClock.html" title="GstClock"><span class="type">GstClock</span></a> *clock</code></em>);
+<a class="link" href="GstClock.html" title="GstClock"><span class="returnvalue">GstClock</span></a> *          <a class="link" href="GstPipeline.html#gst-pipeline-get-clock" title="gst_pipeline_get_clock ()">gst_pipeline_get_clock</a>              (<em class="parameter"><code><a class="link" href="GstPipeline.html" title="GstPipeline"><span class="type">GstPipeline</span></a> *pipeline</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="GstPipeline.html#gst-pipeline-use-clock" title="gst_pipeline_use_clock ()">gst_pipeline_use_clock</a>              (<em class="parameter"><code><a class="link" href="GstPipeline.html" title="GstPipeline"><span class="type">GstPipeline</span></a> *pipeline</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstClock.html" title="GstClock"><span class="type">GstClock</span></a> *clock</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="GstPipeline.html#gst-pipeline-auto-clock" title="gst_pipeline_auto_clock ()">gst_pipeline_auto_clock</a>             (<em class="parameter"><code><a class="link" href="GstPipeline.html" title="GstPipeline"><span class="type">GstPipeline</span></a> *pipeline</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="GstPipeline.html#gst-pipeline-set-auto-flush-bus" title="gst_pipeline_set_auto_flush_bus ()">gst_pipeline_set_auto_flush_bus</a>     (<em class="parameter"><code><a class="link" href="GstPipeline.html" title="GstPipeline"><span class="type">GstPipeline</span></a> *pipeline</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> auto_flush</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="GstPipeline.html#gst-pipeline-get-auto-flush-bus" title="gst_pipeline_get_auto_flush_bus ()">gst_pipeline_get_auto_flush_bus</a>     (<em class="parameter"><code><a class="link" href="GstPipeline.html" title="GstPipeline"><span class="type">GstPipeline</span></a> *pipeline</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="GstPipeline.html#gst-pipeline-set-delay" title="gst_pipeline_set_delay ()">gst_pipeline_set_delay</a>              (<em class="parameter"><code><a class="link" href="GstPipeline.html" title="GstPipeline"><span class="type">GstPipeline</span></a> *pipeline</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="type">GstClockTime</span></a> delay</code></em>);
+<a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="returnvalue">GstClockTime</span></a>        <a class="link" href="GstPipeline.html#gst-pipeline-get-delay" title="gst_pipeline_get_delay ()">gst_pipeline_get_delay</a>              (<em class="parameter"><code><a class="link" href="GstPipeline.html" title="GstPipeline"><span class="type">GstPipeline</span></a> *pipeline</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="GstPipeline.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a class="link" href="GstObject.html" title="GstObject">GstObject</a>
+               +----<a class="link" href="GstElement.html" title="GstElement">GstElement</a>
+                     +----<a class="link" href="GstBin.html" title="GstBin">GstBin</a>
+                           +----GstPipeline
+</pre>
+</div>
+<div class="refsect1">
+<a name="GstPipeline.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+GstPipeline implements
+ <a class="link" href="GstChildProxy.html" title="GstChildProxy">GstChildProxy</a>.</p>
+</div>
+<div class="refsect1">
+<a name="GstPipeline.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="GstPipeline.html#GstPipeline--auto-flush-bus" title='The "auto-flush-bus" property'>auto-flush-bus</a>"           <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write
+  "<a class="link" href="GstPipeline.html#GstPipeline--delay" title='The "delay" property'>delay</a>"                    <span class="type">guint64</span>               : Read / Write
+</pre>
+</div>
+<div class="refsect1">
+<a name="GstPipeline.description"></a><h2>Description</h2>
+<p>
+A <a class="link" href="GstPipeline.html" title="GstPipeline"><span class="type">GstPipeline</span></a> is a special <a class="link" href="GstBin.html" title="GstBin"><span class="type">GstBin</span></a> used as the toplevel container for
+the filter graph. The <a class="link" href="GstPipeline.html" title="GstPipeline"><span class="type">GstPipeline</span></a> will manage the selection and
+distribution of a global <a class="link" href="GstClock.html" title="GstClock"><span class="type">GstClock</span></a> as well as provide a <a class="link" href="GstBus.html" title="GstBus"><span class="type">GstBus</span></a> to the
+application.
+</p>
+<p>
+<a class="link" href="GstPipeline.html#gst-pipeline-new" title="gst_pipeline_new ()"><code class="function">gst_pipeline_new()</code></a> is used to create a pipeline. when you are done with
+the pipeline, use <a class="link" href="GstObject.html#gst-object-unref" title="gst_object_unref ()"><code class="function">gst_object_unref()</code></a> to free its resources including all
+added <a class="link" href="GstElement.html" title="GstElement"><span class="type">GstElement</span></a> objects (if not otherwise referenced).
+</p>
+<p>
+Elements are added and removed from the pipeline using the <a class="link" href="GstBin.html" title="GstBin"><span class="type">GstBin</span></a>
+methods like <a class="link" href="GstBin.html#gst-bin-add" title="gst_bin_add ()"><code class="function">gst_bin_add()</code></a> and <a class="link" href="GstBin.html#gst-bin-remove" title="gst_bin_remove ()"><code class="function">gst_bin_remove()</code></a> (see <a class="link" href="GstBin.html" title="GstBin"><span class="type">GstBin</span></a>).
+</p>
+<p>
+Before changing the state of the <a class="link" href="GstPipeline.html" title="GstPipeline"><span class="type">GstPipeline</span></a> (see <a class="link" href="GstElement.html" title="GstElement"><span class="type">GstElement</span></a>) a <a class="link" href="GstBus.html" title="GstBus"><span class="type">GstBus</span></a>
+can be retrieved with <a class="link" href="GstPipeline.html#gst-pipeline-get-bus" title="gst_pipeline_get_bus ()"><code class="function">gst_pipeline_get_bus()</code></a>. This bus can then be
+used to receive <a class="link" href="gstreamer-GstMessage.html#GstMessage" title="struct GstMessage"><span class="type">GstMessage</span></a> from the elements in the pipeline.
+</p>
+<p>
+By default, a <a class="link" href="GstPipeline.html" title="GstPipeline"><span class="type">GstPipeline</span></a> will automatically flush the pending <a class="link" href="GstBus.html" title="GstBus"><span class="type">GstBus</span></a>
+messages when going to the NULL state to ensure that no circular
+references exist when no messages are read from the <a class="link" href="GstBus.html" title="GstBus"><span class="type">GstBus</span></a>. This
+behaviour can be changed with <a class="link" href="GstPipeline.html#gst-pipeline-set-auto-flush-bus" title="gst_pipeline_set_auto_flush_bus ()"><code class="function">gst_pipeline_set_auto_flush_bus()</code></a>.
+</p>
+<p>
+When the <a class="link" href="GstPipeline.html" title="GstPipeline"><span class="type">GstPipeline</span></a> performs the PAUSED to PLAYING state change it will
+select a clock for the elements. The clock selection algorithm will by
+default select a clock provided by an element that is most upstream
+(closest to the source). For live pipelines (ones that return
+<a class="link" href="GstElement.html#GST-STATE-CHANGE-NO-PREROLL:CAPS"><span class="type">GST_STATE_CHANGE_NO_PREROLL</span></a> from the <a class="link" href="GstElement.html#gst-element-set-state" title="gst_element_set_state ()"><code class="function">gst_element_set_state()</code></a> call) this
+will select the clock provided by the live source. For normal pipelines
+this will select a clock provided by the sinks (most likely the audio
+sink). If no element provides a clock, a default <a class="link" href="GstSystemClock.html" title="GstSystemClock"><span class="type">GstSystemClock</span></a> is used.
+</p>
+<p>
+The clock selection can be controlled with the <a class="link" href="GstPipeline.html#gst-pipeline-use-clock" title="gst_pipeline_use_clock ()"><code class="function">gst_pipeline_use_clock()</code></a>
+method, which will enforce a given clock on the pipeline. With
+<a class="link" href="GstPipeline.html#gst-pipeline-auto-clock" title="gst_pipeline_auto_clock ()"><code class="function">gst_pipeline_auto_clock()</code></a> the default clock selection algorithm can be
+restored.
+</p>
+<p>
+A <a class="link" href="GstPipeline.html" title="GstPipeline"><span class="type">GstPipeline</span></a> maintains a running time for the elements. The running
+time is defined as the difference between the current clock time and
+the base time. When the pipeline goes to READY or a flushing seek is
+performed on it, the running time is reset to 0. When the pipeline is
+set from PLAYING to PAUSED, the current clock time is sampled and used to
+configure the base time for the elements when the pipeline is set
+to PLAYING again. The effect is that the running time (as the difference
+between the clock time and the base time) will count how much time was spent
+in the PLAYING state. This default behaviour can be changed with the
+<a class="link" href="GstElement.html#gst-element-set-start-time" title="gst_element_set_start_time ()"><code class="function">gst_element_set_start_time()</code></a> method.
+</p>
+<p>
+Last reviewed on 2012-03-29 (0.11.3)
+</p>
+</div>
+<div class="refsect1">
+<a name="GstPipeline.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstPipeline-struct"></a><h3>struct GstPipeline</h3>
+<pre class="programlisting">struct GstPipeline {
+  GstClock      *fixed_clock;
+
+  GstClockTime   stream_time;
+  GstClockTime   delay;
+};
+</pre>
+<p>
+The <a class="link" href="GstPipeline.html" title="GstPipeline"><span class="type">GstPipeline</span></a> structure.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a class="link" href="GstClock.html" title="GstClock"><span class="type">GstClock</span></a> *<em class="structfield"><code><a name="GstPipeline-struct.fixed-clock"></a>fixed_clock</code></em>;</span></p></td>
+<td>The fixed clock of the pipeline, used when
+GST_PIPELINE_FLAG_FIXED_CLOCK is set.</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="type">GstClockTime</span></a> <em class="structfield"><code><a name="GstPipeline-struct.stream-time"></a>stream_time</code></em>;</span></p></td>
+<td>The stream time of the pipeline. A better name for this
+property would be the running_time, the total time spent in the
+PLAYING state without being flushed. (deprecated, use the start_time
+on GstElement).</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="type">GstClockTime</span></a> <em class="structfield"><code><a name="GstPipeline-struct.delay"></a>delay</code></em>;</span></p></td>
+<td>Extra delay added to base_time to compensate for computing delays
+when setting elements to PLAYING.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstPipelineFlags"></a><h3>enum GstPipelineFlags</h3>
+<pre class="programlisting">typedef enum {
+  GST_PIPELINE_FLAG_FIXED_CLOCK        = (GST_BIN_FLAG_LAST &lt;&lt; 0),
+  /* padding */
+  GST_PIPELINE_FLAG_LAST               = (GST_BIN_FLAG_LAST &lt;&lt; 4)
+} GstPipelineFlags;
+</pre>
+<p>
+Pipeline flags
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="GST-PIPELINE-FLAG-FIXED-CLOCK:CAPS"></a><span class="term"><code class="literal">GST_PIPELINE_FLAG_FIXED_CLOCK</code></span></p></td>
+<td>this pipeline works with a fixed clock
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-PIPELINE-FLAG-LAST:CAPS"></a><span class="term"><code class="literal">GST_PIPELINE_FLAG_LAST</code></span></p></td>
+<td>offset to define more flags
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-pipeline-new"></a><h3>gst_pipeline_new ()</h3>
+<pre class="programlisting"><a class="link" href="GstElement.html" title="GstElement"><span class="returnvalue">GstElement</span></a> *        gst_pipeline_new                    (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);</pre>
+<p>
+Create a new pipeline with the given name.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>name of new pipeline. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>newly created GstPipeline
+MT safe. <span class="annotation">[transfer floating]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-pipeline-get-bus"></a><h3>gst_pipeline_get_bus ()</h3>
+<pre class="programlisting"><a class="link" href="GstBus.html" title="GstBus"><span class="returnvalue">GstBus</span></a> *            gst_pipeline_get_bus                (<em class="parameter"><code><a class="link" href="GstPipeline.html" title="GstPipeline"><span class="type">GstPipeline</span></a> *pipeline</code></em>);</pre>
+<p>
+Gets the <a class="link" href="GstBus.html" title="GstBus"><span class="type">GstBus</span></a> of <em class="parameter"><code>pipeline</code></em>. The bus allows applications to receive
+<a class="link" href="gstreamer-GstMessage.html#GstMessage" title="struct GstMessage"><span class="type">GstMessage</span></a> packets.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pipeline</code></em> :</span></p></td>
+<td>a <a class="link" href="GstPipeline.html" title="GstPipeline"><span class="type">GstPipeline</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a class="link" href="GstBus.html" title="GstBus"><span class="type">GstBus</span></a>, unref after usage.
+MT safe. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-pipeline-set-clock"></a><h3>gst_pipeline_set_clock ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_pipeline_set_clock              (<em class="parameter"><code><a class="link" href="GstPipeline.html" title="GstPipeline"><span class="type">GstPipeline</span></a> *pipeline</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstClock.html" title="GstClock"><span class="type">GstClock</span></a> *clock</code></em>);</pre>
+<p>
+Set the clock for <em class="parameter"><code>pipeline</code></em>. The clock will be distributed
+to all the elements managed by the pipeline.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pipeline</code></em> :</span></p></td>
+<td>a <a class="link" href="GstPipeline.html" title="GstPipeline"><span class="type">GstPipeline</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>clock</code></em> :</span></p></td>
+<td>the clock to set. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE if the clock could be set on the pipeline. FALSE if
+some element did not accept the clock.
+MT safe.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-pipeline-get-clock"></a><h3>gst_pipeline_get_clock ()</h3>
+<pre class="programlisting"><a class="link" href="GstClock.html" title="GstClock"><span class="returnvalue">GstClock</span></a> *          gst_pipeline_get_clock              (<em class="parameter"><code><a class="link" href="GstPipeline.html" title="GstPipeline"><span class="type">GstPipeline</span></a> *pipeline</code></em>);</pre>
+<p>
+Gets the current clock used by <em class="parameter"><code>pipeline</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pipeline</code></em> :</span></p></td>
+<td>a <a class="link" href="GstPipeline.html" title="GstPipeline"><span class="type">GstPipeline</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a class="link" href="GstClock.html" title="GstClock"><span class="type">GstClock</span></a>, unref after usage. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-pipeline-use-clock"></a><h3>gst_pipeline_use_clock ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_pipeline_use_clock              (<em class="parameter"><code><a class="link" href="GstPipeline.html" title="GstPipeline"><span class="type">GstPipeline</span></a> *pipeline</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstClock.html" title="GstClock"><span class="type">GstClock</span></a> *clock</code></em>);</pre>
+<p>
+Force <em class="parameter"><code>pipeline</code></em> to use the given <em class="parameter"><code>clock</code></em>. The pipeline will
+always use the given clock even if new clock providers are added
+to this pipeline.
+</p>
+<p>
+If <em class="parameter"><code>clock</code></em> is NULL all clocking will be disabled which will make
+the pipeline run as fast as possible.
+</p>
+<p>
+MT safe.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pipeline</code></em> :</span></p></td>
+<td>a <a class="link" href="GstPipeline.html" title="GstPipeline"><span class="type">GstPipeline</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>clock</code></em> :</span></p></td>
+<td>the clock to use. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-pipeline-auto-clock"></a><h3>gst_pipeline_auto_clock ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_pipeline_auto_clock             (<em class="parameter"><code><a class="link" href="GstPipeline.html" title="GstPipeline"><span class="type">GstPipeline</span></a> *pipeline</code></em>);</pre>
+<p>
+Let <em class="parameter"><code>pipeline</code></em> select a clock automatically. This is the default
+behaviour.
+</p>
+<p>
+Use this function if you previous forced a fixed clock with
+<a class="link" href="GstPipeline.html#gst-pipeline-use-clock" title="gst_pipeline_use_clock ()"><code class="function">gst_pipeline_use_clock()</code></a> and want to restore the default
+pipeline clock selection algorithm.
+</p>
+<p>
+MT safe.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>pipeline</code></em> :</span></p></td>
+<td>a <a class="link" href="GstPipeline.html" title="GstPipeline"><span class="type">GstPipeline</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-pipeline-set-auto-flush-bus"></a><h3>gst_pipeline_set_auto_flush_bus ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_pipeline_set_auto_flush_bus     (<em class="parameter"><code><a class="link" href="GstPipeline.html" title="GstPipeline"><span class="type">GstPipeline</span></a> *pipeline</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> auto_flush</code></em>);</pre>
+<p>
+Usually, when a pipeline goes from READY to NULL state, it automatically
+flushes all pending messages on the bus, which is done for refcounting
+purposes, to break circular references.
+</p>
+<p>
+This means that applications that update state using (async) bus messages
+(e.g. do certain things when a pipeline goes from PAUSED to READY) might
+not get to see messages when the pipeline is shut down, because they might
+be flushed before they can be dispatched in the main thread. This behaviour
+can be disabled using this function.
+</p>
+<p>
+It is important that all messages on the bus are handled when the
+automatic flushing is disabled else memory leaks will be introduced.
+</p>
+<p>
+MT safe.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pipeline</code></em> :</span></p></td>
+<td>a <a class="link" href="GstPipeline.html" title="GstPipeline"><span class="type">GstPipeline</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>auto_flush</code></em> :</span></p></td>
+<td>whether or not to automatically flush the bus when
+the pipeline goes from READY to NULL state</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-pipeline-get-auto-flush-bus"></a><h3>gst_pipeline_get_auto_flush_bus ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_pipeline_get_auto_flush_bus     (<em class="parameter"><code><a class="link" href="GstPipeline.html" title="GstPipeline"><span class="type">GstPipeline</span></a> *pipeline</code></em>);</pre>
+<p>
+Check if <em class="parameter"><code>pipeline</code></em> will automatically flush messages when going to
+the NULL state.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pipeline</code></em> :</span></p></td>
+<td>a <a class="link" href="GstPipeline.html" title="GstPipeline"><span class="type">GstPipeline</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>whether the pipeline will automatically flush its bus when
+going from READY to NULL state or not.
+MT safe.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-pipeline-set-delay"></a><h3>gst_pipeline_set_delay ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_pipeline_set_delay              (<em class="parameter"><code><a class="link" href="GstPipeline.html" title="GstPipeline"><span class="type">GstPipeline</span></a> *pipeline</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="type">GstClockTime</span></a> delay</code></em>);</pre>
+<p>
+Set the expected delay needed for all elements to perform the
+PAUSED to PLAYING state change. <em class="parameter"><code>delay</code></em> will be added to the
+base time of the elements so that they wait an additional <em class="parameter"><code>delay</code></em>
+amount of time before starting to process buffers and cannot be
+<a class="link" href="GstClock.html#GST-CLOCK-TIME-NONE:CAPS" title="GST_CLOCK_TIME_NONE"><span class="type">GST_CLOCK_TIME_NONE</span></a>.
+</p>
+<p>
+This option is used for tuning purposes and should normally not be
+used.
+</p>
+<p>
+MT safe.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pipeline</code></em> :</span></p></td>
+<td>a <a class="link" href="GstPipeline.html" title="GstPipeline"><span class="type">GstPipeline</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>delay</code></em> :</span></p></td>
+<td>the delay</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-pipeline-get-delay"></a><h3>gst_pipeline_get_delay ()</h3>
+<pre class="programlisting"><a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="returnvalue">GstClockTime</span></a>        gst_pipeline_get_delay              (<em class="parameter"><code><a class="link" href="GstPipeline.html" title="GstPipeline"><span class="type">GstPipeline</span></a> *pipeline</code></em>);</pre>
+<p>
+Get the configured delay (see <a class="link" href="GstPipeline.html#gst-pipeline-set-delay" title="gst_pipeline_set_delay ()"><code class="function">gst_pipeline_set_delay()</code></a>).
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pipeline</code></em> :</span></p></td>
+<td>a <a class="link" href="GstPipeline.html" title="GstPipeline"><span class="type">GstPipeline</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The configured delay.
+MT safe.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="GstPipeline.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GstPipeline--auto-flush-bus"></a><h3>The <code class="literal">"auto-flush-bus"</code> property</h3>
+<pre class="programlisting">  "auto-flush-bus"           <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write</pre>
+<p>
+Whether or not to automatically flush all messages on the
+pipeline's bus when going from READY to NULL state. Please see
+<a class="link" href="GstPipeline.html#gst-pipeline-set-auto-flush-bus" title="gst_pipeline_set_auto_flush_bus ()"><code class="function">gst_pipeline_set_auto_flush_bus()</code></a> for more information on this option.
+</p>
+<p>Default value: TRUE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstPipeline--delay"></a><h3>The <code class="literal">"delay"</code> property</h3>
+<pre class="programlisting">  "delay"                    <span class="type">guint64</span>               : Read / Write</pre>
+<p>
+The expected delay needed for elements to spin up to the
+PLAYING state expressed in nanoseconds.
+see <a class="link" href="GstPipeline.html#gst-pipeline-set-delay" title="gst_pipeline_set_delay ()"><code class="function">gst_pipeline_set_delay()</code></a> for more information on this option.
+</p>
+<p>Default value: 0</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GstPipeline.see-also"></a><h2>See Also</h2>
+<a class="link" href="GstElement.html" title="GstElement"><span class="type">GstElement</span></a>, <a class="link" href="GstBin.html" title="GstBin"><span class="type">GstBin</span></a>, <a class="link" href="GstClock.html" title="GstClock"><span class="type">GstClock</span></a>, <a class="link" href="GstBus.html" title="GstBus"><span class="type">GstBus</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

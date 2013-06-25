@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>gstconfig</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer 1.0 Core Reference Manual">
+<link rel="up" href="libgstreamer.html" title="GStreamer Core Library">
+<link rel="prev" href="GstClock.html" title="GstClock">
+<link rel="next" href="GstControlBinding.html" title="GstControlBinding">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="GstClock.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="libgstreamer.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer 1.0 Core Reference Manual</th>
+<td><a accesskey="n" href="GstControlBinding.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gstreamer-gstconfig.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gstreamer-gstconfig.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gstreamer-gstconfig"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gstreamer-gstconfig.top_of_page"></a>gstconfig</span></h2>
+<p>gstconfig — Build configuration options</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gstreamer-gstconfig.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;gst/gst.h&gt;
+
+#define             <a class="link" href="gstreamer-gstconfig.html#GST-DISABLE-GST-DEBUG:CAPS" title="GST_DISABLE_GST_DEBUG">GST_DISABLE_GST_DEBUG</a>
+#define             <a class="link" href="gstreamer-gstconfig.html#GST-DISABLE-PARSE:CAPS" title="GST_DISABLE_PARSE">GST_DISABLE_PARSE</a>
+#define             <a class="link" href="gstreamer-gstconfig.html#GST-DISABLE-TRACE:CAPS" title="GST_DISABLE_TRACE">GST_DISABLE_TRACE</a>
+#define             <a class="link" href="gstreamer-gstconfig.html#GST-DISABLE-ALLOC-TRACE:CAPS" title="GST_DISABLE_ALLOC_TRACE">GST_DISABLE_ALLOC_TRACE</a>
+#define             <a class="link" href="gstreamer-gstconfig.html#GST-DISABLE-REGISTRY:CAPS" title="GST_DISABLE_REGISTRY">GST_DISABLE_REGISTRY</a>
+#define             <a class="link" href="gstreamer-gstconfig.html#GST-DISABLE-PLUGIN:CAPS" title="GST_DISABLE_PLUGIN">GST_DISABLE_PLUGIN</a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="gstreamer-gstconfig.description"></a><h2>Description</h2>
+<p>
+This describes the configuration options for GStreamer. When building
+GStreamer there are a lot of parts (known internally as "subsystems" ) that
+can be disabled for various reasons. The most common reasons are speed and
+size, which is important because GStreamer is designed to run on embedded
+systems.
+</p>
+<p>
+If a subsystem is disabled, most of this changes are done in an API
+compatible way, so you don't need to adapt your code in most cases. It is
+never done in an ABI compatible way though. So if you want to disable a
+suybsystem, you have to rebuild all programs depending on GStreamer, too.
+</p>
+<p>
+If a subsystem is disabled in GStreamer, a value is defined in
+&lt;gst/gst.h&gt;. You can check this if you do subsystem-specific stuff.
+</p>
+<div class="example">
+<a name="example-gstconfig"></a><p class="title"><b>Example 5. Doing subsystem specific things</b></p>
+<div class="example-contents">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="gtkdoc ppc">#ifndef GST_DISABLE_GST_DEBUG</span>
+<span class="gtkdoc slc">// do stuff specific to the debugging subsystem</span>
+<span class="gtkdoc ppc">#endif</span> <span class="gtkdoc slc">// GST_DISABLE_GST_DEBUG</span><span class="gtkdoc ppc"></span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</div>
+<p><br class="example-break">
+</p>
+</div>
+<div class="refsect1">
+<a name="gstreamer-gstconfig.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GST-DISABLE-GST-DEBUG:CAPS"></a><h3>GST_DISABLE_GST_DEBUG</h3>
+<pre class="programlisting">#define GST_DISABLE_GST_DEBUG 1
+</pre>
+<p>
+Configures the inclusion of the debugging subsystem
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-DISABLE-PARSE:CAPS"></a><h3>GST_DISABLE_PARSE</h3>
+<pre class="programlisting">#define GST_DISABLE_PARSE 1
+</pre>
+<p>
+Configures the inclusion of the gst-lauch parser
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-DISABLE-TRACE:CAPS"></a><h3>GST_DISABLE_TRACE</h3>
+<pre class="programlisting">#define GST_DISABLE_TRACE 1
+</pre>
+<p>
+Configures the inclusion of a resource tracing facillity
+(seems to be unused)
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-DISABLE-ALLOC-TRACE:CAPS"></a><h3>GST_DISABLE_ALLOC_TRACE</h3>
+<pre class="programlisting">#define GST_DISABLE_ALLOC_TRACE 1
+</pre>
+<p>
+Configures the use of a memory tracer based on the resource tracer
+if TRACE is disabled, ALLOC_TRACE is disabled as well
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-DISABLE-REGISTRY:CAPS"></a><h3>GST_DISABLE_REGISTRY</h3>
+<pre class="programlisting">#define GST_DISABLE_REGISTRY 1
+</pre>
+<p>
+Configures the use of the plugin registry.
+If one disables this, required plugins need to be loaded and registered
+manually
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-DISABLE-PLUGIN:CAPS"></a><h3>GST_DISABLE_PLUGIN</h3>
+<pre class="programlisting">#define GST_DISABLE_PLUGIN 1
+</pre>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

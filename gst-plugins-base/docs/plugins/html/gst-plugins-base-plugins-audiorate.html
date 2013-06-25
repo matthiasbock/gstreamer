@@ -1,0 +1,273 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>audiorate</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer Base Plugins 1.0 Plugins Reference Manual">
+<link rel="up" href="ch01.html" title="gst-plugins-base Elements">
+<link rel="prev" href="gst-plugins-base-plugins-audioconvert.html" title="audioconvert">
+<link rel="next" href="gst-plugins-base-plugins-audioresample.html" title="audioresample">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gst-plugins-base-plugins-audioconvert.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer Base Plugins 1.0 Plugins Reference Manual</th>
+<td><a accesskey="n" href="gst-plugins-base-plugins-audioresample.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gst-plugins-base-plugins-audiorate.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gst-plugins-base-plugins-audiorate.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#gst-plugins-base-plugins-audiorate.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#gst-plugins-base-plugins-audiorate.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gst-plugins-base-plugins-audiorate"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gst-plugins-base-plugins-audiorate.top_of_page"></a>audiorate</span></h2>
+<p>audiorate — Drops/duplicates/adjusts timestamps on audio samples to make a perfect stream</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gst-plugins-base-plugins-audiorate.synopsis"></a><h2>Synopsis</h2>
+<a name="GstAudioRate"></a><pre class="synopsis">struct              <a class="link" href="gst-plugins-base-plugins-audiorate.html#GstAudioRate-struct" title="struct GstAudioRate">GstAudioRate</a>;
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-plugins-audiorate.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstObject.html">GstObject</a>
+               +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html">GstElement</a>
+                     +----GstAudioRate
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-plugins-audiorate.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="gst-plugins-base-plugins-audiorate.html#GstAudioRate--add" title='The "add" property'>add</a>"                      <span class="type">guint64</span>               : Read
+  "<a class="link" href="gst-plugins-base-plugins-audiorate.html#GstAudioRate--drop" title='The "drop" property'>drop</a>"                     <span class="type">guint64</span>               : Read
+  "<a class="link" href="gst-plugins-base-plugins-audiorate.html#GstAudioRate--in" title='The "in" property'>in</a>"                       <span class="type">guint64</span>               : Read
+  "<a class="link" href="gst-plugins-base-plugins-audiorate.html#GstAudioRate--out" title='The "out" property'>out</a>"                      <span class="type">guint64</span>               : Read
+  "<a class="link" href="gst-plugins-base-plugins-audiorate.html#GstAudioRate--silent" title='The "silent" property'>silent</a>"                   <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write
+  "<a class="link" href="gst-plugins-base-plugins-audiorate.html#GstAudioRate--tolerance" title='The "tolerance" property'>tolerance</a>"                <span class="type">guint64</span>               : Read / Write
+  "<a class="link" href="gst-plugins-base-plugins-audiorate.html#GstAudioRate--skip-to-first" title='The "skip-to-first" property'>skip-to-first</a>"            <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-plugins-audiorate.description"></a><h2>Description</h2>
+<p>
+This element takes an incoming stream of timestamped raw audio frames and
+produces a perfect stream by inserting or dropping samples as needed.
+</p>
+<p>
+This operation may be of use to link to elements that require or otherwise
+implicitly assume a perfect stream as they do not store timestamps,
+but derive this by some means (e.g. bitrate for some AVI cases).
+</p>
+<p>
+The properties <a class="link" href="gst-plugins-base-plugins-audiorate.html#GstAudioRate--in" title='The "in" property'><span class="type">"in"</span></a>, <a class="link" href="gst-plugins-base-plugins-audiorate.html#GstAudioRate--out" title='The "out" property'><span class="type">"out"</span></a>, <a class="link" href="gst-plugins-base-plugins-audiorate.html#GstAudioRate--add" title='The "add" property'><span class="type">"add"</span></a>
+and <a class="link" href="gst-plugins-base-plugins-audiorate.html#GstAudioRate--drop" title='The "drop" property'><span class="type">"drop"</span></a> can be read to obtain information about number of
+input samples, output samples, dropped samples (i.e. the number of unused
+input samples) and inserted samples (i.e. the number of samples added to
+stream).
+</p>
+<p>
+When the <a class="link" href="gst-plugins-base-plugins-audiorate.html#GstAudioRate--silent" title='The "silent" property'><span class="type">"silent"</span></a> property is set to FALSE, a GObject property
+notification will be emitted whenever one of the <a class="link" href="gst-plugins-base-plugins-audiorate.html#GstAudioRate--add" title='The "add" property'><span class="type">"add"</span></a> or
+<a class="link" href="gst-plugins-base-plugins-audiorate.html#GstAudioRate--drop" title='The "drop" property'><span class="type">"drop"</span></a> values changes.
+This can potentially cause performance degradation.
+Note that property notification will happen from the streaming thread, so
+applications should be prepared for this.
+</p>
+<p>
+If the <a class="link" href="gst-plugins-base-plugins-audiorate.html#GstAudioRate--tolerance" title='The "tolerance" property'><span class="type">"tolerance"</span></a> property is non-zero, and an incoming buffer's
+timestamp deviates less than the property indicates from what would make a
+'perfect time', then no samples will be added or dropped.
+Note that the output is still guaranteed to be a perfect stream, which means
+that the incoming data is then simply shifted (by less than the indicated
+tolerance) to a perfect time.
+</p>
+<p>
+</p>
+<div class="refsect2">
+<a name="idp6646512"></a><h3>Example pipelines</h3>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1</pre></td>
+        <td class="listing_code"><pre class="programlisting">gst<span class="gtkdoc opt">-</span>launch <span class="gtkdoc opt">-</span>v alsasrc <span class="gtkdoc opt">!</span> audiorate <span class="gtkdoc opt">!</span> wavenc <span class="gtkdoc opt">!</span> filesink location<span class="gtkdoc opt">=</span>alsa<span class="gtkdoc opt">.</span>wav</pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+ Capture audio from an ALSA device, and turn it into a perfect stream
+for saving in a raw audio file.
+</div>
+<p>
+</p>
+<div class="refsynopsisdiv">
+<h2>Synopsis</h2>
+<div class="refsect2">
+<a name="idp10160592"></a><h3>Element Information</h3>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">plugin</span></p></td>
+<td>
+            <a class="link" href="gst-plugins-base-plugins-plugin-audiorate.html#plugin-audiorate">audiorate</a>
+          </td>
+</tr>
+<tr>
+<td><p><span class="term">author</span></p></td>
+<td>Wim Taymans &lt;wim@fluendo.com&gt;</td>
+</tr>
+<tr>
+<td><p><span class="term">class</span></p></td>
+<td>Filter/Effect/Audio</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="idp10168048"></a><h3>Element Pads</h3>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">name</span></p></td>
+<td>sink</td>
+</tr>
+<tr>
+<td><p><span class="term">direction</span></p></td>
+<td>sink</td>
+</tr>
+<tr>
+<td><p><span class="term">presence</span></p></td>
+<td>always</td>
+</tr>
+<tr>
+<td><p><span class="term">details</span></p></td>
+<td>audio/x-raw, format=(string){ S8, U8, S16LE, S16BE, U16LE, U16BE, S24_32LE, S24_32BE, U24_32LE, U24_32BE, S32LE, S32BE, U32LE, U32BE, S24LE, S24BE, U24LE, U24BE, S20LE, S20BE, U20LE, U20BE, S18LE, S18BE, U18LE, U18BE, F32LE, F32BE, F64LE, F64BE }, rate=(int)[ 1, 2147483647 ], channels=(int)[ 1, 2147483647 ], layout=(string){ interleaved, non-interleaved }</td>
+</tr>
+</tbody>
+</table></div>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">name</span></p></td>
+<td>src</td>
+</tr>
+<tr>
+<td><p><span class="term">direction</span></p></td>
+<td>source</td>
+</tr>
+<tr>
+<td><p><span class="term">presence</span></p></td>
+<td>always</td>
+</tr>
+<tr>
+<td><p><span class="term">details</span></p></td>
+<td>audio/x-raw, format=(string){ S8, U8, S16LE, S16BE, U16LE, U16BE, S24_32LE, S24_32BE, U24_32LE, U24_32BE, S32LE, S32BE, U32LE, U32BE, S24LE, S24BE, U24LE, U24BE, S20LE, S20BE, U20LE, U20BE, S18LE, S18BE, U18LE, U18BE, F32LE, F32BE, F64LE, F64BE }, rate=(int)[ 1, 2147483647 ], channels=(int)[ 1, 2147483647 ], layout=(string){ interleaved, non-interleaved }</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<p>
+</p>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-plugins-audiorate.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstAudioRate-struct"></a><h3>struct GstAudioRate</h3>
+<pre class="programlisting">struct GstAudioRate;</pre>
+<p>
+Opaque data structure.
+</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-plugins-audiorate.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GstAudioRate--add"></a><h3>The <code class="literal">"add"</code> property</h3>
+<pre class="programlisting">  "add"                      <span class="type">guint64</span>               : Read</pre>
+<p>Number of added samples.</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstAudioRate--drop"></a><h3>The <code class="literal">"drop"</code> property</h3>
+<pre class="programlisting">  "drop"                     <span class="type">guint64</span>               : Read</pre>
+<p>Number of dropped samples.</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstAudioRate--in"></a><h3>The <code class="literal">"in"</code> property</h3>
+<pre class="programlisting">  "in"                       <span class="type">guint64</span>               : Read</pre>
+<p>Number of input samples.</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstAudioRate--out"></a><h3>The <code class="literal">"out"</code> property</h3>
+<pre class="programlisting">  "out"                      <span class="type">guint64</span>               : Read</pre>
+<p>Number of output samples.</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstAudioRate--silent"></a><h3>The <code class="literal">"silent"</code> property</h3>
+<pre class="programlisting">  "silent"                   <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write</pre>
+<p>Don't emit notify for dropped and duplicated frames.</p>
+<p>Default value: TRUE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstAudioRate--tolerance"></a><h3>The <code class="literal">"tolerance"</code> property</h3>
+<pre class="programlisting">  "tolerance"                <span class="type">guint64</span>               : Read / Write</pre>
+<p>
+The difference between incoming timestamp and next timestamp must exceed
+the given value for audiorate to add or drop samples.
+</p>
+<p>Default value: 40000000</p>
+<p class="since">Since 0.10.26</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstAudioRate--skip-to-first"></a><h3>The <code class="literal">"skip-to-first"</code> property</h3>
+<pre class="programlisting">  "skip-to-first"            <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write</pre>
+<p>
+Don't produce buffers before the first one we receive.
+</p>
+<p>Default value: FALSE</p>
+<p class="since">Since 0.10.33</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-plugins-audiorate.see-also"></a><h2>See Also</h2>
+<a class="link" href="gst-plugins-base-plugins-videorate.html#GstVideoRate"><span class="type">GstVideoRate</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

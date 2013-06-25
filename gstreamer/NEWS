@@ -1,0 +1,132 @@
+This is GStreamer 1.0.7
+
+Changes since 1.0.6:
+
+      * Add better support for static plugins
+
+Bugs fixed since 1.0.6:
+
+      * 667305 : build: Add --enable-static-plugins configure argument
+      * 696357 : Basesrc may send not-neg error when flushed
+      * 696435 : gst_static_caps_get(GST_STATIC_CAPS_NONE) doesn't work properly
+      * 697791 : gst-inspect: shows action signal return pointers as pointers
+
+Changes since 1.0.5:
+
+      * bin: reset GValue from iterator after usage, fixing leak
+      * pipeline: fix seeking on pipeline with NULL clock
+      * message: accept NULL error argument in gst_message_parse_{error,warning,info}
+      * basesrc: handle renegotiation correctly
+      * basesink: handle sync of EOS after item without duration
+      * basetransform: avoid warnings from NULL outcaps passed to transform_size in shutdown race
+      * adapter, basesrc, typefind: handle gst_buffer_map failure
+      * queuearray: fix gst_queue_array_drop_element() 
+      * queuearray: fix gst_queue_array_find()
+      * queue: remove query from queue if queue is flushing
+      * g-i: make sure enumeration types and flags are introspected and available to bindings
+      * g-i: add allow-none annotation for gst_pipeline_new()'s name property
+
+Bugs fixed since 1.0.5:
+
+      * 684804 : basesink: fails to post EOS message with RTSP stream
+      * 691185 : g-i: GStreamer enums and flags not usable - " expected enumeration type GstFormat, but got Format instead " warning when setting GstFormat property on GStreamer appsrc element
+      * 691985 : gst_pad_check_reconfigure: only remove flag if set.
+      * 691986 : basesrc: set NEED_RECONFIGURE flag if negotiate fails
+      * 692691 : queue: dangling pointer when doing allocation query on a flushing queue
+      * 692868 : basesink: expands GAP event without duration to last to segment end
+      * 693065 : pipeline: criticals when seeking on pipeline with NULL clock
+      * 693587 : Adding offset to GstSegment deserialize/serialize to fix jump on uninitialized value
+      * 693704 : gst_message_parse_{warning,error} annotations wrongly claim allow-none for GError parameter
+      * 693996 : basetransform: audioresample shutdown unit test fails with 'gst_audio_info_from_caps: caps != NULL'  in transform_size
+
+Changes since 1.0.4:
+
+      * add GST_BIN_FLAG_NO_RESYNC flag that disables a resync when
+        an element is added, removed or linked in the bin; this is
+        interesting for complex bins that dynamically add elements
+        to themselves and want to manage the state of those elements
+        without interference from state resync threads (which may
+        cause deadlocks)
+      * add OTHER clock type
+
+Bugs fixed since 1.0.4:
+
+      * 690915 : Replace AM_CONFIG_HEADER with AC_CONFIG_HEADERS in configure.ac
+
+API additions since 1.0.4:
+
+      * GST_BIN_FLAG_NO_RESYNC
+      * GST_CLOCK_TYPE_OTHER
+
+Changes since 1.0.3:
+
+      * basesrc: fix potential leaks when re-activating in a different mode
+      * bindings: make all pad probe types work with bindings
+      * bindings: fix gst_event_parse_stream_start() annotation, fixing crash
+      * documentation improvements
+
+Bugs fixed since 1.0.3:
+
+      * 687845 : filesrc: leaks file descriptor if activation in pull mode fails
+      * 688804 : Getting error trying to add a pad_probe
+      * 688934 : Gst.Event.parse_stream_start seems to not function correctly
+
+Changes since 1.0.2:
+
+      * bufferpool: fix deadlock
+      * baseparse: forward stream-start event in push mode, fixing issues with streamsynchronizer
+      * basesink: reset START_TIME when needed, fixing position reporting after seeking beyond end
+
+Bugs fixed since 1.0.2:
+
+      * 666053 : baseparse: prevent excessively high memory usage with large streams
+      * 687896 : bufferpool: deadlock in GstBufferPool
+      * 688477 : inputselector: fix clock leak in wait_running_time
+      * 688511 : Windows compilers without pthreads still have testrtpool.c being built in tests
+      * 688655 : baseparse: stream-start events not sent in push mode
+      * 685870 : Regression with position when seeking beyond the media duration
+
+Changes since 1.0.1:
+
+      * Parallel installability with 0.10.x series
+      * collectpads: ensure all timestamps are in same time domain
+      * gobject-introspection: fix GstSample annotations
+      * add GstElement::post_message() vfunc
+      * info: allow gst_debug_add_log_function() to be called before gst_init()
+      * event: allow GST_CLOCK_TIME_NONE as duration for GAP events
+      * documentation: new chapters and updates for the application development manual and the plugin writer's guide
+
+Bugs fixed since 1.0.1:
+
+      * 686456 : g_type_init is no longer required
+      * 686658 : allocator: fix memory leak in _fallback_mem_copy
+      * 686659 : preset: remove variable not read
+      * 686723 : basesrc: generic/states test in -base now hangs with appsrc
+      * 686787 : testrtpool must be linked to pthreads
+
+Changes since 1.0.0:
+
+      * Capsfilter prefers filter caps over passthrough now
+      * Application Development Manual, Plugin Writer's Guide and other documentation updated and extended for 1.0
+      * Bug fixes 
+
+Bugs fixed since 1.0.0:
+
+      * 680862 : identity with single-segment=true gives buffer.pts of CLOCK_TIME_NONE
+      * 684538 : baseparse: no timestamps after seeking in mp3 or aac
+      * 684755 : typo - whithin > within
+      * 684765 : Plugins without a klass in the metadata crashes autoaudiosink
+      * 684809 : proxypad don't hold a ref to their internal pad while streaming through it
+      * 684970 : Don't register printf extension for %p when glib is not using system printf
+      * 684981 : Pipeline hangs on PREROLLING negotiating caps
+      * 685072 : memory: map(READ)/unmap clears the READONLY status
+
+API additions since 1.0.0:
+
+      * gst_base_transform_set_prefer_passthrough()
+
+New features in 1.0.0:
+
+      * Parallel installability with 0.10.x series
+      * See release notes for more details
+

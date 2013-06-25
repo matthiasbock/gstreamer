@@ -1,0 +1,324 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GstControlSource</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer 1.0 Core Reference Manual">
+<link rel="up" href="libgstreamer.html" title="GStreamer Core Library">
+<link rel="prev" href="GstControlBinding.html" title="GstControlBinding">
+<link rel="next" href="gstreamer-GstDateTime.html" title="GstDateTime">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="GstControlBinding.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="libgstreamer.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer 1.0 Core Reference Manual</th>
+<td><a accesskey="n" href="gstreamer-GstDateTime.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#GstControlSource.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#GstControlSource.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#GstControlSource.object-hierarchy" class="shortcut">Object Hierarchy</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="GstControlSource"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GstControlSource.top_of_page"></a>GstControlSource</span></h2>
+<p>GstControlSource — base class for control source sources</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="GstControlSource.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;gst/gst.h&gt;
+
+                    <a class="link" href="GstControlSource.html#GstValueArray" title="GstValueArray">GstValueArray</a>;
+struct              <a class="link" href="GstControlSource.html#GstControlSource-struct" title="struct GstControlSource">GstControlSource</a>;
+struct              <a class="link" href="GstControlSource.html#GstControlSourceClass" title="struct GstControlSourceClass">GstControlSourceClass</a>;
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (<a class="link" href="GstControlSource.html#GstControlSourceGetValue" title="GstControlSourceGetValue ()">*GstControlSourceGetValue</a>)         (<em class="parameter"><code><a class="link" href="GstControlSource.html" title="GstControlSource"><span class="type">GstControlSource</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="type">GstClockTime</span></a> timestamp</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a> *value</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (<a class="link" href="GstControlSource.html#GstControlSourceGetValueArray" title="GstControlSourceGetValueArray ()">*GstControlSourceGetValueArray</a>)    (<em class="parameter"><code><a class="link" href="GstControlSource.html" title="GstControlSource"><span class="type">GstControlSource</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="type">GstClockTime</span></a> timestamp</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="type">GstClockTime</span></a> interval</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> n_values</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a> *values</code></em>);
+struct              <a class="link" href="GstControlSource.html#GstTimedValue" title="struct GstTimedValue">GstTimedValue</a>;
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="GstControlSource.html#gst-control-source-get-value" title="gst_control_source_get_value ()">gst_control_source_get_value</a>        (<em class="parameter"><code><a class="link" href="GstControlSource.html" title="GstControlSource"><span class="type">GstControlSource</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="type">GstClockTime</span></a> timestamp</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a> *value</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="GstControlSource.html#gst-control-source-get-value-array" title="gst_control_source_get_value_array ()">gst_control_source_get_value_array</a>  (<em class="parameter"><code><a class="link" href="GstControlSource.html" title="GstControlSource"><span class="type">GstControlSource</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="type">GstClockTime</span></a> timestamp</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="type">GstClockTime</span></a> interval</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> n_values</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a> *values</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="GstControlSource.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a class="link" href="GstObject.html" title="GstObject">GstObject</a>
+               +----GstControlSource
+</pre>
+</div>
+<div class="refsect1">
+<a name="GstControlSource.description"></a><h2>Description</h2>
+<p>
+The <a class="link" href="GstControlSource.html" title="GstControlSource"><span class="type">GstControlSource</span></a> is a base class for control value sources that could
+be used by <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer-libs/html/GstController.html"><span class="type">GstController</span></a> to get timestamp-value pairs. A control source
+essentially is a function over time, returning gloat values between 0.0 and 1.0.
+</p>
+<p>
+A <a class="link" href="GstControlSource.html" title="GstControlSource"><span class="type">GstControlSource</span></a> is used by first getting an instance of a specific
+control-source, creating a binding for the control-source to the target property
+of the element and then adding the binding to the element. The binding will
+convert the data types and value range to fit to the bound property.
+</p>
+<p>
+For implementing a new <a class="link" href="GstControlSource.html" title="GstControlSource"><span class="type">GstControlSource</span></a> one has to implement
+<a class="link" href="GstControlSource.html#GstControlSourceGetValue" title="GstControlSourceGetValue ()"><span class="type">GstControlSourceGetValue</span></a> and <a class="link" href="GstControlSource.html#GstControlSourceGetValueArray" title="GstControlSourceGetValueArray ()"><span class="type">GstControlSourceGetValueArray</span></a> functions.
+These are then used by <a class="link" href="GstControlSource.html#gst-control-source-get-value" title="gst_control_source_get_value ()"><code class="function">gst_control_source_get_value()</code></a> and
+<a class="link" href="GstControlSource.html#gst-control-source-get-value-array" title="gst_control_source_get_value_array ()"><code class="function">gst_control_source_get_value_array()</code></a> to get values for specific timestamps.
+</p>
+</div>
+<div class="refsect1">
+<a name="GstControlSource.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstValueArray"></a><h3>GstValueArray</h3>
+<pre class="programlisting">typedef struct _GstValueArray GstValueArray;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstControlSource-struct"></a><h3>struct GstControlSource</h3>
+<pre class="programlisting">struct GstControlSource {
+  GstControlSourceGetValue get_value;             /* Returns the value for a property at a given timestamp */
+  GstControlSourceGetValueArray get_value_array;  /* Returns values for a property in a given timespan */
+};
+</pre>
+<p>
+The instance structure of <a class="link" href="GstControlSource.html" title="GstControlSource"><span class="type">GstControlSource</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a class="link" href="GstControlSource.html#GstControlSourceGetValue" title="GstControlSourceGetValue ()"><span class="type">GstControlSourceGetValue</span></a> <em class="structfield"><code><a name="GstControlSource-struct.get-value"></a>get_value</code></em>;</span></p></td>
+<td>Function for returning a value for a given timestamp</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="GstControlSource.html#GstControlSourceGetValueArray" title="GstControlSourceGetValueArray ()"><span class="type">GstControlSourceGetValueArray</span></a> <em class="structfield"><code><a name="GstControlSource-struct.get-value-array"></a>get_value_array</code></em>;</span></p></td>
+<td>Function for returning a <a class="link" href="GstControlSource.html#GstValueArray" title="GstValueArray"><span class="type">GstValueArray</span></a> for a given timestamp</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstControlSourceClass"></a><h3>struct GstControlSourceClass</h3>
+<pre class="programlisting">struct GstControlSourceClass {
+  GstObjectClass parent_class;
+};
+</pre>
+<p>
+The class structure of <a class="link" href="GstControlSource.html" title="GstControlSource"><span class="type">GstControlSource</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><a class="link" href="GstObject.html#GstObjectClass" title="struct GstObjectClass"><span class="type">GstObjectClass</span></a> <em class="structfield"><code><a name="GstControlSourceClass.parent-class"></a>parent_class</code></em>;</span></p></td>
+<td>Parent class</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstControlSourceGetValue"></a><h3>GstControlSourceGetValue ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (*GstControlSourceGetValue)         (<em class="parameter"><code><a class="link" href="GstControlSource.html" title="GstControlSource"><span class="type">GstControlSource</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="type">GstClockTime</span></a> timestamp</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a> *value</code></em>);</pre>
+<p>
+Function for returning a value for a given timestamp.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>the <a class="link" href="GstControlSource.html" title="GstControlSource"><span class="type">GstControlSource</span></a> instance</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>timestamp</code></em> :</span></p></td>
+<td>timestamp for which a value should be calculated</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> which will be set to the result. It must be initialized to the correct type.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the value was successfully calculated.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstControlSourceGetValueArray"></a><h3>GstControlSourceGetValueArray ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (*GstControlSourceGetValueArray)    (<em class="parameter"><code><a class="link" href="GstControlSource.html" title="GstControlSource"><span class="type">GstControlSource</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="type">GstClockTime</span></a> timestamp</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="type">GstClockTime</span></a> interval</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> n_values</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a> *values</code></em>);</pre>
+<p>
+Function for returning an array of values for starting at a given timestamp.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>the <a class="link" href="GstControlSource.html" title="GstControlSource"><span class="type">GstControlSource</span></a> instance</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>timestamp</code></em> :</span></p></td>
+<td>timestamp for which a value should be calculated</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>interval</code></em> :</span></p></td>
+<td>the time spacing between subsequent values</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>n_values</code></em> :</span></p></td>
+<td>the number of values</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>values</code></em> :</span></p></td>
+<td>array to put control-values in</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the values were successfully calculated.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstTimedValue"></a><h3>struct GstTimedValue</h3>
+<pre class="programlisting">struct GstTimedValue {
+  GstClockTime timestamp;
+  gdouble      value;
+};
+</pre>
+<p>
+Structure for saving a timestamp and a value.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="type">GstClockTime</span></a> <em class="structfield"><code><a name="GstTimedValue.timestamp"></a>timestamp</code></em>;</span></p></td>
+<td>timestamp of the value change</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a> <em class="structfield"><code><a name="GstTimedValue.value"></a>value</code></em>;</span></p></td>
+<td>the corresponding value</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-control-source-get-value"></a><h3>gst_control_source_get_value ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_control_source_get_value        (<em class="parameter"><code><a class="link" href="GstControlSource.html" title="GstControlSource"><span class="type">GstControlSource</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="type">GstClockTime</span></a> timestamp</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a> *value</code></em>);</pre>
+<p>
+Gets the value for this <a class="link" href="GstControlSource.html" title="GstControlSource"><span class="type">GstControlSource</span></a> at a given timestamp.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>the <a class="link" href="GstControlSource.html" title="GstControlSource"><span class="type">GstControlSource</span></a> object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>timestamp</code></em> :</span></p></td>
+<td>the time for which the value should be returned</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>the value</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>FALSE if the value couldn't be returned, TRUE otherwise.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-control-source-get-value-array"></a><h3>gst_control_source_get_value_array ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_control_source_get_value_array  (<em class="parameter"><code><a class="link" href="GstControlSource.html" title="GstControlSource"><span class="type">GstControlSource</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="type">GstClockTime</span></a> timestamp</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="type">GstClockTime</span></a> interval</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> n_values</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a> *values</code></em>);</pre>
+<p>
+Gets an array of values for for this <a class="link" href="GstControlSource.html" title="GstControlSource"><span class="type">GstControlSource</span></a>. Values that are
+undefined contain NANs.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>the <a class="link" href="GstControlSource.html" title="GstControlSource"><span class="type">GstControlSource</span></a> object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>timestamp</code></em> :</span></p></td>
+<td>the first timestamp</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>interval</code></em> :</span></p></td>
+<td>the time steps</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>n_values</code></em> :</span></p></td>
+<td>the number of values to fetch</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>values</code></em> :</span></p></td>
+<td>array to put control-values in</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the given array could be filled, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

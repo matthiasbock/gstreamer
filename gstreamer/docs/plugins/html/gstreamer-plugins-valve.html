@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>valve</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer Core Plugins 1.0 Plugins Reference Manual">
+<link rel="up" href="ch01.html" title="gstreamer Elements">
+<link rel="prev" href="gstreamer-plugins-typefind.html" title="typefind">
+<link rel="next" href="ch02.html" title="gstreamer Plugins">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gstreamer-plugins-typefind.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer Core Plugins 1.0 Plugins Reference Manual</th>
+<td><a accesskey="n" href="ch02.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gstreamer-plugins-valve.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gstreamer-plugins-valve.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#gstreamer-plugins-valve.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#gstreamer-plugins-valve.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gstreamer-plugins-valve"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gstreamer-plugins-valve.top_of_page"></a>valve</span></h2>
+<p>valve — Drops buffers and events or lets them through</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gstreamer-plugins-valve.synopsis"></a><h2>Synopsis</h2>
+<a name="GstValve"></a><pre class="synopsis">struct              <a class="link" href="gstreamer-plugins-valve.html#GstValve-struct" title="struct GstValve">GstValve</a>;
+</pre>
+</div>
+<div class="refsect1">
+<a name="gstreamer-plugins-valve.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstObject.html">GstObject</a>
+               +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html">GstElement</a>
+                     +----GstValve
+</pre>
+</div>
+<div class="refsect1">
+<a name="gstreamer-plugins-valve.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="gstreamer-plugins-valve.html#GstValve--drop" title='The "drop" property'>drop</a>"                     <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write
+</pre>
+</div>
+<div class="refsect1">
+<a name="gstreamer-plugins-valve.description"></a><h2>Description</h2>
+<p>
+The valve is a simple element that drops buffers when the <a class="link" href="gstreamer-plugins-valve.html#GstValve--drop" title='The "drop" property'><span class="type">"drop"</span></a>
+property is set to <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> and lets then through otherwise.
+</p>
+<p>
+Any downstream error received while the <a class="link" href="gstreamer-plugins-valve.html#GstValve--drop" title='The "drop" property'><span class="type">"drop"</span></a> property is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>
+is ignored. So downstream element can be set to  <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html#GST-STATE-NULL:CAPS"><code class="literal">GST_STATE_NULL</code></a> and removed,
+without using pad blocking.
+</p>
+<p>
+This element was previously part of gst-plugins-farsight, and then
+gst-plugins-bad.
+</p>
+<p>
+Documentation last reviewed on 2010-12-30 (0.10.31)
+</p>
+<div class="refsynopsisdiv">
+<h2>Synopsis</h2>
+<div class="refsect2">
+<a name="idp7603760"></a><h3>Element Information</h3>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">plugin</span></p></td>
+<td>
+            <a class="link" href="gstreamer-plugins-plugin-coreelements.html#plugin-coreelements">coreelements</a>
+          </td>
+</tr>
+<tr>
+<td><p><span class="term">author</span></p></td>
+<td>Olivier Crete &lt;olivier.crete@collabora.co.uk&gt;</td>
+</tr>
+<tr>
+<td><p><span class="term">class</span></p></td>
+<td>Filter</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="idp11946288"></a><h3>Element Pads</h3>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">name</span></p></td>
+<td>sink</td>
+</tr>
+<tr>
+<td><p><span class="term">direction</span></p></td>
+<td>sink</td>
+</tr>
+<tr>
+<td><p><span class="term">presence</span></p></td>
+<td>always</td>
+</tr>
+<tr>
+<td><p><span class="term">details</span></p></td>
+<td>ANY</td>
+</tr>
+</tbody>
+</table></div>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">name</span></p></td>
+<td>src</td>
+</tr>
+<tr>
+<td><p><span class="term">direction</span></p></td>
+<td>source</td>
+</tr>
+<tr>
+<td><p><span class="term">presence</span></p></td>
+<td>always</td>
+</tr>
+<tr>
+<td><p><span class="term">details</span></p></td>
+<td>ANY</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<p>
+</p>
+</div>
+<div class="refsect1">
+<a name="gstreamer-plugins-valve.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstValve-struct"></a><h3>struct GstValve</h3>
+<pre class="programlisting">struct GstValve;</pre>
+<p>
+The private valve structure
+</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="gstreamer-plugins-valve.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GstValve--drop"></a><h3>The <code class="literal">"drop"</code> property</h3>
+<pre class="programlisting">  "drop"                     <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write</pre>
+<p>Whether to drop buffers and events or let them through.</p>
+<p>Default value: FALSE</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

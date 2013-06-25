@@ -1,0 +1,1458 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GstObject</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer 1.0 Core Reference Manual">
+<link rel="up" href="libgstreamer.html" title="GStreamer Core Library">
+<link rel="prev" href="gstreamer-GstMiniObject.html" title="GstMiniObject">
+<link rel="next" href="GstPad.html" title="GstPad">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gstreamer-GstMiniObject.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="libgstreamer.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer 1.0 Core Reference Manual</th>
+<td><a accesskey="n" href="GstPad.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#GstObject.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#GstObject.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#GstObject.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#GstObject.properties" class="shortcut">Properties</a>
+                   | 
+                  <a href="#GstObject.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="GstObject"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GstObject.top_of_page"></a>GstObject</span></h2>
+<p>GstObject — Base class for the GStreamer object hierarchy</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="GstObject.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;gst/gst.h&gt;
+
+struct              <a class="link" href="GstObject.html#GstObject-struct" title="struct GstObject">GstObject</a>;
+struct              <a class="link" href="GstObject.html#GstObjectClass" title="struct GstObjectClass">GstObjectClass</a>;
+enum                <a class="link" href="GstObject.html#GstObjectFlags" title="enum GstObjectFlags">GstObjectFlags</a>;
+#define             <a class="link" href="GstObject.html#GST-OBJECT-FLAGS:CAPS" title="GST_OBJECT_FLAGS()">GST_OBJECT_FLAGS</a>                    (obj)
+#define             <a class="link" href="GstObject.html#GST-OBJECT-FLAG-IS-SET:CAPS" title="GST_OBJECT_FLAG_IS_SET()">GST_OBJECT_FLAG_IS_SET</a>              (obj,
+                                                         flag)
+#define             <a class="link" href="GstObject.html#GST-OBJECT-FLAG-SET:CAPS" title="GST_OBJECT_FLAG_SET()">GST_OBJECT_FLAG_SET</a>                 (obj,
+                                                         flag)
+#define             <a class="link" href="GstObject.html#GST-OBJECT-FLAG-UNSET:CAPS" title="GST_OBJECT_FLAG_UNSET()">GST_OBJECT_FLAG_UNSET</a>               (obj,
+                                                         flag)
+#define             <a class="link" href="GstObject.html#GST-OBJECT-NAME:CAPS" title="GST_OBJECT_NAME()">GST_OBJECT_NAME</a>                     (obj)
+#define             <a class="link" href="GstObject.html#GST-OBJECT-PARENT:CAPS" title="GST_OBJECT_PARENT()">GST_OBJECT_PARENT</a>                   (obj)
+#define             <a class="link" href="GstObject.html#GST-OBJECT-REFCOUNT:CAPS" title="GST_OBJECT_REFCOUNT()">GST_OBJECT_REFCOUNT</a>                 (obj)
+#define             <a class="link" href="GstObject.html#GST-OBJECT-REFCOUNT-VALUE:CAPS" title="GST_OBJECT_REFCOUNT_VALUE()">GST_OBJECT_REFCOUNT_VALUE</a>           (obj)
+#define             <a class="link" href="GstObject.html#GST-OBJECT-LOCK:CAPS" title="GST_OBJECT_LOCK()">GST_OBJECT_LOCK</a>                     (obj)
+#define             <a class="link" href="GstObject.html#GST-OBJECT-TRYLOCK:CAPS" title="GST_OBJECT_TRYLOCK()">GST_OBJECT_TRYLOCK</a>                  (obj)
+#define             <a class="link" href="GstObject.html#GST-OBJECT-UNLOCK:CAPS" title="GST_OBJECT_UNLOCK()">GST_OBJECT_UNLOCK</a>                   (obj)
+#define             <a class="link" href="GstObject.html#GST-OBJECT-GET-LOCK:CAPS" title="GST_OBJECT_GET_LOCK()">GST_OBJECT_GET_LOCK</a>                 (obj)
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="GstObject.html#gst-object-set-name" title="gst_object_set_name ()">gst_object_set_name</a>                 (<em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             <a class="link" href="GstObject.html#gst-object-get-name" title="gst_object_get_name ()">gst_object_get_name</a>                 (<em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *object</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="GstObject.html#gst-object-set-parent" title="gst_object_set_parent ()">gst_object_set_parent</a>               (<em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *parent</code></em>);
+<a class="link" href="GstObject.html" title="GstObject"><span class="returnvalue">GstObject</span></a> *         <a class="link" href="GstObject.html#gst-object-get-parent" title="gst_object_get_parent ()">gst_object_get_parent</a>               (<em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *object</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="GstObject.html#gst-object-unparent" title="gst_object_unparent ()">gst_object_unparent</a>                 (<em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *object</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="GstObject.html#gst-object-default-deep-notify" title="gst_object_default_deep_notify ()">gst_object_default_deep_notify</a>      (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *orig</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-GParamSpec.html#GParamSpec"><span class="type">GParamSpec</span></a> *pspec</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **excluded_props</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="GstObject.html#gst-object-default-error" title="gst_object_default_error ()">gst_object_default_error</a>            (<em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *source</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> *error</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *debug</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="GstObject.html#gst-object-check-uniqueness" title="gst_object_check_uniqueness ()">gst_object_check_uniqueness</a>         (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *list</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="GstObject.html#gst-object-has-ancestor" title="gst_object_has_ancestor ()">gst_object_has_ancestor</a>             (<em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *ancestor</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            <a class="link" href="GstObject.html#gst-object-ref" title="gst_object_ref ()">gst_object_ref</a>                      (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> object</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="GstObject.html#gst-object-unref" title="gst_object_unref ()">gst_object_unref</a>                    (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> object</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            <a class="link" href="GstObject.html#gst-object-ref-sink" title="gst_object_ref_sink ()">gst_object_ref_sink</a>                 (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> object</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="GstObject.html#gst-object-replace" title="gst_object_replace ()">gst_object_replace</a>                  (<em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> **oldobj</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *newobj</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             <a class="link" href="GstObject.html#gst-object-get-path-string" title="gst_object_get_path_string ()">gst_object_get_path_string</a>          (<em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *object</code></em>);
+<a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="returnvalue">GstClockTime</span></a>        <a class="link" href="GstObject.html#gst-object-suggest-next-sync" title="gst_object_suggest_next_sync ()">gst_object_suggest_next_sync</a>        (<em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *object</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="GstObject.html#gst-object-sync-values" title="gst_object_sync_values ()">gst_object_sync_values</a>              (<em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="type">GstClockTime</span></a> timestamp</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="GstObject.html#gst-object-has-active-control-bindings" title="gst_object_has_active_control_bindings ()">gst_object_has_active_control_bindings</a>
+                                                        (<em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *object</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="GstObject.html#gst-object-set-control-bindings-disabled" title="gst_object_set_control_bindings_disabled ()">gst_object_set_control_bindings_disabled</a>
+                                                        (<em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> disabled</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="GstObject.html#gst-object-set-control-binding-disabled" title="gst_object_set_control_binding_disabled ()">gst_object_set_control_binding_disabled</a>
+                                                        (<em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *property_name</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> disabled</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="GstObject.html#gst-object-add-control-binding" title="gst_object_add_control_binding ()">gst_object_add_control_binding</a>      (<em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstControlBinding.html" title="GstControlBinding"><span class="type">GstControlBinding</span></a> *binding</code></em>);
+<a class="link" href="GstControlBinding.html" title="GstControlBinding"><span class="returnvalue">GstControlBinding</span></a> * <a class="link" href="GstObject.html#gst-object-get-control-binding" title="gst_object_get_control_binding ()">gst_object_get_control_binding</a>      (<em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *property_name</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="GstObject.html#gst-object-remove-control-binding" title="gst_object_remove_control_binding ()">gst_object_remove_control_binding</a>   (<em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstControlBinding.html" title="GstControlBinding"><span class="type">GstControlBinding</span></a> *binding</code></em>);
+<a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="returnvalue">GValue</span></a> *            <a class="link" href="GstObject.html#gst-object-get-value" title="gst_object_get_value ()">gst_object_get_value</a>                (<em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *property_name</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="type">GstClockTime</span></a> timestamp</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="GstObject.html#gst-object-get-value-array" title="gst_object_get_value_array ()">gst_object_get_value_array</a>          (<em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *property_name</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="type">GstClockTime</span></a> timestamp</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="type">GstClockTime</span></a> interval</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> n_values</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> values</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="GstObject.html#gst-object-get-g-value-array" title="gst_object_get_g_value_array ()">gst_object_get_g_value_array</a>        (<em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *property_name</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="type">GstClockTime</span></a> timestamp</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="type">GstClockTime</span></a> interval</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> n_values</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *values</code></em>);
+<a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="returnvalue">GstClockTime</span></a>        <a class="link" href="GstObject.html#gst-object-get-control-rate" title="gst_object_get_control_rate ()">gst_object_get_control_rate</a>         (<em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *object</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="GstObject.html#gst-object-set-control-rate" title="gst_object_set_control_rate ()">gst_object_set_control_rate</a>         (<em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="type">GstClockTime</span></a> control_rate</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="GstObject.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----GstObject
+               +----<a class="link" href="GstAllocator.html" title="GstAllocator">GstAllocator</a>
+               +----<a class="link" href="GstPad.html" title="GstPad">GstPad</a>
+               +----<a class="link" href="GstPadTemplate.html" title="GstPadTemplate">GstPadTemplate</a>
+               +----<a class="link" href="GstPluginFeature.html" title="GstPluginFeature">GstPluginFeature</a>
+               +----<a class="link" href="GstElement.html" title="GstElement">GstElement</a>
+               +----<a class="link" href="GstBus.html" title="GstBus">GstBus</a>
+               +----<a class="link" href="GstTask.html" title="GstTask">GstTask</a>
+               +----<a class="link" href="GstTaskPool.html" title="GstTaskPool">GstTaskPool</a>
+               +----<a class="link" href="GstClock.html" title="GstClock">GstClock</a>
+               +----<a class="link" href="GstControlBinding.html" title="GstControlBinding">GstControlBinding</a>
+               +----<a class="link" href="GstControlSource.html" title="GstControlSource">GstControlSource</a>
+               +----<a class="link" href="GstPlugin.html" title="GstPlugin">GstPlugin</a>
+               +----<a class="link" href="GstRegistry.html" title="GstRegistry">GstRegistry</a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="GstObject.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="GstObject.html#GstObject--name" title='The "name" property'>name</a>"                     <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct
+  "<a class="link" href="GstObject.html#GstObject--parent" title='The "parent" property'>parent</a>"                   <a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a>*            : Read / Write
+</pre>
+</div>
+<div class="refsect1">
+<a name="GstObject.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="GstObject.html#GstObject-deep-notify" title='The "deep-notify" signal'>deep-notify</a>"                                    : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="GstObject.description"></a><h2>Description</h2>
+<p>
+<a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> provides a root for the object hierarchy tree filed in by the
+GStreamer library.  It is currently a thin wrapper on top of
+<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned"><span class="type">GInitiallyUnowned</span></a>. It is an abstract class that is not very usable on its own.
+</p>
+<p>
+<a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> gives us basic refcounting, parenting functionality and locking.
+Most of the function are just extended for special GStreamer needs and can be
+found under the same name in the base class of <a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> which is <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a>
+(e.g. <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-ref"><code class="function">g_object_ref()</code></a> becomes <a class="link" href="GstObject.html#gst-object-ref" title="gst_object_ref ()"><code class="function">gst_object_ref()</code></a>).
+</p>
+<p>
+Since <a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> dereives from <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned"><span class="type">GInitiallyUnowned</span></a>, it also inherits the
+floating reference. Be aware that functions such as <a class="link" href="GstBin.html#gst-bin-add" title="gst_bin_add ()"><code class="function">gst_bin_add()</code></a> and
+<a class="link" href="GstElement.html#gst-element-add-pad" title="gst_element_add_pad ()"><code class="function">gst_element_add_pad()</code></a> take ownership of the floating reference.
+</p>
+<p>
+In contrast to <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> instances, <a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> adds a name property. The functions
+<a class="link" href="GstObject.html#gst-object-set-name" title="gst_object_set_name ()"><code class="function">gst_object_set_name()</code></a> and <a class="link" href="GstObject.html#gst-object-get-name" title="gst_object_get_name ()"><code class="function">gst_object_get_name()</code></a> are used to set/get the name
+of the object.
+</p>
+<p>
+</p>
+<div class="refsect2">
+<a name="idp28284672"></a><h3>controlled properties</h3>
+<p>
+Controlled properties offers a lightweight way to adjust gobject
+properties over stream-time. It works by using time-stamped value pairs that
+are queued for element-properties. At run-time the elements continously pull
+values changes for the current stream-time.
+</p>
+<p>
+What needs to be changed in a <a class="link" href="GstElement.html" title="GstElement"><span class="type">GstElement</span></a>?
+Very little - it is just two steps to make a plugin controllable!
+</p>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem"><p>
+    mark gobject-properties paramspecs that make sense to be controlled,
+    by GST_PARAM_CONTROLLABLE.
+  </p></li>
+<li class="listitem"><p>
+    when processing data (get, chain, loop function) at the beginning call
+    gst_object_sync_values(element,timestamp).
+    This will made the controller to update all gobject properties that are under
+    control with the current values based on timestamp.
+  </p></li>
+</ol></div>
+<p>
+</p>
+<p>
+What needs to be done in applications?
+Again it's not a lot to change.
+</p>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem"><p>
+    create a <a class="link" href="GstControlSource.html" title="GstControlSource"><span class="type">GstControlSource</span></a>.
+    csource = <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer-libs/html/GstInterpolationControlSource.html#gst-interpolation-control-source-new"><code class="function">gst_interpolation_control_source_new()</code></a>;
+    g_object_set (csource, "mode", GST_INTERPOLATION_MODE_LINEAR, NULL);
+  </p></li>
+<li class="listitem"><p>
+    Attach the <a class="link" href="GstControlSource.html" title="GstControlSource"><span class="type">GstControlSource</span></a> on the controller to a property.
+    gst_object_add_control_binding (object, gst_direct_control_binding_new (object, "prop1", csource));
+  </p></li>
+<li class="listitem"><p>
+    Set the control values
+    gst_timed_value_control_source_set ((GstTimedValueControlSource *)csource,0 * GST_SECOND, value1);
+    gst_timed_value_control_source_set ((GstTimedValueControlSource *)csource,1 * GST_SECOND, value2);
+  </p></li>
+<li class="listitem"><p>
+    start your pipeline
+  </p></li>
+</ol></div>
+<p>
+</p>
+</div>
+<p>
+</p>
+<p>
+Last reviewed on 2012-03-29 (0.11.3)
+</p>
+</div>
+<div class="refsect1">
+<a name="GstObject.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstObject-struct"></a><h3>struct GstObject</h3>
+<pre class="programlisting">struct GstObject {
+  GMutex         lock;        /* object LOCK */
+  gchar         *name;        /* object name */
+  GstObject     *parent;      /* this object's parent, weak ref */
+  guint32        flags;
+};
+</pre>
+<p>
+GStreamer base object class.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Threads.html#GMutex"><span class="type">GMutex</span></a> <em class="structfield"><code><a name="GstObject-struct.lock"></a>lock</code></em>;</span></p></td>
+<td>object LOCK</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *<em class="structfield"><code><a name="GstObject-struct.name"></a>name</code></em>;</span></p></td>
+<td>The name of the object</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *<em class="structfield"><code><a name="GstObject-struct.parent"></a>parent</code></em>;</span></p></td>
+<td>this object's parent, weak ref</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">guint32</span> <em class="structfield"><code><a name="GstObject-struct.flags"></a>flags</code></em>;</span></p></td>
+<td>flags for this object</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstObjectClass"></a><h3>struct GstObjectClass</h3>
+<pre class="programlisting">struct GstObjectClass {
+  GInitiallyUnownedClass parent_class;
+
+  const gchar *path_string_separator;
+
+  /* signals */
+  void          (*deep_notify)      (GstObject * object, GstObject * orig, GParamSpec * pspec);
+
+  /* virtual methods for subclasses */
+};
+</pre>
+<p>
+GStreamer base object class.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnownedClass"><span class="type">GInitiallyUnownedClass</span></a> <em class="structfield"><code><a name="GstObjectClass.parent-class"></a>parent_class</code></em>;</span></p></td>
+<td>parent</td>
+</tr>
+<tr>
+<td><p><span class="term">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *<em class="structfield"><code><a name="GstObjectClass.path-string-separator"></a>path_string_separator</code></em>;</span></p></td>
+<td>separator used by <a class="link" href="GstObject.html#gst-object-get-path-string" title="gst_object_get_path_string ()"><code class="function">gst_object_get_path_string()</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GstObjectClass.deep-notify"></a>deep_notify</code></em> ()</span></p></td>
+<td>default signal handler</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstObjectFlags"></a><h3>enum GstObjectFlags</h3>
+<pre class="programlisting">typedef enum {
+  /* padding */
+  GST_OBJECT_FLAG_LAST = (1&lt;&lt;4)
+} GstObjectFlags;
+</pre>
+<p>
+The standard flags that an gstobject may have.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><a name="GST-OBJECT-FLAG-LAST:CAPS"></a><span class="term"><code class="literal">GST_OBJECT_FLAG_LAST</code></span></p></td>
+<td>subclasses can add additional flags starting from this flag
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-OBJECT-FLAGS:CAPS"></a><h3>GST_OBJECT_FLAGS()</h3>
+<pre class="programlisting">#define GST_OBJECT_FLAGS(obj)                  (GST_OBJECT_CAST (obj)-&gt;flags)
+</pre>
+<p>
+This macro returns the entire set of flags for the object.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>a <a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-OBJECT-FLAG-IS-SET:CAPS"></a><h3>GST_OBJECT_FLAG_IS_SET()</h3>
+<pre class="programlisting">#define GST_OBJECT_FLAG_IS_SET(obj,flag)       ((GST_OBJECT_FLAGS (obj) &amp; (flag)) == (flag))
+</pre>
+<p>
+This macro checks to see if the given flag is set.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>a <a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>flag</code></em> :</span></p></td>
+<td>Flag to check for</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-OBJECT-FLAG-SET:CAPS"></a><h3>GST_OBJECT_FLAG_SET()</h3>
+<pre class="programlisting">#define GST_OBJECT_FLAG_SET(obj,flag)          (GST_OBJECT_FLAGS (obj) |= (flag))
+</pre>
+<p>
+This macro sets the given bits.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>a <a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>flag</code></em> :</span></p></td>
+<td>Flag to set</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-OBJECT-FLAG-UNSET:CAPS"></a><h3>GST_OBJECT_FLAG_UNSET()</h3>
+<pre class="programlisting">#define GST_OBJECT_FLAG_UNSET(obj,flag)        (GST_OBJECT_FLAGS (obj) &amp;= ~(flag))
+</pre>
+<p>
+This macro usets the given bits.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>a <a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>flag</code></em> :</span></p></td>
+<td>Flag to set</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-OBJECT-NAME:CAPS"></a><h3>GST_OBJECT_NAME()</h3>
+<pre class="programlisting">#define GST_OBJECT_NAME(obj)            (GST_OBJECT_CAST(obj)-&gt;name)
+</pre>
+<p>
+Get the name of this object
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>a <a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-OBJECT-PARENT:CAPS"></a><h3>GST_OBJECT_PARENT()</h3>
+<pre class="programlisting">#define GST_OBJECT_PARENT(obj)          (GST_OBJECT_CAST(obj)-&gt;parent)
+</pre>
+<p>
+Get the parent of this object
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>a <a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-OBJECT-REFCOUNT:CAPS"></a><h3>GST_OBJECT_REFCOUNT()</h3>
+<pre class="programlisting">#define GST_OBJECT_REFCOUNT(obj)                (((GObject*)(obj))-&gt;ref_count)
+</pre>
+<p>
+Get access to the reference count field of the object.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>a <a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-OBJECT-REFCOUNT-VALUE:CAPS"></a><h3>GST_OBJECT_REFCOUNT_VALUE()</h3>
+<pre class="programlisting">#define GST_OBJECT_REFCOUNT_VALUE(obj)          g_atomic_int_get ((gint *) &amp;GST_OBJECT_REFCOUNT(obj))
+</pre>
+<p>
+Get the reference count value of the object.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>a <a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-OBJECT-LOCK:CAPS"></a><h3>GST_OBJECT_LOCK()</h3>
+<pre class="programlisting">#define GST_OBJECT_LOCK(obj)                   g_mutex_lock(GST_OBJECT_GET_LOCK(obj))
+</pre>
+<p>
+This macro will obtain a lock on the object, making serialization possible.
+It blocks until the lock can be obtained.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>a <a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> to lock</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-OBJECT-TRYLOCK:CAPS"></a><h3>GST_OBJECT_TRYLOCK()</h3>
+<pre class="programlisting">#define GST_OBJECT_TRYLOCK(obj)                g_mutex_trylock(GST_OBJECT_GET_LOCK(obj))
+</pre>
+<p>
+This macro will try to obtain a lock on the object, but will return with
+FALSE if it can't get it immediately.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>a <a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a>.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-OBJECT-UNLOCK:CAPS"></a><h3>GST_OBJECT_UNLOCK()</h3>
+<pre class="programlisting">#define GST_OBJECT_UNLOCK(obj)                 g_mutex_unlock(GST_OBJECT_GET_LOCK(obj))
+</pre>
+<p>
+This macro releases a lock on the object.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>a <a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> to unlock.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-OBJECT-GET-LOCK:CAPS"></a><h3>GST_OBJECT_GET_LOCK()</h3>
+<pre class="programlisting">#define GST_OBJECT_GET_LOCK(obj)               (&amp;GST_OBJECT_CAST(obj)-&gt;lock)
+</pre>
+<p>
+Acquire a reference to the mutex of this object.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>a <a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-object-set-name"></a><h3>gst_object_set_name ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_object_set_name                 (<em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);</pre>
+<p>
+Sets the name of <em class="parameter"><code>object</code></em>, or gives <em class="parameter"><code>object</code></em> a guaranteed unique
+name (if <em class="parameter"><code>name</code></em> is NULL).
+This function makes a copy of the provided name, so the caller
+retains ownership of the name it sent.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>a <a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>new name of object</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE if the name could be set. Since Objects that have
+a parent cannot be renamed, this function returns FALSE in those
+cases.
+MT safe.  This function grabs and releases <em class="parameter"><code>object</code></em>'s LOCK.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-object-get-name"></a><h3>gst_object_get_name ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             gst_object_get_name                 (<em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *object</code></em>);</pre>
+<p>
+Returns a copy of the name of <em class="parameter"><code>object</code></em>.
+Caller should <a href="http://library.gnome.org/devel/glib/unstable/glib-Memory-Allocation.html#g-free"><code class="function">g_free()</code></a> the return value after usage.
+For a nameless object, this returns NULL, which you can safely <a href="http://library.gnome.org/devel/glib/unstable/glib-Memory-Allocation.html#g-free"><code class="function">g_free()</code></a>
+as well.
+</p>
+<p>
+Free-function: g_free
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>a <a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the name of <em class="parameter"><code>object</code></em>. <a href="http://library.gnome.org/devel/glib/unstable/glib-Memory-Allocation.html#g-free"><code class="function">g_free()</code></a> after usage.
+MT safe. This function grabs and releases <em class="parameter"><code>object</code></em>'s LOCK. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-object-set-parent"></a><h3>gst_object_set_parent ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_object_set_parent               (<em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *parent</code></em>);</pre>
+<p>
+Sets the parent of <em class="parameter"><code>object</code></em> to <em class="parameter"><code>parent</code></em>. The object's reference count will
+be incremented, and any floating reference will be removed (see <a class="link" href="GstObject.html#gst-object-ref-sink" title="gst_object_ref_sink ()"><code class="function">gst_object_ref_sink()</code></a>).
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>a <a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>new parent of object</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE if <em class="parameter"><code>parent</code></em> could be set or FALSE when <em class="parameter"><code>object</code></em>
+already had a parent or <em class="parameter"><code>object</code></em> and <em class="parameter"><code>parent</code></em> are the same.
+MT safe. Grabs and releases <em class="parameter"><code>object</code></em>'s LOCK.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-object-get-parent"></a><h3>gst_object_get_parent ()</h3>
+<pre class="programlisting"><a class="link" href="GstObject.html" title="GstObject"><span class="returnvalue">GstObject</span></a> *         gst_object_get_parent               (<em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *object</code></em>);</pre>
+<p>
+Returns the parent of <em class="parameter"><code>object</code></em>. This function increases the refcount
+of the parent object so you should <a class="link" href="GstObject.html#gst-object-unref" title="gst_object_unref ()"><code class="function">gst_object_unref()</code></a> it after usage.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>a <a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>parent of <em class="parameter"><code>object</code></em>, this can be NULL if <em class="parameter"><code>object</code></em>
+has no parent. unref after usage.
+MT safe. Grabs and releases <em class="parameter"><code>object</code></em>'s LOCK. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-object-unparent"></a><h3>gst_object_unparent ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_object_unparent                 (<em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *object</code></em>);</pre>
+<p>
+Clear the parent of <em class="parameter"><code>object</code></em>, removing the associated reference.
+This function decreases the refcount of <em class="parameter"><code>object</code></em>.
+</p>
+<p>
+MT safe. Grabs and releases <em class="parameter"><code>object</code></em>'s lock.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>a <a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> to unparent</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-object-default-deep-notify"></a><h3>gst_object_default_deep_notify ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_object_default_deep_notify      (<em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *orig</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-GParamSpec.html#GParamSpec"><span class="type">GParamSpec</span></a> *pspec</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **excluded_props</code></em>);</pre>
+<p>
+A default deep_notify signal callback for an object. The user data
+should contain a pointer to an array of strings that should be excluded
+from the notify. The default handler will print the new value of the property
+using g_print.
+</p>
+<p>
+MT safe. This function grabs and releases <em class="parameter"><code>object</code></em>'s LOCK for getting its
+         path string.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>the <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> that signalled the notify.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>orig</code></em> :</span></p></td>
+<td>a <a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> that initiated the notify.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pspec</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gobject/unstable/gobject-GParamSpec.html#GParamSpec"><span class="type">GParamSpec</span></a> of the property.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>excluded_props</code></em> :</span></p></td>
+<td>a set of user-specified properties to exclude or NULL to show
+all changes. <span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> zero-terminated=1][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> gchar*][<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-object-default-error"></a><h3>gst_object_default_error ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_object_default_error            (<em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *source</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> *error</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *debug</code></em>);</pre>
+<p>
+A default error function that uses <a href="http://library.gnome.org/devel/glib/unstable/glib-Warnings-and-Assertions.html#g-printerr"><code class="function">g_printerr()</code></a> to display the error message
+and the optional debug sting..
+</p>
+<p>
+The default handler will simply print the error string using g_print.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td>the <a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> that initiated the error.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>the GError. <span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>debug</code></em> :</span></p></td>
+<td>an additional debug information string, or NULL. <span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>][<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-object-check-uniqueness"></a><h3>gst_object_check_uniqueness ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_object_check_uniqueness         (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *list</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);</pre>
+<p>
+Checks to see if there is any object named <em class="parameter"><code>name</code></em> in <em class="parameter"><code>list</code></em>. This function
+does not do any locking of any kind. You might want to protect the
+provided list with the lock of the owner of the list. This function
+will lock each <a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> in the list to compare the name, so be
+carefull when passing a list with a locked object.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>list</code></em> :</span></p></td>
+<td>a list of <a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> to
+check through. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> Gst.Object]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>the name to search for</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE if a <a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> named <em class="parameter"><code>name</code></em> does not appear in <em class="parameter"><code>list</code></em>,
+FALSE if it does.
+MT safe. Grabs and releases the LOCK of each object in the list.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-object-has-ancestor"></a><h3>gst_object_has_ancestor ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_object_has_ancestor             (<em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *ancestor</code></em>);</pre>
+<p>
+Check if <em class="parameter"><code>object</code></em> has an ancestor <em class="parameter"><code>ancestor</code></em> somewhere up in
+the hierarchy. One can e.g. check if a <a class="link" href="GstElement.html" title="GstElement"><span class="type">GstElement</span></a> is inside a <a class="link" href="GstPipeline.html" title="GstPipeline"><span class="type">GstPipeline</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>a <a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> to check</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ancestor</code></em> :</span></p></td>
+<td>a <a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> to check as ancestor</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE if <em class="parameter"><code>ancestor</code></em> is an ancestor of <em class="parameter"><code>object</code></em>.
+MT safe. Grabs and releases <em class="parameter"><code>object</code></em>'s locks.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-object-ref"></a><h3>gst_object_ref ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            gst_object_ref                      (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> object</code></em>);</pre>
+<p>
+Increments the reference count on <em class="parameter"><code>object</code></em>. This function
+does not take the lock on <em class="parameter"><code>object</code></em> because it relies on
+atomic refcounting.
+</p>
+<p>
+This object returns the input parameter to ease writing
+constructs like :
+ result = gst_object_ref (object-&gt;parent);
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>a <a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> to reference. <span class="annotation">[<acronym title="Override the parsed C type with given type"><span class="acronym">type</span></acronym> Gst.Object]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>A pointer to <em class="parameter"><code>object</code></em>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="Override the parsed C type with given type"><span class="acronym">type</span></acronym> Gst.Object]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-object-unref"></a><h3>gst_object_unref ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_object_unref                    (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> object</code></em>);</pre>
+<p>
+Decrements the reference count on <em class="parameter"><code>object</code></em>.  If reference count hits
+zero, destroy <em class="parameter"><code>object</code></em>. This function does not take the lock
+on <em class="parameter"><code>object</code></em> as it relies on atomic refcounting.
+</p>
+<p>
+The unref method should never be called with the LOCK held since
+this might deadlock the dispose function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>a <a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> to unreference. <span class="annotation">[<acronym title="Override the parsed C type with given type"><span class="acronym">type</span></acronym> Gst.Object]</span>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-object-ref-sink"></a><h3>gst_object_ref_sink ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            gst_object_ref_sink                 (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> object</code></em>);</pre>
+<p>
+Increase the reference count of <em class="parameter"><code>object</code></em>, and possibly remove the floating
+reference, if <em class="parameter"><code>object</code></em> has a floating reference.
+</p>
+<p>
+In other words, if the object is floating, then this call "assumes ownership"
+of the floating reference, converting it to a normal reference by clearing
+the floating flag while leaving the reference count unchanged. If the object
+is not floating, then this call adds a new normal reference increasing the
+reference count by one.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>a <a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> to sink</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-object-replace"></a><h3>gst_object_replace ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_object_replace                  (<em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> **oldobj</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *newobj</code></em>);</pre>
+<p>
+Atomically modifies a pointer to point to a new object.
+The reference count of <em class="parameter"><code>oldobj</code></em> is decreased and the reference count of
+<em class="parameter"><code>newobj</code></em> is increased.
+</p>
+<p>
+Either <em class="parameter"><code>newobj</code></em> and the value pointed to by <em class="parameter"><code>oldobj</code></em> may be NULL.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>oldobj</code></em> :</span></p></td>
+<td>pointer to a place of a <a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> to
+replace. <span class="annotation">[<acronym title="Parameter for input and for returning results. Default is transfer full."><span class="acronym">inout</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>newobj</code></em> :</span></p></td>
+<td>a new <a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a>. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE if <em class="parameter"><code>newobj</code></em> was different from <em class="parameter"><code>oldobj</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-object-get-path-string"></a><h3>gst_object_get_path_string ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             gst_object_get_path_string          (<em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *object</code></em>);</pre>
+<p>
+Generates a string describing the path of <em class="parameter"><code>object</code></em> in
+the object hierarchy. Only useful (or used) for debugging.
+</p>
+<p>
+Free-function: g_free
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>a <a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a string describing the path of <em class="parameter"><code>object</code></em>. You must
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Memory-Allocation.html#g-free"><code class="function">g_free()</code></a> the string after usage.
+MT safe. Grabs and releases the <a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a>'s LOCK for all objects
+in the hierarchy. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-object-suggest-next-sync"></a><h3>gst_object_suggest_next_sync ()</h3>
+<pre class="programlisting"><a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="returnvalue">GstClockTime</span></a>        gst_object_suggest_next_sync        (<em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *object</code></em>);</pre>
+<p>
+Returns a suggestion for timestamps where buffers should be split
+to get best controller results.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>the object that has controlled properties</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>Returns the suggested timestamp or <a class="link" href="GstClock.html#GST-CLOCK-TIME-NONE:CAPS" title="GST_CLOCK_TIME_NONE"><code class="literal">GST_CLOCK_TIME_NONE</code></a>
+if no control-rate was set.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-object-sync-values"></a><h3>gst_object_sync_values ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_object_sync_values              (<em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="type">GstClockTime</span></a> timestamp</code></em>);</pre>
+<p>
+Sets the properties of the object, according to the <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstControlSource.html"><span class="type">GstControlSources</span></a> that
+(maybe) handle them and for the given timestamp.
+</p>
+<p>
+If this function fails, it is most likely the application developers fault.
+Most probably the control sources are not setup correctly.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>the object that has controlled properties</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>timestamp</code></em> :</span></p></td>
+<td>the time that should be processed</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the controller values could be applied to the object
+properties, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-object-has-active-control-bindings"></a><h3>gst_object_has_active_control_bindings ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_object_has_active_control_bindings
+                                                        (<em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *object</code></em>);</pre>
+<p>
+Check if the <em class="parameter"><code>object</code></em> has an active controlled properties.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>the object that has controlled properties</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the object has active controlled properties</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-object-set-control-bindings-disabled"></a><h3>gst_object_set_control_bindings_disabled ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_object_set_control_bindings_disabled
+                                                        (<em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> disabled</code></em>);</pre>
+<p>
+This function is used to disable all controlled properties of the <em class="parameter"><code>object</code></em> for
+some time, i.e. <a class="link" href="GstObject.html#gst-object-sync-values" title="gst_object_sync_values ()"><code class="function">gst_object_sync_values()</code></a> will do nothing.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>the object that has controlled properties</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>disabled</code></em> :</span></p></td>
+<td>boolean that specifies whether to disable the controller
+or not.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-object-set-control-binding-disabled"></a><h3>gst_object_set_control_binding_disabled ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_object_set_control_binding_disabled
+                                                        (<em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *property_name</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> disabled</code></em>);</pre>
+<p>
+This function is used to disable the <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer-libs/html/GstController.html"><span class="type">GstController</span></a> on a property for
+some time, i.e. <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer-libs/html/GstController.html#gst-controller-sync-values"><code class="function">gst_controller_sync_values()</code></a> will do nothing for the
+property.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>the object that has controlled properties</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>property_name</code></em> :</span></p></td>
+<td>property to disable</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>disabled</code></em> :</span></p></td>
+<td>boolean that specifies whether to disable the controller
+or not.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-object-add-control-binding"></a><h3>gst_object_add_control_binding ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_object_add_control_binding      (<em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstControlBinding.html" title="GstControlBinding"><span class="type">GstControlBinding</span></a> *binding</code></em>);</pre>
+<p>
+Sets the <a class="link" href="GstControlBinding.html" title="GstControlBinding"><span class="type">GstControlBinding</span></a>. If there already was a <a class="link" href="GstControlBinding.html" title="GstControlBinding"><span class="type">GstControlBinding</span></a>
+for this property it will be replaced.
+The <em class="parameter"><code>object</code></em> will take ownership of the <em class="parameter"><code>binding</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>the controller object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>binding</code></em> :</span></p></td>
+<td>the <a class="link" href="GstControlBinding.html" title="GstControlBinding"><span class="type">GstControlBinding</span></a> that should be used. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> if the given <em class="parameter"><code>binding</code></em> has not been setup for this object  or
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> otherwise.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-object-get-control-binding"></a><h3>gst_object_get_control_binding ()</h3>
+<pre class="programlisting"><a class="link" href="GstControlBinding.html" title="GstControlBinding"><span class="returnvalue">GstControlBinding</span></a> * gst_object_get_control_binding      (<em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *property_name</code></em>);</pre>
+<p>
+Gets the corresponding <a class="link" href="GstControlBinding.html" title="GstControlBinding"><span class="type">GstControlBinding</span></a> for the property. This should be
+unreferenced again after use.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>the object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>property_name</code></em> :</span></p></td>
+<td>name of the property</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the <a class="link" href="GstControlBinding.html" title="GstControlBinding"><span class="type">GstControlBinding</span></a> for <em class="parameter"><code>property_name</code></em> or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if
+the property is not controlled. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-object-remove-control-binding"></a><h3>gst_object_remove_control_binding ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_object_remove_control_binding   (<em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstControlBinding.html" title="GstControlBinding"><span class="type">GstControlBinding</span></a> *binding</code></em>);</pre>
+<p>
+Removes the corresponding <a class="link" href="GstControlBinding.html" title="GstControlBinding"><span class="type">GstControlBinding</span></a>. If it was the
+last ref of the binding, it will be disposed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>the object</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>binding</code></em> :</span></p></td>
+<td>the binding</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the binding could be removed.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-object-get-value"></a><h3>gst_object_get_value ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="returnvalue">GValue</span></a> *            gst_object_get_value                (<em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *property_name</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="type">GstClockTime</span></a> timestamp</code></em>);</pre>
+<p>
+Gets the value for the given controlled property at the requested time.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>the object that has controlled properties</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>property_name</code></em> :</span></p></td>
+<td>the name of the property to get</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>timestamp</code></em> :</span></p></td>
+<td>the time the control-change should be read from</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the GValue of the property at the given time, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if the
+property isn't controlled.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-object-get-value-array"></a><h3>gst_object_get_value_array ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_object_get_value_array          (<em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *property_name</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="type">GstClockTime</span></a> timestamp</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="type">GstClockTime</span></a> interval</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> n_values</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> values</code></em>);</pre>
+<p>
+Gets a number of values for the given controlled property starting at the
+requested time. The array <em class="parameter"><code>values</code></em> need to hold enough space for <em class="parameter"><code>n_values</code></em> of
+the same type as the objects property's type.
+</p>
+<p>
+This function is useful if one wants to e.g. draw a graph of the control
+curve or apply a control curve sample by sample.
+</p>
+<p>
+The values are unboxed and ready to be used. The similar function 
+<a class="link" href="GstObject.html#gst-object-get-g-value-array" title="gst_object_get_g_value_array ()"><code class="function">gst_object_get_g_value_array()</code></a> returns the array as <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValues</span></a> and is
+better suites for bindings.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>the object that has controlled properties</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>property_name</code></em> :</span></p></td>
+<td>the name of the property to get</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>timestamp</code></em> :</span></p></td>
+<td>the time that should be processed</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>interval</code></em> :</span></p></td>
+<td>the time spacing between subsequent values</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>n_values</code></em> :</span></p></td>
+<td>the number of values</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>values</code></em> :</span></p></td>
+<td>array to put control-values in</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the given array could be filled, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-object-get-g-value-array"></a><h3>gst_object_get_g_value_array ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_object_get_g_value_array        (<em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *property_name</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="type">GstClockTime</span></a> timestamp</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="type">GstClockTime</span></a> interval</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> n_values</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> *values</code></em>);</pre>
+<p>
+Gets a number of <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValues</span></a> for the given controlled property starting at the
+requested time. The array <em class="parameter"><code>values</code></em> need to hold enough space for <em class="parameter"><code>n_values</code></em> of
+<a href="http://library.gnome.org/devel/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a>.
+</p>
+<p>
+This function is useful if one wants to e.g. draw a graph of the control
+curve or apply a control curve sample by sample.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>the object that has controlled properties</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>property_name</code></em> :</span></p></td>
+<td>the name of the property to get</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>timestamp</code></em> :</span></p></td>
+<td>the time that should be processed</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>interval</code></em> :</span></p></td>
+<td>the time spacing between subsequent values</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>n_values</code></em> :</span></p></td>
+<td>the number of values</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>values</code></em> :</span></p></td>
+<td>array to put control-values in</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the given array could be filled, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-object-get-control-rate"></a><h3>gst_object_get_control_rate ()</h3>
+<pre class="programlisting"><a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="returnvalue">GstClockTime</span></a>        gst_object_get_control_rate         (<em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *object</code></em>);</pre>
+<p>
+Obtain the control-rate for this <em class="parameter"><code>object</code></em>. Audio processing <a class="link" href="GstElement.html" title="GstElement"><span class="type">GstElement</span></a>
+objects will use this rate to sub-divide their processing loop and call
+<a class="link" href="GstObject.html#gst-object-sync-values" title="gst_object_sync_values ()"><code class="function">gst_object_sync_values()</code></a> inbetween. The length of the processing segment
+should be up to <em class="parameter"><code>control</code></em>-rate nanoseconds.
+</p>
+<p>
+If the <em class="parameter"><code>object</code></em> is not under property control, this will return
+<a class="link" href="GstClock.html#GST-CLOCK-TIME-NONE:CAPS" title="GST_CLOCK_TIME_NONE"><code class="literal">GST_CLOCK_TIME_NONE</code></a>. This allows the element to avoid the sub-dividing.
+</p>
+<p>
+The control-rate is not expected to change if the element is in
+<a class="link" href="GstElement.html#GST-STATE-PAUSED:CAPS"><code class="literal">GST_STATE_PAUSED</code></a> or <a class="link" href="GstElement.html#GST-STATE-PLAYING:CAPS"><code class="literal">GST_STATE_PLAYING</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>the object that has controlled properties</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the control rate in nanoseconds</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-object-set-control-rate"></a><h3>gst_object_set_control_rate ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_object_set_control_rate         (<em class="parameter"><code><a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a> *object</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstClock.html#GstClockTime" title="GstClockTime"><span class="type">GstClockTime</span></a> control_rate</code></em>);</pre>
+<p>
+Change the control-rate for this <em class="parameter"><code>object</code></em>. Audio processing <a class="link" href="GstElement.html" title="GstElement"><span class="type">GstElement</span></a>
+objects will use this rate to sub-divide their processing loop and call
+<a class="link" href="GstObject.html#gst-object-sync-values" title="gst_object_sync_values ()"><code class="function">gst_object_sync_values()</code></a> inbetween. The length of the processing segment
+should be up to <em class="parameter"><code>control</code></em>-rate nanoseconds.
+</p>
+<p>
+The control-rate should not change if the element is in <a class="link" href="GstElement.html#GST-STATE-PAUSED:CAPS"><code class="literal">GST_STATE_PAUSED</code></a> or
+<a class="link" href="GstElement.html#GST-STATE-PLAYING:CAPS"><code class="literal">GST_STATE_PLAYING</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>the object that has controlled properties</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>control_rate</code></em> :</span></p></td>
+<td>the new control-rate in nanoseconds.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="GstObject.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GstObject--name"></a><h3>The <code class="literal">"name"</code> property</h3>
+<pre class="programlisting">  "name"                     <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct</pre>
+<p>The name of the object.</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstObject--parent"></a><h3>The <code class="literal">"parent"</code> property</h3>
+<pre class="programlisting">  "parent"                   <a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a>*            : Read / Write</pre>
+<p>The parent of the object.</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GstObject.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="GstObject-deep-notify"></a><h3>The <code class="literal">"deep-notify"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a>  *gstobject,
+                                                        <a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a>  *prop_object,
+                                                        <a href="http://library.gnome.org/devel/gobject/unstable/gobject-GParamSpec.html#GParamSpec"><span class="type">GParamSpec</span></a> *prop,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>    user_data)        : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+<p>
+The deep notify signal is used to be notified of property changes. It is
+typically attached to the toplevel bin to receive notifications from all
+the elements contained in that bin.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>gstobject</code></em> :</span></p></td>
+<td>a <a class="link" href="GstObject.html" title="GstObject"><span class="type">GstObject</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>prop_object</code></em> :</span></p></td>
+<td>the object that originated the signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>prop</code></em> :</span></p></td>
+<td>the property that changed</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

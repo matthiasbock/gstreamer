@@ -1,0 +1,610 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GstPadTemplate</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer 1.0 Core Reference Manual">
+<link rel="up" href="libgstreamer.html" title="GStreamer Core Library">
+<link rel="prev" href="GstPad.html" title="GstPad">
+<link rel="next" href="gstreamer-GstParamSpec.html" title="GstParamSpec">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="GstPad.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="libgstreamer.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer 1.0 Core Reference Manual</th>
+<td><a accesskey="n" href="gstreamer-GstParamSpec.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#GstPadTemplate.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#GstPadTemplate.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#GstPadTemplate.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#GstPadTemplate.properties" class="shortcut">Properties</a>
+                   | 
+                  <a href="#GstPadTemplate.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="GstPadTemplate"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GstPadTemplate.top_of_page"></a>GstPadTemplate</span></h2>
+<p>GstPadTemplate — Describe the media type of a pad.</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="GstPadTemplate.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;gst/gst.h&gt;
+
+struct              <a class="link" href="GstPadTemplate.html#GstStaticPadTemplate" title="struct GstStaticPadTemplate">GstStaticPadTemplate</a>;
+#define             <a class="link" href="GstPadTemplate.html#GST-STATIC-PAD-TEMPLATE:CAPS" title="GST_STATIC_PAD_TEMPLATE()">GST_STATIC_PAD_TEMPLATE</a>             (padname,
+                                                         dir,
+                                                         pres,
+                                                         caps)
+<a class="link" href="GstPadTemplate.html" title="GstPadTemplate"><span class="returnvalue">GstPadTemplate</span></a> *    <a class="link" href="GstPadTemplate.html#gst-static-pad-template-get" title="gst_static_pad_template_get ()">gst_static_pad_template_get</a>         (<em class="parameter"><code><a class="link" href="GstPadTemplate.html#GstStaticPadTemplate" title="struct GstStaticPadTemplate"><span class="type">GstStaticPadTemplate</span></a> *pad_template</code></em>);
+<a class="link" href="gstreamer-GstCaps.html#GstCaps" title="struct GstCaps"><span class="returnvalue">GstCaps</span></a> *           <a class="link" href="GstPadTemplate.html#gst-static-pad-template-get-caps" title="gst_static_pad_template_get_caps ()">gst_static_pad_template_get_caps</a>    (<em class="parameter"><code><a class="link" href="GstPadTemplate.html#GstStaticPadTemplate" title="struct GstStaticPadTemplate"><span class="type">GstStaticPadTemplate</span></a> *templ</code></em>);
+struct              <a class="link" href="GstPadTemplate.html#GstPadTemplate-struct" title="struct GstPadTemplate">GstPadTemplate</a>;
+enum                <a class="link" href="GstPadTemplate.html#GstPadTemplateFlags" title="enum GstPadTemplateFlags">GstPadTemplateFlags</a>;
+enum                <a class="link" href="GstPadTemplate.html#GstPadPresence" title="enum GstPadPresence">GstPadPresence</a>;
+#define             <a class="link" href="GstPadTemplate.html#GST-PAD-TEMPLATE-NAME-TEMPLATE:CAPS" title="GST_PAD_TEMPLATE_NAME_TEMPLATE()">GST_PAD_TEMPLATE_NAME_TEMPLATE</a>      (templ)
+#define             <a class="link" href="GstPadTemplate.html#GST-PAD-TEMPLATE-DIRECTION:CAPS" title="GST_PAD_TEMPLATE_DIRECTION()">GST_PAD_TEMPLATE_DIRECTION</a>          (templ)
+#define             <a class="link" href="GstPadTemplate.html#GST-PAD-TEMPLATE-PRESENCE:CAPS" title="GST_PAD_TEMPLATE_PRESENCE()">GST_PAD_TEMPLATE_PRESENCE</a>           (templ)
+#define             <a class="link" href="GstPadTemplate.html#GST-PAD-TEMPLATE-CAPS" title="GST_PAD_TEMPLATE_CAPS()">GST_PAD_TEMPLATE_CAPS</a>               (templ)
+#define             <a class="link" href="GstPadTemplate.html#GST-PAD-TEMPLATE-IS-FIXED:CAPS" title="GST_PAD_TEMPLATE_IS_FIXED()">GST_PAD_TEMPLATE_IS_FIXED</a>           (templ)
+<a class="link" href="GstPadTemplate.html" title="GstPadTemplate"><span class="returnvalue">GstPadTemplate</span></a> *    <a class="link" href="GstPadTemplate.html#gst-pad-template-new" title="gst_pad_template_new ()">gst_pad_template_new</a>                (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name_template</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstPad.html#GstPadDirection" title="enum GstPadDirection"><span class="type">GstPadDirection</span></a> direction</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstPadTemplate.html#GstPadPresence" title="enum GstPadPresence"><span class="type">GstPadPresence</span></a> presence</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstCaps.html#GstCaps" title="struct GstCaps"><span class="type">GstCaps</span></a> *caps</code></em>);
+<a class="link" href="gstreamer-GstCaps.html#GstCaps" title="struct GstCaps"><span class="returnvalue">GstCaps</span></a> *           <a class="link" href="GstPadTemplate.html#gst-pad-template-get-caps" title="gst_pad_template_get_caps ()">gst_pad_template_get_caps</a>           (<em class="parameter"><code><a class="link" href="GstPadTemplate.html" title="GstPadTemplate"><span class="type">GstPadTemplate</span></a> *templ</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="GstPadTemplate.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a class="link" href="GstObject.html" title="GstObject">GstObject</a>
+               +----GstPadTemplate
+</pre>
+</div>
+<div class="refsect1">
+<a name="GstPadTemplate.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="GstPadTemplate.html#GstPadTemplate--caps" title='The "caps" property'>caps</a>"                     <a class="link" href="gstreamer-GstCaps.html#GstCaps" title="struct GstCaps"><span class="type">GstCaps</span></a>*              : Read / Write / Construct Only
+  "<a class="link" href="GstPadTemplate.html#GstPadTemplate--direction" title='The "direction" property'>direction</a>"                <a class="link" href="GstPad.html#GstPadDirection" title="enum GstPadDirection"><span class="type">GstPadDirection</span></a>       : Read / Write / Construct Only
+  "<a class="link" href="GstPadTemplate.html#GstPadTemplate--name-template" title='The "name-template" property'>name-template</a>"            <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct Only
+  "<a class="link" href="GstPadTemplate.html#GstPadTemplate--presence" title='The "presence" property'>presence</a>"                 <a class="link" href="GstPadTemplate.html#GstPadPresence" title="enum GstPadPresence"><span class="type">GstPadPresence</span></a>        : Read / Write / Construct Only
+</pre>
+</div>
+<div class="refsect1">
+<a name="GstPadTemplate.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="GstPadTemplate.html#GstPadTemplate-pad-created" title='The "pad-created" signal'>pad-created</a>"                                    : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="GstPadTemplate.description"></a><h2>Description</h2>
+<p>
+Padtemplates describe the possible media types a pad or an elementfactory can
+handle. This allows for both inspection of handled types before loading the
+element plugin as well as identifying pads on elements that are not yet
+created (request or sometimes pads).
+</p>
+<p>
+Pad and PadTemplates have <a class="link" href="gstreamer-GstCaps.html#GstCaps" title="struct GstCaps"><span class="type">GstCaps</span></a> attached to it to describe the media type
+they are capable of dealing with. <a class="link" href="GstPadTemplate.html#gst-pad-template-get-caps" title="gst_pad_template_get_caps ()"><code class="function">gst_pad_template_get_caps()</code></a> or
+<a class="link" href="GstPadTemplate.html#GST-PAD-TEMPLATE-CAPS" title="GST_PAD_TEMPLATE_CAPS()"><code class="function">GST_PAD_TEMPLATE_CAPS()</code></a> are used to get the caps of a padtemplate. It's not
+possible to modify the caps of a padtemplate after creation.
+</p>
+<p>
+PadTemplates have a <a class="link" href="GstPadTemplate.html#GstPadPresence" title="enum GstPadPresence"><span class="type">GstPadPresence</span></a> property which identifies the lifetime
+of the pad and that can be retrieved with <a class="link" href="GstPadTemplate.html#GST-PAD-TEMPLATE-PRESENCE:CAPS" title="GST_PAD_TEMPLATE_PRESENCE()"><code class="function">GST_PAD_TEMPLATE_PRESENCE()</code></a>. Also
+the direction of the pad can be retrieved from the <a class="link" href="GstPadTemplate.html" title="GstPadTemplate"><span class="type">GstPadTemplate</span></a> with
+<a class="link" href="GstPadTemplate.html#GST-PAD-TEMPLATE-DIRECTION:CAPS" title="GST_PAD_TEMPLATE_DIRECTION()"><code class="function">GST_PAD_TEMPLATE_DIRECTION()</code></a>.
+</p>
+<p>
+The <a class="link" href="GstPadTemplate.html#GST-PAD-TEMPLATE-NAME-TEMPLATE:CAPS" title="GST_PAD_TEMPLATE_NAME_TEMPLATE()"><code class="function">GST_PAD_TEMPLATE_NAME_TEMPLATE()</code></a> is important for GST_PAD_REQUEST pads
+because it has to be used as the name in the <a class="link" href="GstElement.html#gst-element-get-request-pad" title="gst_element_get_request_pad ()"><code class="function">gst_element_get_request_pad()</code></a>
+call to instantiate a pad from this template.
+</p>
+<p>
+Padtemplates can be created with <a class="link" href="GstPadTemplate.html#gst-pad-template-new" title="gst_pad_template_new ()"><code class="function">gst_pad_template_new()</code></a> or with
+<a class="link" href="GstPadTemplate.html#gst-static-pad-template-get" title="gst_static_pad_template_get ()"><code class="function">gst_static_pad_template_get()</code></a>, which creates a <a class="link" href="GstPadTemplate.html" title="GstPadTemplate"><span class="type">GstPadTemplate</span></a> from a
+<a class="link" href="GstPadTemplate.html#GstStaticPadTemplate" title="struct GstStaticPadTemplate"><span class="type">GstStaticPadTemplate</span></a> that can be filled with the
+convenient <a class="link" href="GstPadTemplate.html#GST-STATIC-PAD-TEMPLATE:CAPS" title="GST_STATIC_PAD_TEMPLATE()"><code class="function">GST_STATIC_PAD_TEMPLATE()</code></a> macro.
+</p>
+<p>
+A padtemplate can be used to create a pad (see <a class="link" href="GstPad.html#gst-pad-new-from-template" title="gst_pad_new_from_template ()"><code class="function">gst_pad_new_from_template()</code></a>
+or <a class="link" href="GstPad.html#gst-pad-new-from-static-template" title="gst_pad_new_from_static_template ()"><code class="function">gst_pad_new_from_static_template()</code></a>) or to add to an element class
+(see <a class="link" href="GstElement.html#gst-element-class-add-pad-template" title="gst_element_class_add_pad_template ()"><code class="function">gst_element_class_add_pad_template()</code></a>).
+</p>
+<p>
+The following code example shows the code to create a pad from a padtemplate.
+</p>
+<div class="example">
+<a name="idp28745328"></a><p class="title"><b>Example 11. Create a pad from a padtemplate</b></p>
+<div class="example-contents">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17</pre></td>
+        <td class="listing_code"><pre class="programlisting">GstStaticPadTemplate my_template <span class="gtkdoc opt">=</span>
+<span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPadTemplate.html#GST-STATIC-PAD-TEMPLATE:CAPS">GST_STATIC_PAD_TEMPLATE</a></span> <span class="gtkdoc opt">(</span>
+  <span class="string">&quot;sink&quot;</span><span class="gtkdoc opt">,</span>          <span class="gtkdoc slc">// the name of the pad</span>
+  GST_PAD_SINK<span class="gtkdoc opt">,</span>    <span class="gtkdoc slc">// the direction of the pad</span>
+  GST_PAD_ALWAYS<span class="gtkdoc opt">,</span>  <span class="gtkdoc slc">// when this pad will be present</span>
+  <span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GST-STATIC-CAPS">GST_STATIC_CAPS</a></span> <span class="gtkdoc opt">(</span>        <span class="gtkdoc slc">// the capabilities of the padtemplate</span>
+    <span class="string">&quot;audio/x-raw, &quot;</span>
+      <span class="string">&quot;channels = (int) [ 1, 6 ]&quot;</span>
+  <span class="gtkdoc opt">)</span>
+<span class="gtkdoc opt">);</span>
+<span class="gtkdoc kwb">void</span>
+<span class="function">my_method</span> <span class="gtkdoc opt">(</span><span class="gtkdoc kwb">void</span><span class="gtkdoc opt">)</span>
+<span class="gtkdoc opt">{</span>
+  GstPad <span class="gtkdoc opt">*</span>pad<span class="gtkdoc opt">;</span>
+  pad <span class="gtkdoc opt">=</span> <span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPad.html#gst-pad-new-from-static-template">gst_pad_new_from_static_template</a></span> <span class="gtkdoc opt">(&amp;</span>my_template<span class="gtkdoc opt">,</span> <span class="string">&quot;sink&quot;</span><span class="gtkdoc opt">);</span>
+  <span class="gtkdoc opt">...</span>
+<span class="gtkdoc opt">}</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</div>
+<p><br class="example-break">
+</p>
+<p>
+The following example shows you how to add the padtemplate to an
+element class, this is usually done in the class_init of the class:
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="gtkdoc kwb">static void</span>
+<span class="function">my_element_class_init</span> <span class="gtkdoc opt">(</span>GstMyElementClass <span class="gtkdoc opt">*</span>klass<span class="gtkdoc opt">)</span>
+<span class="gtkdoc opt">{</span>
+  GstElementClass <span class="gtkdoc opt">*</span>gstelement_class <span class="gtkdoc opt">=</span> <span class="function">GST_ELEMENT_CLASS</span> <span class="gtkdoc opt">(</span>klass<span class="gtkdoc opt">);</span>
+
+  <span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html#gst-element-class-add-pad-template">gst_element_class_add_pad_template</a></span> <span class="gtkdoc opt">(</span>gstelement_class<span class="gtkdoc opt">,</span>
+      <span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPadTemplate.html#gst-static-pad-template-get">gst_static_pad_template_get</a></span> <span class="gtkdoc opt">(&amp;</span>my_template<span class="gtkdoc opt">));</span>
+<span class="gtkdoc opt">}</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+</p>
+<p>
+Last reviewed on 2006-02-14 (0.10.3)
+</p>
+</div>
+<div class="refsect1">
+<a name="GstPadTemplate.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstStaticPadTemplate"></a><h3>struct GstStaticPadTemplate</h3>
+<pre class="programlisting">struct GstStaticPadTemplate {
+  const gchar     *name_template;
+  GstPadDirection  direction;
+  GstPadPresence   presence;
+  GstStaticCaps    static_caps;
+};
+</pre>
+<p>
+Structure describing the <a class="link" href="GstPadTemplate.html#GstStaticPadTemplate" title="struct GstStaticPadTemplate"><span class="type">GstStaticPadTemplate</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *<em class="structfield"><code><a name="GstStaticPadTemplate.name-template"></a>name_template</code></em>;</span></p></td>
+<td>the name of the template</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="GstPad.html#GstPadDirection" title="enum GstPadDirection"><span class="type">GstPadDirection</span></a> <em class="structfield"><code><a name="GstStaticPadTemplate.direction"></a>direction</code></em>;</span></p></td>
+<td>the direction of the template</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="GstPadTemplate.html#GstPadPresence" title="enum GstPadPresence"><span class="type">GstPadPresence</span></a> <em class="structfield"><code><a name="GstStaticPadTemplate.presence"></a>presence</code></em>;</span></p></td>
+<td>the presence of the template</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="gstreamer-GstCaps.html#GstStaticCaps" title="struct GstStaticCaps"><span class="type">GstStaticCaps</span></a> <em class="structfield"><code><a name="GstStaticPadTemplate.static-caps"></a>static_caps</code></em>;</span></p></td>
+<td>the caps of the template.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-STATIC-PAD-TEMPLATE:CAPS"></a><h3>GST_STATIC_PAD_TEMPLATE()</h3>
+<pre class="programlisting">#define             GST_STATIC_PAD_TEMPLATE(padname, dir, pres, caps)</pre>
+<p>
+Convenience macro to fill the values of a GstStaticPadTemplate
+structure.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>padname</code></em> :</span></p></td>
+<td>the name template of the pad</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dir</code></em> :</span></p></td>
+<td>the GstPadDirection of the pad</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pres</code></em> :</span></p></td>
+<td>the GstPadPresence of the pad</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>caps</code></em> :</span></p></td>
+<td>the GstStaticCaps of the pad</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-static-pad-template-get"></a><h3>gst_static_pad_template_get ()</h3>
+<pre class="programlisting"><a class="link" href="GstPadTemplate.html" title="GstPadTemplate"><span class="returnvalue">GstPadTemplate</span></a> *    gst_static_pad_template_get         (<em class="parameter"><code><a class="link" href="GstPadTemplate.html#GstStaticPadTemplate" title="struct GstStaticPadTemplate"><span class="type">GstStaticPadTemplate</span></a> *pad_template</code></em>);</pre>
+<p>
+Converts a <a class="link" href="GstPadTemplate.html#GstStaticPadTemplate" title="struct GstStaticPadTemplate"><span class="type">GstStaticPadTemplate</span></a> into a <a class="link" href="GstPadTemplate.html" title="GstPadTemplate"><span class="type">GstPadTemplate</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pad_template</code></em> :</span></p></td>
+<td>the static pad template</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="GstPadTemplate.html" title="GstPadTemplate"><span class="type">GstPadTemplate</span></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-static-pad-template-get-caps"></a><h3>gst_static_pad_template_get_caps ()</h3>
+<pre class="programlisting"><a class="link" href="gstreamer-GstCaps.html#GstCaps" title="struct GstCaps"><span class="returnvalue">GstCaps</span></a> *           gst_static_pad_template_get_caps    (<em class="parameter"><code><a class="link" href="GstPadTemplate.html#GstStaticPadTemplate" title="struct GstStaticPadTemplate"><span class="type">GstStaticPadTemplate</span></a> *templ</code></em>);</pre>
+<p>
+Gets the capabilities of the static pad template.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>templ</code></em> :</span></p></td>
+<td>a <a class="link" href="GstPadTemplate.html#GstStaticPadTemplate" title="struct GstStaticPadTemplate"><span class="type">GstStaticPadTemplate</span></a> to get capabilities of.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the <a class="link" href="gstreamer-GstCaps.html#GstCaps" title="struct GstCaps"><span class="type">GstCaps</span></a> of the static pad template.
+Unref after usage. Since the core holds an additional
+ref to the returned caps, use <a class="link" href="gstreamer-GstCaps.html#gst-caps-make-writable" title="gst_caps_make_writable()"><code class="function">gst_caps_make_writable()</code></a>
+on the returned caps to modify it. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstPadTemplate-struct"></a><h3>struct GstPadTemplate</h3>
+<pre class="programlisting">struct GstPadTemplate;</pre>
+<p>
+The padtemplate object.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstPadTemplateFlags"></a><h3>enum GstPadTemplateFlags</h3>
+<pre class="programlisting">typedef enum {
+  /* padding */
+  GST_PAD_TEMPLATE_FLAG_LAST    = (GST_OBJECT_FLAG_LAST &lt;&lt; 4)
+} GstPadTemplateFlags;
+</pre>
+<p>
+Flags for the padtemplate
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><a name="GST-PAD-TEMPLATE-FLAG-LAST:CAPS"></a><span class="term"><code class="literal">GST_PAD_TEMPLATE_FLAG_LAST</code></span></p></td>
+<td>first flag that can be used by subclasses.
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstPadPresence"></a><h3>enum GstPadPresence</h3>
+<pre class="programlisting">typedef enum {
+  GST_PAD_ALWAYS,
+  GST_PAD_SOMETIMES,
+  GST_PAD_REQUEST
+} GstPadPresence;
+</pre>
+<p>
+Indicates when this pad will become available.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="GST-PAD-ALWAYS:CAPS"></a><span class="term"><code class="literal">GST_PAD_ALWAYS</code></span></p></td>
+<td>the pad is always available
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-PAD-SOMETIMES:CAPS"></a><span class="term"><code class="literal">GST_PAD_SOMETIMES</code></span></p></td>
+<td>the pad will become available depending on the media stream
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-PAD-REQUEST:CAPS"></a><span class="term"><code class="literal">GST_PAD_REQUEST</code></span></p></td>
+<td>the pad is only available on request with
+ <a class="link" href="GstElement.html#gst-element-get-request-pad" title="gst_element_get_request_pad ()"><code class="function">gst_element_get_request_pad()</code></a>.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-PAD-TEMPLATE-NAME-TEMPLATE:CAPS"></a><h3>GST_PAD_TEMPLATE_NAME_TEMPLATE()</h3>
+<pre class="programlisting">#define GST_PAD_TEMPLATE_NAME_TEMPLATE(templ) (((GstPadTemplate *)(templ))-&gt;name_template)
+</pre>
+<p>
+Get the nametemplate of the padtemplate.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>templ</code></em> :</span></p></td>
+<td>the template to query</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-PAD-TEMPLATE-DIRECTION:CAPS"></a><h3>GST_PAD_TEMPLATE_DIRECTION()</h3>
+<pre class="programlisting">#define GST_PAD_TEMPLATE_DIRECTION(templ) (((GstPadTemplate *)(templ))-&gt;direction)
+</pre>
+<p>
+Get the <a class="link" href="GstPad.html#GstPadDirection" title="enum GstPadDirection"><span class="type">GstPadDirection</span></a> of the padtemplate.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>templ</code></em> :</span></p></td>
+<td>the template to query</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-PAD-TEMPLATE-PRESENCE:CAPS"></a><h3>GST_PAD_TEMPLATE_PRESENCE()</h3>
+<pre class="programlisting">#define GST_PAD_TEMPLATE_PRESENCE(templ) (((GstPadTemplate *)(templ))-&gt;presence)
+</pre>
+<p>
+Get the <a class="link" href="GstPadTemplate.html#GstPadPresence" title="enum GstPadPresence"><span class="type">GstPadPresence</span></a> of the padtemplate.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>templ</code></em> :</span></p></td>
+<td>the template to query</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-PAD-TEMPLATE-CAPS"></a><h3>GST_PAD_TEMPLATE_CAPS()</h3>
+<pre class="programlisting">#define GST_PAD_TEMPLATE_CAPS(templ)		(((GstPadTemplate *)(templ))-&gt;caps)
+</pre>
+<p>
+Get a handle to the padtemplate <a class="link" href="gstreamer-GstCaps.html#GstCaps" title="struct GstCaps"><span class="type">GstCaps</span></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>templ</code></em> :</span></p></td>
+<td>the template to query</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-PAD-TEMPLATE-IS-FIXED:CAPS"></a><h3>GST_PAD_TEMPLATE_IS_FIXED()</h3>
+<pre class="programlisting">#define GST_PAD_TEMPLATE_IS_FIXED(templ) (GST_OBJECT_FLAG_IS_SET(templ, GST_PAD_TEMPLATE_FIXED))
+</pre>
+<p>
+Check if the properties of the padtemplate are fixed
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>templ</code></em> :</span></p></td>
+<td>the template to query</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-pad-template-new"></a><h3>gst_pad_template_new ()</h3>
+<pre class="programlisting"><a class="link" href="GstPadTemplate.html" title="GstPadTemplate"><span class="returnvalue">GstPadTemplate</span></a> *    gst_pad_template_new                (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name_template</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstPad.html#GstPadDirection" title="enum GstPadDirection"><span class="type">GstPadDirection</span></a> direction</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstPadTemplate.html#GstPadPresence" title="enum GstPadPresence"><span class="type">GstPadPresence</span></a> presence</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstCaps.html#GstCaps" title="struct GstCaps"><span class="type">GstCaps</span></a> *caps</code></em>);</pre>
+<p>
+Creates a new pad template with a name according to the given template
+and with the given arguments.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name_template</code></em> :</span></p></td>
+<td>the name template.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>direction</code></em> :</span></p></td>
+<td>the <a class="link" href="GstPad.html#GstPadDirection" title="enum GstPadDirection"><span class="type">GstPadDirection</span></a> of the template.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>presence</code></em> :</span></p></td>
+<td>the <a class="link" href="GstPadTemplate.html#GstPadPresence" title="enum GstPadPresence"><span class="type">GstPadPresence</span></a> of the pad.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>caps</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstCaps.html#GstCaps" title="struct GstCaps"><span class="type">GstCaps</span></a> set for the template. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="GstPadTemplate.html" title="GstPadTemplate"><span class="type">GstPadTemplate</span></a>. <span class="annotation">[transfer floating]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-pad-template-get-caps"></a><h3>gst_pad_template_get_caps ()</h3>
+<pre class="programlisting"><a class="link" href="gstreamer-GstCaps.html#GstCaps" title="struct GstCaps"><span class="returnvalue">GstCaps</span></a> *           gst_pad_template_get_caps           (<em class="parameter"><code><a class="link" href="GstPadTemplate.html" title="GstPadTemplate"><span class="type">GstPadTemplate</span></a> *templ</code></em>);</pre>
+<p>
+Gets the capabilities of the pad template.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>templ</code></em> :</span></p></td>
+<td>a <a class="link" href="GstPadTemplate.html" title="GstPadTemplate"><span class="type">GstPadTemplate</span></a> to get capabilities of.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the <a class="link" href="gstreamer-GstCaps.html#GstCaps" title="struct GstCaps"><span class="type">GstCaps</span></a> of the pad template.
+Unref after usage. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="GstPadTemplate.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GstPadTemplate--caps"></a><h3>The <code class="literal">"caps"</code> property</h3>
+<pre class="programlisting">  "caps"                     <a class="link" href="gstreamer-GstCaps.html#GstCaps" title="struct GstCaps"><span class="type">GstCaps</span></a>*              : Read / Write / Construct Only</pre>
+<p>
+The capabilities of the pad described by the pad template.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstPadTemplate--direction"></a><h3>The <code class="literal">"direction"</code> property</h3>
+<pre class="programlisting">  "direction"                <a class="link" href="GstPad.html#GstPadDirection" title="enum GstPadDirection"><span class="type">GstPadDirection</span></a>       : Read / Write / Construct Only</pre>
+<p>
+The direction of the pad described by the pad template.
+</p>
+<p>Default value: GST_PAD_UNKNOWN</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstPadTemplate--name-template"></a><h3>The <code class="literal">"name-template"</code> property</h3>
+<pre class="programlisting">  "name-template"            <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct Only</pre>
+<p>
+The name template of the pad template.
+</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstPadTemplate--presence"></a><h3>The <code class="literal">"presence"</code> property</h3>
+<pre class="programlisting">  "presence"                 <a class="link" href="GstPadTemplate.html#GstPadPresence" title="enum GstPadPresence"><span class="type">GstPadPresence</span></a>        : Read / Write / Construct Only</pre>
+<p>
+When the pad described by the pad template will become available.
+</p>
+<p>Default value: GST_PAD_ALWAYS</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GstPadTemplate.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="GstPadTemplate-pad-created"></a><h3>The <code class="literal">"pad-created"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="GstPadTemplate.html" title="GstPadTemplate"><span class="type">GstPadTemplate</span></a> *pad_template,
+                                                        <a class="link" href="GstPad.html" title="GstPad"><span class="type">GstPad</span></a>         *pad,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>        user_data)         : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a></pre>
+<p>
+This signal is fired when an element creates a pad from this template.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pad_template</code></em> :</span></p></td>
+<td>the object which received the signal.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pad</code></em> :</span></p></td>
+<td>the pad that was created.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="GstPadTemplate.see-also"></a><h2>See Also</h2>
+<a class="link" href="GstPad.html" title="GstPad"><span class="type">GstPad</span></a>, <a class="link" href="GstElementFactory.html" title="GstElementFactory"><span class="type">GstElementFactory</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

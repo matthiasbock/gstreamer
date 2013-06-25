@@ -1,0 +1,425 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>queue</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer Core Plugins 1.0 Plugins Reference Manual">
+<link rel="up" href="ch01.html" title="gstreamer Elements">
+<link rel="prev" href="gstreamer-plugins-output-selector.html" title="output-selector">
+<link rel="next" href="gstreamer-plugins-queue2.html" title="queue2">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gstreamer-plugins-output-selector.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer Core Plugins 1.0 Plugins Reference Manual</th>
+<td><a accesskey="n" href="gstreamer-plugins-queue2.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gstreamer-plugins-queue.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gstreamer-plugins-queue.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#gstreamer-plugins-queue.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#gstreamer-plugins-queue.properties" class="shortcut">Properties</a>
+                   | 
+                  <a href="#gstreamer-plugins-queue.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gstreamer-plugins-queue"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gstreamer-plugins-queue.top_of_page"></a>queue</span></h2>
+<p>queue — Simple data queue</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gstreamer-plugins-queue.synopsis"></a><h2>Synopsis</h2>
+<a name="GstQueue"></a><pre class="synopsis">struct              <a class="link" href="gstreamer-plugins-queue.html#GstQueue-struct" title="struct GstQueue">GstQueue</a>;
+enum                <a class="link" href="gstreamer-plugins-queue.html#GstQueueLeaky" title="enum GstQueueLeaky">GstQueueLeaky</a>;
+</pre>
+</div>
+<div class="refsect1">
+<a name="gstreamer-plugins-queue.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstObject.html">GstObject</a>
+               +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html">GstElement</a>
+                     +----GstQueue
+</pre>
+</div>
+<div class="refsect1">
+<a name="gstreamer-plugins-queue.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="gstreamer-plugins-queue.html#GstQueue--current-level-buffers" title='The "current-level-buffers" property'>current-level-buffers</a>"    <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read
+  "<a class="link" href="gstreamer-plugins-queue.html#GstQueue--current-level-bytes" title='The "current-level-bytes" property'>current-level-bytes</a>"      <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read
+  "<a class="link" href="gstreamer-plugins-queue.html#GstQueue--current-level-time" title='The "current-level-time" property'>current-level-time</a>"       <span class="type">guint64</span>               : Read
+  "<a class="link" href="gstreamer-plugins-queue.html#GstQueue--leaky" title='The "leaky" property'>leaky</a>"                    <a class="link" href="gstreamer-plugins-queue.html#GstQueueLeaky" title="enum GstQueueLeaky"><span class="type">GstQueueLeaky</span></a>         : Read / Write
+  "<a class="link" href="gstreamer-plugins-queue.html#GstQueue--max-size-buffers" title='The "max-size-buffers" property'>max-size-buffers</a>"         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write
+  "<a class="link" href="gstreamer-plugins-queue.html#GstQueue--max-size-bytes" title='The "max-size-bytes" property'>max-size-bytes</a>"           <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write
+  "<a class="link" href="gstreamer-plugins-queue.html#GstQueue--max-size-time" title='The "max-size-time" property'>max-size-time</a>"            <span class="type">guint64</span>               : Read / Write
+  "<a class="link" href="gstreamer-plugins-queue.html#GstQueue--min-threshold-buffers" title='The "min-threshold-buffers" property'>min-threshold-buffers</a>"    <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write
+  "<a class="link" href="gstreamer-plugins-queue.html#GstQueue--min-threshold-bytes" title='The "min-threshold-bytes" property'>min-threshold-bytes</a>"      <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write
+  "<a class="link" href="gstreamer-plugins-queue.html#GstQueue--min-threshold-time" title='The "min-threshold-time" property'>min-threshold-time</a>"       <span class="type">guint64</span>               : Read / Write
+  "<a class="link" href="gstreamer-plugins-queue.html#GstQueue--silent" title='The "silent" property'>silent</a>"                   <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write
+</pre>
+</div>
+<div class="refsect1">
+<a name="gstreamer-plugins-queue.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="gstreamer-plugins-queue.html#GstQueue-overrun" title='The "overrun" signal'>overrun</a>"                                        : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-FIRST:CAPS"><code class="literal">Run First</code></a>
+  "<a class="link" href="gstreamer-plugins-queue.html#GstQueue-running" title='The "running" signal'>running</a>"                                        : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-FIRST:CAPS"><code class="literal">Run First</code></a>
+  "<a class="link" href="gstreamer-plugins-queue.html#GstQueue-underrun" title='The "underrun" signal'>underrun</a>"                                       : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-FIRST:CAPS"><code class="literal">Run First</code></a>
+  "<a class="link" href="gstreamer-plugins-queue.html#GstQueue-pushing" title='The "pushing" signal'>pushing</a>"                                        : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-FIRST:CAPS"><code class="literal">Run First</code></a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="gstreamer-plugins-queue.description"></a><h2>Description</h2>
+<p>
+Data is queued until one of the limits specified by the
+<a class="link" href="gstreamer-plugins-queue.html#GstQueue--max-size-buffers" title='The "max-size-buffers" property'><span class="type">"max-size-buffers"</span></a>, <a class="link" href="gstreamer-plugins-queue.html#GstQueue--max-size-bytes" title='The "max-size-bytes" property'><span class="type">"max-size-bytes"</span></a> and/or
+<a class="link" href="gstreamer-plugins-queue.html#GstQueue--max-size-time" title='The "max-size-time" property'><span class="type">"max-size-time"</span></a> properties has been reached. Any attempt to push
+more buffers into the queue will block the pushing thread until more space
+becomes available.
+</p>
+<p>
+The queue will create a new thread on the source pad to decouple the
+processing on sink and source pad.
+</p>
+<p>
+You can query how many buffers are queued by reading the
+<a class="link" href="gstreamer-plugins-queue.html#GstQueue--current-level-buffers" title='The "current-level-buffers" property'><span class="type">"current-level-buffers"</span></a> property. You can track changes
+by connecting to the notify::current-level-buffers signal (which
+like all signals will be emitted from the streaming thread). The same
+applies to the <a class="link" href="gstreamer-plugins-queue.html#GstQueue--current-level-time" title='The "current-level-time" property'><span class="type">"current-level-time"</span></a> and
+<a class="link" href="gstreamer-plugins-queue.html#GstQueue--current-level-bytes" title='The "current-level-bytes" property'><span class="type">"current-level-bytes"</span></a> properties.
+</p>
+<p>
+The default queue size limits are 200 buffers, 10MB of data, or
+one second worth of data, whichever is reached first.
+</p>
+<p>
+As said earlier, the queue blocks by default when one of the specified
+maximums (bytes, time, buffers) has been reached. You can set the
+<a class="link" href="gstreamer-plugins-queue.html#GstQueue--leaky" title='The "leaky" property'><span class="type">"leaky"</span></a> property to specify that instead of blocking it should
+leak (drop) new or old buffers.
+</p>
+<p>
+The <a class="link" href="gstreamer-plugins-queue.html#GstQueue-underrun" title='The "underrun" signal'><span class="type">"underrun"</span></a> signal is emitted when the queue has less data than
+the specified minimum thresholds require (by default: when the queue is
+empty). The <a class="link" href="gstreamer-plugins-queue.html#GstQueue-overrun" title='The "overrun" signal'><span class="type">"overrun"</span></a> signal is emitted when the queue is filled
+up. Both signals are emitted from the context of the streaming thread.
+</p>
+<div class="refsynopsisdiv">
+<h2>Synopsis</h2>
+<div class="refsect2">
+<a name="idp11471328"></a><h3>Element Information</h3>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">plugin</span></p></td>
+<td>
+            <a class="link" href="gstreamer-plugins-plugin-coreelements.html#plugin-coreelements">coreelements</a>
+          </td>
+</tr>
+<tr>
+<td><p><span class="term">author</span></p></td>
+<td>Erik Walthinsen &lt;omega@cse.ogi.edu&gt;</td>
+</tr>
+<tr>
+<td><p><span class="term">class</span></p></td>
+<td>Generic</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="idp11478784"></a><h3>Element Pads</h3>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">name</span></p></td>
+<td>sink</td>
+</tr>
+<tr>
+<td><p><span class="term">direction</span></p></td>
+<td>sink</td>
+</tr>
+<tr>
+<td><p><span class="term">presence</span></p></td>
+<td>always</td>
+</tr>
+<tr>
+<td><p><span class="term">details</span></p></td>
+<td>ANY</td>
+</tr>
+</tbody>
+</table></div>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">name</span></p></td>
+<td>src</td>
+</tr>
+<tr>
+<td><p><span class="term">direction</span></p></td>
+<td>source</td>
+</tr>
+<tr>
+<td><p><span class="term">presence</span></p></td>
+<td>always</td>
+</tr>
+<tr>
+<td><p><span class="term">details</span></p></td>
+<td>ANY</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<p>
+</p>
+</div>
+<div class="refsect1">
+<a name="gstreamer-plugins-queue.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstQueue-struct"></a><h3>struct GstQueue</h3>
+<pre class="programlisting">struct GstQueue;</pre>
+<p>
+Opaque <a class="link" href="gstreamer-plugins-queue.html#GstQueue"><span class="type">GstQueue</span></a> structure.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstQueueLeaky"></a><h3>enum GstQueueLeaky</h3>
+<pre class="programlisting">enum GstQueueLeaky {
+  GST_QUEUE_NO_LEAK             = 0,
+  GST_QUEUE_LEAK_UPSTREAM       = 1,
+  GST_QUEUE_LEAK_DOWNSTREAM     = 2
+};
+</pre>
+<p>
+Buffer dropping scheme to avoid the queue to block when full.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="GST-QUEUE-NO-LEAK:CAPS"></a><span class="term"><code class="literal">GST_QUEUE_NO_LEAK</code></span></p></td>
+<td>Not Leaky
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-QUEUE-LEAK-UPSTREAM:CAPS"></a><span class="term"><code class="literal">GST_QUEUE_LEAK_UPSTREAM</code></span></p></td>
+<td>Leaky on upstream (new buffers)
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-QUEUE-LEAK-DOWNSTREAM:CAPS"></a><span class="term"><code class="literal">GST_QUEUE_LEAK_DOWNSTREAM</code></span></p></td>
+<td>Leaky on downstream (old buffers)
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="gstreamer-plugins-queue.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GstQueue--current-level-buffers"></a><h3>The <code class="literal">"current-level-buffers"</code> property</h3>
+<pre class="programlisting">  "current-level-buffers"    <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read</pre>
+<p>Current number of buffers in the queue.</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstQueue--current-level-bytes"></a><h3>The <code class="literal">"current-level-bytes"</code> property</h3>
+<pre class="programlisting">  "current-level-bytes"      <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read</pre>
+<p>Current amount of data in the queue (bytes).</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstQueue--current-level-time"></a><h3>The <code class="literal">"current-level-time"</code> property</h3>
+<pre class="programlisting">  "current-level-time"       <span class="type">guint64</span>               : Read</pre>
+<p>Current amount of data in the queue (in ns).</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstQueue--leaky"></a><h3>The <code class="literal">"leaky"</code> property</h3>
+<pre class="programlisting">  "leaky"                    <a class="link" href="gstreamer-plugins-queue.html#GstQueueLeaky" title="enum GstQueueLeaky"><span class="type">GstQueueLeaky</span></a>         : Read / Write</pre>
+<p>Where the queue leaks, if at all.</p>
+<p>Default value: Not Leaky</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstQueue--max-size-buffers"></a><h3>The <code class="literal">"max-size-buffers"</code> property</h3>
+<pre class="programlisting">  "max-size-buffers"         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write</pre>
+<p>Max. number of buffers in the queue (0=disable).</p>
+<p>Default value: 200</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstQueue--max-size-bytes"></a><h3>The <code class="literal">"max-size-bytes"</code> property</h3>
+<pre class="programlisting">  "max-size-bytes"           <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write</pre>
+<p>Max. amount of data in the queue (bytes, 0=disable).</p>
+<p>Default value: 10485760</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstQueue--max-size-time"></a><h3>The <code class="literal">"max-size-time"</code> property</h3>
+<pre class="programlisting">  "max-size-time"            <span class="type">guint64</span>               : Read / Write</pre>
+<p>Max. amount of data in the queue (in ns, 0=disable).</p>
+<p>Default value: 1000000000</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstQueue--min-threshold-buffers"></a><h3>The <code class="literal">"min-threshold-buffers"</code> property</h3>
+<pre class="programlisting">  "min-threshold-buffers"    <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write</pre>
+<p>Min. number of buffers in the queue to allow reading (0=disable).</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstQueue--min-threshold-bytes"></a><h3>The <code class="literal">"min-threshold-bytes"</code> property</h3>
+<pre class="programlisting">  "min-threshold-bytes"      <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write</pre>
+<p>Min. amount of data in the queue to allow reading (bytes, 0=disable).</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstQueue--min-threshold-time"></a><h3>The <code class="literal">"min-threshold-time"</code> property</h3>
+<pre class="programlisting">  "min-threshold-time"       <span class="type">guint64</span>               : Read / Write</pre>
+<p>Min. amount of data in the queue to allow reading (in ns, 0=disable).</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstQueue--silent"></a><h3>The <code class="literal">"silent"</code> property</h3>
+<pre class="programlisting">  "silent"                   <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write</pre>
+<p>
+Don't emit queue signals. Makes queues more lightweight if no signals are
+needed.
+</p>
+<p>Default value: FALSE</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="gstreamer-plugins-queue.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="GstQueue-overrun"></a><h3>The <code class="literal">"overrun"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="gstreamer-plugins-queue.html#GstQueue"><span class="type">GstQueue</span></a> *queue,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>  user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-FIRST:CAPS"><code class="literal">Run First</code></a></pre>
+<p>
+Reports that the buffer became full (overrun).
+A buffer is full if the total amount of data inside it (num-buffers, time,
+size) is higher than the boundary values which can be set through the
+GObject properties.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>queue</code></em> :</span></p></td>
+<td>the queue instance</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstQueue-running"></a><h3>The <code class="literal">"running"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="gstreamer-plugins-queue.html#GstQueue"><span class="type">GstQueue</span></a> *queue,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>  user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-FIRST:CAPS"><code class="literal">Run First</code></a></pre>
+<p>
+Reports that enough (min-threshold) data is in the queue. Use this signal
+together with the underrun signal to pause the pipeline on underrun and
+wait for the queue to fill-up before resume playback.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>queue</code></em> :</span></p></td>
+<td>the queue instance</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstQueue-underrun"></a><h3>The <code class="literal">"underrun"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="gstreamer-plugins-queue.html#GstQueue"><span class="type">GstQueue</span></a> *queue,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>  user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-FIRST:CAPS"><code class="literal">Run First</code></a></pre>
+<p>
+Reports that the buffer became empty (underrun).
+A buffer is empty if the total amount of data inside it (num-buffers, time,
+size) is lower than the boundary values which can be set through the
+GObject properties.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>queue</code></em> :</span></p></td>
+<td>the queue instance</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstQueue-pushing"></a><h3>The <code class="literal">"pushing"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="gstreamer-plugins-queue.html#GstQueue"><span class="type">GstQueue</span></a> *queue,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>  user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-FIRST:CAPS"><code class="literal">Run First</code></a></pre>
+<p>
+Reports when the queue has enough data to start pushing data again on the
+source pad.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>queue</code></em> :</span></p></td>
+<td>the queue instance</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

@@ -1,0 +1,784 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GstRegistry</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer 1.0 Core Reference Manual">
+<link rel="up" href="libgstreamer.html" title="GStreamer Core Library">
+<link rel="prev" href="gstreamer-GstQuery.html" title="GstQuery">
+<link rel="next" href="gstreamer-GstSegment.html" title="GstSegment">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gstreamer-GstQuery.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="libgstreamer.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer 1.0 Core Reference Manual</th>
+<td><a accesskey="n" href="gstreamer-GstSegment.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#GstRegistry.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#GstRegistry.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#GstRegistry.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#GstRegistry.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="GstRegistry"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GstRegistry.top_of_page"></a>GstRegistry</span></h2>
+<p>GstRegistry — Abstract base class for management of <a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a> objects</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="GstRegistry.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;gst/gst.h&gt;
+
+struct              <a class="link" href="GstRegistry.html#GstRegistry-struct" title="struct GstRegistry">GstRegistry</a>;
+<a class="link" href="GstRegistry.html" title="GstRegistry"><span class="returnvalue">GstRegistry</span></a> *       <a class="link" href="GstRegistry.html#gst-registry-get" title="gst_registry_get ()">gst_registry_get</a>                    (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             <a class="link" href="GstRegistry.html#gst-registry-get-feature-list" title="gst_registry_get_feature_list ()">gst_registry_get_feature_list</a>       (<em class="parameter"><code><a class="link" href="GstRegistry.html" title="GstRegistry"><span class="type">GstRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GType"><span class="type">GType</span></a> type</code></em>);
+<span class="returnvalue">guint32</span>             <a class="link" href="GstRegistry.html#gst-registry-get-feature-list-cookie" title="gst_registry_get_feature_list_cookie ()">gst_registry_get_feature_list_cookie</a>
+                                                        (<em class="parameter"><code><a class="link" href="GstRegistry.html" title="GstRegistry"><span class="type">GstRegistry</span></a> *registry</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             <a class="link" href="GstRegistry.html#gst-registry-get-feature-list-by-plugin" title="gst_registry_get_feature_list_by_plugin ()">gst_registry_get_feature_list_by_plugin</a>
+                                                        (<em class="parameter"><code><a class="link" href="GstRegistry.html" title="GstRegistry"><span class="type">GstRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             <a class="link" href="GstRegistry.html#gst-registry-get-plugin-list" title="gst_registry_get_plugin_list ()">gst_registry_get_plugin_list</a>        (<em class="parameter"><code><a class="link" href="GstRegistry.html" title="GstRegistry"><span class="type">GstRegistry</span></a> *registry</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="GstRegistry.html#gst-registry-add-plugin" title="gst_registry_add_plugin ()">gst_registry_add_plugin</a>             (<em class="parameter"><code><a class="link" href="GstRegistry.html" title="GstRegistry"><span class="type">GstRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a> *plugin</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="GstRegistry.html#gst-registry-remove-plugin" title="gst_registry_remove_plugin ()">gst_registry_remove_plugin</a>          (<em class="parameter"><code><a class="link" href="GstRegistry.html" title="GstRegistry"><span class="type">GstRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a> *plugin</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             <a class="link" href="GstRegistry.html#gst-registry-plugin-filter" title="gst_registry_plugin_filter ()">gst_registry_plugin_filter</a>          (<em class="parameter"><code><a class="link" href="GstRegistry.html" title="GstRegistry"><span class="type">GstRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstPlugin.html#GstPluginFilter" title="GstPluginFilter ()"><span class="type">GstPluginFilter</span></a> filter</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> first</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             <a class="link" href="GstRegistry.html#gst-registry-feature-filter" title="gst_registry_feature_filter ()">gst_registry_feature_filter</a>         (<em class="parameter"><code><a class="link" href="GstRegistry.html" title="GstRegistry"><span class="type">GstRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstPluginFeature.html#GstPluginFeatureFilter" title="GstPluginFeatureFilter ()"><span class="type">GstPluginFeatureFilter</span></a> filter</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> first</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<a class="link" href="GstPlugin.html" title="GstPlugin"><span class="returnvalue">GstPlugin</span></a> *         <a class="link" href="GstRegistry.html#gst-registry-find-plugin" title="gst_registry_find_plugin ()">gst_registry_find_plugin</a>            (<em class="parameter"><code><a class="link" href="GstRegistry.html" title="GstRegistry"><span class="type">GstRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);
+<a class="link" href="GstPluginFeature.html" title="GstPluginFeature"><span class="returnvalue">GstPluginFeature</span></a> *  <a class="link" href="GstRegistry.html#gst-registry-find-feature" title="gst_registry_find_feature ()">gst_registry_find_feature</a>           (<em class="parameter"><code><a class="link" href="GstRegistry.html" title="GstRegistry"><span class="type">GstRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GType"><span class="type">GType</span></a> type</code></em>);
+<a class="link" href="GstPluginFeature.html" title="GstPluginFeature"><span class="returnvalue">GstPluginFeature</span></a> *  <a class="link" href="GstRegistry.html#gst-registry-lookup-feature" title="gst_registry_lookup_feature ()">gst_registry_lookup_feature</a>         (<em class="parameter"><code><a class="link" href="GstRegistry.html" title="GstRegistry"><span class="type">GstRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *name</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="GstRegistry.html#gst-registry-scan-path" title="gst_registry_scan_path ()">gst_registry_scan_path</a>              (<em class="parameter"><code><a class="link" href="GstRegistry.html" title="GstRegistry"><span class="type">GstRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *path</code></em>);
+<a class="link" href="GstPlugin.html" title="GstPlugin"><span class="returnvalue">GstPlugin</span></a> *         <a class="link" href="GstRegistry.html#gst-registry-lookup" title="gst_registry_lookup ()">gst_registry_lookup</a>                 (<em class="parameter"><code><a class="link" href="GstRegistry.html" title="GstRegistry"><span class="type">GstRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *filename</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="GstRegistry.html#gst-registry-remove-feature" title="gst_registry_remove_feature ()">gst_registry_remove_feature</a>         (<em class="parameter"><code><a class="link" href="GstRegistry.html" title="GstRegistry"><span class="type">GstRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstPluginFeature.html" title="GstPluginFeature"><span class="type">GstPluginFeature</span></a> *feature</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="GstRegistry.html#gst-registry-add-feature" title="gst_registry_add_feature ()">gst_registry_add_feature</a>            (<em class="parameter"><code><a class="link" href="GstRegistry.html" title="GstRegistry"><span class="type">GstRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstPluginFeature.html" title="GstPluginFeature"><span class="type">GstPluginFeature</span></a> *feature</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="GstRegistry.html#gst-registry-check-feature-version" title="gst_registry_check_feature_version ()">gst_registry_check_feature_version</a>  (<em class="parameter"><code><a class="link" href="GstRegistry.html" title="GstRegistry"><span class="type">GstRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *feature_name</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> min_major</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> min_minor</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> min_micro</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="GstRegistry.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a class="link" href="GstObject.html" title="GstObject">GstObject</a>
+               +----GstRegistry
+</pre>
+</div>
+<div class="refsect1">
+<a name="GstRegistry.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="GstRegistry.html#GstRegistry-feature-added" title='The "feature-added" signal'>feature-added</a>"                                  : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a>
+  "<a class="link" href="GstRegistry.html#GstRegistry-plugin-added" title='The "plugin-added" signal'>plugin-added</a>"                                   : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="GstRegistry.description"></a><h2>Description</h2>
+<p>
+One registry holds the metadata of a set of plugins.
+</p>
+<p>
+<span class="bold"><strong>Design:</strong></span>
+</p>
+<p>
+The <a class="link" href="GstRegistry.html" title="GstRegistry"><span class="type">GstRegistry</span></a> object is a list of plugins and some functions for dealing
+with them. Each <a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a> is matched 1-1 with a file on disk, and may or may
+not be loaded at a given time.
+</p>
+<p>
+The primary source, at all times, of plugin information is each plugin file
+itself. Thus, if an application wants information about a particular plugin,
+or wants to search for a feature that satisfies given criteria, the primary
+means of doing so is to load every plugin and look at the resulting
+information that is gathered in the default registry. Clearly, this is a time
+consuming process, so we cache information in the registry file. The format
+and location of the cache file is internal to gstreamer.
+</p>
+<p>
+On startup, plugins are searched for in the plugin search path. The following
+locations are checked in this order:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem"><p>location from --gst-plugin-path commandline option.</p></li>
+<li class="listitem"><p>the GST_PLUGIN_PATH environment variable.</p></li>
+<li class="listitem"><p>the GST_PLUGIN_SYSTEM_PATH environment variable.</p></li>
+<li class="listitem"><p>default locations (if GST_PLUGIN_SYSTEM_PATH is not set). Those
+      default locations are:
+      <code class="filename">~/.gstreamer-$GST_API_VERSION/plugins/</code>
+      and <code class="filename">$prefix/libs/gstreamer-$GST_API_VERSION/</code>.
+    </p></li>
+</ul></div>
+<p>
+The registry cache file is loaded from
+<code class="filename">~/.gstreamer-$GST_API_VERSION/registry-$ARCH.bin</code> or the
+file listed in the GST_REGISTRY env var. One reason to change the registry
+location is for testing.
+</p>
+<p>
+For each plugin that is found in the plugin search path, there could be 3
+possibilities for cached information:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem"><p>the cache may not contain information about a given file.</p></li>
+<li class="listitem"><p>the cache may have stale information.</p></li>
+<li class="listitem"><p>the cache may have current information.</p></li>
+</ul></div>
+<p>
+</p>
+<p>
+In the first two cases, the plugin is loaded and the cache updated. In
+addition to these cases, the cache may have entries for plugins that are not
+relevant to the current process. These are marked as not available to the
+current process. If the cache is updated for whatever reason, it is marked
+dirty.
+</p>
+<p>
+A dirty cache is written out at the end of initialization. Each entry is
+checked to make sure the information is minimally valid. If not, the entry is
+simply dropped.
+</p>
+<p>
+<span class="bold"><strong>Implementation notes:</strong></span>
+</p>
+<p>
+The "cache" and "registry" are different concepts and can represent
+different sets of plugins. For various reasons, at init time, the cache is
+stored in the default registry, and plugins not relevant to the current
+process are marked with the <a class="link" href="GstPlugin.html#GST-PLUGIN-FLAG-CACHED:CAPS"><code class="literal">GST_PLUGIN_FLAG_CACHED</code></a> bit. These plugins are
+removed at the end of initialization.
+</p>
+<p>
+Last reviewed on 2012-03-29 (0.11.3)
+</p>
+</div>
+<div class="refsect1">
+<a name="GstRegistry.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstRegistry-struct"></a><h3>struct GstRegistry</h3>
+<pre class="programlisting">struct GstRegistry;</pre>
+<p>
+Opaque <a class="link" href="GstRegistry.html" title="GstRegistry"><span class="type">GstRegistry</span></a> structure.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-registry-get"></a><h3>gst_registry_get ()</h3>
+<pre class="programlisting"><a class="link" href="GstRegistry.html" title="GstRegistry"><span class="returnvalue">GstRegistry</span></a> *       gst_registry_get                    (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Retrieves the singleton plugin registry. The caller does not own a
+reference on the registry, as it is alive as long as GStreamer is
+initialized.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the <a class="link" href="GstRegistry.html" title="GstRegistry"><span class="type">GstRegistry</span></a>. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-registry-get-feature-list"></a><h3>gst_registry_get_feature_list ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             gst_registry_get_feature_list       (<em class="parameter"><code><a class="link" href="GstRegistry.html" title="GstRegistry"><span class="type">GstRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GType"><span class="type">GType</span></a> type</code></em>);</pre>
+<p>
+Retrieves a <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> of <a class="link" href="GstPluginFeature.html" title="GstPluginFeature"><span class="type">GstPluginFeature</span></a> of <em class="parameter"><code>type</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>a <a class="link" href="GstRegistry.html" title="GstRegistry"><span class="type">GstRegistry</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>type</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GType"><span class="type">GType</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> of
+<a class="link" href="GstPluginFeature.html" title="GstPluginFeature"><span class="type">GstPluginFeature</span></a> of <em class="parameter"><code>type</code></em>. Use <a class="link" href="GstPluginFeature.html#gst-plugin-feature-list-free" title="gst_plugin_feature_list_free ()"><code class="function">gst_plugin_feature_list_free()</code></a> after use
+MT safe. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> Gst.PluginFeature]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-registry-get-feature-list-cookie"></a><h3>gst_registry_get_feature_list_cookie ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint32</span>             gst_registry_get_feature_list_cookie
+                                                        (<em class="parameter"><code><a class="link" href="GstRegistry.html" title="GstRegistry"><span class="type">GstRegistry</span></a> *registry</code></em>);</pre>
+<p>
+Returns the registrys feature list cookie. This changes
+every time a feature is added or removed from the registry.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>the registry</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the feature list cookie.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-registry-get-feature-list-by-plugin"></a><h3>gst_registry_get_feature_list_by_plugin ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             gst_registry_get_feature_list_by_plugin
+                                                        (<em class="parameter"><code><a class="link" href="GstRegistry.html" title="GstRegistry"><span class="type">GstRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);</pre>
+<p>
+Retrieves a <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> of features of the plugin with name <em class="parameter"><code>name</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>a <a class="link" href="GstRegistry.html" title="GstRegistry"><span class="type">GstRegistry</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>a plugin name.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> of
+<a class="link" href="GstPluginFeature.html" title="GstPluginFeature"><span class="type">GstPluginFeature</span></a>. Use <a class="link" href="GstPluginFeature.html#gst-plugin-feature-list-free" title="gst_plugin_feature_list_free ()"><code class="function">gst_plugin_feature_list_free()</code></a> after usage. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> Gst.PluginFeature]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-registry-get-plugin-list"></a><h3>gst_registry_get_plugin_list ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             gst_registry_get_plugin_list        (<em class="parameter"><code><a class="link" href="GstRegistry.html" title="GstRegistry"><span class="type">GstRegistry</span></a> *registry</code></em>);</pre>
+<p>
+Get a copy of all plugins registered in the given registry. The refcount
+of each element in the list in incremented.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>the registry to search</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> of <a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a>.
+Use <a class="link" href="GstPlugin.html#gst-plugin-list-free" title="gst_plugin_list_free ()"><code class="function">gst_plugin_list_free()</code></a> after usage.
+MT safe. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> Gst.Plugin]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-registry-add-plugin"></a><h3>gst_registry_add_plugin ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_registry_add_plugin             (<em class="parameter"><code><a class="link" href="GstRegistry.html" title="GstRegistry"><span class="type">GstRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a> *plugin</code></em>);</pre>
+<p>
+Add the plugin to the registry. The plugin-added signal will be emitted.
+This function will sink <em class="parameter"><code>plugin</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>the registry to add the plugin to</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>plugin</code></em> :</span></p></td>
+<td>the plugin to add. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE on success.
+MT safe.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-registry-remove-plugin"></a><h3>gst_registry_remove_plugin ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_registry_remove_plugin          (<em class="parameter"><code><a class="link" href="GstRegistry.html" title="GstRegistry"><span class="type">GstRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a> *plugin</code></em>);</pre>
+<p>
+Remove the plugin from the registry.
+</p>
+<p>
+MT safe.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>the registry to remove the plugin from</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>plugin</code></em> :</span></p></td>
+<td>the plugin to remove. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-registry-plugin-filter"></a><h3>gst_registry_plugin_filter ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             gst_registry_plugin_filter          (<em class="parameter"><code><a class="link" href="GstRegistry.html" title="GstRegistry"><span class="type">GstRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstPlugin.html#GstPluginFilter" title="GstPluginFilter ()"><span class="type">GstPluginFilter</span></a> filter</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> first</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+Runs a filter against all plugins in the registry and returns a <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> with
+the results. If the first flag is set, only the first match is
+returned (as a list with a single object).
+Every plugin is reffed; use <a class="link" href="GstPlugin.html#gst-plugin-list-free" title="gst_plugin_list_free ()"><code class="function">gst_plugin_list_free()</code></a> after use, which
+will unref again.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>registry to query</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>filter</code></em> :</span></p></td>
+<td>the filter to use. <span class="annotation">[<acronym title="The callback is valid only during the call to the method."><span class="acronym">scope call</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>first</code></em> :</span></p></td>
+<td>only return first match</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data passed to the filter function. <span class="annotation">[<acronym title="This parameter is a 'user_data', for callbacks; many bindings can pass NULL here."><span class="acronym">closure</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> of <a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a>.
+Use <a class="link" href="GstPlugin.html#gst-plugin-list-free" title="gst_plugin_list_free ()"><code class="function">gst_plugin_list_free()</code></a> after usage.
+MT safe. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> Gst.Plugin]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-registry-feature-filter"></a><h3>gst_registry_feature_filter ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             gst_registry_feature_filter         (<em class="parameter"><code><a class="link" href="GstRegistry.html" title="GstRegistry"><span class="type">GstRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstPluginFeature.html#GstPluginFeatureFilter" title="GstPluginFeatureFilter ()"><span class="type">GstPluginFeatureFilter</span></a> filter</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> first</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+Runs a filter against all features of the plugins in the registry
+and returns a GList with the results.
+If the first flag is set, only the first match is
+returned (as a list with a single object).
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>registry to query</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>filter</code></em> :</span></p></td>
+<td>the filter to use. <span class="annotation">[<acronym title="The callback is valid only during the call to the method."><span class="acronym">scope call</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>first</code></em> :</span></p></td>
+<td>only return first match</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data passed to the filter function. <span class="annotation">[<acronym title="This parameter is a 'user_data', for callbacks; many bindings can pass NULL here."><span class="acronym">closure</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> of
+<a class="link" href="GstPluginFeature.html" title="GstPluginFeature"><span class="type">GstPluginFeature</span></a>. Use <a class="link" href="GstPluginFeature.html#gst-plugin-feature-list-free" title="gst_plugin_feature_list_free ()"><code class="function">gst_plugin_feature_list_free()</code></a> after usage.
+MT safe. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> Gst.PluginFeature]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-registry-find-plugin"></a><h3>gst_registry_find_plugin ()</h3>
+<pre class="programlisting"><a class="link" href="GstPlugin.html" title="GstPlugin"><span class="returnvalue">GstPlugin</span></a> *         gst_registry_find_plugin            (<em class="parameter"><code><a class="link" href="GstRegistry.html" title="GstRegistry"><span class="type">GstRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);</pre>
+<p>
+Find the plugin with the given name in the registry.
+The plugin will be reffed; caller is responsible for unreffing.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>the registry to search</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>the plugin name to find</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the plugin with the given name or NULL if the
+plugin was not found. <a class="link" href="GstObject.html#gst-object-unref" title="gst_object_unref ()"><code class="function">gst_object_unref()</code></a> after usage.
+MT safe. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-registry-find-feature"></a><h3>gst_registry_find_feature ()</h3>
+<pre class="programlisting"><a class="link" href="GstPluginFeature.html" title="GstPluginFeature"><span class="returnvalue">GstPluginFeature</span></a> *  gst_registry_find_feature           (<em class="parameter"><code><a class="link" href="GstRegistry.html" title="GstRegistry"><span class="type">GstRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gobject/unstable/gobject-Type-Information.html#GType"><span class="type">GType</span></a> type</code></em>);</pre>
+<p>
+Find the pluginfeature with the given name and type in the registry.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>the registry to search</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>the pluginfeature name to find</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>type</code></em> :</span></p></td>
+<td>the pluginfeature type to find</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the pluginfeature with the given name and type
+or NULL if the plugin was not found. <a class="link" href="GstObject.html#gst-object-unref" title="gst_object_unref ()"><code class="function">gst_object_unref()</code></a> after usage.
+MT safe. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-registry-lookup-feature"></a><h3>gst_registry_lookup_feature ()</h3>
+<pre class="programlisting"><a class="link" href="GstPluginFeature.html" title="GstPluginFeature"><span class="returnvalue">GstPluginFeature</span></a> *  gst_registry_lookup_feature         (<em class="parameter"><code><a class="link" href="GstRegistry.html" title="GstRegistry"><span class="type">GstRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *name</code></em>);</pre>
+<p>
+Find a <a class="link" href="GstPluginFeature.html" title="GstPluginFeature"><span class="type">GstPluginFeature</span></a> with <em class="parameter"><code>name</code></em> in <em class="parameter"><code>registry</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>a <a class="link" href="GstRegistry.html" title="GstRegistry"><span class="type">GstRegistry</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>a <a class="link" href="GstPluginFeature.html" title="GstPluginFeature"><span class="type">GstPluginFeature</span></a> name</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a class="link" href="GstPluginFeature.html" title="GstPluginFeature"><span class="type">GstPluginFeature</span></a> with its refcount incremented,
+use <a class="link" href="GstObject.html#gst-object-unref" title="gst_object_unref ()"><code class="function">gst_object_unref()</code></a> after usage.
+MT safe. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-registry-scan-path"></a><h3>gst_registry_scan_path ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_registry_scan_path              (<em class="parameter"><code><a class="link" href="GstRegistry.html" title="GstRegistry"><span class="type">GstRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *path</code></em>);</pre>
+<p>
+Scan the given path for plugins to add to the registry. The syntax of the
+path is specific to the registry.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>the registry to add found plugins to</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>path</code></em> :</span></p></td>
+<td>the path to scan</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if registry changed</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-registry-lookup"></a><h3>gst_registry_lookup ()</h3>
+<pre class="programlisting"><a class="link" href="GstPlugin.html" title="GstPlugin"><span class="returnvalue">GstPlugin</span></a> *         gst_registry_lookup                 (<em class="parameter"><code><a class="link" href="GstRegistry.html" title="GstRegistry"><span class="type">GstRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *filename</code></em>);</pre>
+<p>
+Look up a plugin in the given registry with the given filename.
+If found, plugin is reffed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>the registry to look up in</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>filename</code></em> :</span></p></td>
+<td>the name of the file to look up</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the <a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a> if found, or NULL if not.
+<a class="link" href="GstObject.html#gst-object-unref" title="gst_object_unref ()"><code class="function">gst_object_unref()</code></a> after usage. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-registry-remove-feature"></a><h3>gst_registry_remove_feature ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_registry_remove_feature         (<em class="parameter"><code><a class="link" href="GstRegistry.html" title="GstRegistry"><span class="type">GstRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstPluginFeature.html" title="GstPluginFeature"><span class="type">GstPluginFeature</span></a> *feature</code></em>);</pre>
+<p>
+Remove the feature from the registry.
+</p>
+<p>
+MT safe.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>the registry to remove the feature from</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>feature</code></em> :</span></p></td>
+<td>the feature to remove. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-registry-add-feature"></a><h3>gst_registry_add_feature ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_registry_add_feature            (<em class="parameter"><code><a class="link" href="GstRegistry.html" title="GstRegistry"><span class="type">GstRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="GstPluginFeature.html" title="GstPluginFeature"><span class="type">GstPluginFeature</span></a> *feature</code></em>);</pre>
+<p>
+Add the feature to the registry. The feature-added signal will be emitted.
+This function sinks <em class="parameter"><code>feature</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>the registry to add the plugin to</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>feature</code></em> :</span></p></td>
+<td>the feature to add. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE on success.
+MT safe.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-registry-check-feature-version"></a><h3>gst_registry_check_feature_version ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_registry_check_feature_version  (<em class="parameter"><code><a class="link" href="GstRegistry.html" title="GstRegistry"><span class="type">GstRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *feature_name</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> min_major</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> min_minor</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> min_micro</code></em>);</pre>
+<p>
+Checks whether a plugin feature by the given name exists in
+<em class="parameter"><code>registry</code></em> and whether its version is at least the
+version required.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>a <a class="link" href="GstRegistry.html" title="GstRegistry"><span class="type">GstRegistry</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>feature_name</code></em> :</span></p></td>
+<td>the name of the feature (e.g. "oggdemux")</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>min_major</code></em> :</span></p></td>
+<td>the minimum major version number</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>min_minor</code></em> :</span></p></td>
+<td>the minimum minor version number</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>min_micro</code></em> :</span></p></td>
+<td>the minimum micro version number</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><span class="type">TRUE</span></a> if the feature could be found and the version is
+the same as the required version or newer, and <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><span class="type">FALSE</span></a> otherwise.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="GstRegistry.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="GstRegistry-feature-added"></a><h3>The <code class="literal">"feature-added"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="GstRegistry.html" title="GstRegistry"><span class="type">GstRegistry</span></a>      *registry,
+                                                        <a class="link" href="GstPluginFeature.html" title="GstPluginFeature"><span class="type">GstPluginFeature</span></a> *feature,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>          user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a></pre>
+<p>
+Signals that a feature has been added to the registry (possibly
+replacing a previously-added one by the same name)
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>the registry that emitted the signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>feature</code></em> :</span></p></td>
+<td>the feature that has been added</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstRegistry-plugin-added"></a><h3>The <code class="literal">"plugin-added"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="GstRegistry.html" title="GstRegistry"><span class="type">GstRegistry</span></a> *registry,
+                                                        <a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a>   *plugin,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>     user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a></pre>
+<p>
+Signals that a plugin has been added to the registry (possibly
+replacing a previously-added one by the same name)
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>the registry that emitted the signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>plugin</code></em> :</span></p></td>
+<td>the plugin that has been added</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="GstRegistry.see-also"></a><h2>See Also</h2>
+<a class="link" href="GstPlugin.html" title="GstPlugin"><span class="type">GstPlugin</span></a>, <a class="link" href="GstPluginFeature.html" title="GstPluginFeature"><span class="type">GstPluginFeature</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

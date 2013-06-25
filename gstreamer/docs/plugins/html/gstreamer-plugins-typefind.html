@@ -1,0 +1,244 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>typefind</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer Core Plugins 1.0 Plugins Reference Manual">
+<link rel="up" href="ch01.html" title="gstreamer Elements">
+<link rel="prev" href="gstreamer-plugins-tee.html" title="tee">
+<link rel="next" href="gstreamer-plugins-valve.html" title="valve">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gstreamer-plugins-tee.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer Core Plugins 1.0 Plugins Reference Manual</th>
+<td><a accesskey="n" href="gstreamer-plugins-valve.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gstreamer-plugins-typefind.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gstreamer-plugins-typefind.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#gstreamer-plugins-typefind.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#gstreamer-plugins-typefind.properties" class="shortcut">Properties</a>
+                   | 
+                  <a href="#gstreamer-plugins-typefind.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gstreamer-plugins-typefind"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gstreamer-plugins-typefind.top_of_page"></a>typefind</span></h2>
+<p>typefind — Finds the media type of a stream</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gstreamer-plugins-typefind.synopsis"></a><h2>Synopsis</h2>
+<a name="GstTypeFindElement"></a><pre class="synopsis">struct              <a class="link" href="gstreamer-plugins-typefind.html#GstTypeFindElement-struct" title="struct GstTypeFindElement">GstTypeFindElement</a>;
+</pre>
+</div>
+<div class="refsect1">
+<a name="gstreamer-plugins-typefind.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstObject.html">GstObject</a>
+               +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html">GstElement</a>
+                     +----GstTypeFindElement
+</pre>
+</div>
+<div class="refsect1">
+<a name="gstreamer-plugins-typefind.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="gstreamer-plugins-typefind.html#GstTypeFindElement--caps" title='The "caps" property'>caps</a>"                     <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="type">GstCaps</span></a>*              : Read
+  "<a class="link" href="gstreamer-plugins-typefind.html#GstTypeFindElement--maximum" title='The "maximum" property'>maximum</a>"                  <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write
+  "<a class="link" href="gstreamer-plugins-typefind.html#GstTypeFindElement--minimum" title='The "minimum" property'>minimum</a>"                  <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write
+  "<a class="link" href="gstreamer-plugins-typefind.html#GstTypeFindElement--force-caps" title='The "force-caps" property'>force-caps</a>"               <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="type">GstCaps</span></a>*              : Read / Write
+</pre>
+</div>
+<div class="refsect1">
+<a name="gstreamer-plugins-typefind.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="gstreamer-plugins-typefind.html#GstTypeFindElement-have-type" title='The "have-type" signal'>have-type</a>"                                      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-FIRST:CAPS"><code class="literal">Run First</code></a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="gstreamer-plugins-typefind.description"></a><h2>Description</h2>
+<p>
+Determines the media-type of a stream. It applies typefind functions in the
+order of their rank. One the type has been deteted it sets its src pad caps
+to the found media type.
+</p>
+<p>
+Whenever a type is found the <a class="link" href="gstreamer-plugins-typefind.html#GstTypeFindElement-have-type" title='The "have-type" signal'><span class="type">"have-type"</span></a> signal is
+emitted, either from the streaming thread or the application thread
+(the latter may happen when typefinding is done pull-based from the
+state change function).
+</p>
+<p>
+Plugins can register custom typefinders by using <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstTypeFindFactory.html"><span class="type">GstTypeFindFactory</span></a>.
+</p>
+<div class="refsynopsisdiv">
+<h2>Synopsis</h2>
+<div class="refsect2">
+<a name="idp11318736"></a><h3>Element Information</h3>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">plugin</span></p></td>
+<td>
+            <a class="link" href="gstreamer-plugins-plugin-coreelements.html#plugin-coreelements">coreelements</a>
+          </td>
+</tr>
+<tr>
+<td><p><span class="term">author</span></p></td>
+<td>Benjamin Otte &lt;in7y118@public.uni-hamburg.de&gt;</td>
+</tr>
+<tr>
+<td><p><span class="term">class</span></p></td>
+<td>Generic</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="idp11326144"></a><h3>Element Pads</h3>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">name</span></p></td>
+<td>sink</td>
+</tr>
+<tr>
+<td><p><span class="term">direction</span></p></td>
+<td>sink</td>
+</tr>
+<tr>
+<td><p><span class="term">presence</span></p></td>
+<td>always</td>
+</tr>
+<tr>
+<td><p><span class="term">details</span></p></td>
+<td>ANY</td>
+</tr>
+</tbody>
+</table></div>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">name</span></p></td>
+<td>src</td>
+</tr>
+<tr>
+<td><p><span class="term">direction</span></p></td>
+<td>source</td>
+</tr>
+<tr>
+<td><p><span class="term">presence</span></p></td>
+<td>always</td>
+</tr>
+<tr>
+<td><p><span class="term">details</span></p></td>
+<td>ANY</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<p>
+</p>
+</div>
+<div class="refsect1">
+<a name="gstreamer-plugins-typefind.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstTypeFindElement-struct"></a><h3>struct GstTypeFindElement</h3>
+<pre class="programlisting">struct GstTypeFindElement;</pre>
+<p>
+Opaque <a class="link" href="gstreamer-plugins-typefind.html#GstTypeFindElement"><span class="type">GstTypeFindElement</span></a> data structure
+</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="gstreamer-plugins-typefind.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GstTypeFindElement--caps"></a><h3>The <code class="literal">"caps"</code> property</h3>
+<pre class="programlisting">  "caps"                     <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="type">GstCaps</span></a>*              : Read</pre>
+<p>detected capabilities in stream.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstTypeFindElement--maximum"></a><h3>The <code class="literal">"maximum"</code> property</h3>
+<pre class="programlisting">  "maximum"                  <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write</pre>
+<p>probability to stop typefinding (deprecated; non-functional).</p>
+<p>Allowed values: [1,100]</p>
+<p>Default value: 100</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstTypeFindElement--minimum"></a><h3>The <code class="literal">"minimum"</code> property</h3>
+<pre class="programlisting">  "minimum"                  <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write</pre>
+<p>minimum probability required to accept caps.</p>
+<p>Allowed values: [1,100]</p>
+<p>Default value: 1</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstTypeFindElement--force-caps"></a><h3>The <code class="literal">"force-caps"</code> property</h3>
+<pre class="programlisting">  "force-caps"               <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="type">GstCaps</span></a>*              : Read / Write</pre>
+<p>force caps without doing a typefind.</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="gstreamer-plugins-typefind.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="GstTypeFindElement-have-type"></a><h3>The <code class="literal">"have-type"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="gstreamer-plugins-typefind.html#GstTypeFindElement"><span class="type">GstTypeFindElement</span></a> *typefind,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>               probability,
+                                                        <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="type">GstCaps</span></a>            *caps,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)        : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-FIRST:CAPS"><code class="literal">Run First</code></a></pre>
+<p>
+This signal gets emitted when the type and its probability has
+been found.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>typefind</code></em> :</span></p></td>
+<td>the typefind instance</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>probability</code></em> :</span></p></td>
+<td>the probability of the type found</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>caps</code></em> :</span></p></td>
+<td>the caps of the type found</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

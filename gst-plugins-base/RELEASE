@@ -1,0 +1,122 @@
+
+Release notes for GStreamer Base Plugins 1.0.7
+
+
+The GStreamer team is proud to announce a new bug-fix release
+in the 1.x stable series of the
+core of the GStreamer streaming media framework.
+
+
+The 1.x series is a stable series targeted at end users.
+It is not API or ABI compatible with the stable 0.10.x series.
+It is, however, parallel installable with the 0.10.x series and
+will not affect an existing 0.10.x installation.
+
+
+
+This module contains a set of reference plugins, base classes for other
+plugins, and helper libraries. It also includes essential elements such
+as audio and video format converters, and higher-level components like playbin,
+decodebin, encodebin, and discoverer.
+
+This module is kept up-to-date together with the core developments.  Element
+writers should look at the elements in this module as a reference for
+their development.
+
+This module contains elements for, among others:
+
+  device plugins: x(v)imagesink, alsa, v4lsrc, cdparanoia
+  containers: ogg
+  codecs: vorbis, theora
+  text: textoverlay, subparse
+  sources: audiotestsrc, videotestsrc, giosrc
+  network: tcp
+  typefind functions
+  audio processing: audioconvert, adder, audiorate, audioresample, volume
+  visualisation: libvisual
+  video processing: videoconvert, videoscale
+  high-level components: playbin, uridecodebin, decodebin, encodebin, discoverer
+  libraries: app, audio, fft, pbutils, riff, rtp, rtsp, sdp, tag, video
+
+
+Other modules containing plugins are:
+
+
+gst-plugins-good
+contains a set of well-supported plugins under our preferred license
+gst-plugins-ugly
+contains a set of well-supported plugins, but might pose problems for
+    distributors
+gst-plugins-bad
+contains a set of less supported plugins that haven't passed the
+    rigorous quality testing we expect, or are still missing documentation
+    and/or unit tests
+gst-libav
+contains a set of codecs plugins based on libav (formerly gst-ffmpeg)
+
+
+
+  
+
+Features of this release
+    
+      * streamsynchronizer is now a public element, useful in HLS pipelines for example
+
+Bugs fixed in this release
+     
+      * 682171 : videoscale: assertion failed: (envelope ((x - (xi - 1)) * ex) == 0)
+      * 688240 : streamsynchronizer: make element public
+      * 696540 : Ring buffer released after parsing caps when setting caps
+      * 696899 : oggdemux: non flushing segment seek makes buffers late
+      * 697092 : rtspconnection: The " x-server-ip-address " header with wrong IP address is added to the GET response
+      * 697162 : SDP library is not parsing correctly
+      * 697277 : SDP library does not include timing line if there is not timing information
+      * 697820 : playbin: Enabling visualizations during playback stops the pipeline
+      * 697824 : videometa: gst_buffer_add_meta() can return NULL
+
+==== Download ====
+
+You can find source releases of gst-plugins-base in the download
+directory: http://gstreamer.freedesktop.org/src/gst-plugins-base/
+
+The git repository and details how to clone it can be found at
+http://cgit.freedesktop.org/gstreamer/gst-plugins-base/
+
+==== Homepage ====
+
+The project's website is http://gstreamer.freedesktop.org/
+
+==== Support and Bugs ====
+
+We use GNOME's bugzilla for bug reports and feature requests:
+http://bugzilla.gnome.org/enter_bug.cgi?product=GStreamer
+
+Please submit patches via bugzilla as well.
+
+For help and support, please subscribe to and send questions to the
+gstreamer-devel mailing list (see below for details).
+
+There is also a #gstreamer IRC channel on the Freenode IRC network.
+
+==== Developers ====
+
+GStreamer is stored in Git, hosted at git.freedesktop.org, and can be cloned
+from there (see link above).
+
+Interested developers of the core library, plugins, and applications should
+subscribe to the gstreamer-devel list.
+
+        
+Contributors to this release
+    
+      * David Schleef
+      * Jose Antonio Santos Cadenas
+      * Nicolas Dufresne
+      * Paul HENRYS
+      * Sebastian Dröge
+      * Stefan Sauer
+      * Tim-Philipp Müller
+      * Tom Greenwood
+      * Víctor Manuel Jáquez Leal
+      * Wim Taymans
+ 

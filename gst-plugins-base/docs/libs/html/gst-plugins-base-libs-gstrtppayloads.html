@@ -1,0 +1,388 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>gstrtppayloads</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer Base Plugins 1.0 Library Reference Manual">
+<link rel="up" href="gstreamer-rtp.html" title="RTP Library">
+<link rel="prev" href="gst-plugins-base-libs-gstrtcpbuffer.html" title="gstrtcpbuffer">
+<link rel="next" href="gst-plugins-base-libs-gstrtphdrext.html" title="gstrtphdrext">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gst-plugins-base-libs-gstrtcpbuffer.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="gstreamer-rtp.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer Base Plugins 1.0 Library Reference Manual</th>
+<td><a accesskey="n" href="gst-plugins-base-libs-gstrtphdrext.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gst-plugins-base-libs-gstrtppayloads.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gst-plugins-base-libs-gstrtppayloads.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gst-plugins-base-libs-gstrtppayloads"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gst-plugins-base-libs-gstrtppayloads.top_of_page"></a>gstrtppayloads</span></h2>
+<p>gstrtppayloads — Helper methods for dealing with RTP payloads</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gst-plugins-base-libs-gstrtppayloads.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;gst/rtp/gstrtppayload.h&gt;
+
+enum                <a class="link" href="gst-plugins-base-libs-gstrtppayloads.html#GstRTPPayload" title="enum GstRTPPayload">GstRTPPayload</a>;
+#define             <a class="link" href="gst-plugins-base-libs-gstrtppayloads.html#GST-RTP-PAYLOAD-IS-DYNAMIC:CAPS" title="GST_RTP_PAYLOAD_IS_DYNAMIC()">GST_RTP_PAYLOAD_IS_DYNAMIC</a>          (pt)
+struct              <a class="link" href="gst-plugins-base-libs-gstrtppayloads.html#GstRTPPayloadInfo" title="struct GstRTPPayloadInfo">GstRTPPayloadInfo</a>;
+const <a class="link" href="gst-plugins-base-libs-gstrtppayloads.html#GstRTPPayloadInfo" title="struct GstRTPPayloadInfo"><span class="returnvalue">GstRTPPayloadInfo</span></a> * <a class="link" href="gst-plugins-base-libs-gstrtppayloads.html#gst-rtp-payload-info-for-name" title="gst_rtp_payload_info_for_name ()">gst_rtp_payload_info_for_name</a> (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *media</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *encoding_name</code></em>);
+const <a class="link" href="gst-plugins-base-libs-gstrtppayloads.html#GstRTPPayloadInfo" title="struct GstRTPPayloadInfo"><span class="returnvalue">GstRTPPayloadInfo</span></a> * <a class="link" href="gst-plugins-base-libs-gstrtppayloads.html#gst-rtp-payload-info-for-pt" title="gst_rtp_payload_info_for_pt ()">gst_rtp_payload_info_for_pt</a>   (<em class="parameter"><code><span class="type">guint8</span> payload_type</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-libs-gstrtppayloads.description"></a><h2>Description</h2>
+<p>
+</p>
+<div class="refsect2">
+<a name="idp14780368"></a><p>
+The GstRTPPayloads helper functions makes it easy to deal with static and dynamic
+payloads. Its main purpose is to retrieve properties such as the default clock-rate 
+and get session bandwidth information.
+</p>
+</div>
+<p>
+</p>
+<p>
+Last reviewed on 2007-10-01 (0.10.15)
+</p>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-libs-gstrtppayloads.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstRTPPayload"></a><h3>enum GstRTPPayload</h3>
+<pre class="programlisting">typedef enum {
+  /* Audio: */
+  GST_RTP_PAYLOAD_PCMU = 0,
+  GST_RTP_PAYLOAD_1016 = 1, /* RFC 3551 says reserved */
+  GST_RTP_PAYLOAD_G721 = 2, /* RFC 3551 says reserved */
+  GST_RTP_PAYLOAD_GSM = 3,
+  GST_RTP_PAYLOAD_G723 = 4,
+  GST_RTP_PAYLOAD_DVI4_8000 = 5,
+  GST_RTP_PAYLOAD_DVI4_16000 = 6,
+  GST_RTP_PAYLOAD_LPC = 7,
+  GST_RTP_PAYLOAD_PCMA = 8,
+  GST_RTP_PAYLOAD_G722 = 9,
+  GST_RTP_PAYLOAD_L16_STEREO = 10,
+  GST_RTP_PAYLOAD_L16_MONO = 11,
+  GST_RTP_PAYLOAD_QCELP = 12,
+  GST_RTP_PAYLOAD_CN = 13,
+  GST_RTP_PAYLOAD_MPA = 14,
+  GST_RTP_PAYLOAD_G728 = 15,
+  GST_RTP_PAYLOAD_DVI4_11025 = 16,
+  GST_RTP_PAYLOAD_DVI4_22050 = 17,
+  GST_RTP_PAYLOAD_G729 = 18,
+
+  /* Video: */
+
+  GST_RTP_PAYLOAD_CELLB = 25,
+  GST_RTP_PAYLOAD_JPEG = 26,
+  GST_RTP_PAYLOAD_NV = 28,
+  GST_RTP_PAYLOAD_H261 = 31,
+  GST_RTP_PAYLOAD_MPV = 32,
+  GST_RTP_PAYLOAD_MP2T = 33,
+  GST_RTP_PAYLOAD_H263 = 34,
+
+  /* BOTH */
+} GstRTPPayload;
+</pre>
+<p>
+Standard predefined fixed payload types.
+</p>
+<p>
+The official list is at:
+http://www.iana.org/assignments/rtp-parameters
+</p>
+<p>
+Audio:
+reserved: 19
+unassigned: 20-23,
+</p>
+<p>
+Video:
+unassigned: 24, 27, 29, 30, 35-71, 77-95
+Reserved for RTCP conflict avoidance: 72-76
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="GST-RTP-PAYLOAD-PCMU:CAPS"></a><span class="term"><code class="literal">GST_RTP_PAYLOAD_PCMU</code></span></p></td>
+<td>ITU-T G.711. mu-law audio (RFC 3551)
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-RTP-PAYLOAD-1016:CAPS"></a><span class="term"><code class="literal">GST_RTP_PAYLOAD_1016</code></span></p></td>
+<td>RFC 3551 says reserved
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-RTP-PAYLOAD-G721:CAPS"></a><span class="term"><code class="literal">GST_RTP_PAYLOAD_G721</code></span></p></td>
+<td>RFC 3551 says reserved
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-RTP-PAYLOAD-GSM:CAPS"></a><span class="term"><code class="literal">GST_RTP_PAYLOAD_GSM</code></span></p></td>
+<td>GSM audio
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-RTP-PAYLOAD-G723:CAPS"></a><span class="term"><code class="literal">GST_RTP_PAYLOAD_G723</code></span></p></td>
+<td>ITU G.723.1 audio
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-RTP-PAYLOAD-DVI4-8000:CAPS"></a><span class="term"><code class="literal">GST_RTP_PAYLOAD_DVI4_8000</code></span></p></td>
+<td>IMA ADPCM wave type (RFC 3551)
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-RTP-PAYLOAD-DVI4-16000:CAPS"></a><span class="term"><code class="literal">GST_RTP_PAYLOAD_DVI4_16000</code></span></p></td>
+<td>IMA ADPCM wave type (RFC 3551)
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-RTP-PAYLOAD-LPC:CAPS"></a><span class="term"><code class="literal">GST_RTP_PAYLOAD_LPC</code></span></p></td>
+<td>experimental linear predictive encoding
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-RTP-PAYLOAD-PCMA:CAPS"></a><span class="term"><code class="literal">GST_RTP_PAYLOAD_PCMA</code></span></p></td>
+<td>ITU-T G.711 A-law audio (RFC 3551)
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-RTP-PAYLOAD-G722:CAPS"></a><span class="term"><code class="literal">GST_RTP_PAYLOAD_G722</code></span></p></td>
+<td>ITU-T G.722 (RFC 3551)
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-RTP-PAYLOAD-L16-STEREO:CAPS"></a><span class="term"><code class="literal">GST_RTP_PAYLOAD_L16_STEREO</code></span></p></td>
+<td>stereo PCM
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-RTP-PAYLOAD-L16-MONO:CAPS"></a><span class="term"><code class="literal">GST_RTP_PAYLOAD_L16_MONO</code></span></p></td>
+<td>mono PCM
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-RTP-PAYLOAD-QCELP:CAPS"></a><span class="term"><code class="literal">GST_RTP_PAYLOAD_QCELP</code></span></p></td>
+<td>EIA &amp; TIA standard IS-733
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-RTP-PAYLOAD-CN:CAPS"></a><span class="term"><code class="literal">GST_RTP_PAYLOAD_CN</code></span></p></td>
+<td>Comfort Noise (RFC 3389)
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-RTP-PAYLOAD-MPA:CAPS"></a><span class="term"><code class="literal">GST_RTP_PAYLOAD_MPA</code></span></p></td>
+<td>Audio MPEG 1-3.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-RTP-PAYLOAD-G728:CAPS"></a><span class="term"><code class="literal">GST_RTP_PAYLOAD_G728</code></span></p></td>
+<td>ITU-T G.728 Speech coder (RFC 3551)
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-RTP-PAYLOAD-DVI4-11025:CAPS"></a><span class="term"><code class="literal">GST_RTP_PAYLOAD_DVI4_11025</code></span></p></td>
+<td>IMA ADPCM wave type (RFC 3551)
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-RTP-PAYLOAD-DVI4-22050:CAPS"></a><span class="term"><code class="literal">GST_RTP_PAYLOAD_DVI4_22050</code></span></p></td>
+<td>IMA ADPCM wave type (RFC 3551)
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-RTP-PAYLOAD-G729:CAPS"></a><span class="term"><code class="literal">GST_RTP_PAYLOAD_G729</code></span></p></td>
+<td>ITU-T G.729 Speech coder (RFC 3551)
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-RTP-PAYLOAD-CELLB:CAPS"></a><span class="term"><code class="literal">GST_RTP_PAYLOAD_CELLB</code></span></p></td>
+<td>See RFC 2029
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-RTP-PAYLOAD-JPEG:CAPS"></a><span class="term"><code class="literal">GST_RTP_PAYLOAD_JPEG</code></span></p></td>
+<td>ISO Standards 10918-1 and 10918-2 (RFC 2435)
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-RTP-PAYLOAD-NV:CAPS"></a><span class="term"><code class="literal">GST_RTP_PAYLOAD_NV</code></span></p></td>
+<td>nv encoding by Ron Frederick
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-RTP-PAYLOAD-H261:CAPS"></a><span class="term"><code class="literal">GST_RTP_PAYLOAD_H261</code></span></p></td>
+<td>ITU-T Recommendation H.261 (RFC 2032)
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-RTP-PAYLOAD-MPV:CAPS"></a><span class="term"><code class="literal">GST_RTP_PAYLOAD_MPV</code></span></p></td>
+<td>Video MPEG 1 &amp; 2 (RFC 2250)
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-RTP-PAYLOAD-MP2T:CAPS"></a><span class="term"><code class="literal">GST_RTP_PAYLOAD_MP2T</code></span></p></td>
+<td>MPEG-2 transport stream (RFC 2250)
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-RTP-PAYLOAD-H263:CAPS"></a><span class="term"><code class="literal">GST_RTP_PAYLOAD_H263</code></span></p></td>
+<td>Video H263 (RFC 2190)
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-RTP-PAYLOAD-IS-DYNAMIC:CAPS"></a><h3>GST_RTP_PAYLOAD_IS_DYNAMIC()</h3>
+<pre class="programlisting">#define GST_RTP_PAYLOAD_IS_DYNAMIC(pt) ((pt) &gt;= 96 &amp;&amp; (pt) &lt;= 127)
+</pre>
+<p>
+Check if <em class="parameter"><code>pt</code></em> is a dynamic payload type.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>pt</code></em> :</span></p></td>
+<td>a payload type</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstRTPPayloadInfo"></a><h3>struct GstRTPPayloadInfo</h3>
+<pre class="programlisting">struct GstRTPPayloadInfo {
+  guint8       payload_type;
+  const gchar *media;
+  const gchar *encoding_name;
+  guint        clock_rate;
+  const gchar *encoding_parameters;
+  guint        bitrate;
+};
+</pre>
+<p>
+Structure holding default payload type information.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><span class="type">guint8</span> <em class="structfield"><code><a name="GstRTPPayloadInfo.payload-type"></a>payload_type</code></em>;</span></p></td>
+<td>payload type, -1 means dynamic</td>
+</tr>
+<tr>
+<td><p><span class="term">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *<em class="structfield"><code><a name="GstRTPPayloadInfo.media"></a>media</code></em>;</span></p></td>
+<td>the media type(s), usually "audio", "video", "application", "text",
+"message".</td>
+</tr>
+<tr>
+<td><p><span class="term">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *<em class="structfield"><code><a name="GstRTPPayloadInfo.encoding-name"></a>encoding_name</code></em>;</span></p></td>
+<td>the encoding name of <em class="parameter"><code>pt</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> <em class="structfield"><code><a name="GstRTPPayloadInfo.clock-rate"></a>clock_rate</code></em>;</span></p></td>
+<td>default clock rate, 0 = unknown/variable</td>
+</tr>
+<tr>
+<td><p><span class="term">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *<em class="structfield"><code><a name="GstRTPPayloadInfo.encoding-parameters"></a>encoding_parameters</code></em>;</span></p></td>
+<td>encoding parameters. For audio this is the number of
+channels. NULL = not applicable.</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> <em class="structfield"><code><a name="GstRTPPayloadInfo.bitrate"></a>bitrate</code></em>;</span></p></td>
+<td>the bitrate of the media. 0 = unknown/variable.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-payload-info-for-name"></a><h3>gst_rtp_payload_info_for_name ()</h3>
+<pre class="programlisting">const <a class="link" href="gst-plugins-base-libs-gstrtppayloads.html#GstRTPPayloadInfo" title="struct GstRTPPayloadInfo"><span class="returnvalue">GstRTPPayloadInfo</span></a> * gst_rtp_payload_info_for_name (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *media</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *encoding_name</code></em>);</pre>
+<p>
+Get the <a class="link" href="gst-plugins-base-libs-gstrtppayloads.html#GstRTPPayloadInfo" title="struct GstRTPPayloadInfo"><span class="type">GstRTPPayloadInfo</span></a> for <em class="parameter"><code>media</code></em> and <em class="parameter"><code>encoding_name</code></em>. This function is
+mostly used to get the default clock-rate and bandwidth for dynamic payload
+types specified with <em class="parameter"><code>media</code></em> and <em class="parameter"><code>encoding</code></em> name.
+</p>
+<p>
+The search for <em class="parameter"><code>encoding_name</code></em> will be performed in a case insensitve way.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>media</code></em> :</span></p></td>
+<td>the media to find</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>encoding_name</code></em> :</span></p></td>
+<td>the encoding name to find</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstrtppayloads.html#GstRTPPayloadInfo" title="struct GstRTPPayloadInfo"><span class="type">GstRTPPayloadInfo</span></a> or NULL when no info could be found.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-payload-info-for-pt"></a><h3>gst_rtp_payload_info_for_pt ()</h3>
+<pre class="programlisting">const <a class="link" href="gst-plugins-base-libs-gstrtppayloads.html#GstRTPPayloadInfo" title="struct GstRTPPayloadInfo"><span class="returnvalue">GstRTPPayloadInfo</span></a> * gst_rtp_payload_info_for_pt   (<em class="parameter"><code><span class="type">guint8</span> payload_type</code></em>);</pre>
+<p>
+Get the <a class="link" href="gst-plugins-base-libs-gstrtppayloads.html#GstRTPPayloadInfo" title="struct GstRTPPayloadInfo"><span class="type">GstRTPPayloadInfo</span></a> for <em class="parameter"><code>payload_type</code></em>. This function is
+mostly used to get the default clock-rate and bandwidth for static payload
+types specified with <em class="parameter"><code>payload_type</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>payload_type</code></em> :</span></p></td>
+<td>the payload_type to find</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstrtppayloads.html#GstRTPPayloadInfo" title="struct GstRTPPayloadInfo"><span class="type">GstRTPPayloadInfo</span></a> or NULL when no info could be found.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-libs-gstrtppayloads.see-also"></a><h2>See Also</h2>
+gstrtpbuffer
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

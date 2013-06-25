@@ -1,0 +1,280 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>gstfftf64</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer Base Plugins 1.0 Library Reference Manual">
+<link rel="up" href="gstreamer-ffft.html" title="FFT Library">
+<link rel="prev" href="gst-plugins-base-libs-gstfftf32.html" title="gstfftf32">
+<link rel="next" href="gstreamer-riff.html" title="Riff Media Library">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gst-plugins-base-libs-gstfftf32.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="gstreamer-ffft.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer Base Plugins 1.0 Library Reference Manual</th>
+<td><a accesskey="n" href="gstreamer-riff.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gst-plugins-base-libs-gstfftf64.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gst-plugins-base-libs-gstfftf64.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gst-plugins-base-libs-gstfftf64"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gst-plugins-base-libs-gstfftf64.top_of_page"></a>gstfftf64</span></h2>
+<p>gstfftf64 — FFT functions for 64 bit float samples</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gst-plugins-base-libs-gstfftf64.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;gst/fft/gstfftf64.h&gt;
+
+                    <a class="link" href="gst-plugins-base-libs-gstfftf64.html#GstFFTF64" title="GstFFTF64">GstFFTF64</a>;
+struct              <a class="link" href="gst-plugins-base-libs-gstfftf64.html#GstFFTF64Complex" title="struct GstFFTF64Complex">GstFFTF64Complex</a>;
+<a class="link" href="gst-plugins-base-libs-gstfftf64.html#GstFFTF64" title="GstFFTF64"><span class="returnvalue">GstFFTF64</span></a> *         <a class="link" href="gst-plugins-base-libs-gstfftf64.html#gst-fft-f64-new" title="gst_fft_f64_new ()">gst_fft_f64_new</a>                     (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> len</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> inverse</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-base-libs-gstfftf64.html#gst-fft-f64-fft" title="gst_fft_f64_fft ()">gst_fft_f64_fft</a>                     (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstfftf64.html#GstFFTF64" title="GstFFTF64"><span class="type">GstFFTF64</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a> *timedata</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstfftf64.html#GstFFTF64Complex" title="struct GstFFTF64Complex"><span class="type">GstFFTF64Complex</span></a> *freqdata</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-base-libs-gstfftf64.html#gst-fft-f64-inverse-fft" title="gst_fft_f64_inverse_fft ()">gst_fft_f64_inverse_fft</a>             (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstfftf64.html#GstFFTF64" title="GstFFTF64"><span class="type">GstFFTF64</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="gst-plugins-base-libs-gstfftf64.html#GstFFTF64Complex" title="struct GstFFTF64Complex"><span class="type">GstFFTF64Complex</span></a> *freqdata</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a> *timedata</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-base-libs-gstfftf64.html#gst-fft-f64-window" title="gst_fft_f64_window ()">gst_fft_f64_window</a>                  (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstfftf64.html#GstFFTF64" title="GstFFTF64"><span class="type">GstFFTF64</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a> *timedata</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstfft.html#GstFFTWindow" title="enum GstFFTWindow"><span class="type">GstFFTWindow</span></a> window</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-base-libs-gstfftf64.html#gst-fft-f64-free" title="gst_fft_f64_free ()">gst_fft_f64_free</a>                    (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstfftf64.html#GstFFTF64" title="GstFFTF64"><span class="type">GstFFTF64</span></a> *self</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-libs-gstfftf64.description"></a><h2>Description</h2>
+<p>
+<a class="link" href="gst-plugins-base-libs-gstfftf64.html#GstFFTF64" title="GstFFTF64"><span class="type">GstFFTF64</span></a> provides a FFT implementation and related functions for
+64 bit float samples. To use this call <a class="link" href="gst-plugins-base-libs-gstfftf64.html#gst-fft-f64-new" title="gst_fft_f64_new ()"><code class="function">gst_fft_f64_new()</code></a> for
+allocating a <a class="link" href="gst-plugins-base-libs-gstfftf64.html#GstFFTF64" title="GstFFTF64"><span class="type">GstFFTF64</span></a> instance with the appropriate parameters and
+then call <a class="link" href="gst-plugins-base-libs-gstfftf64.html#gst-fft-f64-fft" title="gst_fft_f64_fft ()"><code class="function">gst_fft_f64_fft()</code></a> or <a class="link" href="gst-plugins-base-libs-gstfftf64.html#gst-fft-f64-inverse-fft" title="gst_fft_f64_inverse_fft ()"><code class="function">gst_fft_f64_inverse_fft()</code></a> to perform the
+FFT or inverse FFT on a buffer of samples.
+</p>
+<p>
+After use free the <a class="link" href="gst-plugins-base-libs-gstfftf64.html#GstFFTF64" title="GstFFTF64"><span class="type">GstFFTF64</span></a> instance with <a class="link" href="gst-plugins-base-libs-gstfftf64.html#gst-fft-f64-free" title="gst_fft_f64_free ()"><code class="function">gst_fft_f64_free()</code></a>.
+</p>
+<p>
+For the best performance use <a class="link" href="gst-plugins-base-libs-gstfft.html#gst-fft-next-fast-length" title="gst_fft_next_fast_length ()"><code class="function">gst_fft_next_fast_length()</code></a> to get a
+number that is entirely a product of 2, 3 and 5 and use this as the
+<em class="parameter"><code>len</code></em> parameter for <a class="link" href="gst-plugins-base-libs-gstfftf64.html#gst-fft-f64-new" title="gst_fft_f64_new ()"><code class="function">gst_fft_f64_new()</code></a>.
+</p>
+<p>
+The <em class="parameter"><code>len</code></em> parameter specifies the number of samples in the time domain that
+will be processed or generated. The number of samples in the frequency domain
+is <em class="parameter"><code>len</code></em>/2 + 1. To get n samples in the frequency domain use 2*n - 2 as <em class="parameter"><code>len</code></em>.
+</p>
+<p>
+Before performing the FFT on time domain data it usually makes sense
+to apply a window function to it. For this <a class="link" href="gst-plugins-base-libs-gstfftf64.html#gst-fft-f64-window" title="gst_fft_f64_window ()"><code class="function">gst_fft_f64_window()</code></a> can comfortably
+be used.
+</p>
+<p>
+Be aware, that you can't simply run <a class="link" href="gst-plugins-base-libs-gstfftf32.html#gst-fft-f32-inverse-fft" title="gst_fft_f32_inverse_fft ()"><code class="function">gst_fft_f32_inverse_fft()</code></a> on the
+resulting frequency data of <a class="link" href="gst-plugins-base-libs-gstfftf32.html#gst-fft-f32-fft" title="gst_fft_f32_fft ()"><code class="function">gst_fft_f32_fft()</code></a> to get the original data back.
+The relation between them is iFFT (FFT (x)) = x * nfft where nfft is the
+length of the FFT. This also has to be taken into account when calculation
+the magnitude of the frequency data.
+</p>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-libs-gstfftf64.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstFFTF64"></a><h3>GstFFTF64</h3>
+<pre class="programlisting">typedef struct _GstFFTF64 GstFFTF64;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstFFTF64Complex"></a><h3>struct GstFFTF64Complex</h3>
+<pre class="programlisting">struct GstFFTF64Complex {
+  gdouble r;
+  gdouble i;
+};
+</pre>
+<p>
+Data type for complex numbers composed of
+64 bit float.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a> <em class="structfield"><code><a name="GstFFTF64Complex.r"></a>r</code></em>;</span></p></td>
+<td>Real part</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a> <em class="structfield"><code><a name="GstFFTF64Complex.i"></a>i</code></em>;</span></p></td>
+<td>Imaginary part</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-fft-f64-new"></a><h3>gst_fft_f64_new ()</h3>
+<pre class="programlisting"><a class="link" href="gst-plugins-base-libs-gstfftf64.html#GstFFTF64" title="GstFFTF64"><span class="returnvalue">GstFFTF64</span></a> *         gst_fft_f64_new                     (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> len</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> inverse</code></em>);</pre>
+<p>
+This returns a new <a class="link" href="gst-plugins-base-libs-gstfftf64.html#GstFFTF64" title="GstFFTF64"><span class="type">GstFFTF64</span></a> instance with the given parameters. It makes
+sense to keep one instance for several calls for speed reasons.
+</p>
+<p>
+<em class="parameter"><code>len</code></em> must be even and to get the best performance a product of
+2, 3 and 5. To get the next number with this characteristics use
+<a class="link" href="gst-plugins-base-libs-gstfft.html#gst-fft-next-fast-length" title="gst_fft_next_fast_length ()"><code class="function">gst_fft_next_fast_length()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>len</code></em> :</span></p></td>
+<td>Length of the FFT in the time domain</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>inverse</code></em> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the <a class="link" href="gst-plugins-base-libs-gstfftf64.html#GstFFTF64" title="GstFFTF64"><span class="type">GstFFTF64</span></a> instance should be used for the inverse FFT</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="gst-plugins-base-libs-gstfftf64.html#GstFFTF64" title="GstFFTF64"><span class="type">GstFFTF64</span></a> instance.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-fft-f64-fft"></a><h3>gst_fft_f64_fft ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_fft_f64_fft                     (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstfftf64.html#GstFFTF64" title="GstFFTF64"><span class="type">GstFFTF64</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a> *timedata</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstfftf64.html#GstFFTF64Complex" title="struct GstFFTF64Complex"><span class="type">GstFFTF64Complex</span></a> *freqdata</code></em>);</pre>
+<p>
+This performs the FFT on <em class="parameter"><code>timedata</code></em> and puts the result in <em class="parameter"><code>freqdata</code></em>.
+</p>
+<p>
+<em class="parameter"><code>timedata</code></em> must have as many samples as specified with the <em class="parameter"><code>len</code></em> parameter while
+allocating the <a class="link" href="gst-plugins-base-libs-gstfftf64.html#GstFFTF64" title="GstFFTF64"><span class="type">GstFFTF64</span></a> instance with <a class="link" href="gst-plugins-base-libs-gstfftf64.html#gst-fft-f64-new" title="gst_fft_f64_new ()"><code class="function">gst_fft_f64_new()</code></a>.
+</p>
+<p>
+<em class="parameter"><code>freqdata</code></em> must be large enough to hold <em class="parameter"><code>len</code></em>/2 + 1 <a class="link" href="gst-plugins-base-libs-gstfftf64.html#GstFFTF64Complex" title="struct GstFFTF64Complex"><span class="type">GstFFTF64Complex</span></a> frequency
+domain samples.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>
+<a class="link" href="gst-plugins-base-libs-gstfftf64.html#GstFFTF64" title="GstFFTF64"><span class="type">GstFFTF64</span></a> instance for this call</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>timedata</code></em> :</span></p></td>
+<td>Buffer of the samples in the time domain</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>freqdata</code></em> :</span></p></td>
+<td>Target buffer for the samples in the frequency domain</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-fft-f64-inverse-fft"></a><h3>gst_fft_f64_inverse_fft ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_fft_f64_inverse_fft             (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstfftf64.html#GstFFTF64" title="GstFFTF64"><span class="type">GstFFTF64</span></a> *self</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="gst-plugins-base-libs-gstfftf64.html#GstFFTF64Complex" title="struct GstFFTF64Complex"><span class="type">GstFFTF64Complex</span></a> *freqdata</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a> *timedata</code></em>);</pre>
+<p>
+This performs the inverse FFT on <em class="parameter"><code>freqdata</code></em> and puts the result in <em class="parameter"><code>timedata</code></em>.
+</p>
+<p>
+<em class="parameter"><code>freqdata</code></em> must have <em class="parameter"><code>len</code></em>/2 + 1 samples, where <em class="parameter"><code>len</code></em> is the parameter specified
+while allocating the <a class="link" href="gst-plugins-base-libs-gstfftf64.html#GstFFTF64" title="GstFFTF64"><span class="type">GstFFTF64</span></a> instance with <a class="link" href="gst-plugins-base-libs-gstfftf64.html#gst-fft-f64-new" title="gst_fft_f64_new ()"><code class="function">gst_fft_f64_new()</code></a>.
+</p>
+<p>
+<em class="parameter"><code>timedata</code></em> must be large enough to hold <em class="parameter"><code>len</code></em> time domain samples.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>
+<a class="link" href="gst-plugins-base-libs-gstfftf64.html#GstFFTF64" title="GstFFTF64"><span class="type">GstFFTF64</span></a> instance for this call</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>freqdata</code></em> :</span></p></td>
+<td>Buffer of the samples in the frequency domain</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>timedata</code></em> :</span></p></td>
+<td>Target buffer for the samples in the time domain</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-fft-f64-window"></a><h3>gst_fft_f64_window ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_fft_f64_window                  (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstfftf64.html#GstFFTF64" title="GstFFTF64"><span class="type">GstFFTF64</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a> *timedata</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstfft.html#GstFFTWindow" title="enum GstFFTWindow"><span class="type">GstFFTWindow</span></a> window</code></em>);</pre>
+<p>
+This calls the window function <em class="parameter"><code>window</code></em> on the <em class="parameter"><code>timedata</code></em> sample buffer.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>
+<a class="link" href="gst-plugins-base-libs-gstfftf64.html#GstFFTF64" title="GstFFTF64"><span class="type">GstFFTF64</span></a> instance for this call</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>timedata</code></em> :</span></p></td>
+<td>Time domain samples</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>window</code></em> :</span></p></td>
+<td>Window function to apply</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-fft-f64-free"></a><h3>gst_fft_f64_free ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_fft_f64_free                    (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstfftf64.html#GstFFTF64" title="GstFFTF64"><span class="type">GstFFTF64</span></a> *self</code></em>);</pre>
+<p>
+This frees the memory allocated for <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>
+<a class="link" href="gst-plugins-base-libs-gstfftf64.html#GstFFTF64" title="GstFFTF64"><span class="type">GstFFTF64</span></a> instance for this call</td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

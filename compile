@@ -1,0 +1,23 @@
+#!/bin/bash
+
+apt-get remove gstreamer1.0*
+
+cd gstreamer
+./autogen.sh --disable-{gtk-doc,nls,docbook,tests,benchmarks,examples,debug,debugutils} --enable-failing-tests --disable-loadsave --enable-poisoning && make && make install
+cd ..
+
+cd gst-plugins-base
+./autogen.sh --enable-experimental --disable-{gtk-doc,nls,docbook,orc,examples,tests,ogg,oggtest,vorbis,vorbistest,speex,freetypetes} && make && make install
+cd ..
+
+cd gst-plugins-good
+./autogen.sh --disable-{orc,nls,gtk-doc,docbook,debug,debugutils,examples,tests,aalibtest} --disable-{apetag,audiofx,auparse,cutter,effectv,interleave,flx,goom,goom2k1,imagefreeze,law,level,matroska,monoscope,multifile,multipart,replaygain,shapewipe,smpte,spectrum,y4m,waveform,oss,oss4,sunaudio,osx_audio,osx_video,x,xshm,aalib,aalibtest,annodex,cairo,cairo_gobject,esd,esdtest,flac,gconf,gdk_pixbuf,isomp4,jack,jpeg,libcaca,libdv,libpng,dv1394,shout2,soup,taglib,wavpack,isomp4,removesilence,videofilters,sdp,mpegps,mpegts,jpegformat,asfmux} && make && make install
+cd ..
+
+cd gst-plugins-bad
+./configure --enable-{srtp,fbdev,directfb,eglgles,videosignal,videoparsers,videofilters,videomeasure} --disable-{camerabin2,uvch264} --disable-{nls,gtk-doc,docbook,debug,debugutils,tests,examples} --disable-{orc,fatal-warnings} --enable-experimental --disable-{accurip,adpcmdec,adpcmenc,aiff,asfmux,audiofxbad,audiovisualizers,autoconvert,bayer,cdxaparse,coloreffects,dataurisrc,dccp,dvbsuboverlay,dvdspu,faceoverlay,festival,fieldanalysis,freeverb,frei0r,gaudieffects,geometrictransform,gdp,hdvparse,id3tag,inter,interlace,ivfparse,ivtc,jp2kdecimator,jpegformat,librfb,liveadder,midi,mpegdemux,mpegtsdemux,mpegtsmux,mpegpsmux,mve,mxf,nuvdemux,patchdetect,pcapparse,pnm,rawparse,real,removesilence,sdi,sdp,segmentclip,siren,smooth,speed,subenc,stereo,tta,vmnc,y4m,yadif,directsound,wasapi,direct3d,directdraw,direct3d9,directshow,android_media,apple_media,bluez,osx_video,avc,quicktime,shm,mfc,vcd,opensles,assrender,voamrwbenc,voaacenc,apexsink,bz2,cdaudio,celt,chromaprint,curl,dash,dc1394,decklink,wayland,dts,resindvd,faac,faad,flite,gsm,fluidsynth,kate,ladspa,lv2,libmms,linsys,modplug,mimic,mpeg2enc,mpg123,mplex,musepack,mythtv,nas,neon,ofa,openal,opencv,openjpeg,opus,pvr,rsvg,timidity,teletextdec,wildmidi,sdl,sdltest,smoothstreaming,sndfile,soundtouch,spc,gme,xvid,dvb,wininet,acm,vdpau,sbc,schro,zbar,rtmp,spandsp,gsettings,schemas-compile,sndio,hls} && make && make install
+cd ..
+
+cd gst-omx
+./autogen.sh --with-omx-target=rpi --disable-{fatal-warnings,gtk-doc} && make && make install
+cd ..

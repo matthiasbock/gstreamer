@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Building GStreamer and GStreamer Applications</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer 1.0 Core Reference Manual">
+<link rel="up" href="gstreamer.html" title="GStreamer Overview">
+<link rel="prev" href="gstreamer.html" title="GStreamer Overview">
+<link rel="next" href="gst-running.html" title="Running GStreamer Applications">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2"><tr valign="middle">
+<td><a accesskey="p" href="gstreamer.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="gstreamer.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer 1.0 Core Reference Manual</th>
+<td><a accesskey="n" href="gst-running.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="gst-building"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle">Building GStreamer and GStreamer Applications</span></h2>
+<p>Building GStreamer and GStreamer Applications — 
+How to build the GStreamer framework and applications using it.
+</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="idp6441616"></a><h2>Building GStreamer on UNIX</h2>
+<p>
+    On UNIX, GStreamer uses the standard GNU build system,
+    using <span class="application">autoconf</span> for package
+    configuration and resolving portability issues,
+    <span class="application">automake</span> for building makefiles
+    that comply with the GNU Coding Standards, and
+    <span class="application">libtool</span> for building shared
+    libraries on multiple platforms.  The normal sequence for
+    compiling and installing the GStreamer library is thus:
+
+    </p>
+<div class="literallayout"><p><br>
+      <strong class="userinput"><code>./configure</code></strong><br>
+      <strong class="userinput"><code>make</code></strong><br>
+      <strong class="userinput"><code>make install</code></strong><br>
+    </p></div>
+<p>
+  </p>
+<p>
+    The standard options provided by <span class="application">GNU
+    autoconf</span> may be passed to the
+    <span class="command"><strong>configure</strong></span> script.  Please see the
+    <span class="application">autoconf</span> documentation or run
+    <span class="command"><strong>./configure --help</strong></span> for information about
+    the standard options.
+  </p>
+<p>
+    In addition there are several options to activate or deactivate features.
+    E.g. passing <code class="option">--disable-gst-debug</code> to <span class="command"><strong>configure</strong></span>
+    will turn the debugging subsystem into a non-functional stub and remove all
+    macro based invocations from within the library (and anything compiled
+    against the library afterwards.)
+  </p>
+<p>
+    If library size matters and one builds in a controlled environment, it is
+    also possible to totally remove subsystem code. This is intentionally not
+    offered as a configure option as it causes an ABI break. Code built against
+    a version of GStreamer without these modifications needs to be recompiled.
+
+    </p>
+<div class="literallayout"><p><br>
+      <strong class="userinput"><code>make CFLAGS="-DGST_REMOVE_DEPRECATED -DGST_REMOVE_DISABLED"</code></strong><br>
+    </p></div>
+<p>
+
+    </p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem"><p>
+          <span class="symbol">GST_REMOVE_DEPRECATED</span> - Omit deprecated functions
+          from the library.
+        </p></li>
+<li class="listitem"><p>
+          <span class="symbol">GST_REMOVE_DISABLED</span> - Omit stubs for disabled
+          subsystems from the library.
+        </p></li>
+</ul></div>
+<p>
+  </p>
+</div>
+<div class="refsect1">
+<a name="idp9920800"></a><h2>Building GStreamer Applications</h2>
+<p>
+Applications and libraries can use <span class="command"><strong>pkg-config</strong></span> to get all the
+needed compiler and linker flags to build against GStreamer. Please note that
+GStreamer is split into several libraries itself.
+<span class="command"><strong>pkg-config --list-all | grep gstreamer</strong></span> will list the
+available libraries.
+</p>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

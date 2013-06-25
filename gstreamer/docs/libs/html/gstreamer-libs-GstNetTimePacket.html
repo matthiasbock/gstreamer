@@ -1,0 +1,245 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GstNetTimePacket</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer 1.0 Library Reference Manual">
+<link rel="up" href="gstreamer-net.html" title="GStreamer Network Classes">
+<link rel="prev" href="GstNetClientClock.html" title="GstNetClientClock">
+<link rel="next" href="GstNetTimeProvider.html" title="GstNetTimeProvider">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="GstNetClientClock.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="gstreamer-net.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer 1.0 Library Reference Manual</th>
+<td><a accesskey="n" href="GstNetTimeProvider.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gstreamer-libs-GstNetTimePacket.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gstreamer-libs-GstNetTimePacket.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gstreamer-libs-GstNetTimePacket"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gstreamer-libs-GstNetTimePacket.top_of_page"></a>GstNetTimePacket</span></h2>
+<p>GstNetTimePacket — Helper structure to construct clock packets used
+                    by network clocks.</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gstreamer-libs-GstNetTimePacket.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;gst/net/gstnet.h&gt;
+
+struct              <a class="link" href="gstreamer-libs-GstNetTimePacket.html#GstNetTimePacket" title="struct GstNetTimePacket">GstNetTimePacket</a>;
+#define             <a class="link" href="gstreamer-libs-GstNetTimePacket.html#GST-NET-TIME-PACKET-SIZE:CAPS" title="GST_NET_TIME_PACKET_SIZE">GST_NET_TIME_PACKET_SIZE</a>
+<a class="link" href="gstreamer-libs-GstNetTimePacket.html#GstNetTimePacket" title="struct GstNetTimePacket"><span class="returnvalue">GstNetTimePacket</span></a> *  <a class="link" href="gstreamer-libs-GstNetTimePacket.html#gst-net-time-packet-new" title="gst_net_time_packet_new ()">gst_net_time_packet_new</a>             (<em class="parameter"><code>const <span class="type">guint8</span> *buffer</code></em>);
+<a class="link" href="gstreamer-libs-GstNetTimePacket.html#GstNetTimePacket" title="struct GstNetTimePacket"><span class="returnvalue">GstNetTimePacket</span></a> *  <a class="link" href="gstreamer-libs-GstNetTimePacket.html#gst-net-time-packet-receive" title="gst_net_time_packet_receive ()">gst_net_time_packet_receive</a>         (<em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GSocket.html"><span class="type">GSocket</span></a> *socket</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GSocketAddress.html"><span class="type">GSocketAddress</span></a> **src_address</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="gstreamer-libs-GstNetTimePacket.html#gst-net-time-packet-send" title="gst_net_time_packet_send ()">gst_net_time_packet_send</a>            (<em class="parameter"><code>const <a class="link" href="gstreamer-libs-GstNetTimePacket.html#GstNetTimePacket" title="struct GstNetTimePacket"><span class="type">GstNetTimePacket</span></a> *packet</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GSocket.html"><span class="type">GSocket</span></a> *socket</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GSocketAddress.html"><span class="type">GSocketAddress</span></a> *dest_address</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">guint8</span> *            <a class="link" href="gstreamer-libs-GstNetTimePacket.html#gst-net-time-packet-serialize" title="gst_net_time_packet_serialize ()">gst_net_time_packet_serialize</a>       (<em class="parameter"><code>const <a class="link" href="gstreamer-libs-GstNetTimePacket.html#GstNetTimePacket" title="struct GstNetTimePacket"><span class="type">GstNetTimePacket</span></a> *packet</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="gstreamer-libs-GstNetTimePacket.description"></a><h2>Description</h2>
+<p>
+Various functions for receiving, sending an serializing <a class="link" href="gstreamer-libs-GstNetTimePacket.html#GstNetTimePacket" title="struct GstNetTimePacket"><span class="type">GstNetTimePacket</span></a>
+structures.
+</p>
+<p>
+Last reviewed on 2005-11-23 (0.9.5)
+</p>
+</div>
+<div class="refsect1">
+<a name="gstreamer-libs-GstNetTimePacket.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstNetTimePacket"></a><h3>struct GstNetTimePacket</h3>
+<pre class="programlisting">struct GstNetTimePacket {
+  GstClockTime local_time;
+  GstClockTime remote_time;
+};
+</pre>
+<p>
+Content of a <a class="link" href="gstreamer-libs-GstNetTimePacket.html#GstNetTimePacket" title="struct GstNetTimePacket"><span class="type">GstNetTimePacket</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockTime"><span class="type">GstClockTime</span></a> <em class="structfield"><code><a name="GstNetTimePacket.local-time"></a>local_time</code></em>;</span></p></td>
+<td>the local time when this packet was sent</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockTime"><span class="type">GstClockTime</span></a> <em class="structfield"><code><a name="GstNetTimePacket.remote-time"></a>remote_time</code></em>;</span></p></td>
+<td>the remote time observation</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-NET-TIME-PACKET-SIZE:CAPS"></a><h3>GST_NET_TIME_PACKET_SIZE</h3>
+<pre class="programlisting">#define GST_NET_TIME_PACKET_SIZE 16
+</pre>
+<p>
+The size of the packets sent between network clocks.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-net-time-packet-new"></a><h3>gst_net_time_packet_new ()</h3>
+<pre class="programlisting"><a class="link" href="gstreamer-libs-GstNetTimePacket.html#GstNetTimePacket" title="struct GstNetTimePacket"><span class="returnvalue">GstNetTimePacket</span></a> *  gst_net_time_packet_new             (<em class="parameter"><code>const <span class="type">guint8</span> *buffer</code></em>);</pre>
+<p>
+Creates a new <a class="link" href="gstreamer-libs-GstNetTimePacket.html#GstNetTimePacket" title="struct GstNetTimePacket"><span class="type">GstNetTimePacket</span></a> from a buffer received over the network. The
+caller is responsible for ensuring that <em class="parameter"><code>buffer</code></em> is at least
+<a class="link" href="gstreamer-libs-GstNetTimePacket.html#GST-NET-TIME-PACKET-SIZE:CAPS" title="GST_NET_TIME_PACKET_SIZE"><span class="type">GST_NET_TIME_PACKET_SIZE</span></a> bytes long.
+</p>
+<p>
+If <em class="parameter"><code>buffer</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><span class="type">NULL</span></a>, the local and remote times will be set to
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GST-CLOCK-TIME-NONE:CAPS"><span class="type">GST_CLOCK_TIME_NONE</span></a>.
+</p>
+<p>
+MT safe. Caller owns return value (gst_net_time_packet_free to free).
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>buffer</code></em> :</span></p></td>
+<td>a buffer from which to construct the packet, or NULL. <span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The new <a class="link" href="gstreamer-libs-GstNetTimePacket.html#GstNetTimePacket" title="struct GstNetTimePacket"><span class="type">GstNetTimePacket</span></a>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-net-time-packet-receive"></a><h3>gst_net_time_packet_receive ()</h3>
+<pre class="programlisting"><a class="link" href="gstreamer-libs-GstNetTimePacket.html#GstNetTimePacket" title="struct GstNetTimePacket"><span class="returnvalue">GstNetTimePacket</span></a> *  gst_net_time_packet_receive         (<em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GSocket.html"><span class="type">GSocket</span></a> *socket</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GSocketAddress.html"><span class="type">GSocketAddress</span></a> **src_address</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Receives a <a class="link" href="gstreamer-libs-GstNetTimePacket.html#GstNetTimePacket" title="struct GstNetTimePacket"><span class="type">GstNetTimePacket</span></a> over a socket. Handles interrupted system
+calls, but otherwise returns NULL on error.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>socket</code></em> :</span></p></td>
+<td>socket to receive the time packet on</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>src_address</code></em> :</span></p></td>
+<td>address of variable to return sender address. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>return address for a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or NULL</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="gstreamer-libs-GstNetTimePacket.html#GstNetTimePacket" title="struct GstNetTimePacket"><span class="type">GstNetTimePacket</span></a>, or NULL on error. Free
+with <code class="function">gst_net_time_packet_free()</code> when done. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-net-time-packet-send"></a><h3>gst_net_time_packet_send ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_net_time_packet_send            (<em class="parameter"><code>const <a class="link" href="gstreamer-libs-GstNetTimePacket.html#GstNetTimePacket" title="struct GstNetTimePacket"><span class="type">GstNetTimePacket</span></a> *packet</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GSocket.html"><span class="type">GSocket</span></a> *socket</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GSocketAddress.html"><span class="type">GSocketAddress</span></a> *dest_address</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Sends a <a class="link" href="gstreamer-libs-GstNetTimePacket.html#GstNetTimePacket" title="struct GstNetTimePacket"><span class="type">GstNetTimePacket</span></a> over a socket.
+</p>
+<p>
+MT safe.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>packet</code></em> :</span></p></td>
+<td>the <a class="link" href="gstreamer-libs-GstNetTimePacket.html#GstNetTimePacket" title="struct GstNetTimePacket"><span class="type">GstNetTimePacket</span></a> to send</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>socket</code></em> :</span></p></td>
+<td>socket to send the time packet on</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dest_address</code></em> :</span></p></td>
+<td>address to send the time packet to</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>return address for a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or NULL</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE if successful, FALSE in case an error occured.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-net-time-packet-serialize"></a><h3>gst_net_time_packet_serialize ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint8</span> *            gst_net_time_packet_serialize       (<em class="parameter"><code>const <a class="link" href="gstreamer-libs-GstNetTimePacket.html#GstNetTimePacket" title="struct GstNetTimePacket"><span class="type">GstNetTimePacket</span></a> *packet</code></em>);</pre>
+<p>
+Serialized a <a class="link" href="gstreamer-libs-GstNetTimePacket.html#GstNetTimePacket" title="struct GstNetTimePacket"><span class="type">GstNetTimePacket</span></a> into a newly-allocated sequence of
+<a class="link" href="gstreamer-libs-GstNetTimePacket.html#GST-NET-TIME-PACKET-SIZE:CAPS" title="GST_NET_TIME_PACKET_SIZE"><span class="type">GST_NET_TIME_PACKET_SIZE</span></a> bytes, in network byte order. The value returned is
+suitable for passing to write(2) or sendto(2) for communication over the
+network.
+</p>
+<p>
+MT safe. Caller owns return value (g_free to free).
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>packet</code></em> :</span></p></td>
+<td>the <a class="link" href="gstreamer-libs-GstNetTimePacket.html#GstNetTimePacket" title="struct GstNetTimePacket"><span class="type">GstNetTimePacket</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>A newly allocated sequence of <a class="link" href="gstreamer-libs-GstNetTimePacket.html#GST-NET-TIME-PACKET-SIZE:CAPS" title="GST_NET_TIME_PACKET_SIZE"><span class="type">GST_NET_TIME_PACKET_SIZE</span></a> bytes.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="gstreamer-libs-GstNetTimePacket.see-also"></a><h2>See Also</h2>
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html"><span class="type">GstClock</span></a>, <a class="link" href="GstNetClientClock.html" title="GstNetClientClock"><span class="type">GstNetClientClock</span></a>, <a class="link" href="GstNetTimeProvider.html" title="GstNetTimeProvider"><span class="type">GstNetTimeProvider</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

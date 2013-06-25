@@ -1,0 +1,504 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>gstrtpbasepayload</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer Base Plugins 1.0 Library Reference Manual">
+<link rel="up" href="gstreamer-rtp.html" title="RTP Library">
+<link rel="prev" href="gst-plugins-base-libs-gstrtpbasedepayload.html" title="gstrtpbasedepayload">
+<link rel="next" href="gst-plugins-base-libs-gstrtpbuffer.html" title="gstrtpbuffer">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gst-plugins-base-libs-gstrtpbasedepayload.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="gstreamer-rtp.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer Base Plugins 1.0 Library Reference Manual</th>
+<td><a accesskey="n" href="gst-plugins-base-libs-gstrtpbuffer.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gst-plugins-base-libs-gstrtpbasepayload.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gst-plugins-base-libs-gstrtpbasepayload.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#gst-plugins-base-libs-gstrtpbasepayload.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#gst-plugins-base-libs-gstrtpbasepayload.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gst-plugins-base-libs-gstrtpbasepayload"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gst-plugins-base-libs-gstrtpbasepayload.top_of_page"></a>gstrtpbasepayload</span></h2>
+<p>gstrtpbasepayload — Base class for RTP payloader</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gst-plugins-base-libs-gstrtpbasepayload.synopsis"></a><h2>Synopsis</h2>
+<a name="GstRTPBasePayload"></a><pre class="synopsis">
+#include &lt;gst/rtp/gstrtpbasepayload.h&gt;
+
+struct              <a class="link" href="gst-plugins-base-libs-gstrtpbasepayload.html#GstRTPBasePayload-struct" title="struct GstRTPBasePayload">GstRTPBasePayload</a>;
+struct              <a class="link" href="gst-plugins-base-libs-gstrtpbasepayload.html#GstRTPBasePayloadClass" title="struct GstRTPBasePayloadClass">GstRTPBasePayloadClass</a>;
+#define             <a class="link" href="gst-plugins-base-libs-gstrtpbasepayload.html#GST-RTP-BASE-PAYLOAD-MTU:CAPS" title="GST_RTP_BASE_PAYLOAD_MTU()">GST_RTP_BASE_PAYLOAD_MTU</a>            (payload)
+#define             <a class="link" href="gst-plugins-base-libs-gstrtpbasepayload.html#GST-RTP-BASE-PAYLOAD-PT:CAPS" title="GST_RTP_BASE_PAYLOAD_PT()">GST_RTP_BASE_PAYLOAD_PT</a>             (payload)
+#define             <a class="link" href="gst-plugins-base-libs-gstrtpbasepayload.html#GST-RTP-BASE-PAYLOAD-SINKPAD:CAPS" title="GST_RTP_BASE_PAYLOAD_SINKPAD()">GST_RTP_BASE_PAYLOAD_SINKPAD</a>        (payload)
+#define             <a class="link" href="gst-plugins-base-libs-gstrtpbasepayload.html#GST-RTP-BASE-PAYLOAD-SRCPAD:CAPS" title="GST_RTP_BASE_PAYLOAD_SRCPAD()">GST_RTP_BASE_PAYLOAD_SRCPAD</a>         (payload)
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="gst-plugins-base-libs-gstrtpbasepayload.html#gst-rtp-base-payload-is-filled" title="gst_rtp_base_payload_is_filled ()">gst_rtp_base_payload_is_filled</a>      (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbasepayload.html#GstRTPBasePayload"><span class="type">GstRTPBasePayload</span></a> *payload</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> size</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockTime"><span class="type">GstClockTime</span></a> duration</code></em>);
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPad.html#GstFlowReturn"><span class="returnvalue">GstFlowReturn</span></a>       <a class="link" href="gst-plugins-base-libs-gstrtpbasepayload.html#gst-rtp-base-payload-push" title="gst_rtp_base_payload_push ()">gst_rtp_base_payload_push</a>           (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbasepayload.html#GstRTPBasePayload"><span class="type">GstRTPBasePayload</span></a> *payload</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *buffer</code></em>);
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPad.html#GstFlowReturn"><span class="returnvalue">GstFlowReturn</span></a>       <a class="link" href="gst-plugins-base-libs-gstrtpbasepayload.html#gst-rtp-base-payload-push-list" title="gst_rtp_base_payload_push_list ()">gst_rtp_base_payload_push_list</a>      (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbasepayload.html#GstRTPBasePayload"><span class="type">GstRTPBasePayload</span></a> *payload</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBufferList.html#GstBufferList"><span class="type">GstBufferList</span></a> *list</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-base-libs-gstrtpbasepayload.html#gst-rtp-base-payload-set-options" title="gst_rtp_base_payload_set_options ()">gst_rtp_base_payload_set_options</a>    (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbasepayload.html#GstRTPBasePayload"><span class="type">GstRTPBasePayload</span></a> *payload</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *media</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> dynamic</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *encoding_name</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint32</span> clock_rate</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="gst-plugins-base-libs-gstrtpbasepayload.html#gst-rtp-base-payload-set-outcaps" title="gst_rtp_base_payload_set_outcaps ()">gst_rtp_base_payload_set_outcaps</a>    (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbasepayload.html#GstRTPBasePayload"><span class="type">GstRTPBasePayload</span></a> *payload</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *fieldname</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-libs-gstrtpbasepayload.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstObject.html">GstObject</a>
+               +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html">GstElement</a>
+                     +----GstRTPBasePayload
+                           +----<a class="link" href="gst-plugins-base-libs-gstrtpbaseaudiopayload.html#GstRTPBaseAudioPayload">GstRTPBaseAudioPayload</a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-libs-gstrtpbasepayload.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="gst-plugins-base-libs-gstrtpbasepayload.html#GstRTPBasePayload--max-ptime" title='The "max-ptime" property'>max-ptime</a>"                <span class="type">gint64</span>                : Read / Write
+  "<a class="link" href="gst-plugins-base-libs-gstrtpbasepayload.html#GstRTPBasePayload--min-ptime" title='The "min-ptime" property'>min-ptime</a>"                <span class="type">gint64</span>                : Read / Write
+  "<a class="link" href="gst-plugins-base-libs-gstrtpbasepayload.html#GstRTPBasePayload--mtu" title='The "mtu" property'>mtu</a>"                      <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write
+  "<a class="link" href="gst-plugins-base-libs-gstrtpbasepayload.html#GstRTPBasePayload--perfect-rtptime" title='The "perfect-rtptime" property'>perfect-rtptime</a>"          <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write
+  "<a class="link" href="gst-plugins-base-libs-gstrtpbasepayload.html#GstRTPBasePayload--pt" title='The "pt" property'>pt</a>"                       <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write
+  "<a class="link" href="gst-plugins-base-libs-gstrtpbasepayload.html#GstRTPBasePayload--ptime-multiple" title='The "ptime-multiple" property'>ptime-multiple</a>"           <span class="type">gint64</span>                : Read / Write
+  "<a class="link" href="gst-plugins-base-libs-gstrtpbasepayload.html#GstRTPBasePayload--seqnum" title='The "seqnum" property'>seqnum</a>"                   <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read
+  "<a class="link" href="gst-plugins-base-libs-gstrtpbasepayload.html#GstRTPBasePayload--seqnum-offset" title='The "seqnum-offset" property'>seqnum-offset</a>"            <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                  : Read / Write
+  "<a class="link" href="gst-plugins-base-libs-gstrtpbasepayload.html#GstRTPBasePayload--ssrc" title='The "ssrc" property'>ssrc</a>"                     <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write
+  "<a class="link" href="gst-plugins-base-libs-gstrtpbasepayload.html#GstRTPBasePayload--timestamp" title='The "timestamp" property'>timestamp</a>"                <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read
+  "<a class="link" href="gst-plugins-base-libs-gstrtpbasepayload.html#GstRTPBasePayload--timestamp-offset" title='The "timestamp-offset" property'>timestamp-offset</a>"         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-libs-gstrtpbasepayload.description"></a><h2>Description</h2>
+<p>
+Provides a base class for RTP payloaders
+</p>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-libs-gstrtpbasepayload.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstRTPBasePayload-struct"></a><h3>struct GstRTPBasePayload</h3>
+<pre class="programlisting">struct GstRTPBasePayload;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstRTPBasePayloadClass"></a><h3>struct GstRTPBasePayloadClass</h3>
+<pre class="programlisting">struct GstRTPBasePayloadClass {
+  GstElementClass parent_class;
+
+  /* query accepted caps */
+  GstCaps *     (*get_caps)             (GstRTPBasePayload *payload, GstPad * pad, GstCaps * filter);
+  /* receive caps on the sink pad, configure the payloader. */
+  gboolean      (*set_caps)             (GstRTPBasePayload *payload, GstCaps *caps);
+
+  /* handle a buffer, perform 0 or more gst_rtp_base_payload_push() on
+   * the RTP buffers. This function takes ownership of the buffer. */
+  GstFlowReturn (*handle_buffer)        (GstRTPBasePayload *payload,
+                                         GstBuffer *buffer);
+  /* handle events and queries */
+  gboolean      (*sink_event)           (GstRTPBasePayload *payload, GstEvent * event);
+  gboolean      (*src_event)            (GstRTPBasePayload *payload, GstEvent * event);
+  gboolean      (*query)                (GstRTPBasePayload *payload, GstPad *pad, GstQuery * query);
+};
+</pre>
+<p>
+Base class for audio RTP payloader.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html#GstElementClass"><span class="type">GstElementClass</span></a> <em class="structfield"><code><a name="GstRTPBasePayloadClass.parent-class"></a>parent_class</code></em>;</span></p></td>
+<td>the parent class</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GstRTPBasePayloadClass.get-caps"></a>get_caps</code></em> ()</span></p></td>
+<td>get desired caps</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GstRTPBasePayloadClass.set-caps"></a>set_caps</code></em> ()</span></p></td>
+<td>configure the payloader</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GstRTPBasePayloadClass.handle-buffer"></a>handle_buffer</code></em> ()</span></p></td>
+<td>process data</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GstRTPBasePayloadClass.sink-event"></a>sink_event</code></em> ()</span></p></td>
+<td>custom event handling on the sinkpad</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GstRTPBasePayloadClass.src-event"></a>src_event</code></em> ()</span></p></td>
+<td>custom event handling on the srcpad</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GstRTPBasePayloadClass.query"></a>query</code></em> ()</span></p></td>
+<td>custom query handling</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-RTP-BASE-PAYLOAD-MTU:CAPS"></a><h3>GST_RTP_BASE_PAYLOAD_MTU()</h3>
+<pre class="programlisting">#define GST_RTP_BASE_PAYLOAD_MTU(payload) (GST_RTP_BASE_PAYLOAD (payload)-&gt;mtu)
+</pre>
+<p>
+Get access to the configured MTU of <em class="parameter"><code>payload</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>payload</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstrtpbasepayload.html#GstRTPBasePayload"><span class="type">GstRTPBasePayload</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-RTP-BASE-PAYLOAD-PT:CAPS"></a><h3>GST_RTP_BASE_PAYLOAD_PT()</h3>
+<pre class="programlisting">#define GST_RTP_BASE_PAYLOAD_PT(payload)  (GST_RTP_BASE_PAYLOAD (payload)-&gt;pt)
+</pre>
+<p>
+Get access to the configured payload type of <em class="parameter"><code>payload</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>payload</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstrtpbasepayload.html#GstRTPBasePayload"><span class="type">GstRTPBasePayload</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-RTP-BASE-PAYLOAD-SINKPAD:CAPS"></a><h3>GST_RTP_BASE_PAYLOAD_SINKPAD()</h3>
+<pre class="programlisting">#define GST_RTP_BASE_PAYLOAD_SINKPAD(payload) (GST_RTP_BASE_PAYLOAD (payload)-&gt;sinkpad)
+</pre>
+<p>
+Get access to the sinkpad of <em class="parameter"><code>payload</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>payload</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstrtpbasepayload.html#GstRTPBasePayload"><span class="type">GstRTPBasePayload</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-RTP-BASE-PAYLOAD-SRCPAD:CAPS"></a><h3>GST_RTP_BASE_PAYLOAD_SRCPAD()</h3>
+<pre class="programlisting">#define GST_RTP_BASE_PAYLOAD_SRCPAD(payload)  (GST_RTP_BASE_PAYLOAD (payload)-&gt;srcpad)
+</pre>
+<p>
+Get access to the srcpad of <em class="parameter"><code>payload</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>payload</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstrtpbasepayload.html#GstRTPBasePayload"><span class="type">GstRTPBasePayload</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-base-payload-is-filled"></a><h3>gst_rtp_base_payload_is_filled ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_rtp_base_payload_is_filled      (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbasepayload.html#GstRTPBasePayload"><span class="type">GstRTPBasePayload</span></a> *payload</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> size</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockTime"><span class="type">GstClockTime</span></a> duration</code></em>);</pre>
+<p>
+Check if the packet with <em class="parameter"><code>size</code></em> and <em class="parameter"><code>duration</code></em> would exceed the configured
+maximum size.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>payload</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstrtpbasepayload.html#GstRTPBasePayload"><span class="type">GstRTPBasePayload</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>size</code></em> :</span></p></td>
+<td>the size of the packet</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>duration</code></em> :</span></p></td>
+<td>the duration of the packet</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the packet of <em class="parameter"><code>size</code></em> and <em class="parameter"><code>duration</code></em> would exceed the
+configured MTU or max_ptime.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-base-payload-push"></a><h3>gst_rtp_base_payload_push ()</h3>
+<pre class="programlisting"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPad.html#GstFlowReturn"><span class="returnvalue">GstFlowReturn</span></a>       gst_rtp_base_payload_push           (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbasepayload.html#GstRTPBasePayload"><span class="type">GstRTPBasePayload</span></a> *payload</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *buffer</code></em>);</pre>
+<p>
+Push <em class="parameter"><code>buffer</code></em> to the peer element of the payloader. The SSRC, payload type,
+seqnum and timestamp of the RTP buffer will be updated first.
+</p>
+<p>
+This function takes ownership of <em class="parameter"><code>buffer</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>payload</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstrtpbasepayload.html#GstRTPBasePayload"><span class="type">GstRTPBasePayload</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>buffer</code></em> :</span></p></td>
+<td>a <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPad.html#GstFlowReturn"><span class="type">GstFlowReturn</span></a>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-base-payload-push-list"></a><h3>gst_rtp_base_payload_push_list ()</h3>
+<pre class="programlisting"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPad.html#GstFlowReturn"><span class="returnvalue">GstFlowReturn</span></a>       gst_rtp_base_payload_push_list      (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbasepayload.html#GstRTPBasePayload"><span class="type">GstRTPBasePayload</span></a> *payload</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBufferList.html#GstBufferList"><span class="type">GstBufferList</span></a> *list</code></em>);</pre>
+<p>
+Push <em class="parameter"><code>list</code></em> to the peer element of the payloader. The SSRC, payload type,
+seqnum and timestamp of the RTP buffer will be updated first.
+</p>
+<p>
+This function takes ownership of <em class="parameter"><code>list</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>payload</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstrtpbasepayload.html#GstRTPBasePayload"><span class="type">GstRTPBasePayload</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>list</code></em> :</span></p></td>
+<td>a <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBufferList.html#GstBufferList"><span class="type">GstBufferList</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPad.html#GstFlowReturn"><span class="type">GstFlowReturn</span></a>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-base-payload-set-options"></a><h3>gst_rtp_base_payload_set_options ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_rtp_base_payload_set_options    (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbasepayload.html#GstRTPBasePayload"><span class="type">GstRTPBasePayload</span></a> *payload</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *media</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> dynamic</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *encoding_name</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint32</span> clock_rate</code></em>);</pre>
+<p>
+Set the rtp options of the payloader. These options will be set in the caps
+of the payloader. Subclasses must call this method before calling
+<a class="link" href="gst-plugins-base-libs-gstrtpbasepayload.html#gst-rtp-base-payload-push" title="gst_rtp_base_payload_push ()"><code class="function">gst_rtp_base_payload_push()</code></a> or <a class="link" href="gst-plugins-base-libs-gstrtpbasepayload.html#gst-rtp-base-payload-set-outcaps" title="gst_rtp_base_payload_set_outcaps ()"><code class="function">gst_rtp_base_payload_set_outcaps()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>payload</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstrtpbasepayload.html#GstRTPBasePayload"><span class="type">GstRTPBasePayload</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>media</code></em> :</span></p></td>
+<td>the media type (typically "audio" or "video")</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dynamic</code></em> :</span></p></td>
+<td>if the payload type is dynamic</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>encoding_name</code></em> :</span></p></td>
+<td>the encoding name</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>clock_rate</code></em> :</span></p></td>
+<td>the clock rate of the media</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-base-payload-set-outcaps"></a><h3>gst_rtp_base_payload_set_outcaps ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_rtp_base_payload_set_outcaps    (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbasepayload.html#GstRTPBasePayload"><span class="type">GstRTPBasePayload</span></a> *payload</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *fieldname</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);</pre>
+<p>
+Configure the output caps with the optional parameters.
+</p>
+<p>
+Variable arguments should be in the form field name, field type
+(as a GType), value(s).  The last variable argument should be NULL.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>payload</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstrtpbasepayload.html#GstRTPBasePayload"><span class="type">GstRTPBasePayload</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fieldname</code></em> :</span></p></td>
+<td>the first field name or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>field values</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the caps could be set.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-libs-gstrtpbasepayload.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GstRTPBasePayload--max-ptime"></a><h3>The <code class="literal">"max-ptime"</code> property</h3>
+<pre class="programlisting">  "max-ptime"                <span class="type">gint64</span>                : Read / Write</pre>
+<p>Maximum duration of the packet data in ns (-1 = unlimited up to MTU).</p>
+<p>Allowed values: &gt;= -1</p>
+<p>Default value: -1</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstRTPBasePayload--min-ptime"></a><h3>The <code class="literal">"min-ptime"</code> property</h3>
+<pre class="programlisting">  "min-ptime"                <span class="type">gint64</span>                : Read / Write</pre>
+<p>Minimum duration of the packet data in ns (can't go above MTU).</p>
+<p>Allowed values: &gt;= 0</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstRTPBasePayload--mtu"></a><h3>The <code class="literal">"mtu"</code> property</h3>
+<pre class="programlisting">  "mtu"                      <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write</pre>
+<p>Maximum size of one packet.</p>
+<p>Allowed values: &gt;= 28</p>
+<p>Default value: 1400</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstRTPBasePayload--perfect-rtptime"></a><h3>The <code class="literal">"perfect-rtptime"</code> property</h3>
+<pre class="programlisting">  "perfect-rtptime"          <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write</pre>
+<p>Generate perfect RTP timestamps when possible.</p>
+<p>Default value: TRUE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstRTPBasePayload--pt"></a><h3>The <code class="literal">"pt"</code> property</h3>
+<pre class="programlisting">  "pt"                       <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write</pre>
+<p>The payload type of the packets.</p>
+<p>Allowed values: &lt;= 128</p>
+<p>Default value: 96</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstRTPBasePayload--ptime-multiple"></a><h3>The <code class="literal">"ptime-multiple"</code> property</h3>
+<pre class="programlisting">  "ptime-multiple"           <span class="type">gint64</span>                : Read / Write</pre>
+<p>Force buffers to be multiples of this duration in ns (0 disables).</p>
+<p>Allowed values: &gt;= 0</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstRTPBasePayload--seqnum"></a><h3>The <code class="literal">"seqnum"</code> property</h3>
+<pre class="programlisting">  "seqnum"                   <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read</pre>
+<p>The RTP sequence number of the last processed packet.</p>
+<p>Allowed values: &lt;= 65535</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstRTPBasePayload--seqnum-offset"></a><h3>The <code class="literal">"seqnum-offset"</code> property</h3>
+<pre class="programlisting">  "seqnum-offset"            <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                  : Read / Write</pre>
+<p>Offset to add to all outgoing seqnum (-1 = random).</p>
+<p>Allowed values: [G_MAXULONG,65535]</p>
+<p>Default value: -1</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstRTPBasePayload--ssrc"></a><h3>The <code class="literal">"ssrc"</code> property</h3>
+<pre class="programlisting">  "ssrc"                     <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write</pre>
+<p>The SSRC of the packets (default == random).</p>
+<p>Default value: 4294967295</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstRTPBasePayload--timestamp"></a><h3>The <code class="literal">"timestamp"</code> property</h3>
+<pre class="programlisting">  "timestamp"                <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read</pre>
+<p>The RTP timestamp of the last processed packet.</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstRTPBasePayload--timestamp-offset"></a><h3>The <code class="literal">"timestamp-offset"</code> property</h3>
+<pre class="programlisting">  "timestamp-offset"         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write</pre>
+<p>Offset to add to all outgoing timestamps (default = random).</p>
+<p>Default value: 4294967295</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

@@ -1,0 +1,509 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>gstriff</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer Base Plugins 1.0 Library Reference Manual">
+<link rel="up" href="gstreamer-riff.html" title="Riff Media Library">
+<link rel="prev" href="gstreamer-riff.html" title="Riff Media Library">
+<link rel="next" href="gstreamer-rtp.html" title="RTP Library">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gstreamer-riff.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="gstreamer-riff.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer Base Plugins 1.0 Library Reference Manual</th>
+<td><a accesskey="n" href="gstreamer-rtp.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gst-plugins-base-libs-gstriff.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gst-plugins-base-libs-gstriff.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gst-plugins-base-libs-gstriff"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gst-plugins-base-libs-gstriff.top_of_page"></a>gstriff</span></h2>
+<p>gstriff — Riff fileformat utillity functions.</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gst-plugins-base-libs-gstriff.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;gst/riff/riff-media.h&gt;
+
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="returnvalue">GstCaps</span></a> *           <a class="link" href="gst-plugins-base-libs-gstriff.html#gst-riff-create-audio-caps" title="gst_riff_create_audio_caps ()">gst_riff_create_audio_caps</a>          (<em class="parameter"><code><span class="type">guint16</span> codec_id</code></em>,
+                                                         <em class="parameter"><code><span class="type">gst_riff_strh</span> *strh</code></em>,
+                                                         <em class="parameter"><code><span class="type">gst_riff_strf_auds</span> *strf</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *strf_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *strd_data</code></em>,
+                                                         <em class="parameter"><code><span class="type">char</span> **codec_name</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> channel_reorder_map[18]</code></em>);
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="returnvalue">GstCaps</span></a> *           <a class="link" href="gst-plugins-base-libs-gstriff.html#gst-riff-create-audio-template-caps" title="gst_riff_create_audio_template_caps ()">gst_riff_create_audio_template_caps</a> (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="returnvalue">GstCaps</span></a> *           <a class="link" href="gst-plugins-base-libs-gstriff.html#gst-riff-create-iavs-caps" title="gst_riff_create_iavs_caps ()">gst_riff_create_iavs_caps</a>           (<em class="parameter"><code><span class="type">guint32</span> codec_fcc</code></em>,
+                                                         <em class="parameter"><code><span class="type">gst_riff_strh</span> *strh</code></em>,
+                                                         <em class="parameter"><code><span class="type">gst_riff_strf_iavs</span> *strf</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *strf_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *strd_data</code></em>,
+                                                         <em class="parameter"><code><span class="type">char</span> **codec_name</code></em>);
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="returnvalue">GstCaps</span></a> *           <a class="link" href="gst-plugins-base-libs-gstriff.html#gst-riff-create-iavs-template-caps" title="gst_riff_create_iavs_template_caps ()">gst_riff_create_iavs_template_caps</a>  (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="returnvalue">GstCaps</span></a> *           <a class="link" href="gst-plugins-base-libs-gstriff.html#gst-riff-create-video-caps" title="gst_riff_create_video_caps ()">gst_riff_create_video_caps</a>          (<em class="parameter"><code><span class="type">guint32</span> codec_fcc</code></em>,
+                                                         <em class="parameter"><code><span class="type">gst_riff_strh</span> *strh</code></em>,
+                                                         <em class="parameter"><code><span class="type">gst_riff_strf_vids</span> *strf</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *strf_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *strd_data</code></em>,
+                                                         <em class="parameter"><code><span class="type">char</span> **codec_name</code></em>);
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="returnvalue">GstCaps</span></a> *           <a class="link" href="gst-plugins-base-libs-gstriff.html#gst-riff-create-video-template-caps" title="gst_riff_create_video_template_caps ()">gst_riff_create_video_template_caps</a> (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-base-libs-gstriff.html#gst-riff-init" title="gst_riff_init ()">gst_riff_init</a>                       (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="gst-plugins-base-libs-gstriff.html#gst-riff-parse-chunk" title="gst_riff_parse_chunk ()">gst_riff_parse_chunk</a>                (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *buf</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> *offset</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint32</span> *fourcc</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> **chunk_data</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="gst-plugins-base-libs-gstriff.html#gst-riff-parse-file-header" title="gst_riff_parse_file_header ()">gst_riff_parse_file_header</a>          (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *buf</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint32</span> *doctype</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-base-libs-gstriff.html#gst-riff-parse-info" title="gst_riff_parse_info ()">gst_riff_parse_info</a>                 (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *buf</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstTagList.html#GstTagList"><span class="type">GstTagList</span></a> **taglist</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="gst-plugins-base-libs-gstriff.html#gst-riff-parse-strf-auds" title="gst_riff_parse_strf_auds ()">gst_riff_parse_strf_auds</a>            (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *buf</code></em>,
+                                                         <em class="parameter"><code><span class="type">gst_riff_strf_auds</span> **strf</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> **data</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="gst-plugins-base-libs-gstriff.html#gst-riff-parse-strf-iavs" title="gst_riff_parse_strf_iavs ()">gst_riff_parse_strf_iavs</a>            (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *buf</code></em>,
+                                                         <em class="parameter"><code><span class="type">gst_riff_strf_iavs</span> **strf</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> **data</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="gst-plugins-base-libs-gstriff.html#gst-riff-parse-strf-vids" title="gst_riff_parse_strf_vids ()">gst_riff_parse_strf_vids</a>            (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *buf</code></em>,
+                                                         <em class="parameter"><code><span class="type">gst_riff_strf_vids</span> **strf</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> **data</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="gst-plugins-base-libs-gstriff.html#gst-riff-parse-strh" title="gst_riff_parse_strh ()">gst_riff_parse_strh</a>                 (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *buf</code></em>,
+                                                         <em class="parameter"><code><span class="type">gst_riff_strh</span> **strh</code></em>);
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPad.html#GstFlowReturn"><span class="returnvalue">GstFlowReturn</span></a>       <a class="link" href="gst-plugins-base-libs-gstriff.html#gst-riff-read-chunk" title="gst_riff_read_chunk ()">gst_riff_read_chunk</a>                 (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPad.html"><span class="type">GstPad</span></a> *pad</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint64</span> *offset</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint32</span> *tag</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> **chunk_data</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-libs-gstriff.description"></a><h2>Description</h2>
+<p>
+A collection of functions to handle riff base files, such as avi, wav and
+asf.
+</p>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-libs-gstriff.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="gst-riff-create-audio-caps"></a><h3>gst_riff_create_audio_caps ()</h3>
+<pre class="programlisting"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="returnvalue">GstCaps</span></a> *           gst_riff_create_audio_caps          (<em class="parameter"><code><span class="type">guint16</span> codec_id</code></em>,
+                                                         <em class="parameter"><code><span class="type">gst_riff_strh</span> *strh</code></em>,
+                                                         <em class="parameter"><code><span class="type">gst_riff_strf_auds</span> *strf</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *strf_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *strd_data</code></em>,
+                                                         <em class="parameter"><code><span class="type">char</span> **codec_name</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> channel_reorder_map[18]</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-riff-create-audio-template-caps"></a><h3>gst_riff_create_audio_template_caps ()</h3>
+<pre class="programlisting"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="returnvalue">GstCaps</span></a> *           gst_riff_create_audio_template_caps (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-riff-create-iavs-caps"></a><h3>gst_riff_create_iavs_caps ()</h3>
+<pre class="programlisting"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="returnvalue">GstCaps</span></a> *           gst_riff_create_iavs_caps           (<em class="parameter"><code><span class="type">guint32</span> codec_fcc</code></em>,
+                                                         <em class="parameter"><code><span class="type">gst_riff_strh</span> *strh</code></em>,
+                                                         <em class="parameter"><code><span class="type">gst_riff_strf_iavs</span> *strf</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *strf_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *strd_data</code></em>,
+                                                         <em class="parameter"><code><span class="type">char</span> **codec_name</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-riff-create-iavs-template-caps"></a><h3>gst_riff_create_iavs_template_caps ()</h3>
+<pre class="programlisting"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="returnvalue">GstCaps</span></a> *           gst_riff_create_iavs_template_caps  (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-riff-create-video-caps"></a><h3>gst_riff_create_video_caps ()</h3>
+<pre class="programlisting"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="returnvalue">GstCaps</span></a> *           gst_riff_create_video_caps          (<em class="parameter"><code><span class="type">guint32</span> codec_fcc</code></em>,
+                                                         <em class="parameter"><code><span class="type">gst_riff_strh</span> *strh</code></em>,
+                                                         <em class="parameter"><code><span class="type">gst_riff_strf_vids</span> *strf</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *strf_data</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *strd_data</code></em>,
+                                                         <em class="parameter"><code><span class="type">char</span> **codec_name</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>codec_fcc</code></em> :</span></p></td>
+<td>fourCC codec for this codec.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>strh</code></em> :</span></p></td>
+<td>pointer to the strh stream header structure.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>strf</code></em> :</span></p></td>
+<td>pointer to the strf stream header structure, including any
+data that is within the range of strf.size, but excluding any
+additional data withint this chunk but outside strf.size.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>strf_data</code></em> :</span></p></td>
+<td>a <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> containing the additional data in the strf
+chunk outside reach of strf.size. Ususally a palette.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>strd_data</code></em> :</span></p></td>
+<td>a <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> containing the data in the strd stream header
+chunk. Usually codec initialization data.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>codec_name</code></em> :</span></p></td>
+<td>if given, will be filled with a human-readable codec name.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-riff-create-video-template-caps"></a><h3>gst_riff_create_video_template_caps ()</h3>
+<pre class="programlisting"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="returnvalue">GstCaps</span></a> *           gst_riff_create_video_template_caps (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-riff-init"></a><h3>gst_riff_init ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_riff_init                       (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Initialize riff library.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-riff-parse-chunk"></a><h3>gst_riff_parse_chunk ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_riff_parse_chunk                (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *buf</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> *offset</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint32</span> *fourcc</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> **chunk_data</code></em>);</pre>
+<p>
+Reads a single chunk.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>element</code></em> :</span></p></td>
+<td>caller element (used for debugging).</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>buf</code></em> :</span></p></td>
+<td>input buffer.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>offset</code></em> :</span></p></td>
+<td>offset in the buffer in the caller. Is incremented
+by the read size by this function.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fourcc</code></em> :</span></p></td>
+<td>fourcc (returned by this function0 of the chunk.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>chunk_data</code></em> :</span></p></td>
+<td>buffer (returned by the function) containing the
+chunk data, which may be NULL if chunksize == 0</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>FALSE on error, TRUE otherwise</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-riff-parse-file-header"></a><h3>gst_riff_parse_file_header ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_riff_parse_file_header          (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *buf</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint32</span> *doctype</code></em>);</pre>
+<p>
+Reads the first few bytes from the provided buffer, checks
+if this stream is a RIFF stream, and determines document type.
+This function takes ownership of <em class="parameter"><code>buf</code></em> so it should not be used anymore
+after calling this function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>element</code></em> :</span></p></td>
+<td>caller element (used for debugging/error).</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>buf</code></em> :</span></p></td>
+<td>input buffer from which the file header will be parsed,
+should be at least 12 bytes long.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>doctype</code></em> :</span></p></td>
+<td>a fourcc (returned by this function) to indicate the
+type of document (according to the header).</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>FALSE if this is not a RIFF stream (in which case the
+caller should error out; we already throw an error), or TRUE
+if it is.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-riff-parse-info"></a><h3>gst_riff_parse_info ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_riff_parse_info                 (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *buf</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstTagList.html#GstTagList"><span class="type">GstTagList</span></a> **taglist</code></em>);</pre>
+<p>
+Parses stream metadata from input data.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>element</code></em> :</span></p></td>
+<td>caller element (used for debugging/error).</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>buf</code></em> :</span></p></td>
+<td>input data to be used for parsing, stripped from header.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>taglist</code></em> :</span></p></td>
+<td>a pointer to a taglist (returned by this function)
+containing information about this stream. May be
+NULL if no supported tags were found.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-riff-parse-strf-auds"></a><h3>gst_riff_parse_strf_auds ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_riff_parse_strf_auds            (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *buf</code></em>,
+                                                         <em class="parameter"><code><span class="type">gst_riff_strf_auds</span> **strf</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> **data</code></em>);</pre>
+<p>
+Parses an audio stream´s strf structure plus optionally some
+extradata from input data. This function takes ownership of <em class="parameter"><code>buf</code></em>.
+use.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>element</code></em> :</span></p></td>
+<td>caller element (used for debugging/error).</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>buf</code></em> :</span></p></td>
+<td>input data to be used for parsing, stripped from header.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>strf</code></em> :</span></p></td>
+<td>a pointer (returned by this function) to a filled-in
+strf/auds structure. Caller should free it.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>a pointer (returned by this function) to a buffer
+containing extradata for this particular stream (e.g.
+codec initialization data).</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE if parsing succeeded, otherwise FALSE. The stream
+should be skipped on error, but it is not fatal.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-riff-parse-strf-iavs"></a><h3>gst_riff_parse_strf_iavs ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_riff_parse_strf_iavs            (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *buf</code></em>,
+                                                         <em class="parameter"><code><span class="type">gst_riff_strf_iavs</span> **strf</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> **data</code></em>);</pre>
+<p>
+Parses a interleaved (also known as "complex")  stream´s strf
+structure plus optionally some extradata from input data. This
+function takes ownership of <em class="parameter"><code>buf</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>element</code></em> :</span></p></td>
+<td>caller element (used for debugging/error).</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>buf</code></em> :</span></p></td>
+<td>input data to be used for parsing, stripped from header.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>strf</code></em> :</span></p></td>
+<td>a pointer (returned by this function) to a filled-in
+strf/iavs structure. Caller should free it.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>a pointer (returned by this function) to a buffer
+containing extradata for this particular stream (e.g.
+codec initialization data).</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE if parsing succeeded, otherwise FALSE.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-riff-parse-strf-vids"></a><h3>gst_riff_parse_strf_vids ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_riff_parse_strf_vids            (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *buf</code></em>,
+                                                         <em class="parameter"><code><span class="type">gst_riff_strf_vids</span> **strf</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> **data</code></em>);</pre>
+<p>
+Parses a video stream´s strf structure plus optionally some
+extradata from input data. This function takes ownership of <em class="parameter"><code>buf</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>element</code></em> :</span></p></td>
+<td>caller element (used for debugging/error).</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>buf</code></em> :</span></p></td>
+<td>input data to be used for parsing, stripped from header.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>strf</code></em> :</span></p></td>
+<td>a pointer (returned by this function) to a filled-in
+strf/vids structure. Caller should free it.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>a pointer (returned by this function) to a buffer
+containing extradata for this particular stream (e.g.
+palette, codec initialization data).</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE if parsing succeeded, otherwise FALSE. The stream
+should be skipped on error, but it is not fatal.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-riff-parse-strh"></a><h3>gst_riff_parse_strh ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_riff_parse_strh                 (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *buf</code></em>,
+                                                         <em class="parameter"><code><span class="type">gst_riff_strh</span> **strh</code></em>);</pre>
+<p>
+Parses a strh structure from input data. Takes ownership of <em class="parameter"><code>buf</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>element</code></em> :</span></p></td>
+<td>caller element (used for debugging/error).</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>buf</code></em> :</span></p></td>
+<td>input data to be used for parsing, stripped from header.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>strh</code></em> :</span></p></td>
+<td>a pointer (returned by this function) to a filled-in
+strh structure. Caller should free it.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE if parsing succeeded, otherwise FALSE. The stream
+should be skipped on error, but it is not fatal.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-riff-read-chunk"></a><h3>gst_riff_read_chunk ()</h3>
+<pre class="programlisting"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPad.html#GstFlowReturn"><span class="returnvalue">GstFlowReturn</span></a>       gst_riff_read_chunk                 (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> *element</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPad.html"><span class="type">GstPad</span></a> *pad</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint64</span> *offset</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint32</span> *tag</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> **chunk_data</code></em>);</pre>
+<p>
+Reads a single chunk of data. 'JUNK' chunks are skipped
+automatically.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>element</code></em> :</span></p></td>
+<td>caller element (used for debugging).</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pad</code></em> :</span></p></td>
+<td>pad to pull data from.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>offset</code></em> :</span></p></td>
+<td>offset to pull from, incremented by this function.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>tag</code></em> :</span></p></td>
+<td>fourcc of the chunk (returned by this function).</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>chunk_data</code></em> :</span></p></td>
+<td>buffer (returned by this function).</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>flow status.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

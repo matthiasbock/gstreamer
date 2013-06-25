@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GstSystemClock</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer 1.0 Core Reference Manual">
+<link rel="up" href="libgstreamer.html" title="GStreamer Core Library">
+<link rel="prev" href="gstreamer-GstStructure.html" title="GstStructure">
+<link rel="next" href="gstreamer-GstTagList.html" title="GstTagList">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gstreamer-GstStructure.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="libgstreamer.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer 1.0 Core Reference Manual</th>
+<td><a accesskey="n" href="gstreamer-GstTagList.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#GstSystemClock.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#GstSystemClock.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#GstSystemClock.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#GstSystemClock.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="GstSystemClock"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GstSystemClock.top_of_page"></a>GstSystemClock</span></h2>
+<p>GstSystemClock — Default clock that uses the current system time</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="GstSystemClock.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;gst/gst.h&gt;
+
+enum                <a class="link" href="GstSystemClock.html#GstClockType" title="enum GstClockType">GstClockType</a>;
+struct              <a class="link" href="GstSystemClock.html#GstSystemClock-struct" title="struct GstSystemClock">GstSystemClock</a>;
+<a class="link" href="GstClock.html" title="GstClock"><span class="returnvalue">GstClock</span></a> *          <a class="link" href="GstSystemClock.html#gst-system-clock-obtain" title="gst_system_clock_obtain ()">gst_system_clock_obtain</a>             (<em class="parameter"><code><span class="type">void</span></code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="GstSystemClock.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a class="link" href="GstObject.html" title="GstObject">GstObject</a>
+               +----<a class="link" href="GstClock.html" title="GstClock">GstClock</a>
+                     +----GstSystemClock
+</pre>
+</div>
+<div class="refsect1">
+<a name="GstSystemClock.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="GstSystemClock.html#GstSystemClock--clock-type" title='The "clock-type" property'>clock-type</a>"               <a class="link" href="GstSystemClock.html#GstClockType" title="enum GstClockType"><span class="type">GstClockType</span></a>          : Read / Write
+</pre>
+</div>
+<div class="refsect1">
+<a name="GstSystemClock.description"></a><h2>Description</h2>
+<p>
+The GStreamer core provides a GstSystemClock based on the system time.
+Asynchronous callbacks are scheduled from an internal thread.
+</p>
+<p>
+Clock implementors are encouraged to subclass this systemclock as it
+implements the async notification.
+</p>
+<p>
+Subclasses can however override all of the important methods for sync and
+async notifications to implement their own callback methods or blocking
+wait operations.
+</p>
+<p>
+Last reviewed on 2006-03-08 (0.10.4)
+</p>
+</div>
+<div class="refsect1">
+<a name="GstSystemClock.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstClockType"></a><h3>enum GstClockType</h3>
+<pre class="programlisting">typedef enum {
+  GST_CLOCK_TYPE_REALTIME       = 0,
+  GST_CLOCK_TYPE_MONOTONIC      = 1,
+  GST_CLOCK_TYPE_OTHER          = 2
+} GstClockType;
+</pre>
+<p>
+The different kind of clocks.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="GST-CLOCK-TYPE-REALTIME:CAPS"></a><span class="term"><code class="literal">GST_CLOCK_TYPE_REALTIME</code></span></p></td>
+<td>time since Epoch
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-CLOCK-TYPE-MONOTONIC:CAPS"></a><span class="term"><code class="literal">GST_CLOCK_TYPE_MONOTONIC</code></span></p></td>
+<td>monotonic time since some unspecified starting
+                           point
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-CLOCK-TYPE-OTHER:CAPS"></a><span class="term"><code class="literal">GST_CLOCK_TYPE_OTHER</code></span></p></td>
+<td>some other time source is used (Since: 1.0.5)
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstSystemClock-struct"></a><h3>struct GstSystemClock</h3>
+<pre class="programlisting">struct GstSystemClock;</pre>
+<p>
+The default implementation of a <a class="link" href="GstClock.html" title="GstClock"><span class="type">GstClock</span></a> that uses the system time.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-system-clock-obtain"></a><h3>gst_system_clock_obtain ()</h3>
+<pre class="programlisting"><a class="link" href="GstClock.html" title="GstClock"><span class="returnvalue">GstClock</span></a> *          gst_system_clock_obtain             (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Get a handle to the default system clock. The refcount of the
+clock will be increased so you need to unref the clock after
+usage.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the default clock.
+MT safe. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="GstSystemClock.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GstSystemClock--clock-type"></a><h3>The <code class="literal">"clock-type"</code> property</h3>
+<pre class="programlisting">  "clock-type"               <a class="link" href="GstSystemClock.html#GstClockType" title="enum GstClockType"><span class="type">GstClockType</span></a>          : Read / Write</pre>
+<p>The type of underlying clock implementation used.</p>
+<p>Default value: GST_CLOCK_TYPE_MONOTONIC</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GstSystemClock.see-also"></a><h2>See Also</h2>
+<a class="link" href="GstClock.html" title="GstClock"><span class="type">GstClock</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

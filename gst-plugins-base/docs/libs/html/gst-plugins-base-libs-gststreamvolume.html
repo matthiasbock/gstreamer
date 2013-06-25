@@ -1,0 +1,302 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>gststreamvolume</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer Base Plugins 1.0 Library Reference Manual">
+<link rel="up" href="gstreamer-audio.html" title="Audio Library">
+<link rel="prev" href="gst-plugins-base-libs-gstaudioiec61937.html" title="gstaudioiec61937">
+<link rel="next" href="gstreamer-ffft.html" title="FFT Library">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gst-plugins-base-libs-gstaudioiec61937.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="gstreamer-audio.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer Base Plugins 1.0 Library Reference Manual</th>
+<td><a accesskey="n" href="gstreamer-ffft.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gst-plugins-base-libs-gststreamvolume.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gst-plugins-base-libs-gststreamvolume.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#gst-plugins-base-libs-gststreamvolume.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#gst-plugins-base-libs-gststreamvolume.prerequisites" class="shortcut">Prerequisites</a>
+                   | 
+                  <a href="#gst-plugins-base-libs-gststreamvolume.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gst-plugins-base-libs-gststreamvolume"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gst-plugins-base-libs-gststreamvolume.top_of_page"></a>gststreamvolume</span></h2>
+<p>gststreamvolume — Interface for elements that provide a stream volume</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gst-plugins-base-libs-gststreamvolume.synopsis"></a><h2>Synopsis</h2>
+<a name="GstStreamVolume"></a><pre class="synopsis">
+#include &lt;gst/audio/streamvolume.h&gt;
+
+                    <a class="link" href="gst-plugins-base-libs-gststreamvolume.html#GstStreamVolume-struct" title="GstStreamVolume">GstStreamVolume</a>;
+enum                <a class="link" href="gst-plugins-base-libs-gststreamvolume.html#GstStreamVolumeFormat" title="enum GstStreamVolumeFormat">GstStreamVolumeFormat</a>;
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="returnvalue">gdouble</span></a>             <a class="link" href="gst-plugins-base-libs-gststreamvolume.html#gst-stream-volume-get-volume" title="gst_stream_volume_get_volume ()">gst_stream_volume_get_volume</a>        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gststreamvolume.html#GstStreamVolume"><span class="type">GstStreamVolume</span></a> *volume</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gststreamvolume.html#GstStreamVolumeFormat" title="enum GstStreamVolumeFormat"><span class="type">GstStreamVolumeFormat</span></a> format</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-base-libs-gststreamvolume.html#gst-stream-volume-set-volume" title="gst_stream_volume_set_volume ()">gst_stream_volume_set_volume</a>        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gststreamvolume.html#GstStreamVolume"><span class="type">GstStreamVolume</span></a> *volume</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gststreamvolume.html#GstStreamVolumeFormat" title="enum GstStreamVolumeFormat"><span class="type">GstStreamVolumeFormat</span></a> format</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a> val</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="gst-plugins-base-libs-gststreamvolume.html#gst-stream-volume-get-mute" title="gst_stream_volume_get_mute ()">gst_stream_volume_get_mute</a>          (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gststreamvolume.html#GstStreamVolume"><span class="type">GstStreamVolume</span></a> *volume</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-base-libs-gststreamvolume.html#gst-stream-volume-set-mute" title="gst_stream_volume_set_mute ()">gst_stream_volume_set_mute</a>          (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gststreamvolume.html#GstStreamVolume"><span class="type">GstStreamVolume</span></a> *volume</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> mute</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="returnvalue">gdouble</span></a>             <a class="link" href="gst-plugins-base-libs-gststreamvolume.html#gst-stream-volume-convert-volume" title="gst_stream_volume_convert_volume ()">gst_stream_volume_convert_volume</a>    (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gststreamvolume.html#GstStreamVolumeFormat" title="enum GstStreamVolumeFormat"><span class="type">GstStreamVolumeFormat</span></a> from</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gststreamvolume.html#GstStreamVolumeFormat" title="enum GstStreamVolumeFormat"><span class="type">GstStreamVolumeFormat</span></a> to</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a> val</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-libs-gststreamvolume.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  GInterface
+   +----GstStreamVolume
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-libs-gststreamvolume.prerequisites"></a><h2>Prerequisites</h2>
+<p>
+GstStreamVolume requires
+ <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>.</p>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-libs-gststreamvolume.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="gst-plugins-base-libs-gststreamvolume.html#GstStreamVolume--mute" title='The "mute" property'>mute</a>"                     <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write
+  "<a class="link" href="gst-plugins-base-libs-gststreamvolume.html#GstStreamVolume--volume" title='The "volume" property'>volume</a>"                   <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a>               : Read / Write
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-libs-gststreamvolume.description"></a><h2>Description</h2>
+<p>
+</p>
+<div class="refsect2">
+<a name="idp6637008"></a><p>
+This interface is implemented by elements that provide a stream volume. Examples for
+such elements are <span class="type">volume</span> and <span class="type">playbin</span>.
+</p>
+<p>
+Applications can use this interface to get or set the current stream volume. For this
+the "volume" <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> property can be used or the helper functions <a class="link" href="gst-plugins-base-libs-gststreamvolume.html#gst-stream-volume-set-volume" title="gst_stream_volume_set_volume ()"><code class="function">gst_stream_volume_set_volume()</code></a>
+and <a class="link" href="gst-plugins-base-libs-gststreamvolume.html#gst-stream-volume-get-volume" title="gst_stream_volume_get_volume ()"><code class="function">gst_stream_volume_get_volume()</code></a>. This volume is always a linear factor, i.e. 0.0 is muted
+1.0 is 100%. For showing the volume in a GUI it might make sense to convert it to
+a different format by using <a class="link" href="gst-plugins-base-libs-gststreamvolume.html#gst-stream-volume-convert-volume" title="gst_stream_volume_convert_volume ()"><code class="function">gst_stream_volume_convert_volume()</code></a>. Volume sliders should usually
+use a cubic volume.
+</p>
+<p>
+Separate from the volume the stream can also be muted by the "mute" <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> property or
+<a class="link" href="gst-plugins-base-libs-gststreamvolume.html#gst-stream-volume-set-mute" title="gst_stream_volume_set_mute ()"><code class="function">gst_stream_volume_set_mute()</code></a> and <a class="link" href="gst-plugins-base-libs-gststreamvolume.html#gst-stream-volume-get-mute" title="gst_stream_volume_get_mute ()"><code class="function">gst_stream_volume_get_mute()</code></a>.
+</p>
+<p>
+Elements that provide some kind of stream volume should implement the "volume" and
+"mute" <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> properties and handle setting and getting of them properly.
+The volume property is defined to be a linear volume factor.
+</p>
+</div>
+<p>
+</p>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-libs-gststreamvolume.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstStreamVolume-struct"></a><h3>GstStreamVolume</h3>
+<pre class="programlisting">typedef struct _GstStreamVolume GstStreamVolume;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstStreamVolumeFormat"></a><h3>enum GstStreamVolumeFormat</h3>
+<pre class="programlisting">typedef enum {
+  GST_STREAM_VOLUME_FORMAT_LINEAR = 0,
+  GST_STREAM_VOLUME_FORMAT_CUBIC,
+  GST_STREAM_VOLUME_FORMAT_DB
+} GstStreamVolumeFormat;
+</pre>
+<p>
+Different representations of a stream volume. <a class="link" href="gst-plugins-base-libs-gststreamvolume.html#gst-stream-volume-convert-volume" title="gst_stream_volume_convert_volume ()"><code class="function">gst_stream_volume_convert_volume()</code></a>
+allows to convert between the different representations.
+</p>
+<p>
+Formulas to convert from a linear to a cubic or dB volume are
+cbrt(val) and 20 * log10 (val).
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="GST-STREAM-VOLUME-FORMAT-LINEAR:CAPS"></a><span class="term"><code class="literal">GST_STREAM_VOLUME_FORMAT_LINEAR</code></span></p></td>
+<td>Linear scale factor, 1.0 = 100%
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-STREAM-VOLUME-FORMAT-CUBIC:CAPS"></a><span class="term"><code class="literal">GST_STREAM_VOLUME_FORMAT_CUBIC</code></span></p></td>
+<td>Cubic volume scale
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-STREAM-VOLUME-FORMAT-DB:CAPS"></a><span class="term"><code class="literal">GST_STREAM_VOLUME_FORMAT_DB</code></span></p></td>
+<td>Logarithmic volume scale (dB, amplitude not power)
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-stream-volume-get-volume"></a><h3>gst_stream_volume_get_volume ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="returnvalue">gdouble</span></a>             gst_stream_volume_get_volume        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gststreamvolume.html#GstStreamVolume"><span class="type">GstStreamVolume</span></a> *volume</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gststreamvolume.html#GstStreamVolumeFormat" title="enum GstStreamVolumeFormat"><span class="type">GstStreamVolumeFormat</span></a> format</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>volume</code></em> :</span></p></td>
+<td>
+<a class="link" href="gst-plugins-base-libs-gststreamvolume.html#GstStreamVolume"><span class="type">GstStreamVolume</span></a> that should be used</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format</code></em> :</span></p></td>
+<td>
+<a class="link" href="gst-plugins-base-libs-gststreamvolume.html#GstStreamVolumeFormat" title="enum GstStreamVolumeFormat"><span class="type">GstStreamVolumeFormat</span></a> which should be returned</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The current stream volume as linear factor</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-stream-volume-set-volume"></a><h3>gst_stream_volume_set_volume ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_stream_volume_set_volume        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gststreamvolume.html#GstStreamVolume"><span class="type">GstStreamVolume</span></a> *volume</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gststreamvolume.html#GstStreamVolumeFormat" title="enum GstStreamVolumeFormat"><span class="type">GstStreamVolumeFormat</span></a> format</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a> val</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>volume</code></em> :</span></p></td>
+<td>
+<a class="link" href="gst-plugins-base-libs-gststreamvolume.html#GstStreamVolume"><span class="type">GstStreamVolume</span></a> that should be used</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format</code></em> :</span></p></td>
+<td>
+<a class="link" href="gst-plugins-base-libs-gststreamvolume.html#GstStreamVolumeFormat" title="enum GstStreamVolumeFormat"><span class="type">GstStreamVolumeFormat</span></a> of <em class="parameter"><code>val</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>val</code></em> :</span></p></td>
+<td>Linear volume factor that should be set</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-stream-volume-get-mute"></a><h3>gst_stream_volume_get_mute ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_stream_volume_get_mute          (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gststreamvolume.html#GstStreamVolume"><span class="type">GstStreamVolume</span></a> *volume</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>volume</code></em> :</span></p></td>
+<td>
+<a class="link" href="gst-plugins-base-libs-gststreamvolume.html#GstStreamVolume"><span class="type">GstStreamVolume</span></a> that should be used</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>Returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the stream is muted</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-stream-volume-set-mute"></a><h3>gst_stream_volume_set_mute ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_stream_volume_set_mute          (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gststreamvolume.html#GstStreamVolume"><span class="type">GstStreamVolume</span></a> *volume</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> mute</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>volume</code></em> :</span></p></td>
+<td>
+<a class="link" href="gst-plugins-base-libs-gststreamvolume.html#GstStreamVolume"><span class="type">GstStreamVolume</span></a> that should be used</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mute</code></em> :</span></p></td>
+<td>Mute state that should be set</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-stream-volume-convert-volume"></a><h3>gst_stream_volume_convert_volume ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="returnvalue">gdouble</span></a>             gst_stream_volume_convert_volume    (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gststreamvolume.html#GstStreamVolumeFormat" title="enum GstStreamVolumeFormat"><span class="type">GstStreamVolumeFormat</span></a> from</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gststreamvolume.html#GstStreamVolumeFormat" title="enum GstStreamVolumeFormat"><span class="type">GstStreamVolumeFormat</span></a> to</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a> val</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>from</code></em> :</span></p></td>
+<td>
+<a class="link" href="gst-plugins-base-libs-gststreamvolume.html#GstStreamVolumeFormat" title="enum GstStreamVolumeFormat"><span class="type">GstStreamVolumeFormat</span></a> to convert from</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>to</code></em> :</span></p></td>
+<td>
+<a class="link" href="gst-plugins-base-libs-gststreamvolume.html#GstStreamVolumeFormat" title="enum GstStreamVolumeFormat"><span class="type">GstStreamVolumeFormat</span></a> to convert to</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>val</code></em> :</span></p></td>
+<td>Volume in <em class="parameter"><code>from</code></em> format that should be converted</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the converted volume</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-libs-gststreamvolume.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GstStreamVolume--mute"></a><h3>The <code class="literal">"mute"</code> property</h3>
+<pre class="programlisting">  "mute"                     <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write</pre>
+<p>Mute the audio channel without changing the volume.</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstStreamVolume--volume"></a><h3>The <code class="literal">"volume"</code> property</h3>
+<pre class="programlisting">  "volume"                   <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a>               : Read / Write</pre>
+<p>Linear volume factor, 1.0=100%.</p>
+<p>Allowed values: &gt;= 0</p>
+<p>Default value: 1</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

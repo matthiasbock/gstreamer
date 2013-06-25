@@ -1,0 +1,787 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>multisocketsink</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer Base Plugins 1.0 Plugins Reference Manual">
+<link rel="up" href="ch01.html" title="gst-plugins-base Elements">
+<link rel="prev" href="gst-plugins-base-plugins-multifdsink.html" title="multifdsink">
+<link rel="next" href="gst-plugins-base-plugins-oggdemux.html" title="oggdemux">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gst-plugins-base-plugins-multifdsink.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer Base Plugins 1.0 Plugins Reference Manual</th>
+<td><a accesskey="n" href="gst-plugins-base-plugins-oggdemux.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gst-plugins-base-plugins-multisocketsink.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gst-plugins-base-plugins-multisocketsink.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#gst-plugins-base-plugins-multisocketsink.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#gst-plugins-base-plugins-multisocketsink.properties" class="shortcut">Properties</a>
+                   | 
+                  <a href="#gst-plugins-base-plugins-multisocketsink.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gst-plugins-base-plugins-multisocketsink"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gst-plugins-base-plugins-multisocketsink.top_of_page"></a>multisocketsink</span></h2>
+<p>multisocketsink — Send data to multiple sockets</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gst-plugins-base-plugins-multisocketsink.synopsis"></a><h2>Synopsis</h2>
+<a name="GstMultiSocketSink"></a><pre class="synopsis">struct              <a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink-struct" title="struct GstMultiSocketSink">GstMultiSocketSink</a>;
+enum                <a class="link" href="gst-plugins-base-plugins-multifdsink.html#GstRecoverPolicy" title="enum GstRecoverPolicy">GstRecoverPolicy</a>;
+enum                <a class="link" href="gst-plugins-base-plugins-multifdsink.html#GstSyncMethod" title="enum GstSyncMethod">GstSyncMethod</a>;
+enum                <a class="link" href="gst-plugins-base-plugins-multifdsink.html#GstClientStatus" title="enum GstClientStatus">GstClientStatus</a>;
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-plugins-multisocketsink.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstObject.html">GstObject</a>
+               +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html">GstElement</a>
+                     +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer-libs/html/GstBaseSink.html">GstBaseSink</a>
+                           +----GstMultiHandleSink
+                                 +----GstMultiSocketSink
+                                       +----<a class="link" href="gst-plugins-base-plugins-tcpserversink.html#GstTCPServerSink">GstTCPServerSink</a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-plugins-multisocketsink.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink--buffers-max" title='The "buffers-max" property'>buffers-max</a>"              <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                  : Read / Write
+  "<a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink--buffers-min" title='The "buffers-min" property'>buffers-min</a>"              <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                  : Read / Write
+  "<a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink--buffers-queued" title='The "buffers-queued" property'>buffers-queued</a>"           <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read
+  "<a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink--buffers-soft-max" title='The "buffers-soft-max" property'>buffers-soft-max</a>"         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                  : Read / Write
+  "<a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink--burst-format" title='The "burst-format" property'>burst-format</a>"             <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstFormat.html#GstFormat"><span class="type">GstFormat</span></a>             : Read / Write
+  "<a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink--burst-value" title='The "burst-value" property'>burst-value</a>"              <span class="type">guint64</span>               : Read / Write
+  "<a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink--bytes-min" title='The "bytes-min" property'>bytes-min</a>"                <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                  : Read / Write
+  "<a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink--bytes-served" title='The "bytes-served" property'>bytes-served</a>"             <span class="type">guint64</span>               : Read
+  "<a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink--bytes-to-serve" title='The "bytes-to-serve" property'>bytes-to-serve</a>"           <span class="type">guint64</span>               : Read
+  "<a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink--handle-read" title='The "handle-read" property'>handle-read</a>"              <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write
+  "<a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink--num-sockets" title='The "num-sockets" property'>num-sockets</a>"              <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read
+  "<a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink--qos-dscp" title='The "qos-dscp" property'>qos-dscp</a>"                 <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                  : Read / Write
+  "<a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink--recover-policy" title='The "recover-policy" property'>recover-policy</a>"           <span class="type">GstMultiSocketSinkRecoverPolicy</span>  : Read / Write
+  "<a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink--resend-streamheader" title='The "resend-streamheader" property'>resend-streamheader</a>"      <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write
+  "<a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink--sync-method" title='The "sync-method" property'>sync-method</a>"              <span class="type">GstMultiSocketSinkSyncMethod</span>  : Read / Write
+  "<a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink--time-min" title='The "time-min" property'>time-min</a>"                 <span class="type">gint64</span>                : Read / Write
+  "<a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink--timeout" title='The "timeout" property'>timeout</a>"                  <span class="type">guint64</span>               : Read / Write
+  "<a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink--unit-type" title='The "unit-type" property'>unit-type</a>"                <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstFormat.html#GstFormat"><span class="type">GstFormat</span></a>             : Read / Write
+  "<a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink--units-max" title='The "units-max" property'>units-max</a>"                <span class="type">gint64</span>                : Read / Write
+  "<a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink--units-soft-max" title='The "units-soft-max" property'>units-soft-max</a>"           <span class="type">gint64</span>                : Read / Write
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-plugins-multisocketsink.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink-add" title='The "add" signal'>add</a>"                                            : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-ACTION:CAPS"><code class="literal">Action</code></a>
+  "<a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink-add-full" title='The "add-full" signal'>add-full</a>"                                       : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-ACTION:CAPS"><code class="literal">Action</code></a>
+  "<a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink-clear" title='The "clear" signal'>clear</a>"                                          : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-ACTION:CAPS"><code class="literal">Action</code></a>
+  "<a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink-client-added" title='The "client-added" signal'>client-added</a>"                                   : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a>
+  "<a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink-client-removed" title='The "client-removed" signal'>client-removed</a>"                                 : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a>
+  "<a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink-client-socket-removed" title='The "client-socket-removed" signal'>client-socket-removed</a>"                          : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a>
+  "<a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink-get-stats" title='The "get-stats" signal'>get-stats</a>"                                      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-ACTION:CAPS"><code class="literal">Action</code></a>
+  "<a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink-remove" title='The "remove" signal'>remove</a>"                                         : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-ACTION:CAPS"><code class="literal">Action</code></a>
+  "<a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink-remove-flush" title='The "remove-flush" signal'>remove-flush</a>"                                   : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-ACTION:CAPS"><code class="literal">Action</code></a>
+  "<a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink-client-handle-removed" title='The "client-handle-removed" signal'>client-handle-removed</a>"                          : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-plugins-multisocketsink.description"></a><h2>Description</h2>
+<p>
+This plugin writes incoming data to a set of file descriptors. The
+file descriptors can be added to multisocketsink by emitting the <a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink-add" title='The "add" signal'><span class="type">"add"</span></a> signal. 
+For each descriptor added, the <a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink-client-added" title='The "client-added" signal'><span class="type">"client-added"</span></a> signal will be called.
+</p>
+<p>
+As of version 0.10.8, a client can also be added with the <a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink-add-full" title='The "add-full" signal'><span class="type">"add-full"</span></a> signal
+that allows for more control over what and how much data a client 
+initially receives.
+</p>
+<p>
+Clients can be removed from multisocketsink by emitting the <a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink-remove" title='The "remove" signal'><span class="type">"remove"</span></a> signal. For
+each descriptor removed, the <a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink-client-removed" title='The "client-removed" signal'><span class="type">"client-removed"</span></a> signal will be called. The
+<a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink-client-removed" title='The "client-removed" signal'><span class="type">"client-removed"</span></a> signal can also be fired when multisocketsink decides that a
+client is not active anymore or, depending on the value of the
+<a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink--recover-policy" title='The "recover-policy" property'><span class="type">"recover-policy"</span></a> property, if the client is reading too slowly.
+In all cases, multisocketsink will never close a file descriptor itself.
+The user of multisocketsink is responsible for closing all file descriptors.
+This can for example be done in response to the <span class="type">"client-fd-removed"</span> signal.
+Note that multisocketsink still has a reference to the file descriptor when the
+<a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink-client-removed" title='The "client-removed" signal'><span class="type">"client-removed"</span></a> signal is emitted, so that "get-stats" can be performed on
+the descriptor; it is therefore not safe to close the file descriptor in
+the <a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink-client-removed" title='The "client-removed" signal'><span class="type">"client-removed"</span></a> signal handler, and you should use the 
+<span class="type">"client-fd-removed"</span> signal to safely close the fd.
+</p>
+<p>
+Multisocketsink internally keeps a queue of the incoming buffers and uses a
+separate thread to send the buffers to the clients. This ensures that no
+client write can block the pipeline and that clients can read with different
+speeds.
+</p>
+<p>
+When adding a client to multisocketsink, the <a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink--sync-method" title='The "sync-method" property'><span class="type">"sync-method"</span></a> property will define
+which buffer in the queued buffers will be sent first to the client. Clients 
+can be sent the most recent buffer (which might not be decodable by the 
+client if it is not a keyframe), the next keyframe received in 
+multisocketsink (which can take some time depending on the keyframe rate), or the
+last received keyframe (which will cause a simple burst-on-connect). 
+Multisocketsink will always keep at least one keyframe in its internal buffers
+when the sync-mode is set to latest-keyframe.
+</p>
+<p>
+As of version 0.10.8, there are additional values for the <a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink--sync-method" title='The "sync-method" property'><span class="type">"sync-method"</span></a> 
+property to allow finer control over burst-on-connect behaviour. By selecting
+the 'burst' method a minimum burst size can be chosen, 'burst-keyframe'
+additionally requires that the burst begin with a keyframe, and 
+'burst-with-keyframe' attempts to burst beginning with a keyframe, but will
+prefer a minimum burst size even if it requires not starting with a keyframe.
+</p>
+<p>
+Multisocketsink can be instructed to keep at least a minimum amount of data
+expressed in time or byte units in its internal queues with the 
+<a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink--time-min" title='The "time-min" property'><span class="type">"time-min"</span></a> and <a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink--bytes-min" title='The "bytes-min" property'><span class="type">"bytes-min"</span></a> properties respectively.
+These properties are useful if the application adds clients with the 
+<a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink-add-full" title='The "add-full" signal'><span class="type">"add-full"</span></a> signal to make sure that a burst connect can
+actually be honored. 
+</p>
+<p>
+When streaming data, clients are allowed to read at a different rate than
+the rate at which multisocketsink receives data. If the client is reading too
+fast, no data will be send to the client until multisocketsink receives more
+data. If the client, however, reads too slowly, data for that client will be 
+queued up in multisocketsink. Two properties control the amount of data 
+(buffers) that is queued in multisocketsink: <a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink--buffers-max" title='The "buffers-max" property'><span class="type">"buffers-max"</span></a> and 
+<a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink--buffers-soft-max" title='The "buffers-soft-max" property'><span class="type">"buffers-soft-max"</span></a>. A client that falls behind by
+<a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink--buffers-max" title='The "buffers-max" property'><span class="type">"buffers-max"</span></a> is removed from multisocketsink forcibly.
+</p>
+<p>
+A client with a lag of at least <a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink--buffers-soft-max" title='The "buffers-soft-max" property'><span class="type">"buffers-soft-max"</span></a> enters the recovery
+procedure which is controlled with the <a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink--recover-policy" title='The "recover-policy" property'><span class="type">"recover-policy"</span></a> property.
+A recover policy of NONE will do nothing, RESYNC_LATEST will send the most recently
+received buffer as the next buffer for the client, RESYNC_SOFT_LIMIT
+positions the client to the soft limit in the buffer queue and
+RESYNC_KEYFRAME positions the client at the most recent keyframe in the
+buffer queue.
+</p>
+<p>
+multisocketsink will by default synchronize on the clock before serving the 
+buffers to the clients. This behaviour can be disabled by setting the sync 
+property to FALSE. Multisocketsink will by default not do QoS and will never
+drop late buffers.
+</p>
+<p>
+Last reviewed on 2006-09-12 (0.10.10)
+</p>
+<div class="refsynopsisdiv">
+<h2>Synopsis</h2>
+<div class="refsect2">
+<a name="idp12501984"></a><h3>Element Information</h3>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">plugin</span></p></td>
+<td>
+            <a class="link" href="gst-plugins-base-plugins-plugin-tcp.html#plugin-tcp">tcp</a>
+          </td>
+</tr>
+<tr>
+<td><p><span class="term">author</span></p></td>
+<td>Thomas Vander Stichele &lt;thomas at apestaart dot org&gt;, Wim Taymans &lt;wim@fluendo.com&gt;, Sebastian Dröge &lt;sebastian.droege@collabora.co.uk&gt;</td>
+</tr>
+<tr>
+<td><p><span class="term">class</span></p></td>
+<td>Sink/Network</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="idp12508528"></a><h3>Element Pads</h3>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">name</span></p></td>
+<td>sink</td>
+</tr>
+<tr>
+<td><p><span class="term">direction</span></p></td>
+<td>sink</td>
+</tr>
+<tr>
+<td><p><span class="term">presence</span></p></td>
+<td>always</td>
+</tr>
+<tr>
+<td><p><span class="term">details</span></p></td>
+<td>ANY</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<p>
+</p>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-plugins-multisocketsink.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstMultiSocketSink-struct"></a><h3>struct GstMultiSocketSink</h3>
+<pre class="programlisting">struct GstMultiSocketSink;</pre>
+<p>
+The multisocketsink object structure.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstRecoverPolicy"></a><h3>enum GstRecoverPolicy</h3>
+<pre class="programlisting">typedef enum {
+  GST_RECOVER_POLICY_NONE,
+  GST_RECOVER_POLICY_RESYNC_LATEST,
+  GST_RECOVER_POLICY_RESYNC_SOFT_LIMIT,
+  GST_RECOVER_POLICY_RESYNC_KEYFRAME
+} GstRecoverPolicy;
+</pre>
+<p>
+Possible values for the recovery procedure to use when a client consumes
+data too slow and has a backlag of more that soft-limit buffers.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstSyncMethod"></a><h3>enum GstSyncMethod</h3>
+<pre class="programlisting">typedef enum {
+  GST_SYNC_METHOD_LATEST,
+  GST_SYNC_METHOD_NEXT_KEYFRAME,
+  GST_SYNC_METHOD_LATEST_KEYFRAME,
+  GST_SYNC_METHOD_BURST,
+  GST_SYNC_METHOD_BURST_KEYFRAME,
+  GST_SYNC_METHOD_BURST_WITH_KEYFRAME
+} GstSyncMethod;
+</pre>
+<p>
+This enum defines the selection of the first buffer that is sent
+to a new client.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstClientStatus"></a><h3>enum GstClientStatus</h3>
+<pre class="programlisting">typedef enum {
+  GST_CLIENT_STATUS_OK          = 0,
+  GST_CLIENT_STATUS_CLOSED      = 1,
+  GST_CLIENT_STATUS_REMOVED     = 2,
+  GST_CLIENT_STATUS_SLOW        = 3,
+  GST_CLIENT_STATUS_ERROR       = 4,
+  GST_CLIENT_STATUS_DUPLICATE   = 5,
+  GST_CLIENT_STATUS_FLUSHING    = 6
+} GstClientStatus;
+</pre>
+<p>
+This specifies the reason why a client was removed from
+multisocketsink and is received in the "client-removed" signal.
+</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-plugins-multisocketsink.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GstMultiSocketSink--buffers-max"></a><h3>The <code class="literal">"buffers-max"</code> property</h3>
+<pre class="programlisting">  "buffers-max"              <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                  : Read / Write</pre>
+<p>max number of buffers to queue for a client (-1 = no limit).</p>
+<p>Allowed values: &gt;= G_MAXULONG</p>
+<p>Default value: -1</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMultiSocketSink--buffers-min"></a><h3>The <code class="literal">"buffers-min"</code> property</h3>
+<pre class="programlisting">  "buffers-min"              <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                  : Read / Write</pre>
+<p>min number of buffers to queue (-1 = as few as possible).</p>
+<p>Allowed values: &gt;= G_MAXULONG</p>
+<p>Default value: -1</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMultiSocketSink--buffers-queued"></a><h3>The <code class="literal">"buffers-queued"</code> property</h3>
+<pre class="programlisting">  "buffers-queued"           <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read</pre>
+<p>Number of buffers currently queued.</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMultiSocketSink--buffers-soft-max"></a><h3>The <code class="literal">"buffers-soft-max"</code> property</h3>
+<pre class="programlisting">  "buffers-soft-max"         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                  : Read / Write</pre>
+<p>Recover client when going over this limit (-1 = no limit).</p>
+<p>Allowed values: &gt;= G_MAXULONG</p>
+<p>Default value: -1</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMultiSocketSink--burst-format"></a><h3>The <code class="literal">"burst-format"</code> property</h3>
+<pre class="programlisting">  "burst-format"             <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstFormat.html#GstFormat"><span class="type">GstFormat</span></a>             : Read / Write</pre>
+<p>The format of the burst units (when sync-method is burst[[-with]-keyframe]).</p>
+<p>Default value: GST_FORMAT_UNDEFINED</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMultiSocketSink--burst-value"></a><h3>The <code class="literal">"burst-value"</code> property</h3>
+<pre class="programlisting">  "burst-value"              <span class="type">guint64</span>               : Read / Write</pre>
+<p>The amount of burst expressed in burst-unit.</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMultiSocketSink--bytes-min"></a><h3>The <code class="literal">"bytes-min"</code> property</h3>
+<pre class="programlisting">  "bytes-min"                <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                  : Read / Write</pre>
+<p>min number of bytes to queue (-1 = as little as possible).</p>
+<p>Allowed values: &gt;= G_MAXULONG</p>
+<p>Default value: -1</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMultiSocketSink--bytes-served"></a><h3>The <code class="literal">"bytes-served"</code> property</h3>
+<pre class="programlisting">  "bytes-served"             <span class="type">guint64</span>               : Read</pre>
+<p>Total number of bytes send to all clients.</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMultiSocketSink--bytes-to-serve"></a><h3>The <code class="literal">"bytes-to-serve"</code> property</h3>
+<pre class="programlisting">  "bytes-to-serve"           <span class="type">guint64</span>               : Read</pre>
+<p>Number of bytes received to serve to clients.</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMultiSocketSink--handle-read"></a><h3>The <code class="literal">"handle-read"</code> property</h3>
+<pre class="programlisting">  "handle-read"              <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write</pre>
+<p>Handle client reads and discard the data.</p>
+<p>Default value: TRUE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMultiSocketSink--num-sockets"></a><h3>The <code class="literal">"num-sockets"</code> property</h3>
+<pre class="programlisting">  "num-sockets"              <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read</pre>
+<p>The current number of client sockets.</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMultiSocketSink--qos-dscp"></a><h3>The <code class="literal">"qos-dscp"</code> property</h3>
+<pre class="programlisting">  "qos-dscp"                 <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                  : Read / Write</pre>
+<p>Quality of Service, differentiated services code point (-1 default).</p>
+<p>Allowed values: [G_MAXULONG,63]</p>
+<p>Default value: -1</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMultiSocketSink--recover-policy"></a><h3>The <code class="literal">"recover-policy"</code> property</h3>
+<pre class="programlisting">  "recover-policy"           <span class="type">GstMultiSocketSinkRecoverPolicy</span>  : Read / Write</pre>
+<p>How to recover when client reaches the soft max.</p>
+<p>Default value: Do not try to recover</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMultiSocketSink--resend-streamheader"></a><h3>The <code class="literal">"resend-streamheader"</code> property</h3>
+<pre class="programlisting">  "resend-streamheader"      <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write</pre>
+<p>Resend the streamheader if it changes in the caps.</p>
+<p>Default value: TRUE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMultiSocketSink--sync-method"></a><h3>The <code class="literal">"sync-method"</code> property</h3>
+<pre class="programlisting">  "sync-method"              <span class="type">GstMultiSocketSinkSyncMethod</span>  : Read / Write</pre>
+<p>How to sync new clients to the stream.</p>
+<p>Default value: Serve starting from the latest buffer</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMultiSocketSink--time-min"></a><h3>The <code class="literal">"time-min"</code> property</h3>
+<pre class="programlisting">  "time-min"                 <span class="type">gint64</span>                : Read / Write</pre>
+<p>min number of time to queue (-1 = as little as possible).</p>
+<p>Allowed values: &gt;= G_MAXULONG</p>
+<p>Default value: -1</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMultiSocketSink--timeout"></a><h3>The <code class="literal">"timeout"</code> property</h3>
+<pre class="programlisting">  "timeout"                  <span class="type">guint64</span>               : Read / Write</pre>
+<p>Maximum inactivity timeout in nanoseconds for a client (0 = no limit).</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMultiSocketSink--unit-type"></a><h3>The <code class="literal">"unit-type"</code> property</h3>
+<pre class="programlisting">  "unit-type"                <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstFormat.html#GstFormat"><span class="type">GstFormat</span></a>             : Read / Write</pre>
+<p>The unit to measure the max/soft-max/queued properties.</p>
+<p>Default value: GST_FORMAT_BUFFERS</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMultiSocketSink--units-max"></a><h3>The <code class="literal">"units-max"</code> property</h3>
+<pre class="programlisting">  "units-max"                <span class="type">gint64</span>                : Read / Write</pre>
+<p>max number of units to queue (-1 = no limit).</p>
+<p>Allowed values: &gt;= G_MAXULONG</p>
+<p>Default value: -1</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMultiSocketSink--units-soft-max"></a><h3>The <code class="literal">"units-soft-max"</code> property</h3>
+<pre class="programlisting">  "units-soft-max"           <span class="type">gint64</span>                : Read / Write</pre>
+<p>Recover client when going over this limit (-1 = no limit).</p>
+<p>Allowed values: &gt;= G_MAXULONG</p>
+<p>Default value: -1</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-plugins-multisocketsink.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="GstMultiSocketSink-add"></a><h3>The <code class="literal">"add"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink"><span class="type">GstMultiSocketSink</span></a> *gstmultisocketsink,
+                                                        <a href="http://library.gnome.org/devel/gio/unstable/GSocket.html"><span class="type">GSocket</span></a>            *socket,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)               : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-ACTION:CAPS"><code class="literal">Action</code></a></pre>
+<p>
+Hand the given open socket to multisocketsink to write to.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>gstmultisocketsink</code></em> :</span></p></td>
+<td>the multisocketsink element to emit this signal on</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>socket</code></em> :</span></p></td>
+<td>the socket to add to multisocketsink</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMultiSocketSink-add-full"></a><h3>The <code class="literal">"add-full"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink"><span class="type">GstMultiSocketSink</span></a>          *gstmultisocketsink,
+                                                        <a href="http://library.gnome.org/devel/gio/unstable/GSocket.html"><span class="type">GSocket</span></a>                     *socket,
+                                                        <span class="type">GstMultiHandleSinkSyncMethod</span> sync,
+                                                        <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstFormat.html#GstFormat"><span class="type">GstFormat</span></a>                    format_min,
+                                                        <span class="type">guint64</span>                      value_min,
+                                                        <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstFormat.html#GstFormat"><span class="type">GstFormat</span></a>                    format_max,
+                                                        <span class="type">guint64</span>                      value_max,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>                     user_data)               : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-ACTION:CAPS"><code class="literal">Action</code></a></pre>
+<p>
+Hand the given open socket to multisocketsink to write to and
+specify the burst parameters for the new connection.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>gstmultisocketsink</code></em> :</span></p></td>
+<td>the multisocketsink element to emit this signal on</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>socket</code></em> :</span></p></td>
+<td>the socket to add to multisocketsink</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sync</code></em> :</span></p></td>
+<td>the sync method to use</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format_min</code></em> :</span></p></td>
+<td>the format of <em class="parameter"><code>value_min</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value_min</code></em> :</span></p></td>
+<td>the minimum amount of data to burst expressed in
+<em class="parameter"><code>format_min</code></em> units.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format_max</code></em> :</span></p></td>
+<td>the format of <em class="parameter"><code>value_max</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value_max</code></em> :</span></p></td>
+<td>the maximum amount of data to burst expressed in
+<em class="parameter"><code>format_max</code></em> units.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMultiSocketSink-clear"></a><h3>The <code class="literal">"clear"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink"><span class="type">GstMultiSocketSink</span></a> *gstmultisocketsink,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)               : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-ACTION:CAPS"><code class="literal">Action</code></a></pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>gstmultisocketsink</code></em> :</span></p></td>
+<td>the object which received the signal.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMultiSocketSink-client-added"></a><h3>The <code class="literal">"client-added"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink"><span class="type">GstMultiSocketSink</span></a> *gstmultisocketsink,
+                                                        <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a>            *socket,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)               : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a></pre>
+<p>
+The given socket was added to multisocketsink. This signal will
+be emitted from the streaming thread so application should be prepared
+for that.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>gstmultisocketsink</code></em> :</span></p></td>
+<td>the multisocketsink element that emitted this signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>socket</code></em> :</span></p></td>
+<td>the socket that was added to multisocketsink</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMultiSocketSink-client-removed"></a><h3>The <code class="literal">"client-removed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink"><span class="type">GstMultiSocketSink</span></a>            *gstmultisocketsink,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                           socket,
+                                                        <span class="type">GstMultiHandleSinkClientStatus</span> status,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>                       user_data)               : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a></pre>
+<p>
+The given socket is about to be removed from multisocketsink. This
+signal will be emitted from the streaming thread so applications should
+be prepared for that.
+</p>
+<p>
+<em class="parameter"><code>gstmultisocketsink</code></em> still holds a handle to <em class="parameter"><code>socket</code></em> so it is possible to call
+the get-stats signal from this callback. For the same reason it is
+not safe to <code class="function">close()</code> and reuse <em class="parameter"><code>socket</code></em> in this callback.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>gstmultisocketsink</code></em> :</span></p></td>
+<td>the multisocketsink element that emitted this signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>socket</code></em> :</span></p></td>
+<td>the socket that is to be removed from multisocketsink</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>status</code></em> :</span></p></td>
+<td>the reason why the client was removed</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMultiSocketSink-client-socket-removed"></a><h3>The <code class="literal">"client-socket-removed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink"><span class="type">GstMultiSocketSink</span></a> *gstmultisocketsink,
+                                                        <a href="http://library.gnome.org/devel/gio/unstable/GSocket.html"><span class="type">GSocket</span></a>            *socket,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)               : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a></pre>
+<p>
+The given socket was removed from multisocketsink. This signal will
+be emitted from the streaming thread so applications should be prepared
+for that.
+</p>
+<p>
+In this callback, <em class="parameter"><code>gstmultisocketsink</code></em> has removed all the information
+associated with <em class="parameter"><code>socket</code></em> and it is therefore not possible to call get-stats
+with <em class="parameter"><code>socket</code></em>. It is however safe to <code class="function">close()</code> and reuse <em class="parameter"><code>fd</code></em> in the callback.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>gstmultisocketsink</code></em> :</span></p></td>
+<td>the multisocketsink element that emitted this signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>socket</code></em> :</span></p></td>
+<td>the socket that was removed from multisocketsink</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.10.7</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMultiSocketSink-get-stats"></a><h3>The <code class="literal">"get-stats"</code> signal</h3>
+<pre class="programlisting"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstStructure.html#GstStructure"><span class="returnvalue">GstStructure</span></a>*       user_function                      (<a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink"><span class="type">GstMultiSocketSink</span></a> *gstmultisocketsink,
+                                                        <a href="http://library.gnome.org/devel/gio/unstable/GSocket.html"><span class="type">GSocket</span></a>            *socket,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)               : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-ACTION:CAPS"><code class="literal">Action</code></a></pre>
+<p>
+Get statistics about <em class="parameter"><code>socket</code></em>. This function returns a GstStructure.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>gstmultisocketsink</code></em> :</span></p></td>
+<td>the multisocketsink element to emit this signal on</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>socket</code></em> :</span></p></td>
+<td>the socket to get stats of from multisocketsink</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a GstStructure with the statistics. The structure contains
+values that represent: total number of bytes sent, time
+when the client was added, time when the client was
+disconnected/removed, time the client is/was active, last activity
+time (in epoch seconds), number of buffers dropped.
+All times are expressed in nanoseconds (GstClockTime).</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMultiSocketSink-remove"></a><h3>The <code class="literal">"remove"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink"><span class="type">GstMultiSocketSink</span></a> *gstmultisocketsink,
+                                                        <a href="http://library.gnome.org/devel/gio/unstable/GSocket.html"><span class="type">GSocket</span></a>            *socket,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)               : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-ACTION:CAPS"><code class="literal">Action</code></a></pre>
+<p>
+Remove the given open socket from multisocketsink.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>gstmultisocketsink</code></em> :</span></p></td>
+<td>the multisocketsink element to emit this signal on</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>socket</code></em> :</span></p></td>
+<td>the socket to remove from multisocketsink</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMultiSocketSink-remove-flush"></a><h3>The <code class="literal">"remove-flush"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink"><span class="type">GstMultiSocketSink</span></a> *gstmultisocketsink,
+                                                        <a href="http://library.gnome.org/devel/gio/unstable/GSocket.html"><span class="type">GSocket</span></a>            *socket,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)               : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-ACTION:CAPS"><code class="literal">Action</code></a></pre>
+<p>
+Remove the given open socket from multisocketsink after flushing all
+the pending data to the socket.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>gstmultisocketsink</code></em> :</span></p></td>
+<td>the multisocketsink element to emit this signal on</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>socket</code></em> :</span></p></td>
+<td>the socket to remove from multisocketsink</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMultiSocketSink-client-handle-removed"></a><h3>The <code class="literal">"client-handle-removed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="gst-plugins-base-plugins-multisocketsink.html#GstMultiSocketSink"><span class="type">GstMultiSocketSink</span></a> *gstmultisocketsink,
+                                                        <a href="http://library.gnome.org/devel/gio/unstable/GSocket.html"><span class="type">GSocket</span></a>            *arg1,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)               : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a></pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>gstmultisocketsink</code></em> :</span></p></td>
+<td>the object which received the signal.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-plugins-multisocketsink.see-also"></a><h2>See Also</h2>
+tcpserversink
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

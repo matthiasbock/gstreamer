@@ -1,0 +1,577 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>gstaudiobasesink</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer Base Plugins 1.0 Library Reference Manual">
+<link rel="up" href="gstreamer-audio.html" title="Audio Library">
+<link rel="prev" href="gst-plugins-base-libs-gstaudiosrc.html" title="gstaudiosrc">
+<link rel="next" href="gst-plugins-base-libs-gstaudiobasesrc.html" title="gstaudiobasesrc">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gst-plugins-base-libs-gstaudiosrc.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="gstreamer-audio.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer Base Plugins 1.0 Library Reference Manual</th>
+<td><a accesskey="n" href="gst-plugins-base-libs-gstaudiobasesrc.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gst-plugins-base-libs-gstaudiobasesink.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gst-plugins-base-libs-gstaudiobasesink.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#gst-plugins-base-libs-gstaudiobasesink.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#gst-plugins-base-libs-gstaudiobasesink.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gst-plugins-base-libs-gstaudiobasesink"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gst-plugins-base-libs-gstaudiobasesink.top_of_page"></a>gstaudiobasesink</span></h2>
+<p>gstaudiobasesink — Base class for audio sinks</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gst-plugins-base-libs-gstaudiobasesink.synopsis"></a><h2>Synopsis</h2>
+<a name="GstAudioBaseSink"></a><pre class="synopsis">
+#include &lt;gst/audio/gstaudiobasesink.h&gt;
+
+struct              <a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSink-struct" title="struct GstAudioBaseSink">GstAudioBaseSink</a>;
+struct              <a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSinkClass" title="struct GstAudioBaseSinkClass">GstAudioBaseSinkClass</a>;
+enum                <a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSinkSlaveMethod" title="enum GstAudioBaseSinkSlaveMethod">GstAudioBaseSinkSlaveMethod</a>;
+#define             <a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GST-AUDIO-BASE-SINK-CLOCK:CAPS" title="GST_AUDIO_BASE_SINK_CLOCK()">GST_AUDIO_BASE_SINK_CLOCK</a>           (obj)
+#define             <a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GST-AUDIO-BASE-SINK-PAD:CAPS" title="GST_AUDIO_BASE_SINK_PAD()">GST_AUDIO_BASE_SINK_PAD</a>             (obj)
+<a class="link" href="gst-plugins-base-libs-gstaudioringbuffer.html#GstAudioRingBuffer"><span class="returnvalue">GstAudioRingBuffer</span></a> * <a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#gst-audio-base-sink-create-ringbuffer" title="gst_audio_base_sink_create_ringbuffer ()">gst_audio_base_sink_create_ringbuffer</a>
+                                                        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSink"><span class="type">GstAudioBaseSink</span></a> *sink</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#gst-audio-base-sink-set-provide-clock" title="gst_audio_base_sink_set_provide_clock ()">gst_audio_base_sink_set_provide_clock</a>
+                                                        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSink"><span class="type">GstAudioBaseSink</span></a> *sink</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> provide</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#gst-audio-base-sink-get-provide-clock" title="gst_audio_base_sink_get_provide_clock ()">gst_audio_base_sink_get_provide_clock</a>
+                                                        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSink"><span class="type">GstAudioBaseSink</span></a> *sink</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#gst-audio-base-sink-set-slave-method" title="gst_audio_base_sink_set_slave_method ()">gst_audio_base_sink_set_slave_method</a>
+                                                        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSink"><span class="type">GstAudioBaseSink</span></a> *sink</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSinkSlaveMethod" title="enum GstAudioBaseSinkSlaveMethod"><span class="type">GstAudioBaseSinkSlaveMethod</span></a> method</code></em>);
+<a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSinkSlaveMethod" title="enum GstAudioBaseSinkSlaveMethod"><span class="returnvalue">GstAudioBaseSinkSlaveMethod</span></a> <a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#gst-audio-base-sink-get-slave-method" title="gst_audio_base_sink_get_slave_method ()">gst_audio_base_sink_get_slave_method</a>
+                                                        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSink"><span class="type">GstAudioBaseSink</span></a> *sink</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#gst-audio-base-sink-set-drift-tolerance" title="gst_audio_base_sink_set_drift_tolerance ()">gst_audio_base_sink_set_drift_tolerance</a>
+                                                        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSink"><span class="type">GstAudioBaseSink</span></a> *sink</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint64</span> drift_tolerance</code></em>);
+<span class="returnvalue">gint64</span>              <a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#gst-audio-base-sink-get-drift-tolerance" title="gst_audio_base_sink_get_drift_tolerance ()">gst_audio_base_sink_get_drift_tolerance</a>
+                                                        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSink"><span class="type">GstAudioBaseSink</span></a> *sink</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#gst-audio-base-sink-set-alignment-threshold" title="gst_audio_base_sink_set_alignment_threshold ()">gst_audio_base_sink_set_alignment_threshold</a>
+                                                        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSink"><span class="type">GstAudioBaseSink</span></a> *sink</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockTime"><span class="type">GstClockTime</span></a> alignment_threshold</code></em>);
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockTime"><span class="returnvalue">GstClockTime</span></a>        <a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#gst-audio-base-sink-get-alignment-threshold" title="gst_audio_base_sink_get_alignment_threshold ()">gst_audio_base_sink_get_alignment_threshold</a>
+                                                        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSink"><span class="type">GstAudioBaseSink</span></a> *sink</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#gst-audio-base-sink-set-discont-wait" title="gst_audio_base_sink_set_discont_wait ()">gst_audio_base_sink_set_discont_wait</a>
+                                                        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSink"><span class="type">GstAudioBaseSink</span></a> *sink</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockTime"><span class="type">GstClockTime</span></a> discont_wait</code></em>);
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockTime"><span class="returnvalue">GstClockTime</span></a>        <a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#gst-audio-base-sink-get-discont-wait" title="gst_audio_base_sink_get_discont_wait ()">gst_audio_base_sink_get_discont_wait</a>
+                                                        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSink"><span class="type">GstAudioBaseSink</span></a> *sink</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-libs-gstaudiobasesink.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstObject.html">GstObject</a>
+               +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html">GstElement</a>
+                     +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer-libs/html/GstBaseSink.html">GstBaseSink</a>
+                           +----GstAudioBaseSink
+                                 +----<a class="link" href="gst-plugins-base-libs-gstaudiosink.html#GstAudioSink">GstAudioSink</a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-libs-gstaudiobasesink.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSink--alignment-threshold" title='The "alignment-threshold" property'>alignment-threshold</a>"      <span class="type">guint64</span>               : Read / Write
+  "<a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSink--buffer-time" title='The "buffer-time" property'>buffer-time</a>"              <span class="type">gint64</span>                : Read / Write
+  "<a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSink--can-activate-pull" title='The "can-activate-pull" property'>can-activate-pull</a>"        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write
+  "<a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSink--discont-wait" title='The "discont-wait" property'>discont-wait</a>"             <span class="type">guint64</span>               : Read / Write
+  "<a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSink--drift-tolerance" title='The "drift-tolerance" property'>drift-tolerance</a>"          <span class="type">gint64</span>                : Read / Write
+  "<a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSink--latency-time" title='The "latency-time" property'>latency-time</a>"             <span class="type">gint64</span>                : Read / Write
+  "<a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSink--provide-clock" title='The "provide-clock" property'>provide-clock</a>"            <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write
+  "<a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSink--slave-method" title='The "slave-method" property'>slave-method</a>"             <a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSinkSlaveMethod" title="enum GstAudioBaseSinkSlaveMethod"><span class="type">GstAudioBaseSinkSlaveMethod</span></a>  : Read / Write
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-libs-gstaudiobasesink.description"></a><h2>Description</h2>
+<p>
+This is the base class for audio sinks. Subclasses need to implement the
+::create_ringbuffer vmethod. This base class will then take care of
+writing samples to the ringbuffer, synchronisation, clipping and flushing.
+</p>
+<p>
+Last reviewed on 2006-09-27 (0.10.12)
+</p>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-libs-gstaudiobasesink.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstAudioBaseSink-struct"></a><h3>struct GstAudioBaseSink</h3>
+<pre class="programlisting">struct GstAudioBaseSink;</pre>
+<p>
+Opaque <a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSink"><span class="type">GstAudioBaseSink</span></a>.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstAudioBaseSinkClass"></a><h3>struct GstAudioBaseSinkClass</h3>
+<pre class="programlisting">struct GstAudioBaseSinkClass {
+  GstBaseSinkClass     parent_class;
+
+  /* subclass ringbuffer allocation */
+  GstAudioRingBuffer* (*create_ringbuffer)  (GstAudioBaseSink *sink);
+
+  /* subclass payloader */
+  GstBuffer*          (*payload)            (GstAudioBaseSink *sink,
+                                             GstBuffer        *buffer);
+};
+</pre>
+<p>
+<a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSink"><span class="type">GstAudioBaseSink</span></a> class. Override the vmethod to implement
+functionality.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer-libs/html/GstBaseSink.html#GstBaseSinkClass"><span class="type">GstBaseSinkClass</span></a> <em class="structfield"><code><a name="GstAudioBaseSinkClass.parent-class"></a>parent_class</code></em>;</span></p></td>
+<td>the parent class.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GstAudioBaseSinkClass.create-ringbuffer"></a>create_ringbuffer</code></em> ()</span></p></td>
+<td>create and return a <a class="link" href="gst-plugins-base-libs-gstaudioringbuffer.html#GstAudioRingBuffer"><span class="type">GstAudioRingBuffer</span></a> to write to.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GstAudioBaseSinkClass.payload"></a>payload</code></em> ()</span></p></td>
+<td>payload data in a format suitable to write to the sink. If no
+payloading is required, returns a reffed copy of the original
+buffer, else returns the payloaded buffer with all other metadata
+copied.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstAudioBaseSinkSlaveMethod"></a><h3>enum GstAudioBaseSinkSlaveMethod</h3>
+<pre class="programlisting">typedef enum {
+  GST_AUDIO_BASE_SINK_SLAVE_RESAMPLE,
+  GST_AUDIO_BASE_SINK_SLAVE_SKEW,
+  GST_AUDIO_BASE_SINK_SLAVE_NONE
+} GstAudioBaseSinkSlaveMethod;
+</pre>
+<p>
+Different possible clock slaving algorithms used when the internal audio
+clock is not selected as the pipeline master clock.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="GST-AUDIO-BASE-SINK-SLAVE-RESAMPLE:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_BASE_SINK_SLAVE_RESAMPLE</code></span></p></td>
+<td>Resample to match the master clock
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-BASE-SINK-SLAVE-SKEW:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_BASE_SINK_SLAVE_SKEW</code></span></p></td>
+<td>Adjust playout pointer when master clock
+drifts too much.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-AUDIO-BASE-SINK-SLAVE-NONE:CAPS"></a><span class="term"><code class="literal">GST_AUDIO_BASE_SINK_SLAVE_NONE</code></span></p></td>
+<td>No adjustment is done.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-AUDIO-BASE-SINK-CLOCK:CAPS"></a><h3>GST_AUDIO_BASE_SINK_CLOCK()</h3>
+<pre class="programlisting">#define GST_AUDIO_BASE_SINK_CLOCK(obj)   (GST_AUDIO_BASE_SINK (obj)-&gt;clock)
+</pre>
+<p>
+Get the <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html"><span class="type">GstClock</span></a> of <em class="parameter"><code>obj</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSink"><span class="type">GstAudioBaseSink</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-AUDIO-BASE-SINK-PAD:CAPS"></a><h3>GST_AUDIO_BASE_SINK_PAD()</h3>
+<pre class="programlisting">#define GST_AUDIO_BASE_SINK_PAD(obj)     (GST_BASE_SINK (obj)-&gt;sinkpad)
+</pre>
+<p>
+Get the sink <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPad.html"><span class="type">GstPad</span></a> of <em class="parameter"><code>obj</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>obj</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSink"><span class="type">GstAudioBaseSink</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-base-sink-create-ringbuffer"></a><h3>gst_audio_base_sink_create_ringbuffer ()</h3>
+<pre class="programlisting"><a class="link" href="gst-plugins-base-libs-gstaudioringbuffer.html#GstAudioRingBuffer"><span class="returnvalue">GstAudioRingBuffer</span></a> * gst_audio_base_sink_create_ringbuffer
+                                                        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSink"><span class="type">GstAudioBaseSink</span></a> *sink</code></em>);</pre>
+<p>
+Create and return the <a class="link" href="gst-plugins-base-libs-gstaudioringbuffer.html#GstAudioRingBuffer"><span class="type">GstAudioRingBuffer</span></a> for <em class="parameter"><code>sink</code></em>. This function will call the
+::create_ringbuffer vmethod and will set <em class="parameter"><code>sink</code></em> as the parent of the returned
+buffer (see <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstObject.html#gst-object-set-parent"><code class="function">gst_object_set_parent()</code></a>).
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sink</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSink"><span class="type">GstAudioBaseSink</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The new ringbuffer of <em class="parameter"><code>sink</code></em>. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-base-sink-set-provide-clock"></a><h3>gst_audio_base_sink_set_provide_clock ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_audio_base_sink_set_provide_clock
+                                                        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSink"><span class="type">GstAudioBaseSink</span></a> *sink</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> provide</code></em>);</pre>
+<p>
+Controls whether <em class="parameter"><code>sink</code></em> will provide a clock or not. If <em class="parameter"><code>provide</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>,
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html#gst-element-provide-clock"><code class="function">gst_element_provide_clock()</code></a> will return a clock that reflects the datarate
+of <em class="parameter"><code>sink</code></em>. If <em class="parameter"><code>provide</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>, <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html#gst-element-provide-clock"><code class="function">gst_element_provide_clock()</code></a> will return NULL.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sink</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSink"><span class="type">GstAudioBaseSink</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>provide</code></em> :</span></p></td>
+<td>new state</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-base-sink-get-provide-clock"></a><h3>gst_audio_base_sink_get_provide_clock ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_audio_base_sink_get_provide_clock
+                                                        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSink"><span class="type">GstAudioBaseSink</span></a> *sink</code></em>);</pre>
+<p>
+Queries whether <em class="parameter"><code>sink</code></em> will provide a clock or not. See also
+gst_audio_base_sink_set_provide_clock.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sink</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSink"><span class="type">GstAudioBaseSink</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if <em class="parameter"><code>sink</code></em> will provide a clock.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-base-sink-set-slave-method"></a><h3>gst_audio_base_sink_set_slave_method ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_audio_base_sink_set_slave_method
+                                                        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSink"><span class="type">GstAudioBaseSink</span></a> *sink</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSinkSlaveMethod" title="enum GstAudioBaseSinkSlaveMethod"><span class="type">GstAudioBaseSinkSlaveMethod</span></a> method</code></em>);</pre>
+<p>
+Controls how clock slaving will be performed in <em class="parameter"><code>sink</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sink</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSink"><span class="type">GstAudioBaseSink</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>method</code></em> :</span></p></td>
+<td>the new slave method</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-base-sink-get-slave-method"></a><h3>gst_audio_base_sink_get_slave_method ()</h3>
+<pre class="programlisting"><a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSinkSlaveMethod" title="enum GstAudioBaseSinkSlaveMethod"><span class="returnvalue">GstAudioBaseSinkSlaveMethod</span></a> gst_audio_base_sink_get_slave_method
+                                                        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSink"><span class="type">GstAudioBaseSink</span></a> *sink</code></em>);</pre>
+<p>
+Get the current slave method used by <em class="parameter"><code>sink</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sink</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSink"><span class="type">GstAudioBaseSink</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The current slave method used by <em class="parameter"><code>sink</code></em>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-base-sink-set-drift-tolerance"></a><h3>gst_audio_base_sink_set_drift_tolerance ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_audio_base_sink_set_drift_tolerance
+                                                        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSink"><span class="type">GstAudioBaseSink</span></a> *sink</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint64</span> drift_tolerance</code></em>);</pre>
+<p>
+Controls the sink's drift tolerance.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sink</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSink"><span class="type">GstAudioBaseSink</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>drift_tolerance</code></em> :</span></p></td>
+<td>the new drift tolerance in microseconds</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-base-sink-get-drift-tolerance"></a><h3>gst_audio_base_sink_get_drift_tolerance ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint64</span>              gst_audio_base_sink_get_drift_tolerance
+                                                        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSink"><span class="type">GstAudioBaseSink</span></a> *sink</code></em>);</pre>
+<p>
+Get the current drift tolerance, in microseconds, used by <em class="parameter"><code>sink</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sink</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSink"><span class="type">GstAudioBaseSink</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The current drift tolerance used by <em class="parameter"><code>sink</code></em>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-base-sink-set-alignment-threshold"></a><h3>gst_audio_base_sink_set_alignment_threshold ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_audio_base_sink_set_alignment_threshold
+                                                        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSink"><span class="type">GstAudioBaseSink</span></a> *sink</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockTime"><span class="type">GstClockTime</span></a> alignment_threshold</code></em>);</pre>
+<p>
+Controls the sink's alignment threshold.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sink</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSink"><span class="type">GstAudioBaseSink</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>alignment_threshold</code></em> :</span></p></td>
+<td>the new alignment threshold in nanoseconds</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-base-sink-get-alignment-threshold"></a><h3>gst_audio_base_sink_get_alignment_threshold ()</h3>
+<pre class="programlisting"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockTime"><span class="returnvalue">GstClockTime</span></a>        gst_audio_base_sink_get_alignment_threshold
+                                                        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSink"><span class="type">GstAudioBaseSink</span></a> *sink</code></em>);</pre>
+<p>
+Get the current alignment threshold, in nanoseconds, used by <em class="parameter"><code>sink</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sink</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSink"><span class="type">GstAudioBaseSink</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The current alignment threshold used by <em class="parameter"><code>sink</code></em>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-base-sink-set-discont-wait"></a><h3>gst_audio_base_sink_set_discont_wait ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_audio_base_sink_set_discont_wait
+                                                        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSink"><span class="type">GstAudioBaseSink</span></a> *sink</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockTime"><span class="type">GstClockTime</span></a> discont_wait</code></em>);</pre>
+<p>
+Controls how long the sink will wait before creating a discontinuity.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sink</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSink"><span class="type">GstAudioBaseSink</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>discont_wait</code></em> :</span></p></td>
+<td>the new discont wait in nanoseconds</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-audio-base-sink-get-discont-wait"></a><h3>gst_audio_base_sink_get_discont_wait ()</h3>
+<pre class="programlisting"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstClock.html#GstClockTime"><span class="returnvalue">GstClockTime</span></a>        gst_audio_base_sink_get_discont_wait
+                                                        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSink"><span class="type">GstAudioBaseSink</span></a> *sink</code></em>);</pre>
+<p>
+Get the current discont wait, in nanoseconds, used by <em class="parameter"><code>sink</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sink</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSink"><span class="type">GstAudioBaseSink</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The current discont wait used by <em class="parameter"><code>sink</code></em>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-libs-gstaudiobasesink.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GstAudioBaseSink--alignment-threshold"></a><h3>The <code class="literal">"alignment-threshold"</code> property</h3>
+<pre class="programlisting">  "alignment-threshold"      <span class="type">guint64</span>               : Read / Write</pre>
+<p>Timestamp alignment threshold in nanoseconds.</p>
+<p>Allowed values: [1,18446744073709551614]</p>
+<p>Default value: 40000000</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstAudioBaseSink--buffer-time"></a><h3>The <code class="literal">"buffer-time"</code> property</h3>
+<pre class="programlisting">  "buffer-time"              <span class="type">gint64</span>                : Read / Write</pre>
+<p>Size of audio buffer in microseconds, this is the minimum latency that the sink reports.</p>
+<p>Allowed values: &gt;= 1</p>
+<p>Default value: 200000</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstAudioBaseSink--can-activate-pull"></a><h3>The <code class="literal">"can-activate-pull"</code> property</h3>
+<pre class="programlisting">  "can-activate-pull"        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write</pre>
+<p>Allow pull-based scheduling.</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstAudioBaseSink--discont-wait"></a><h3>The <code class="literal">"discont-wait"</code> property</h3>
+<pre class="programlisting">  "discont-wait"             <span class="type">guint64</span>               : Read / Write</pre>
+<p>
+A window of time in nanoseconds to wait before creating a discontinuity as
+a result of breaching the drift-tolerance.
+</p>
+<p>Allowed values: &lt;= 18446744073709551614</p>
+<p>Default value: 1000000000</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstAudioBaseSink--drift-tolerance"></a><h3>The <code class="literal">"drift-tolerance"</code> property</h3>
+<pre class="programlisting">  "drift-tolerance"          <span class="type">gint64</span>                : Read / Write</pre>
+<p>
+Controls the amount of time in microseconds that clocks are allowed
+to drift before resynchronisation happens.
+</p>
+<p>Allowed values: &gt;= 1</p>
+<p>Default value: 40000</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstAudioBaseSink--latency-time"></a><h3>The <code class="literal">"latency-time"</code> property</h3>
+<pre class="programlisting">  "latency-time"             <span class="type">gint64</span>                : Read / Write</pre>
+<p>The minimum amount of data to write in each iteration in microseconds.</p>
+<p>Allowed values: &gt;= 1</p>
+<p>Default value: 10000</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstAudioBaseSink--provide-clock"></a><h3>The <code class="literal">"provide-clock"</code> property</h3>
+<pre class="programlisting">  "provide-clock"            <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write</pre>
+<p>Provide a clock to be used as the global pipeline clock.</p>
+<p>Default value: TRUE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstAudioBaseSink--slave-method"></a><h3>The <code class="literal">"slave-method"</code> property</h3>
+<pre class="programlisting">  "slave-method"             <a class="link" href="gst-plugins-base-libs-gstaudiobasesink.html#GstAudioBaseSinkSlaveMethod" title="enum GstAudioBaseSinkSlaveMethod"><span class="type">GstAudioBaseSinkSlaveMethod</span></a>  : Read / Write</pre>
+<p>Algorithm to use to match the rate of the masterclock.</p>
+<p>Default value: GST_AUDIO_BASE_SINK_SLAVE_SKEW</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-libs-gstaudiobasesink.see-also"></a><h2>See Also</h2>
+<a class="link" href="gst-plugins-base-libs-gstaudiosink.html#GstAudioSink"><span class="type">GstAudioSink</span></a>, <a class="link" href="gst-plugins-base-libs-gstaudioringbuffer.html#GstAudioRingBuffer"><span class="type">GstAudioRingBuffer</span></a>.
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>gsttagdemux</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer Base Plugins 1.0 Library Reference Manual">
+<link rel="up" href="gstreamer-tag.html" title="Tag Support Library">
+<link rel="prev" href="gst-plugins-base-libs-gsttagxmpwriter.html" title="gsttagxmpwriter">
+<link rel="next" href="gst-plugins-base-libs-gsttagmux.html" title="gsttagmux">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gst-plugins-base-libs-gsttagxmpwriter.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="gstreamer-tag.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer Base Plugins 1.0 Library Reference Manual</th>
+<td><a accesskey="n" href="gst-plugins-base-libs-gsttagmux.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gst-plugins-base-libs-gsttagdemux.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gst-plugins-base-libs-gsttagdemux.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gst-plugins-base-libs-gsttagdemux"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gst-plugins-base-libs-gsttagdemux.top_of_page"></a>gsttagdemux</span></h2>
+<p>gsttagdemux — Base class for demuxing tags that are in chunks
+                    directly at the beginning or at the end of a file</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gst-plugins-base-libs-gsttagdemux.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;gst/tag/gsttagdemux.h&gt;
+
+struct              <a class="link" href="gst-plugins-base-libs-gsttagdemux.html#GstTagDemux" title="struct GstTagDemux">GstTagDemux</a>;
+struct              <a class="link" href="gst-plugins-base-libs-gsttagdemux.html#GstTagDemuxClass" title="struct GstTagDemuxClass">GstTagDemuxClass</a>;
+enum                <a class="link" href="gst-plugins-base-libs-gsttagdemux.html#GstTagDemuxResult" title="enum GstTagDemuxResult">GstTagDemuxResult</a>;
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-libs-gsttagdemux.description"></a><h2>Description</h2>
+<p>
+</p>
+<div class="refsect2">
+<a name="idp7925408"></a><h3>Deriving from GstTagDemux</h3>
+<p>
+Provides a base class for demuxing tags at the beginning or end of a
+stream and handles things like typefinding, querying, seeking, and
+different modes of operation (chain-based, pull_range-based, and providing
+downstream elements with random access if upstream supports that). The tag
+is stripped from the output, and all offsets are adjusted for the tag
+sizes, so that to the downstream element the stream will appear as if
+there was no tag at all. Also, once the tag has been parsed, GstTagDemux
+will try to determine the media type of the resulting stream and add a
+source pad with the appropriate caps in order to facilitate auto-plugging.
+</p>
+<p>
+Subclasses have to do four things:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem"><p>
+ In their base init function, they must add a pad template for the sink
+ pad to the element class, describing the media type they can parse in
+ the caps of the pad template.
+ </p></li>
+<li class="listitem"><p>
+ In their class init function, they must override
+ GST_TAG_DEMUX_CLASS(demux_klass)-&gt;identify_tag with their own identify
+ function.
+ </p></li>
+<li class="listitem"><p>
+ In their class init function, they must override
+ GST_TAG_DEMUX_CLASS(demux_klass)-&gt;parse_tag with their own parse
+ function.
+ </p></li>
+<li class="listitem"><p>
+ In their class init function, they must also set
+ GST_TAG_DEMUX_CLASS(demux_klass)-&gt;min_start_size and/or 
+ GST_TAG_DEMUX_CLASS(demux_klass)-&gt;min_end_size to the minimum size required
+ for the identify function to decide whether the stream has a supported tag
+ or not. A class parsing ID3v1 tags, for example, would set min_end_size to
+ 128 bytes.
+ </p></li>
+</ul></div>
+<p>
+</p>
+</div>
+<p>
+</p>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-libs-gsttagdemux.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstTagDemux"></a><h3>struct GstTagDemux</h3>
+<pre class="programlisting">struct GstTagDemux {
+  GstElement element;
+};
+</pre>
+<p>
+Opaque <a class="link" href="gst-plugins-base-libs-gsttagdemux.html#GstTagDemux" title="struct GstTagDemux"><span class="type">GstTagDemux</span></a> structure.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> <em class="structfield"><code><a name="GstTagDemux.element"></a>element</code></em>;</span></p></td>
+<td>parent element</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstTagDemuxClass"></a><h3>struct GstTagDemuxClass</h3>
+<pre class="programlisting">struct GstTagDemuxClass {
+  GstElementClass parent_class;
+
+  /* minimum size required to identify a tag at the start and determine
+   * its total size */
+  guint                  min_start_size;
+
+  /* minimum size required to identify a tag at the end and determine
+   * its total size */
+  guint                  min_end_size;
+
+  /* vtable */
+
+  /* identify tag and determine the size required to parse the tag */
+  gboolean               (*identify_tag)  (GstTagDemux * demux,
+                                           GstBuffer   * buffer,
+                                           gboolean      start_tag,
+                                           guint       * tag_size);
+
+  /* parse the tag once it is identified and its size is known */
+  GstTagDemuxResult      (*parse_tag)     (GstTagDemux * demux,
+                                           GstBuffer   * buffer,
+                                           gboolean      start_tag,
+                                           guint       * tag_size,
+                                           GstTagList ** tags);
+
+  /* merge start and end tags (optional) */
+  GstTagList *           (*merge_tags)    (GstTagDemux      * demux,
+                                           const GstTagList * start_tags,
+                                           const GstTagList * end_tags);
+};
+</pre>
+<p>
+The <a class="link" href="gst-plugins-base-libs-gsttagdemux.html#GstTagDemuxClass" title="struct GstTagDemuxClass"><span class="type">GstTagDemuxClass</span></a> structure.  See documentation at beginning of section
+for details about what subclasses need to override and do.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html#GstElementClass"><span class="type">GstElementClass</span></a> <em class="structfield"><code><a name="GstTagDemuxClass.parent-class"></a>parent_class</code></em>;</span></p></td>
+<td>the parent class.</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> <em class="structfield"><code><a name="GstTagDemuxClass.min-start-size"></a>min_start_size</code></em>;</span></p></td>
+<td>minimum size required to identify a tag at the start and
+determine its total size. Set to 0 if not interested in start tags.
+Subclasses should set this in their class_init function.</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> <em class="structfield"><code><a name="GstTagDemuxClass.min-end-size"></a>min_end_size</code></em>;</span></p></td>
+<td>minimum size required to identify a tag at the end and
+determine its total size. Set to 0 if not interested in end tags.
+Subclasses should set this in their class_init function.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GstTagDemuxClass.identify-tag"></a>identify_tag</code></em> ()</span></p></td>
+<td>identify tag and determine the size required to parse the
+tag. Buffer may be larger than the specified minimum size.
+Subclassed MUST override this vfunc in their class_init function.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GstTagDemuxClass.parse-tag"></a>parse_tag</code></em> ()</span></p></td>
+<td>parse the tag. Buffer will be exactly of the size determined by
+the identify_tag vfunc before. The parse_tag vfunc may change the size
+stored in *tag_size and return GST_TAG_DEMUX_RESULT_AGAIN to request a
+larger or smaller buffer. It is also permitted to adjust the tag_size to a
+smaller value and then return GST_TAG_DEMUX_RESULT_OK in one go.
+Subclassed MUST override the parse_tag vfunc in their class_init function.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="GstTagDemuxClass.merge-tags"></a>merge_tags</code></em> ()</span></p></td>
+<td>merge start and end tags. Subclasses may want to override this
+vfunc to allow prioritising of start or end tag according to user
+preference.  Note that both start_tags and end_tags may be NULL. By default
+start tags are prefered over end tags.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstTagDemuxResult"></a><h3>enum GstTagDemuxResult</h3>
+<pre class="programlisting">typedef enum {
+  GST_TAG_DEMUX_RESULT_BROKEN_TAG,
+  GST_TAG_DEMUX_RESULT_AGAIN,
+  GST_TAG_DEMUX_RESULT_OK
+} GstTagDemuxResult;
+</pre>
+<p>
+Result values from the parse_tag virtual function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="GST-TAG-DEMUX-RESULT-BROKEN-TAG:CAPS"></a><span class="term"><code class="literal">GST_TAG_DEMUX_RESULT_BROKEN_TAG</code></span></p></td>
+<td>cannot parse tag, just skip it
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-TAG-DEMUX-RESULT-AGAIN:CAPS"></a><span class="term"><code class="literal">GST_TAG_DEMUX_RESULT_AGAIN</code></span></p></td>
+<td>call again with less or more data
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-TAG-DEMUX-RESULT-OK:CAPS"></a><span class="term"><code class="literal">GST_TAG_DEMUX_RESULT_OK</code></span></p></td>
+<td>parsed tag successfully
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-libs-gsttagdemux.see-also"></a><h2>See Also</h2>
+GstApeDemux, GstID3Demux
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

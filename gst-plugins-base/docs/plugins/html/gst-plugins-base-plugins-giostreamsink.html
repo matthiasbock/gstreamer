@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>giostreamsink</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer Base Plugins 1.0 Plugins Reference Manual">
+<link rel="up" href="ch01.html" title="gst-plugins-base Elements">
+<link rel="prev" href="gst-plugins-base-plugins-giosrc.html" title="giosrc">
+<link rel="next" href="gst-plugins-base-plugins-giostreamsrc.html" title="giostreamsrc">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gst-plugins-base-plugins-giosrc.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer Base Plugins 1.0 Plugins Reference Manual</th>
+<td><a accesskey="n" href="gst-plugins-base-plugins-giostreamsrc.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gst-plugins-base-plugins-giostreamsink.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gst-plugins-base-plugins-giostreamsink.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#gst-plugins-base-plugins-giostreamsink.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#gst-plugins-base-plugins-giostreamsink.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gst-plugins-base-plugins-giostreamsink"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gst-plugins-base-plugins-giostreamsink.top_of_page"></a>giostreamsink</span></h2>
+<p>giostreamsink — Write to any GIO stream</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gst-plugins-base-plugins-giostreamsink.synopsis"></a><h2>Synopsis</h2>
+<a name="GstGioStreamSink"></a><pre class="synopsis">struct              <a class="link" href="gst-plugins-base-plugins-giostreamsink.html#GstGioStreamSink-struct" title="struct GstGioStreamSink">GstGioStreamSink</a>;
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-plugins-giostreamsink.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstObject.html">GstObject</a>
+               +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html">GstElement</a>
+                     +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer-libs/html/GstBaseSink.html">GstBaseSink</a>
+                           +----GstGioBaseSink
+                                 +----GstGioStreamSink
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-plugins-giostreamsink.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="gst-plugins-base-plugins-giostreamsink.html#GstGioStreamSink--stream" title='The "stream" property'>stream</a>"                   <a href="http://library.gnome.org/devel/gio/unstable/GOutputStream.html"><span class="type">GOutputStream</span></a>*        : Read / Write
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-plugins-giostreamsink.description"></a><h2>Description</h2>
+<p>
+This plugin writes incoming data to a custom GIO <a href="http://library.gnome.org/devel/gio/unstable/GOutputStream.html"><span class="type">GOutputStream</span></a>.
+</p>
+<p>
+It can, for example, be used to write a stream to memory with a
+<span class="type">GMemoryOuputStream</span> or to write to a file with a <span class="type">GFileOuputStream</span>.
+</p>
+<p>
+</p>
+<div class="refsect2">
+<a name="idp11077392"></a><h3>Example code</h3>
+<p>
+The following example writes the received data to a <a href="http://library.gnome.org/devel/gio/unstable/GMemoryOutputStream.html"><span class="type">GMemoryOutputStream</span></a>.
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="gtkdoc ppc">#include &lt;gst/gst.h&gt;</span>
+<span class="gtkdoc ppc">#include &lt;gio/gio.h&gt;</span>
+
+<span class="gtkdoc opt">...</span>
+
+GstElement <span class="gtkdoc opt">*</span>sink<span class="gtkdoc opt">;</span>
+GMemoryOuputStream <span class="gtkdoc opt">*</span>stream<span class="gtkdoc opt">;</span>
+<span class="gtkdoc slc">// out_data will contain the received data</span>
+guint8 <span class="gtkdoc opt">*</span>out_data<span class="gtkdoc opt">;</span>
+
+<span class="gtkdoc opt">...</span>
+
+stream <span class="gtkdoc opt">=</span> <span class="function">G_MEMORY_OUTPUT_STREAM</span> <span class="gtkdoc opt">(</span><span class="function"><a href="http://library.gnome.org/devel/gio/unstable/GMemoryOutputStream.html#g-memory-output-stream-new">g_memory_output_stream_new</a></span> <span class="gtkdoc opt">(</span>NULL<span class="gtkdoc opt">,</span> <span class="number">0</span><span class="gtkdoc opt">,</span>
+          <span class="gtkdoc opt">(</span>GReallocFunc<span class="gtkdoc opt">)</span> g_realloc<span class="gtkdoc opt">, (</span>GDestroyNotify<span class="gtkdoc opt">)</span> g_free<span class="gtkdoc opt">));</span>
+sink <span class="gtkdoc opt">=</span> <span class="function"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElementFactory.html#gst-element-factory-make">gst_element_factory_make</a></span> <span class="gtkdoc opt">(</span><span class="string">&quot;giostreamsink&quot;</span><span class="gtkdoc opt">,</span> <span class="string">&quot;sink&quot;</span><span class="gtkdoc opt">);</span>
+<span class="function"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-set">g_object_set</a></span> <span class="gtkdoc opt">(</span><span class="function"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#G-OBJECT:CAPS">G_OBJECT</a></span> <span class="gtkdoc opt">(</span>sink<span class="gtkdoc opt">),</span> <span class="string">&quot;stream&quot;</span><span class="gtkdoc opt">,</span> stream<span class="gtkdoc opt">,</span> NULL<span class="gtkdoc opt">);</span>
+
+<span class="gtkdoc opt">...</span>
+
+<span class="gtkdoc slc">// after processing get the written data</span>
+out_data <span class="gtkdoc opt">=</span> <span class="function">g_memory_ouput_stream_get_data</span> <span class="gtkdoc opt">(</span><span class="function">G_MEMORY_OUTPUT_STREAM</span> <span class="gtkdoc opt">(</span>stream<span class="gtkdoc opt">));</span>
+
+<span class="gtkdoc opt">...</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+</p>
+</div>
+<p>
+</p>
+<div class="refsynopsisdiv">
+<h2>Synopsis</h2>
+<div class="refsect2">
+<a name="idp5290032"></a><h3>Element Information</h3>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">plugin</span></p></td>
+<td>
+            <a class="link" href="gst-plugins-base-plugins-plugin-gio.html#plugin-gio">gio</a>
+          </td>
+</tr>
+<tr>
+<td><p><span class="term">author</span></p></td>
+<td>Sebastian Dröge &lt;sebastian.droege@collabora.co.uk&gt;</td>
+</tr>
+<tr>
+<td><p><span class="term">class</span></p></td>
+<td>Sink</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="idp10724304"></a><h3>Element Pads</h3>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">name</span></p></td>
+<td>sink</td>
+</tr>
+<tr>
+<td><p><span class="term">direction</span></p></td>
+<td>sink</td>
+</tr>
+<tr>
+<td><p><span class="term">presence</span></p></td>
+<td>always</td>
+</tr>
+<tr>
+<td><p><span class="term">details</span></p></td>
+<td>ANY</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<p>
+</p>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-plugins-giostreamsink.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstGioStreamSink-struct"></a><h3>struct GstGioStreamSink</h3>
+<pre class="programlisting">struct GstGioStreamSink;</pre>
+<p>
+Opaque data structure.
+</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-plugins-giostreamsink.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GstGioStreamSink--stream"></a><h3>The <code class="literal">"stream"</code> property</h3>
+<pre class="programlisting">  "stream"                   <a href="http://library.gnome.org/devel/gio/unstable/GOutputStream.html"><span class="type">GOutputStream</span></a>*        : Read / Write</pre>
+<p>Stream to write to.</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

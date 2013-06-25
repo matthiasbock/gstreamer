@@ -1,0 +1,1500 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>gstrtpbuffer</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="GStreamer Base Plugins 1.0 Library Reference Manual">
+<link rel="up" href="gstreamer-rtp.html" title="RTP Library">
+<link rel="prev" href="gst-plugins-base-libs-gstrtpbasepayload.html" title="gstrtpbasepayload">
+<link rel="next" href="gst-plugins-base-libs-gstrtcpbuffer.html" title="gstrtcpbuffer">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gst-plugins-base-libs-gstrtpbasepayload.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="gstreamer-rtp.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer Base Plugins 1.0 Library Reference Manual</th>
+<td><a accesskey="n" href="gst-plugins-base-libs-gstrtcpbuffer.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gst-plugins-base-libs-gstrtpbuffer.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gst-plugins-base-libs-gstrtpbuffer.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gst-plugins-base-libs-gstrtpbuffer"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gst-plugins-base-libs-gstrtpbuffer.top_of_page"></a>gstrtpbuffer</span></h2>
+<p>gstrtpbuffer — Helper methods for dealing with RTP buffers</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gst-plugins-base-libs-gstrtpbuffer.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;gst/rtp/gstrtpbuffer.h&gt;
+
+#define             <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GST-RTP-VERSION:CAPS" title="GST_RTP_VERSION">GST_RTP_VERSION</a>
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-allocate-data" title="gst_rtp_buffer_allocate_data ()">gst_rtp_buffer_allocate_data</a>        (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *buffer</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> payload_len</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint8</span> pad_len</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint8</span> csrc_count</code></em>);
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="returnvalue">GstBuffer</span></a> *         <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-new-take-data" title="gst_rtp_buffer_new_take_data ()">gst_rtp_buffer_new_take_data</a>        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>,
+                                                         <em class="parameter"><code><span class="type">gsize</span> len</code></em>);
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="returnvalue">GstBuffer</span></a> *         <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-new-copy-data" title="gst_rtp_buffer_new_copy_data ()">gst_rtp_buffer_new_copy_data</a>        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>,
+                                                         <em class="parameter"><code><span class="type">gsize</span> len</code></em>);
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="returnvalue">GstBuffer</span></a> *         <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-new-allocate" title="gst_rtp_buffer_new_allocate ()">gst_rtp_buffer_new_allocate</a>         (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> payload_len</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint8</span> pad_len</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint8</span> csrc_count</code></em>);
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="returnvalue">GstBuffer</span></a> *         <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-new-allocate-len" title="gst_rtp_buffer_new_allocate_len ()">gst_rtp_buffer_new_allocate_len</a>     (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> packet_len</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint8</span> pad_len</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint8</span> csrc_count</code></em>);
+struct              <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer">GstRTPBuffer</a>;
+#define             <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GST-RTP-BUFFER-INIT:CAPS" title="GST_RTP_BUFFER_INIT">GST_RTP_BUFFER_INIT</a>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-map" title="gst_rtp_buffer_map ()">gst_rtp_buffer_map</a>                  (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *buffer</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstMemory.html#GstMapFlags"><span class="type">GstMapFlags</span></a> flags</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-unmap" title="gst_rtp_buffer_unmap ()">gst_rtp_buffer_unmap</a>                (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-calc-header-len" title="gst_rtp_buffer_calc_header_len ()">gst_rtp_buffer_calc_header_len</a>      (<em class="parameter"><code><span class="type">guint8</span> csrc_count</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-calc-packet-len" title="gst_rtp_buffer_calc_packet_len ()">gst_rtp_buffer_calc_packet_len</a>      (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> payload_len</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint8</span> pad_len</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint8</span> csrc_count</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-calc-payload-len" title="gst_rtp_buffer_calc_payload_len ()">gst_rtp_buffer_calc_payload_len</a>     (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> packet_len</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint8</span> pad_len</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint8</span> csrc_count</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-set-packet-len" title="gst_rtp_buffer_set_packet_len ()">gst_rtp_buffer_set_packet_len</a>       (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> len</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-get-packet-len" title="gst_rtp_buffer_get_packet_len ()">gst_rtp_buffer_get_packet_len</a>       (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-get-header-len" title="gst_rtp_buffer_get_header_len ()">gst_rtp_buffer_get_header_len</a>       (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>);
+<span class="returnvalue">guint8</span>              <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-get-version" title="gst_rtp_buffer_get_version ()">gst_rtp_buffer_get_version</a>          (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-set-version" title="gst_rtp_buffer_set_version ()">gst_rtp_buffer_set_version</a>          (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint8</span> version</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-get-padding" title="gst_rtp_buffer_get_padding ()">gst_rtp_buffer_get_padding</a>          (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-set-padding" title="gst_rtp_buffer_set_padding ()">gst_rtp_buffer_set_padding</a>          (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> padding</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-pad-to" title="gst_rtp_buffer_pad_to ()">gst_rtp_buffer_pad_to</a>               (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> len</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-get-extension" title="gst_rtp_buffer_get_extension ()">gst_rtp_buffer_get_extension</a>        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-set-extension" title="gst_rtp_buffer_set_extension ()">gst_rtp_buffer_set_extension</a>        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> extension</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-get-extension-data" title="gst_rtp_buffer_get_extension_data ()">gst_rtp_buffer_get_extension_data</a>   (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint16</span> *bits</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> *data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> *wordlen</code></em>);
+<span class="returnvalue">guint32</span>             <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-get-ssrc" title="gst_rtp_buffer_get_ssrc ()">gst_rtp_buffer_get_ssrc</a>             (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-set-ssrc" title="gst_rtp_buffer_set_ssrc ()">gst_rtp_buffer_set_ssrc</a>             (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint32</span> ssrc</code></em>);
+<span class="returnvalue">guint8</span>              <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-get-csrc-count" title="gst_rtp_buffer_get_csrc_count ()">gst_rtp_buffer_get_csrc_count</a>       (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>);
+<span class="returnvalue">guint32</span>             <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-get-csrc" title="gst_rtp_buffer_get_csrc ()">gst_rtp_buffer_get_csrc</a>             (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint8</span> idx</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-set-csrc" title="gst_rtp_buffer_set_csrc ()">gst_rtp_buffer_set_csrc</a>             (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint8</span> idx</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint32</span> csrc</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-get-marker" title="gst_rtp_buffer_get_marker ()">gst_rtp_buffer_get_marker</a>           (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-set-marker" title="gst_rtp_buffer_set_marker ()">gst_rtp_buffer_set_marker</a>           (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> marker</code></em>);
+<span class="returnvalue">guint8</span>              <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-get-payload-type" title="gst_rtp_buffer_get_payload_type ()">gst_rtp_buffer_get_payload_type</a>     (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-set-payload-type" title="gst_rtp_buffer_set_payload_type ()">gst_rtp_buffer_set_payload_type</a>     (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint8</span> payload_type</code></em>);
+<span class="returnvalue">guint16</span>             <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-get-seq" title="gst_rtp_buffer_get_seq ()">gst_rtp_buffer_get_seq</a>              (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-set-seq" title="gst_rtp_buffer_set_seq ()">gst_rtp_buffer_set_seq</a>              (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint16</span> seq</code></em>);
+<span class="returnvalue">guint32</span>             <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-get-timestamp" title="gst_rtp_buffer_get_timestamp ()">gst_rtp_buffer_get_timestamp</a>        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-set-timestamp" title="gst_rtp_buffer_set_timestamp ()">gst_rtp_buffer_set_timestamp</a>        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint32</span> timestamp</code></em>);
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="returnvalue">GstBuffer</span></a> *         <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-get-payload-buffer" title="gst_rtp_buffer_get_payload_buffer ()">gst_rtp_buffer_get_payload_buffer</a>   (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>);
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="returnvalue">GstBuffer</span></a> *         <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-get-payload-subbuffer" title="gst_rtp_buffer_get_payload_subbuffer ()">gst_rtp_buffer_get_payload_subbuffer</a>
+                                                        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> offset</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> len</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-get-payload-len" title="gst_rtp_buffer_get_payload_len ()">gst_rtp_buffer_get_payload_len</a>      (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-get-payload" title="gst_rtp_buffer_get_payload ()">gst_rtp_buffer_get_payload</a>          (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>);
+<span class="returnvalue">guint32</span>             <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-default-clock-rate" title="gst_rtp_buffer_default_clock_rate ()">gst_rtp_buffer_default_clock_rate</a>   (<em class="parameter"><code><span class="type">guint8</span> payload_type</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>                <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-compare-seqnum" title="gst_rtp_buffer_compare_seqnum ()">gst_rtp_buffer_compare_seqnum</a>       (<em class="parameter"><code><span class="type">guint16</span> seqnum1</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint16</span> seqnum2</code></em>);
+<span class="returnvalue">guint64</span>             <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-ext-timestamp" title="gst_rtp_buffer_ext_timestamp ()">gst_rtp_buffer_ext_timestamp</a>        (<em class="parameter"><code><span class="type">guint64</span> *exttimestamp</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint32</span> timestamp</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-set-extension-data" title="gst_rtp_buffer_set_extension_data ()">gst_rtp_buffer_set_extension_data</a>   (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint16</span> bits</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint16</span> length</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-get-extension-onebyte-header" title="gst_rtp_buffer_get_extension_onebyte_header ()">gst_rtp_buffer_get_extension_onebyte_header</a>
+                                                        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint8</span> id</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> nth</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> *data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> *size</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-get-extension-twobytes-header" title="gst_rtp_buffer_get_extension_twobytes_header ()">gst_rtp_buffer_get_extension_twobytes_header</a>
+                                                        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint8</span> *appbits</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint8</span> id</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> nth</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> *data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> *size</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-add-extension-onebyte-header" title="gst_rtp_buffer_add_extension_onebyte_header ()">gst_rtp_buffer_add_extension_onebyte_header</a>
+                                                        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint8</span> id</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> size</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-add-extension-twobytes-header" title="gst_rtp_buffer_add_extension_twobytes_header ()">gst_rtp_buffer_add_extension_twobytes_header</a>
+                                                        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint8</span> appbits</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint8</span> id</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> size</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-libs-gstrtpbuffer.description"></a><h2>Description</h2>
+<p>
+</p>
+<div class="refsect2">
+<a name="idp16114704"></a><p>
+The GstRTPBuffer helper functions makes it easy to parse and create regular 
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> objects that contain RTP payloads. These buffers are typically of
+'application/x-rtp' <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="type">GstCaps</span></a>.
+</p>
+</div>
+<p>
+</p>
+<p>
+Last reviewed on 2006-07-17 (0.10.10)
+</p>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-libs-gstrtpbuffer.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GST-RTP-VERSION:CAPS"></a><h3>GST_RTP_VERSION</h3>
+<pre class="programlisting">#define GST_RTP_VERSION 2
+</pre>
+<p>
+The supported RTP version 2.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-buffer-allocate-data"></a><h3>gst_rtp_buffer_allocate_data ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_rtp_buffer_allocate_data        (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *buffer</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> payload_len</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint8</span> pad_len</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint8</span> csrc_count</code></em>);</pre>
+<p>
+Allocate enough data in <em class="parameter"><code>buffer</code></em> to hold an RTP packet with <em class="parameter"><code>csrc_count</code></em> CSRCs,
+a payload length of <em class="parameter"><code>payload_len</code></em> and padding of <em class="parameter"><code>pad_len</code></em>.
+<em class="parameter"><code>buffer</code></em> must be writable and all previous memory in <em class="parameter"><code>buffer</code></em> will be freed.
+If <em class="parameter"><code>pad_len</code></em> is &gt;0, the padding bit will be set. All other RTP header fields
+will be set to 0/FALSE.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>buffer</code></em> :</span></p></td>
+<td>a <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>payload_len</code></em> :</span></p></td>
+<td>the length of the payload</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pad_len</code></em> :</span></p></td>
+<td>the amount of padding</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>csrc_count</code></em> :</span></p></td>
+<td>the number of CSRC entries</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-buffer-new-take-data"></a><h3>gst_rtp_buffer_new_take_data ()</h3>
+<pre class="programlisting"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="returnvalue">GstBuffer</span></a> *         gst_rtp_buffer_new_take_data        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>,
+                                                         <em class="parameter"><code><span class="type">gsize</span> len</code></em>);</pre>
+<p>
+Create a new buffer and set the data and size of the buffer to <em class="parameter"><code>data</code></em> and <em class="parameter"><code>len</code></em>
+respectively. <em class="parameter"><code>data</code></em> will be freed when the buffer is unreffed, so this
+function transfers ownership of <em class="parameter"><code>data</code></em> to the new buffer.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>data for the new buffer. <span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=len][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> guint8]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>len</code></em> :</span></p></td>
+<td>the length of data</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>A newly allocated buffer with <em class="parameter"><code>data</code></em> and of size <em class="parameter"><code>len</code></em>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-buffer-new-copy-data"></a><h3>gst_rtp_buffer_new_copy_data ()</h3>
+<pre class="programlisting"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="returnvalue">GstBuffer</span></a> *         gst_rtp_buffer_new_copy_data        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>,
+                                                         <em class="parameter"><code><span class="type">gsize</span> len</code></em>);</pre>
+<p>
+Create a new buffer and set the data to a copy of <em class="parameter"><code>len</code></em>
+bytes of <em class="parameter"><code>data</code></em> and the size to <em class="parameter"><code>len</code></em>. The data will be freed when the buffer
+is freed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>data for the new
+buffer. <span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=len][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> guint8]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>len</code></em> :</span></p></td>
+<td>the length of data</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>A newly allocated buffer with a copy of <em class="parameter"><code>data</code></em> and of size <em class="parameter"><code>len</code></em>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-buffer-new-allocate"></a><h3>gst_rtp_buffer_new_allocate ()</h3>
+<pre class="programlisting"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="returnvalue">GstBuffer</span></a> *         gst_rtp_buffer_new_allocate         (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> payload_len</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint8</span> pad_len</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint8</span> csrc_count</code></em>);</pre>
+<p>
+Allocate a new <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> with enough data to hold an RTP packet with
+<em class="parameter"><code>csrc_count</code></em> CSRCs, a payload length of <em class="parameter"><code>payload_len</code></em> and padding of <em class="parameter"><code>pad_len</code></em>.
+All other RTP header fields will be set to 0/FALSE.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>payload_len</code></em> :</span></p></td>
+<td>the length of the payload</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pad_len</code></em> :</span></p></td>
+<td>the amount of padding</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>csrc_count</code></em> :</span></p></td>
+<td>the number of CSRC entries</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>A newly allocated buffer that can hold an RTP packet with given
+parameters.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-buffer-new-allocate-len"></a><h3>gst_rtp_buffer_new_allocate_len ()</h3>
+<pre class="programlisting"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="returnvalue">GstBuffer</span></a> *         gst_rtp_buffer_new_allocate_len     (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> packet_len</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint8</span> pad_len</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint8</span> csrc_count</code></em>);</pre>
+<p>
+Create a new <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> that can hold an RTP packet that is exactly
+<em class="parameter"><code>packet_len</code></em> long. The length of the payload depends on <em class="parameter"><code>pad_len</code></em> and
+<em class="parameter"><code>csrc_count</code></em> and can be calculated with <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-calc-payload-len" title="gst_rtp_buffer_calc_payload_len ()"><code class="function">gst_rtp_buffer_calc_payload_len()</code></a>.
+All RTP header fields will be set to 0/FALSE.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>packet_len</code></em> :</span></p></td>
+<td>the total length of the packet</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pad_len</code></em> :</span></p></td>
+<td>the amount of padding</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>csrc_count</code></em> :</span></p></td>
+<td>the number of CSRC entries</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>A newly allocated buffer that can hold an RTP packet of <em class="parameter"><code>packet_len</code></em>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstRTPBuffer"></a><h3>struct GstRTPBuffer</h3>
+<pre class="programlisting">struct GstRTPBuffer {
+  GstBuffer   *buffer;
+  guint        state;
+  gpointer     data[4];
+  gsize        size[4];
+  GstMapInfo   map[4];
+};
+</pre>
+<p>
+Data structure that points to an RTP packet.
+The size of the structure is made public to allow stack allocations.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *<em class="structfield"><code><a name="GstRTPBuffer.buffer"></a>buffer</code></em>;</span></p></td>
+<td>pointer to RTP buffer</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> <em class="structfield"><code><a name="GstRTPBuffer.state"></a>state</code></em>;</span></p></td>
+<td>internal state</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> <em class="structfield"><code><a name="GstRTPBuffer.data"></a>data</code></em>[4];</span></p></td>
+<td>array of data</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">gsize</span> <em class="structfield"><code><a name="GstRTPBuffer.size"></a>size</code></em>[4];</span></p></td>
+<td>array of size</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstMemory.html#GstMapInfo"><span class="type">GstMapInfo</span></a> <em class="structfield"><code><a name="GstRTPBuffer.map"></a>map</code></em>[4];</span></p></td>
+<td>array of <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstMemory.html#GstMapInfo"><span class="type">GstMapInfo</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-RTP-BUFFER-INIT:CAPS"></a><h3>GST_RTP_BUFFER_INIT</h3>
+<pre class="programlisting">#define             GST_RTP_BUFFER_INIT</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-buffer-map"></a><h3>gst_rtp_buffer_map ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_rtp_buffer_map                  (<em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a> *buffer</code></em>,
+                                                         <em class="parameter"><code><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstMemory.html#GstMapFlags"><span class="type">GstMapFlags</span></a> flags</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>);</pre>
+<p>
+Map the contents of <em class="parameter"><code>buffer</code></em> into <em class="parameter"><code>rtp</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>buffer</code></em> :</span></p></td>
+<td>a <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="type">GstBuffer</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>flags</code></em> :</span></p></td>
+<td><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstMemory.html#GstMapFlags"><span class="type">GstMapFlags</span></a></td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>rtp</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a>. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if <em class="parameter"><code>buffer</code></em> could be mapped.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-buffer-unmap"></a><h3>gst_rtp_buffer_unmap ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_rtp_buffer_unmap                (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>);</pre>
+<p>
+Unmap <em class="parameter"><code>rtp</code></em> previously mapped with <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-map" title="gst_rtp_buffer_map ()"><code class="function">gst_rtp_buffer_map()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>rtp</code></em> :</span></p></td>
+<td>a <a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-buffer-calc-header-len"></a><h3>gst_rtp_buffer_calc_header_len ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               gst_rtp_buffer_calc_header_len      (<em class="parameter"><code><span class="type">guint8</span> csrc_count</code></em>);</pre>
+<p>
+Calculate the header length of an RTP packet with <em class="parameter"><code>csrc_count</code></em> CSRC entries.
+An RTP packet can have at most 15 CSRC entries.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>csrc_count</code></em> :</span></p></td>
+<td>the number of CSRC entries</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The length of an RTP header with <em class="parameter"><code>csrc_count</code></em> CSRC entries.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-buffer-calc-packet-len"></a><h3>gst_rtp_buffer_calc_packet_len ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               gst_rtp_buffer_calc_packet_len      (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> payload_len</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint8</span> pad_len</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint8</span> csrc_count</code></em>);</pre>
+<p>
+Calculate the total length of an RTP packet with a payload size of <em class="parameter"><code>payload_len</code></em>,
+a padding of <em class="parameter"><code>pad_len</code></em> and a <em class="parameter"><code>csrc_count</code></em> CSRC entries.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>payload_len</code></em> :</span></p></td>
+<td>the length of the payload</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pad_len</code></em> :</span></p></td>
+<td>the amount of padding</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>csrc_count</code></em> :</span></p></td>
+<td>the number of CSRC entries</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The total length of an RTP header with given parameters.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-buffer-calc-payload-len"></a><h3>gst_rtp_buffer_calc_payload_len ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               gst_rtp_buffer_calc_payload_len     (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> packet_len</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint8</span> pad_len</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint8</span> csrc_count</code></em>);</pre>
+<p>
+Calculate the length of the payload of an RTP packet with size <em class="parameter"><code>packet_len</code></em>,
+a padding of <em class="parameter"><code>pad_len</code></em> and a <em class="parameter"><code>csrc_count</code></em> CSRC entries.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>packet_len</code></em> :</span></p></td>
+<td>the length of the total RTP packet</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pad_len</code></em> :</span></p></td>
+<td>the amount of padding</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>csrc_count</code></em> :</span></p></td>
+<td>the number of CSRC entries</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The length of the payload of an RTP packet  with given parameters.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-buffer-set-packet-len"></a><h3>gst_rtp_buffer_set_packet_len ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_rtp_buffer_set_packet_len       (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> len</code></em>);</pre>
+<p>
+Set the total <em class="parameter"><code>rtp</code></em> size to <em class="parameter"><code>len</code></em>. The data in the buffer will be made
+larger if needed. Any padding will be removed from the packet.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>rtp</code></em> :</span></p></td>
+<td>the RTP packet</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>len</code></em> :</span></p></td>
+<td>the new packet length</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-buffer-get-packet-len"></a><h3>gst_rtp_buffer_get_packet_len ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               gst_rtp_buffer_get_packet_len       (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>);</pre>
+<p>
+Return the total length of the packet in <em class="parameter"><code>buffer</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>rtp</code></em> :</span></p></td>
+<td>the RTP packet</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The total length of the packet in <em class="parameter"><code>buffer</code></em>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-buffer-get-header-len"></a><h3>gst_rtp_buffer_get_header_len ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               gst_rtp_buffer_get_header_len       (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>);</pre>
+<p>
+Return the total length of the header in <em class="parameter"><code>buffer</code></em>. This include the length of
+the fixed header, the CSRC list and the extension header.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>rtp</code></em> :</span></p></td>
+<td>the RTP packet</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The total length of the header in <em class="parameter"><code>buffer</code></em>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-buffer-get-version"></a><h3>gst_rtp_buffer_get_version ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint8</span>              gst_rtp_buffer_get_version          (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>);</pre>
+<p>
+Get the version number of the RTP packet in <em class="parameter"><code>buffer</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>rtp</code></em> :</span></p></td>
+<td>the RTP packet</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The version of <em class="parameter"><code>buffer</code></em>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-buffer-set-version"></a><h3>gst_rtp_buffer_set_version ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_rtp_buffer_set_version          (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint8</span> version</code></em>);</pre>
+<p>
+Set the version of the RTP packet in <em class="parameter"><code>buffer</code></em> to <em class="parameter"><code>version</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>rtp</code></em> :</span></p></td>
+<td>the RTP packet</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>version</code></em> :</span></p></td>
+<td>the new version</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-buffer-get-padding"></a><h3>gst_rtp_buffer_get_padding ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_rtp_buffer_get_padding          (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>);</pre>
+<p>
+Check if the padding bit is set on the RTP packet in <em class="parameter"><code>buffer</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>rtp</code></em> :</span></p></td>
+<td>the RTP packet</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE if <em class="parameter"><code>buffer</code></em> has the padding bit set.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-buffer-set-padding"></a><h3>gst_rtp_buffer_set_padding ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_rtp_buffer_set_padding          (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> padding</code></em>);</pre>
+<p>
+Set the padding bit on the RTP packet in <em class="parameter"><code>buffer</code></em> to <em class="parameter"><code>padding</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>rtp</code></em> :</span></p></td>
+<td>the buffer</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>padding</code></em> :</span></p></td>
+<td>the new padding</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-buffer-pad-to"></a><h3>gst_rtp_buffer_pad_to ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_rtp_buffer_pad_to               (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> len</code></em>);</pre>
+<p>
+Set the amount of padding in the RTP packet in <em class="parameter"><code>buffer</code></em> to
+<em class="parameter"><code>len</code></em>. If <em class="parameter"><code>len</code></em> is 0, the padding is removed.
+</p>
+<p>
+NOTE: This function does not work correctly.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>rtp</code></em> :</span></p></td>
+<td>the RTP packet</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>len</code></em> :</span></p></td>
+<td>the new amount of padding</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-buffer-get-extension"></a><h3>gst_rtp_buffer_get_extension ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_rtp_buffer_get_extension        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>);</pre>
+<p>
+Check if the extension bit is set on the RTP packet in <em class="parameter"><code>buffer</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>rtp</code></em> :</span></p></td>
+<td>the RTP packet</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE if <em class="parameter"><code>buffer</code></em> has the extension bit set.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-buffer-set-extension"></a><h3>gst_rtp_buffer_set_extension ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_rtp_buffer_set_extension        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> extension</code></em>);</pre>
+<p>
+Set the extension bit on the RTP packet in <em class="parameter"><code>buffer</code></em> to <em class="parameter"><code>extension</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>rtp</code></em> :</span></p></td>
+<td>the RTP packet</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>extension</code></em> :</span></p></td>
+<td>the new extension</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-buffer-get-extension-data"></a><h3>gst_rtp_buffer_get_extension_data ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_rtp_buffer_get_extension_data   (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint16</span> *bits</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> *data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> *wordlen</code></em>);</pre>
+<p>
+Get the extension data. <em class="parameter"><code>bits</code></em> will contain the extension 16 bits of custom
+data. <em class="parameter"><code>data</code></em> will point to the data in the extension and <em class="parameter"><code>wordlen</code></em> will contain
+the length of <em class="parameter"><code>data</code></em> in 32 bits words.
+</p>
+<p>
+If <em class="parameter"><code>buffer</code></em> did not contain an extension, this function will return <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>
+with <em class="parameter"><code>bits</code></em>, <em class="parameter"><code>data</code></em> and <em class="parameter"><code>wordlen</code></em> unchanged.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>rtp</code></em> :</span></p></td>
+<td>the RTP packet</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>bits</code></em> :</span></p></td>
+<td>location for result bits. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>location for data. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> guint8][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>wordlen</code></em> :</span></p></td>
+<td>location for length of <em class="parameter"><code>data</code></em> in 32 bits words. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE if <em class="parameter"><code>buffer</code></em> had the extension bit set.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-buffer-get-ssrc"></a><h3>gst_rtp_buffer_get_ssrc ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint32</span>             gst_rtp_buffer_get_ssrc             (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>);</pre>
+<p>
+Get the SSRC of the RTP packet in <em class="parameter"><code>buffer</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>rtp</code></em> :</span></p></td>
+<td>the RTP packet</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the SSRC of <em class="parameter"><code>buffer</code></em> in host order.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-buffer-set-ssrc"></a><h3>gst_rtp_buffer_set_ssrc ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_rtp_buffer_set_ssrc             (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint32</span> ssrc</code></em>);</pre>
+<p>
+Set the SSRC on the RTP packet in <em class="parameter"><code>buffer</code></em> to <em class="parameter"><code>ssrc</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>rtp</code></em> :</span></p></td>
+<td>the RTP packet</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ssrc</code></em> :</span></p></td>
+<td>the new SSRC</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-buffer-get-csrc-count"></a><h3>gst_rtp_buffer_get_csrc_count ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint8</span>              gst_rtp_buffer_get_csrc_count       (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>);</pre>
+<p>
+Get the CSRC count of the RTP packet in <em class="parameter"><code>buffer</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>rtp</code></em> :</span></p></td>
+<td>the RTP packet</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the CSRC count of <em class="parameter"><code>buffer</code></em>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-buffer-get-csrc"></a><h3>gst_rtp_buffer_get_csrc ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint32</span>             gst_rtp_buffer_get_csrc             (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint8</span> idx</code></em>);</pre>
+<p>
+Get the CSRC at index <em class="parameter"><code>idx</code></em> in <em class="parameter"><code>buffer</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>rtp</code></em> :</span></p></td>
+<td>the RTP packet</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>idx</code></em> :</span></p></td>
+<td>the index of the CSRC to get</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the CSRC at index <em class="parameter"><code>idx</code></em> in host order.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-buffer-set-csrc"></a><h3>gst_rtp_buffer_set_csrc ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_rtp_buffer_set_csrc             (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint8</span> idx</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint32</span> csrc</code></em>);</pre>
+<p>
+Modify the CSRC at index <em class="parameter"><code>idx</code></em> in <em class="parameter"><code>buffer</code></em> to <em class="parameter"><code>csrc</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>rtp</code></em> :</span></p></td>
+<td>the RTP packet</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>idx</code></em> :</span></p></td>
+<td>the CSRC index to set</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>csrc</code></em> :</span></p></td>
+<td>the CSRC in host order to set at <em class="parameter"><code>idx</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-buffer-get-marker"></a><h3>gst_rtp_buffer_get_marker ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_rtp_buffer_get_marker           (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>);</pre>
+<p>
+Check if the marker bit is set on the RTP packet in <em class="parameter"><code>buffer</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>rtp</code></em> :</span></p></td>
+<td>the RTP packet</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE if <em class="parameter"><code>buffer</code></em> has the marker bit set.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-buffer-set-marker"></a><h3>gst_rtp_buffer_set_marker ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_rtp_buffer_set_marker           (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> marker</code></em>);</pre>
+<p>
+Set the marker bit on the RTP packet in <em class="parameter"><code>buffer</code></em> to <em class="parameter"><code>marker</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>rtp</code></em> :</span></p></td>
+<td>the RTP packet</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>marker</code></em> :</span></p></td>
+<td>the new marker</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-buffer-get-payload-type"></a><h3>gst_rtp_buffer_get_payload_type ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint8</span>              gst_rtp_buffer_get_payload_type     (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>);</pre>
+<p>
+Get the payload type of the RTP packet in <em class="parameter"><code>buffer</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>rtp</code></em> :</span></p></td>
+<td>the RTP packet</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The payload type.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-buffer-set-payload-type"></a><h3>gst_rtp_buffer_set_payload_type ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_rtp_buffer_set_payload_type     (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint8</span> payload_type</code></em>);</pre>
+<p>
+Set the payload type of the RTP packet in <em class="parameter"><code>buffer</code></em> to <em class="parameter"><code>payload_type</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>rtp</code></em> :</span></p></td>
+<td>the RTP packet</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>payload_type</code></em> :</span></p></td>
+<td>the new type</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-buffer-get-seq"></a><h3>gst_rtp_buffer_get_seq ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint16</span>             gst_rtp_buffer_get_seq              (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>);</pre>
+<p>
+Get the sequence number of the RTP packet in <em class="parameter"><code>buffer</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>rtp</code></em> :</span></p></td>
+<td>the RTP packet</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The sequence number in host order.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-buffer-set-seq"></a><h3>gst_rtp_buffer_set_seq ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_rtp_buffer_set_seq              (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint16</span> seq</code></em>);</pre>
+<p>
+Set the sequence number of the RTP packet in <em class="parameter"><code>buffer</code></em> to <em class="parameter"><code>seq</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>rtp</code></em> :</span></p></td>
+<td>the RTP packet</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>seq</code></em> :</span></p></td>
+<td>the new sequence number</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-buffer-get-timestamp"></a><h3>gst_rtp_buffer_get_timestamp ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint32</span>             gst_rtp_buffer_get_timestamp        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>);</pre>
+<p>
+Get the timestamp of the RTP packet in <em class="parameter"><code>buffer</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>rtp</code></em> :</span></p></td>
+<td>the RTP packet</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The timestamp in host order.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-buffer-set-timestamp"></a><h3>gst_rtp_buffer_set_timestamp ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_rtp_buffer_set_timestamp        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint32</span> timestamp</code></em>);</pre>
+<p>
+Set the timestamp of the RTP packet in <em class="parameter"><code>buffer</code></em> to <em class="parameter"><code>timestamp</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>rtp</code></em> :</span></p></td>
+<td>the RTP packet</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>timestamp</code></em> :</span></p></td>
+<td>the new timestamp</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-buffer-get-payload-buffer"></a><h3>gst_rtp_buffer_get_payload_buffer ()</h3>
+<pre class="programlisting"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="returnvalue">GstBuffer</span></a> *         gst_rtp_buffer_get_payload_buffer   (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>);</pre>
+<p>
+Create a buffer of the payload of the RTP packet in <em class="parameter"><code>buffer</code></em>. This function
+will internally create a subbuffer of <em class="parameter"><code>buffer</code></em> so that a memcpy can be
+avoided.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>rtp</code></em> :</span></p></td>
+<td>the RTP packet</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>A new buffer with the data of the payload.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-buffer-get-payload-subbuffer"></a><h3>gst_rtp_buffer_get_payload_subbuffer ()</h3>
+<pre class="programlisting"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="returnvalue">GstBuffer</span></a> *         gst_rtp_buffer_get_payload_subbuffer
+                                                        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> offset</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> len</code></em>);</pre>
+<p>
+Create a subbuffer of the payload of the RTP packet in <em class="parameter"><code>buffer</code></em>. <em class="parameter"><code>offset</code></em> bytes
+are skipped in the payload and the subbuffer will be of size <em class="parameter"><code>len</code></em>.
+If <em class="parameter"><code>len</code></em> is -1 the total payload starting from <em class="parameter"><code>offset</code></em> if subbuffered.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>rtp</code></em> :</span></p></td>
+<td>the RTP packet</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>offset</code></em> :</span></p></td>
+<td>the offset in the payload</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>len</code></em> :</span></p></td>
+<td>the length in the payload</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>A new buffer with the specified data of the payload.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-buffer-get-payload-len"></a><h3>gst_rtp_buffer_get_payload_len ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               gst_rtp_buffer_get_payload_len      (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>);</pre>
+<p>
+Get the length of the payload of the RTP packet in <em class="parameter"><code>buffer</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>rtp</code></em> :</span></p></td>
+<td>the RTP packet</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The length of the payload in <em class="parameter"><code>buffer</code></em>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-buffer-get-payload"></a><h3>gst_rtp_buffer_get_payload ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            gst_rtp_buffer_get_payload          (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>);</pre>
+<p>
+Get a pointer to the payload data in <em class="parameter"><code>buffer</code></em>. This pointer is valid as long
+as a reference to <em class="parameter"><code>buffer</code></em> is held.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>rtp</code></em> :</span></p></td>
+<td>the RTP packet</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>A pointer
+to the payload data in <em class="parameter"><code>buffer</code></em>. <span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> guint8][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-buffer-default-clock-rate"></a><h3>gst_rtp_buffer_default_clock_rate ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint32</span>             gst_rtp_buffer_default_clock_rate   (<em class="parameter"><code><span class="type">guint8</span> payload_type</code></em>);</pre>
+<p>
+Get the default clock-rate for the static payload type <em class="parameter"><code>payload_type</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>payload_type</code></em> :</span></p></td>
+<td>the static payload type</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the default clock rate or -1 if the payload type is not static or
+the clock-rate is undefined.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-buffer-compare-seqnum"></a><h3>gst_rtp_buffer_compare_seqnum ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>                gst_rtp_buffer_compare_seqnum       (<em class="parameter"><code><span class="type">guint16</span> seqnum1</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint16</span> seqnum2</code></em>);</pre>
+<p>
+Compare two sequence numbers, taking care of wraparounds. This function
+returns the difference between <em class="parameter"><code>seqnum1</code></em> and <em class="parameter"><code>seqnum2</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>seqnum1</code></em> :</span></p></td>
+<td>a sequence number</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>seqnum2</code></em> :</span></p></td>
+<td>a sequence number</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a negative value if <em class="parameter"><code>seqnum1</code></em> is bigger than <em class="parameter"><code>seqnum2</code></em>, 0 if they
+are equal or a positive value if <em class="parameter"><code>seqnum1</code></em> is smaller than <em class="parameter"><code>segnum2</code></em>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-buffer-ext-timestamp"></a><h3>gst_rtp_buffer_ext_timestamp ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint64</span>             gst_rtp_buffer_ext_timestamp        (<em class="parameter"><code><span class="type">guint64</span> *exttimestamp</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint32</span> timestamp</code></em>);</pre>
+<p>
+Update the <em class="parameter"><code>exttimestamp</code></em> field with <em class="parameter"><code>timestamp</code></em>. For the first call of the
+method, <em class="parameter"><code>exttimestamp</code></em> should point to a location with a value of -1.
+</p>
+<p>
+This function makes sure that the returned value is a constantly increasing
+value even in the case where there is a timestamp wraparound.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>exttimestamp</code></em> :</span></p></td>
+<td>a previous extended timestamp</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>timestamp</code></em> :</span></p></td>
+<td>a new timestamp</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The extended timestamp of <em class="parameter"><code>timestamp</code></em>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-buffer-set-extension-data"></a><h3>gst_rtp_buffer_set_extension_data ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_rtp_buffer_set_extension_data   (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint16</span> bits</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint16</span> length</code></em>);</pre>
+<p>
+Set the extension bit of the rtp buffer and fill in the <em class="parameter"><code>bits</code></em> and <em class="parameter"><code>length</code></em> of the
+extension header. If the existing extension data is not large enough, it will
+be made larger.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>rtp</code></em> :</span></p></td>
+<td>the RTP packet</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>bits</code></em> :</span></p></td>
+<td>the bits specific for the extension</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>length</code></em> :</span></p></td>
+<td>the length that counts the number of 32-bit words in
+the extension, excluding the extension header ( therefore zero is a valid length)</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>True if done.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-buffer-get-extension-onebyte-header"></a><h3>gst_rtp_buffer_get_extension_onebyte_header ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_rtp_buffer_get_extension_onebyte_header
+                                                        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint8</span> id</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> nth</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> *data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> *size</code></em>);</pre>
+<p>
+Parses RFC 5285 style header extensions with a one byte header. It will
+return the nth extension with the requested id.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>rtp</code></em> :</span></p></td>
+<td>the RTP packet</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>id</code></em> :</span></p></td>
+<td>The ID of the header extension to be read (between 1 and 14).</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>nth</code></em> :</span></p></td>
+<td>Read the nth extension packet with the requested ID</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>location for data. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=size][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> guint8][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>size</code></em> :</span></p></td>
+<td>the size of the data in bytes. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE if <em class="parameter"><code>buffer</code></em> had the requested header extension</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-buffer-get-extension-twobytes-header"></a><h3>gst_rtp_buffer_get_extension_twobytes_header ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_rtp_buffer_get_extension_twobytes_header
+                                                        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint8</span> *appbits</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint8</span> id</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> nth</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> *data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> *size</code></em>);</pre>
+<p>
+Parses RFC 5285 style header extensions with a two bytes header. It will
+return the nth extension with the requested id.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>rtp</code></em> :</span></p></td>
+<td>the RTP packet</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>appbits</code></em> :</span></p></td>
+<td>Application specific bits. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>id</code></em> :</span></p></td>
+<td>The ID of the header extension to be read (between 1 and 14).</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>nth</code></em> :</span></p></td>
+<td>Read the nth extension packet with the requested ID</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>location for data. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=size][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> guint8][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>size</code></em> :</span></p></td>
+<td>the size of the data in bytes. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE if <em class="parameter"><code>buffer</code></em> had the requested header extension</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-buffer-add-extension-onebyte-header"></a><h3>gst_rtp_buffer_add_extension_onebyte_header ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_rtp_buffer_add_extension_onebyte_header
+                                                        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint8</span> id</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> size</code></em>);</pre>
+<p>
+Adds a RFC 5285 header extension with a one byte header to the end of the
+RTP header. If there is already a RFC 5285 header extension with a one byte
+header, the new extension will be appended.
+It will not work if there is already a header extension that does not follow
+the mecanism described in RFC 5285 or if there is a header extension with
+a two bytes header as described in RFC 5285. In that case, use
+<a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-add-extension-twobytes-header" title="gst_rtp_buffer_add_extension_twobytes_header ()"><code class="function">gst_rtp_buffer_add_extension_twobytes_header()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>rtp</code></em> :</span></p></td>
+<td>the RTP packet</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>id</code></em> :</span></p></td>
+<td>The ID of the header extension (between 1 and 14).</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>location for data. <span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=size][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> guint8]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>size</code></em> :</span></p></td>
+<td>the size of the data in bytes</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if header extension could be added</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-rtp-buffer-add-extension-twobytes-header"></a><h3>gst_rtp_buffer_add_extension_twobytes_header ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_rtp_buffer_add_extension_twobytes_header
+                                                        (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#GstRTPBuffer" title="struct GstRTPBuffer"><span class="type">GstRTPBuffer</span></a> *rtp</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint8</span> appbits</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint8</span> id</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> size</code></em>);</pre>
+<p>
+Adds a RFC 5285 header extension with a two bytes header to the end of the
+RTP header. If there is already a RFC 5285 header extension with a two bytes
+header, the new extension will be appended.
+It will not work if there is already a header extension that does not follow
+the mecanism described in RFC 5285 or if there is a header extension with
+a one byte header as described in RFC 5285. In that case, use
+<a class="link" href="gst-plugins-base-libs-gstrtpbuffer.html#gst-rtp-buffer-add-extension-onebyte-header" title="gst_rtp_buffer_add_extension_onebyte_header ()"><code class="function">gst_rtp_buffer_add_extension_onebyte_header()</code></a>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>rtp</code></em> :</span></p></td>
+<td>the RTP packet</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>appbits</code></em> :</span></p></td>
+<td>Application specific bits</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>id</code></em> :</span></p></td>
+<td>The ID of the header extension</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>location for data. <span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=size][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> guint8]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>size</code></em> :</span></p></td>
+<td>the size of the data in bytes</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if header extension could be added</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-libs-gstrtpbuffer.see-also"></a><h2>See Also</h2>
+<a class="link" href="gst-plugins-base-libs-gstrtpbasepayload.html#GstRTPBasePayload"><span class="type">GstRTPBasePayload</span></a>, <a class="link" href="gst-plugins-base-libs-gstrtpbasedepayload.html#GstRTPBaseDepayload"><span class="type">GstRTPBaseDepayload</span></a>, gstrtcpbuffer
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>
