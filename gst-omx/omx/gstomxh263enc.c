@@ -189,8 +189,9 @@ gst_omx_h263_enc_set_format (GstOMXVideoEnc * enc, GstOMXPort * port,
         "Setting profile/level not supported by component");
   } else if (err != OMX_ErrorNone) {
     GST_ERROR_OBJECT (self,
-        "Error setting profile %d and level %d: %s (0x%08x)", param.eProfile,
-        param.eLevel, gst_omx_error_to_string (err), err);
+        "Error setting profile %u and level %u: %s (0x%08x)",
+        (guint) param.eProfile, (guint) param.eLevel,
+        gst_omx_error_to_string (err), err);
     return FALSE;
   }
 
@@ -261,7 +262,7 @@ gst_omx_h263_enc_get_caps (GstOMXVideoEnc * enc, GstOMXPort * port,
         break;
       default:
         g_assert_not_reached ();
-        break;
+        return NULL;
     }
 
     switch (param.eLevel) {
@@ -288,7 +289,7 @@ gst_omx_h263_enc_get_caps (GstOMXVideoEnc * enc, GstOMXPort * port,
         break;
       default:
         g_assert_not_reached ();
-        break;
+        return NULL;
     }
 
     gst_caps_set_simple (caps,

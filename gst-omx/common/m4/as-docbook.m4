@@ -14,7 +14,19 @@ AC_DEFUN([AS_DOCBOOK],
   TYPE_UC=XML
   DOCBOOK_VERSION=4.1.2
 
-  if test ! -f /etc/xml/catalog; then
+  if test -n "$XML_CATALOG_FILES"; then
+    oldIFS=$IFS
+    IFS=' '
+    for xml_catalog_file in $XML_CATALOG_FILES; do
+      if test -f $xml_catalog_file; then
+        XML_CATALOG=$xml_catalog_file
+        CAT_ENTRY_START='<!--'
+        CAT_ENTRY_END='-->'
+        break
+      fi
+    done
+    IFS=$oldIFS
+  elif test ! -f /etc/xml/catalog; then
     for i in /usr/share/sgml/docbook/stylesheet/xsl/nwalsh /usr/share/sgml/docbook/xsl-stylesheets/ /usr/local/share/xsl/docbook ;
     do
       if test -d "$i"; then

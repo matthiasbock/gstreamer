@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# remove all traces of gstreamer-1.0
+
+apt-get remove gstreamer1.0* --purge
+
+# executables
+rm /usr/bin/gst-*-1.0
+rm /usr/local/bin/gst-*-1.0
+rm /usr/local/libexec/gstreamer-1.0 -fR
+rm /usr/local/share/gstreamer-1.0 -fR
+
+# libraries
+rm /usr/local/lib/libgst*-1.0.*
+rm /usr/local/lib/gstreamer-1.0 -fR
+rm /usr/lib/arm-linux-gnueabihf/gstreamer1.0 -fR
+rm /usr/lib/arm-linux-gnueabihf/libgst*-1.0*
+
+# developmental stuff
+rm /usr/local/include/gstreamer-1.0 -fR
+rm /usr/local/lib/pkgconfig/gstreamer*-1.0.pc
+rm /usr/share/aclocal/gst-*-1.0.m4
+rm /usr/local/share/aclocal/gst-*-1.0.m4
+
+# docs, locales, settings
+rm /usr/local/share/gtk-doc/html/gst*-1.0 -fR
+rm /usr/share/locale/*/LC_MESSAGES/gstreamer-1.0.mo
+rm /usr/local/share/locale/*/LC_MESSAGES/gstreamer-1.0.mo
+rm /usr/share/gstreamer-1.0 -fR
+rm /usr/share/man/man1/gst-*-1.0*
+rm /usr/local/share/man/man1/gst-*-1.0*
+rm /usr/share/doc/*gstreamer*1.0* -fR
+
+echo "Remaining:"
+find /usr -name "*gst*1.0*"

@@ -85,6 +85,7 @@ gst_omx_audio_enc_class_init (GstOMXAudioEncClass * klass)
   audio_encoder_class->sink_event =
       GST_DEBUG_FUNCPTR (gst_omx_audio_enc_sink_event);
 
+  klass->cdata.type = GST_OMX_COMPONENT_TYPE_FILTER;
   klass->cdata.default_sink_template_caps = "audio/x-raw, "
       "rate = (int) [ 1, MAX ], "
       "channels = (int) [ 1, " G_STRINGIFY (OMX_AUDIO_MAXCHANNELS) " ], "
@@ -137,8 +138,8 @@ gst_omx_audio_enc_open (GstOMXAudioEnc * self)
       in_port_index = 0;
       out_port_index = 1;
     } else {
-      GST_DEBUG_OBJECT (self, "Detected %u ports, starting at %u", param.nPorts,
-          param.nStartPortNumber);
+      GST_DEBUG_OBJECT (self, "Detected %u ports, starting at %u",
+          (guint) param.nPorts, (guint) param.nStartPortNumber);
       in_port_index = param.nStartPortNumber + 0;
       out_port_index = param.nStartPortNumber + 1;
     }
@@ -381,8 +382,8 @@ gst_omx_audio_enc_loop (GstOMXAudioEnc * self)
     goto eos;
   }
 
-  GST_DEBUG_OBJECT (self, "Handling buffer: 0x%08x %lu", buf->omx_buf->nFlags,
-      buf->omx_buf->nTimeStamp);
+  GST_DEBUG_OBJECT (self, "Handling buffer: 0x%08x %" G_GUINT64_FORMAT,
+      (guint) buf->omx_buf->nFlags, (guint64) buf->omx_buf->nTimeStamp);
 
   /* This prevents a deadlock between the srcpad stream
    * lock and the videocodec stream lock, if ::reset()
@@ -513,6 +514,8 @@ eos:
       flow_ret = GST_FLOW_EOS;
     }
     g_mutex_unlock (&self->drain_lock);
+
+    GST_AUDIO_ENCODER_STREAM_LOCK (self);
     self->downstream_flow_ret = flow_ret;
 
     /* Here we fallback and pause the task for the EOS case */
@@ -781,19 +784,19 @@ gst_omx_audio_enc_set_format (GstAudioEncoder * encoder, GstAudioInfo * info)
     if (gst_omx_port_mark_reconfigured (self->enc_in_port) != OMX_ErrorNone)
       return FALSE;
   } else {
-    if (gst_omx_component_set_state (self->enc, OMX_StateIdle) != OMX_ErrorNone)
-      return FALSE;
-
-    /* Need to allocate buffers to reach Idle state */
-    if (gst_omx_port_allocate_buffers (self->enc_in_port) != OMX_ErrorNone)
-      return FALSE;
-
-    /* And disable output port */
+    /* Disable output port */
     if (gst_omx_port_set_enabled (self->enc_out_port, FALSE) != OMX_ErrorNone)
       return FALSE;
 
     if (gst_omx_port_wait_enabled (self->enc_out_port,
             1 * GST_SECOND) != OMX_ErrorNone)
+      return FALSE;
+
+    if (gst_omx_component_set_state (self->enc, OMX_StateIdle) != OMX_ErrorNone)
+      return FALSE;
+
+    /* Need to allocate buffers to reach Idle state */
+    if (gst_omx_port_allocate_buffers (self->enc_in_port) != OMX_ErrorNone)
       return FALSE;
 
     if (gst_omx_component_get_state (self->enc,
@@ -1019,7 +1022,7 @@ full_buffer:
   {
     GST_ELEMENT_ERROR (self, LIBRARY, FAILED, (NULL),
         ("Got OpenMAX buffer with no free space (%p, %u/%u)", buf,
-            buf->omx_buf->nOffset, buf->omx_buf->nAllocLen));
+            (guint) buf->omx_buf->nOffset, (guint) buf->omx_buf->nAllocLen));
     return GST_FLOW_ERROR;
   }
 component_error:

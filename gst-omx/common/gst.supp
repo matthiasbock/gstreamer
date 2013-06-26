@@ -91,6 +91,14 @@
    fun:pthread_create@@*
 }
 
+{
+   <tls>
+   Memcheck:Leak
+   fun:calloc
+   fun:allocate_dtv
+   fun:_dl_allocate_tls
+}
+
 # I get an extra stack entry on x86/dapper
 {
    <tls>
@@ -3969,3 +3977,10 @@
    fun:gobject_init_ctor
 }
 
+{
+   <quark table is leaked on purpose if it grows too big>
+   Memcheck:Leak
+   fun:malloc
+   ...
+   fun:g_quark_from*_string
+}
